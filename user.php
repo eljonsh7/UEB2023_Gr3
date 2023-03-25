@@ -5,22 +5,89 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.css">
+	<!-- <link rel="stylesheet" href="style.css"> -->
     <title>Document</title>
     <style>
-      
+		.nav-links {
+	display: flex;
+	list-style: none;
+}
+
+.nav-links li {
+	margin-right: 20px;
+}
+
+.nav-links a {
+	color: #fff;
+	text-decoration: none;
+}
+		ul li a {
+	padding: 10px;
+	border-radius: 5px;
+	font-weight: 700;
+  }
+
+  ul li a:hover {
+	background-color: white;
+	color: #333;
+  }
+      * {
+		color: white;
+	  }
+
+	  input {
+		color: grey;
+	  }
+
+	  header {
+	background-color: #333;
+	color: #fff;
+	padding: 10px;
+}
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0 10%;
+}
+
+.logo img {
+	height: 50px;
+}
+a#register-link, a#login-link{
+	color: #333;
+}
+a#register-link:hover, a#login-link:hover{
+	color:white;
+}
     </style>
 </head>
-<body>
-<div class="container">
+<body style="background-color: #245953;">
+	<header>
+		<nav>
+			<div class="logo">
+				<a href="index.php"><img src="img/logo.png"></a>
+			</div>
+			<ul class="nav-links">
+                <li><a href="#">Home</a></li>
+				<li><a href="#">Movies</a></li>
+				<li><a href="#">TV Shows</a></li>
+				<li><a href="#">Top IMDb</a></li>
+                <li><a href="user.php" class="popup-trigger">Sign In</a></li>
+			</ul>
+		</nav>
+	</header>
+	<div class="container">
 		<div class="row justify-content-center mt-5">
 			<div class="col-md-6">
 
 				<!-- Login Form -->
 				<form id="login-form">
-					<h2>Login</h2>
+					<h2>Login</h2><br>
 					<div class="form-group">
-						<label for="login-username">Username:</label>
-						<input type="text" class="form-control" id="login-username" name="login-username">
+						<label for="login-username">E-mail:</label>
+						<input type="email" class="form-control" id="login-username" name="login-username">
 					</div>
 
 					<div class="form-group">
@@ -28,17 +95,19 @@
 						<input type="password" class="form-control" id="login-password" name="login-password">
 					</div>
 
-					<button type="submit" class="btn btn-primary">Login</button>
+					<br>
+
+					<button type="submit" class="btn" style="background-color: #333; color: white">Login</button><br>
 
 					<p>Don't have an account? <a href="#" id="register-link">Register here</a>.</p>
 				</form>
 
 				<!-- Register Form -->
 				<form id="register-form" style="display: none;">
-					<h2>Register</h2>
+					<h2>Register</h2><br>
 					<div class="form-group">
-						<label for="register-username">Username:</label>
-						<input type="text" class="form-control" id="register-username" name="register-username">
+						<label for="register-username">E-mail:</label>
+						<input type="email" class="form-control" id="register-username" name="register-username">
 					</div>
 
 					<div class="form-group">
@@ -51,7 +120,9 @@
 						<input type="password" class="form-control" id="confirm-password" name="confirm-password">
 					</div>
 
-					<button type="submit" class="btn btn-primary">Register</button>
+					<br>
+
+					<button type="submit" class="btn" style="background-color: #333; color: white">Register</button><br>
 
 					<p>Already have an account? <a href="#" id="login-link">Login here</a>.</p>
 				</form>
