@@ -16,7 +16,7 @@
 				<li><a href="#">Movies</a></li>
 				<li><a href="#">TV Shows</a></li>
 				<li><a href="#">Top IMDb</a></li>
-                <li><a href="signin.php" class="popup-trigger">Sign In</a></li>
+                <li><a href="user.php" class="popup-trigger">Sign In</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -104,5 +104,30 @@
 		<p>Made with commitment by BBEÇ.</p>
 	</footer>
 
+    
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyAJFJEU0kzalyoyPCcBRMM0HMATkEOm39Y",
+            authDomain: "flixfeast-41f8a.firebaseapp.com",
+            projectId: "flixfeast-41f8a",
+            storageBucket: "flixfeast-41f8a.appspot.com",
+            messagingSenderId: "276052979687",
+            appId: "1:276052979687:web:c3e353cb0413e657fa1742",
+            measurementId: "G-RW79K5M3V3"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+    
 </body>
 </html>
