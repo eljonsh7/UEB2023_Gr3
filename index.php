@@ -127,6 +127,32 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
+
+        import {getDatabase, ref, set, child, update, remove}
+        from "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
+
+        const db = getDatabase();
+
+        function SelectData(){
+            const dbref = ref(db);
+            get(child(dbref, "movies/" + rollbox.value)).then((snapshot) => {
+                if(snapshot.exist()){
+                    console.log(snapshot.val().Date);
+                }else{
+                    console.log("Doesn't exist!");
+                }
+            })
+        }
+
+        
+
+        // var firebaseRef = firebase.database().ref("movies");
+        // firebaseRef.once("value", function(snapshot){
+        //     var data = snapshot.val();
+        //     for(let i in data){
+        //         console.log(data[i]);
+        //     }
+        // })
     </script>
     
 </body>
