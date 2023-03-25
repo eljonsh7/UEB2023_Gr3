@@ -5,6 +5,62 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="style.css">
 </head>
+<script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyAJFJEU0kzalyoyPCcBRMM0HMATkEOm39Y",
+            authDomain: "flixfeast-41f8a.firebaseapp.com",
+            databaseURL: "https://flixfeast-41f8a-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "flixfeast-41f8a",
+            storageBucket: "flixfeast-41f8a.appspot.com",
+            messagingSenderId: "276052979687",
+            appId: "1:276052979687:web:c3e353cb0413e657fa1742",
+            measurementId: "G-RW79K5M3V3"
+  };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        // import {getDatabase, ref, get, set, child, update, remove}
+        // from "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
+
+        // const db = getDatabase();
+
+        // function SelectData(){
+        //     const dbref = ref(db);
+        //     get(child(dbref, "movies/" + movieID)).then((snapshot) => {
+        //         if(snapshot.exists()){
+        //             console.log(snapshot.val().Title);
+        //         }else{
+        //             console.log("Doesn't exist!");
+        //         }
+        //     })
+        // }
+
+        // let movieID = 2;
+        // let sub = document.getElementById("Test12345");
+
+        // sub.addEventListener('click',SelectData);
+
+        
+
+        // var firebaseRef = firebase.database().ref("movies");
+        // firebaseRef.once("value", function(snapshot){
+        //     var data = snapshot.val();
+        //     for(let i in data){
+        //         console.log(data[i]);
+        //     }
+        // })
+        
+    </script>
 <body style="background-color: #245953;">
 	<header>
 		<nav>
@@ -33,30 +89,71 @@
 
     <div class="search-bar">
         <form method="get">
-            <input type="text" id="movie search" name="movie" required name="search" placeholder="Search movies and TV shows...">
-            <button type="submit" id="Test12345">Search</button>
+            <input type="text" id="movieSearch" onkeyup="" name="movie" required name="search" placeholder="Search movies and TV shows...">
+            <button type="button" id="Test12345">Search</button>
         </form>
     </div>
 
+    <div id="searchResult"></div>
+
     <?php
-        if (isset($_GET['movie'])) {
-            echo "<div class='films'>";
-            $movie_name = urlencode($_GET['movie']);
-            $url = "http://www.omdbapi.com/?s={$movie_name}&apikey=9447b058";
-            $json = file_get_contents($url);
-            $data = json_decode($json, true);
-            if ($data['Response'] == 'True') {
-                foreach ($data['Search'] as $result) {
-                    echo "<div class='film'><a class='hovertext'>";
-                    echo "<img src='{$result['Poster']}' alt='{$result['Title']}' class='images'><br>";
-                    echo "<p>{$result['Title']}</p>";
-                    echo "</a></div>";
+        // if (isset($_GET['movie'])) {
+        //     echo "<div class='films'>";
+        //     $movie_name = urlencode($_GET['movie']);
+        //     $url = "http://www.omdbapi.com/?s={$movie_name}&apikey=9447b058";
+        //     $json = file_get_contents($url);
+        //     $data = json_decode($json, true);
+        //     if ($data['Response'] == 'True') {
+        //         foreach ($data['Search'] as $result) {
+        //             echo "<div class='film'><a class='hovertext'>";
+        //             echo "<img src='{$result['Poster']}' alt='{$result['Title']}' class='images'><br>";
+        //             echo "<p>{$result['Title']}</p>";
+        //             echo "</a></div>";
+        //         }
+        //     } else {
+        //         echo "<p>No results found for '{$_GET['movie']}'</p>";
+        //     }
+        //     echo "<style>.aboutus{display: none;}</style></div>";
+        // }
+    ?>
+
+    <?php
+    echo '<img id=FotoTest>';
+    echo '<script type="module">
+    import {getDatabase, ref, get, set, child, update, remove}
+    from "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
+
+    const db = getDatabase();
+
+    let imgTest = document.getElementById("FotoTest");
+    imgTest.width=200;
+    
+    
+    
+    function SelectData(){
+        let movieID = document.getElementById("movieSearch").value;
+        console.log(movieID);
+        const dbref = ref(db);
+        for(let i = 1;i<6;i++){
+            get(child(dbref, "movies/" + i)).then((snapshot) => {
+                var imgTest1 = document.createElement(\'img\');
+                imgTest1.width=200;
+                if(snapshot.exists()){
+                    imgTest1.src=snapshot.val().Cover;
+                }else{
+                    console.log("Doesn\'t exist!");
                 }
-            } else {
-                echo "<p>No results found for '{$_GET['movie']}'</p>";
-            }
-            echo "<style>.aboutus{display: none;}</style></div>";
+                document.getElementById("searchResult").appendChild(imgTest1);
+            })
         }
+    }
+    
+    let sub = document.getElementById("Test12345");
+    let searchbar = document.getElementById("movieSearch");
+    
+    searchbar.addEventListener(\'keyup\',SelectData);
+    sub.addEventListener(\'click\',SelectData);
+    </script>';
     ?>
     <br><br>
 
@@ -103,63 +200,5 @@
 		<p>&copy; 2023 FlixFeast. All rights reserved.</p>
 		<p>Made with commitment by BBEÇ.</p>
 	</footer>
-
-    
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "AIzaSyAJFJEU0kzalyoyPCcBRMM0HMATkEOm39Y",
-            authDomain: "flixfeast-41f8a.firebaseapp.com",
-            databaseURL: "https://flixfeast-41f8a-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "flixfeast-41f8a",
-            storageBucket: "flixfeast-41f8a.appspot.com",
-            messagingSenderId: "276052979687",
-            appId: "1:276052979687:web:c3e353cb0413e657fa1742",
-            measurementId: "G-RW79K5M3V3"
-  };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-
-        import {getDatabase, ref, get, set, child, update, remove}
-        from "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
-
-        const db = getDatabase();
-
-        function SelectData(){
-            const dbref = ref(db);
-            get(child(dbref, "movies/" + movieID)).then((snapshot) => {
-                if(snapshot.exists()){
-                    console.log(snapshot.val().Title);
-                }else{
-                    console.log("Doesn't exist!");
-                }
-            })
-        }
-
-        let movieID = 2;
-        let sub = document.getElementById("Test12345");
-
-        sub.addEventListener('click',SelectData);
-
-        
-
-        // var firebaseRef = firebase.database().ref("movies");
-        // firebaseRef.once("value", function(snapshot){
-        //     var data = snapshot.val();
-        //     for(let i in data){
-        //         console.log(data[i]);
-        //     }
-        // })
-    </script>
-    
 </body>
 </html>
