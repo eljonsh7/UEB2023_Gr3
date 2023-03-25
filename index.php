@@ -34,7 +34,7 @@
     <div class="search-bar">
         <form method="get">
             <input type="text" id="movie search" name="movie" required name="search" placeholder="Search movies and TV shows...">
-            <button type="submit">Search</button>
+            <button type="submit" id="Test12345">Search</button>
         </form>
     </div>
 
@@ -117,32 +117,38 @@
         const firebaseConfig = {
             apiKey: "AIzaSyAJFJEU0kzalyoyPCcBRMM0HMATkEOm39Y",
             authDomain: "flixfeast-41f8a.firebaseapp.com",
+            databaseURL: "https://flixfeast-41f8a-default-rtdb.europe-west1.firebasedatabase.app",
             projectId: "flixfeast-41f8a",
             storageBucket: "flixfeast-41f8a.appspot.com",
             messagingSenderId: "276052979687",
             appId: "1:276052979687:web:c3e353cb0413e657fa1742",
             measurementId: "G-RW79K5M3V3"
-        };
+  };
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
 
-        import {getDatabase, ref, set, child, update, remove}
+        import {getDatabase, ref, get, set, child, update, remove}
         from "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
 
         const db = getDatabase();
 
         function SelectData(){
             const dbref = ref(db);
-            get(child(dbref, "movies/" + rollbox.value)).then((snapshot) => {
-                if(snapshot.exist()){
-                    console.log(snapshot.val().Date);
+            get(child(dbref, "movies/" + movieID)).then((snapshot) => {
+                if(snapshot.exists()){
+                    console.log(snapshot.val().Title);
                 }else{
                     console.log("Doesn't exist!");
                 }
             })
         }
+
+        let movieID = 2;
+        let sub = document.getElementById("Test12345");
+
+        sub.addEventListener('click',SelectData);
 
         
 
