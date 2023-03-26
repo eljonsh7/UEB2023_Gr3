@@ -1,66 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.css">
 	<!-- <link rel="stylesheet" href="style.css"> -->
     <title>Document</title>
     <style>
 		.nav-links {
-	display: flex;
-	list-style: none;
-}
+			display: flex;
+			list-style: none;
+		}
 
-.nav-links li {
-	margin-right: 20px;
-}
+		ul{
+			margin-top: 13px;
+		}
 
-.nav-links a {
-	color: #fff;
-	text-decoration: none;
-}
+		.nav-links li {
+			margin-right: 20px;
+		}
+
+		.nav-links a {
+			color: #fff;
+			text-decoration: none;
+		}
+		
 		ul li a {
-	padding: 10px;
-	border-radius: 5px;
-	font-weight: 700;
-  }
+			padding: 8px 10px;
+			border-radius: 5px;
+			font-weight: 700;
+		}
 
-  ul li a:hover {
-	background-color: white;
-	color: #333;
-  }
-      * {
-		color: white;
-	  }
+		ul li a:hover {
+			background-color: white;
+			color: #333;
+		}
+		* {
+			color: white;
+		}
 
-	  input {
-		color: grey;
-	  }
+		input {
+			color: grey;
+		}
 
-	  header {
-	background-color: #333;
-	color: #fff;
-	padding: 10px;
-}
+		header {
+		background-color: #333;
+		color: #fff;
+		padding: 10px;
+		}
 
-nav {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin: 0 10%;
-}
+		nav {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin: 0 10%;
+		}
 
-.logo img {
-	height: 50px;
-}
-a#register-link, a#login-link{
-	color: #333;
-}
-a#register-link:hover, a#login-link:hover{
-	color:white;
-}
+		.logo img {
+			height: 50px;
+		}
+		a#register-link, a#login-link{
+			color: #333;
+		}
+		a#register-link:hover, a#login-link:hover{
+			color:white;
+		}
     </style>
 </head>
 <body style="background-color: #245953;">
@@ -70,11 +73,10 @@ a#register-link:hover, a#login-link:hover{
 				<a href="index.php"><img src="img/logo.png"></a>
 			</div>
 			<ul class="nav-links">
-                <li><a href="#">Home</a></li>
-				<li><a href="#">Movies</a></li>
-				<li><a href="#">TV Shows</a></li>
-				<li><a href="#">Top IMDb</a></li>
-                <li><a href="user.php" class="popup-trigger">Sign In</a></li>
+				<li><a href="home.php">Home</a></li>
+				<li><a href="movies.php">Movies</a></li>
+				<li><a href="shows.php">TV Shows</a></li>
+				<li><a href="imdb.php">Top IMDb</a></li>
 			</ul>
 		</nav>
 	</header>

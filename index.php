@@ -68,10 +68,10 @@
 				<a href="index.php"><img src="img/logo.png"></a>
 			</div>
 			<ul class="nav-links">
-                <li><a href="#">Home</a></li>
-				<li><a href="#">Movies</a></li>
-				<li><a href="#">TV Shows</a></li>
-				<li><a href="#">Top IMDb</a></li>
+                <li><a href="home.php">Home</a></li>
+				<li><a href="movies.php">Movies</a></li>
+				<li><a href="shows.php">TV Shows</a></li>
+				<li><a href="imdb.php">Top IMDb</a></li>
                 <li><a href="user.php" class="popup-trigger">Sign In</a></li>
 			</ul>
 		</nav>
