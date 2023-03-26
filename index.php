@@ -118,42 +118,7 @@
     ?>
 
     <?php
-    echo '<img id=FotoTest>';
-    echo '<script type="module">
-    import {getDatabase, ref, get, set, child, update, remove}
-    from "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
-
-    const db = getDatabase();
-
-    let imgTest = document.getElementById("FotoTest");
-    imgTest.width=200;
-    
-    
-    
-    function SelectData(){
-        let movieID = document.getElementById("movieSearch").value;
-        console.log(movieID);
-        const dbref = ref(db);
-        for(let i = 1;i<6;i++){
-            get(child(dbref, "movies/" + i)).then((snapshot) => {
-                var imgTest1 = document.createElement(\'img\');
-                imgTest1.width=200;
-                if(snapshot.exists()){
-                    imgTest1.src=snapshot.val().Cover;
-                }else{
-                    console.log("Doesn\'t exist!");
-                }
-                document.getElementById("searchResult").appendChild(imgTest1);
-            })
-        }
-    }
-    
-    let sub = document.getElementById("Test12345");
-    let searchbar = document.getElementById("movieSearch");
-    
-    searchbar.addEventListener(\'keyup\',SelectData);
-    sub.addEventListener(\'click\',SelectData);
-    </script>';
+    echo '<script type="module" src ="searchM.js"></script>';
     ?>
     <br><br>
 
