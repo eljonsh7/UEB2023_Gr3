@@ -17,9 +17,14 @@ function SelectData() {
                     if (snapshot.val().Title.toUpperCase().indexOf(movie) > -1) {
                         var imgTest1 = document.createElement('img');
                         imgTest1.width = 200;
+                        imgTest1.height = 280;
                         imgTest1.src = snapshot.val().Cover;
                         imgTest1.alt = snapshot.val().Title;
                         imgTest1.className = "sResults";
+                        var title = document.createElement("p");
+                        title.innerHTML = snapshot.val().Title;
+                        var film = document.createElement("div");
+                        film.className = "film";
                         newResults.push(imgTest1);
                         for(let j = -1; j < children.length; j++){
                             if(j>-1){
@@ -28,7 +33,15 @@ function SelectData() {
                                 }
                             }
                             if(j == (children.length-1)){
-                                document.getElementById("searchResult").appendChild(imgTest1);
+                                document.getElementById("searchResult").appendChild(film);
+                                for(let k = 0; k < children.length; k++){
+                                    if(children[k].firstChild){
+                                        continue;
+                                    }else{
+                                        children[k].appendChild(imgTest1);
+                                        children[k].appendChild(title);
+                                    }
+                                }
                             }
                         }
                     }

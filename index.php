@@ -4,6 +4,14 @@
 	<title>Movie Database</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="style.css">
+    <style>
+        div.film {
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 200px;
+            margin: 0 20px 20px 20px;
+        }
+    </style>
 </head>
 <script type="module">
         // Import the functions you need from the SDKs you need
@@ -89,12 +97,13 @@
 
     <div class="search-bar">
         <form method="get">
-            <input type="text" id="movieSearch" onkeyup="" name="movie" required name="search" placeholder="Search movies and TV shows...">
+            <input type="text" id="movieSearch" onkeyup="" style="width: 800px" name="movie" required name="search" placeholder="Search movies and TV shows...">
             <button type="button" id="Test12345">Search</button>
         </form>
     </div>
 
-    <div id="searchResult"></div>
+    <div id="searchResult" style="display: flex; justify-content: center; flex-wrap: wrap;">
+    </div>
 
     <?php
         // if (isset($_GET['movie'])) {
