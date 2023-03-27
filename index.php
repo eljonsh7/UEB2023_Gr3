@@ -11,6 +11,9 @@
             width: 200px;
             margin: 0 20px 20px 20px;
         }
+        #searchResult{
+            height:300px;
+        }
     </style>
 </head>
 <script type="module">
@@ -37,37 +40,6 @@
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
 
-        // import {getDatabase, ref, get, set, child, update, remove}
-        // from "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
-
-        // const db = getDatabase();
-
-        // function SelectData(){
-        //     const dbref = ref(db);
-        //     get(child(dbref, "movies/" + movieID)).then((snapshot) => {
-        //         if(snapshot.exists()){
-        //             console.log(snapshot.val().Title);
-        //         }else{
-        //             console.log("Doesn't exist!");
-        //         }
-        //     })
-        // }
-
-        // let movieID = 2;
-        // let sub = document.getElementById("Test12345");
-
-        // sub.addEventListener('click',SelectData);
-
-        
-
-        // var firebaseRef = firebase.database().ref("movies");
-        // firebaseRef.once("value", function(snapshot){
-        //     var data = snapshot.val();
-        //     for(let i in data){
-        //         console.log(data[i]);
-        //     }
-        // })
-        
     </script>
 <body style="background-color: #245953;">
 	<header>

@@ -11,7 +11,7 @@ function SelectData() {
     const children = divRes.childNodes;
     let newResults = [];
     if(movie !== "" && movie.length > 1){
-        for (let i = 1; i < 20; i++) {
+        for (let i = 1; i < 11; i++) {
             get(child(dbref, "movies/" + i)).then((snapshot) => {
                 if (snapshot.exists()) {
                     if (snapshot.val().Title.toUpperCase().indexOf(movie) > -1) {
@@ -77,6 +77,7 @@ function SelectData() {
     }
 
 }
+
 
 
 
