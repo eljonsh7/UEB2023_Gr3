@@ -341,7 +341,7 @@
 				<?php 
 				$result = mysqli_query( $conn, $sql);
 				while( $row = mysqli_fetch_array($result) ){
-					$Cover = $row['Cover'];
+					$Cover =  base64_encode($row['Cover']);
 					$Title = $row['Title'];
 					$Rating = $row['Rating'];
 					$Description = $row['Description'];
@@ -349,7 +349,7 @@
 					'<div class="row hero-area-slide">
 								<div class="col-lg-6 col-md-5">
 									<div class="hero-area-content">
-									<img src="' . $Cover . '" alt="about" id="test123" />
+									<img src="data:image/jpg;base64,' . $Cover . '">
 									</div>
 								</div>
 								<div class="col-lg-6 col-md-7">
@@ -382,7 +382,7 @@
 						'<div class="row hero-area-slide">
 									<div class="col-lg-6 col-md-5">
 										<div class="hero-area-content">
-										<img src="' . $Cover . '" alt="about" id="test123" />
+										<img src="data:image/jpg;base64,' . $Cover . '" alt="about" id="test123" />
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-7">
@@ -412,7 +412,7 @@
 						'<div class="row hero-area-slide">
 									<div class="col-lg-6 col-md-5">
 										<div class="hero-area-content">
-										<img src="' . $Cover . '" alt="about" id="test123" />
+										<img src="data:image/jpg;base64,' . $Cover . '" alt="about" id="test123" />
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-7">
