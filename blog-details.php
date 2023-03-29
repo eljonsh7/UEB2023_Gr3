@@ -44,7 +44,6 @@
                             <ul id="primary-menu">
                                 <li><a href="index-2.php">Home</a></li>
                                 <li><a href="movies.php">Movies</a></li>
-                                <li><a href="celebrities.php">CelebritiesList</a></li>
                                 <li><a href="top-movies.php">Top Movies</a></li>
                                 <li><a href="blog.php">News</a></li>
 								<li><a class="active" href="#">Pages <i class="icofont icofont-simple-down"></i></a>

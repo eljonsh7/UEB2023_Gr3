@@ -44,7 +44,6 @@
                             <ul id="primary-menu">
                                 <li><a class="active" href="index-2.php">Home</a></li>
                                 <li><a href="movies.php">Movies</a></li>
-                                <li><a href="celebrities.php">CelebritiesList</a></li>
                                 <li><a href="top-movies.php">Top Movies</a></li>
                                 <li><a href="blog.php">News</a></li>
 								<li><a href="#">Pages <i class="icofont icofont-simple-down"></i></a>
@@ -53,7 +52,7 @@
 										<li><a href="movie-details.php">Movie Details</a></li>
 									</ul>
 								</li>
-                                <li><a class="theme-btn" href="#"><i class="icofont icofont-ticket"></i> Tickets</a></li>
+                                <li><input class="theme-btn" href="#" placeholder = "Search..." style = "width: 150px;"></li>
                             </ul>
 					    </div>
 					</div>
