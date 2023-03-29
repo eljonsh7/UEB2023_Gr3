@@ -86,7 +86,7 @@
             <div class="responsive-menu"></div>
             <div class="mainmenu">
               <ul id="primary-menu">
-                <li><a class="active" href="index-2.php">Home</a></li>
+                <li><a class="active" href="index.php">Home</a></li>
                 <li><a href="movies.php">Movies</a></li>
                 <li><a href="celebrities.php">CelebritiesList</a></li>
                 <li><a href="top-movies.php">Top Movies</a></li>
