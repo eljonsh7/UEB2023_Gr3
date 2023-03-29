@@ -236,7 +236,7 @@ textarea:focus {
 .theme-btn:hover {
   border: 1px solid #00d9e1;
   background: transparent;
-  color: #00d9e1;
+  text-color: black;
 }
 .theme-btn2:hover,
 .theme-btn2 {
@@ -1131,7 +1131,7 @@ hr {
 -----------------------------------*/
 .login-area {
   position: absolute;
-  top: 0;
+  top: -120px;
   left: 0;
   right: 0;
   margin: auto;
@@ -1183,21 +1183,14 @@ hr {
 }
 
 .login-box input {
+  color: black;
   margin-bottom: 20px;
   background: transparent;
   border: 1px solid #ddd;
 }
 
-.login-signup {
-  float: right;
-}
-
 .login-remember {
   float: left;
-}
-
-.login-signup a {
-  color: #008aff;
 }
 
 .login-box form .theme-btn {
@@ -1206,6 +1199,10 @@ hr {
   color: #fff;
   text-align: center;
   margin-top: 5px;
+}
+
+.login-box form .theme-btn:hover{
+  color: #00d9e1;
 }
 
 .login-box form .theme-btn + span {

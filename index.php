@@ -44,12 +44,12 @@
                             <ul id="primary-menu">
                                 <li><a class="active" href="index.php">Home</a></li>
                                 <li><a href="movies.php">Movies</a></li>
-                                <li><a href="top-movies.php">Top Movies</a></li>
-                                <li><a href="blog.php">News</a></li>
-								<li><a href="#">Pages <i class="icofont icofont-simple-down"></i></a>
+                                <li><a href="top-movies.php">Tv Shows</a></li>
+                                <li><a href="blog.php">Top IMDb</a></li>
+								<li><a href="#">Profile <i class="icofont icofont-simple-down"></i></a>
 									<ul>
-										<li><a href="blog-details.php">Blog Details</a></li>
-										<li><a href="movie-details.php">Movie Details</a></li>
+										<li><a href="" class="signup-popup">Log in</a></li>
+										<li><a href="" class="login-popup">Sign up</a></li>
 									</ul>
 								</li>
                                 <li><a class="theme-btn" href="#"><i class="icofont icofont-ticket"></i> Tickets</a></li>
@@ -59,23 +59,20 @@
 				</div>
 			</div>
 		</header>
-		<div class="login-area">
+		<div class="login-area signup-area">
 			<div class="login-box">
 				<a href="#"><i class="icofont icofont-close"></i></a>
-				<h2>LOGIN</h2>
+				<h2>LOG IN</h2>
 				<form action="#">
 					<h6>USERNAME OR EMAIL ADDRESS</h6>
 					<input type="text" />
 					<h6>PASSWORD</h6>
-					<input type="text" />
+					<input type="password" id="password-field" class="field input" required placeholder="Password"/>
 					<div class="login-remember">
 						<input type="checkbox" />
 						<span>Remember Me</span>
 					</div>
-					<div class="login-signup">
-						<span>SIGNUP</span>
-					</div>
-					<a href="#" class="theme-btn">LOG IN</a>
+					<button class="theme-btn">LOG IN</button>
 					<span>Or Via Social</span>
 					<div class="login-social">
 						<a href="#"><i class="icofont icofont-social-facebook"></i></a>
@@ -85,7 +82,35 @@
 						<a href="#"><i class="icofont icofont-camera"></i></a>
 					</div>
 				</form>
-				
+			</div>
+		</div>
+		<div class="login-area">
+			<div class="login-box">
+				<a href="#"><i class="icofont icofont-close"></i></a>
+				<h2>SIGN UP</h2>
+				<form action="#">
+					<h6>USERNAME OR EMAIL ADDRESS</h6>
+					<input type="text" id="email-field" class="field input" required />
+					<h6>PASSWORD</h6>
+					<input type="password" id="password-field" class="field input" required onkeyup="verifyPassword()" />
+					<h6>CONFIRM PASSWORD</h6>
+					<input type="password" type="password" id="password-field2" class="field input" required
+                    onkeyup="verifyPassword()" />
+					<p id="isItSame" style="display: none; justify-content: center;">Passwords don't match</p>
+					<div class="login-remember">
+						<input type="checkbox" />
+						<span>Remember Me</span>
+					</div>
+					<button class="theme-btn" id="sign-up">SIGN UP</button>
+					<span>Or Via Social</span>
+					<div class="login-social">
+						<a href="#"><i class="icofont icofont-social-facebook"></i></a>
+						<a href="#"><i class="icofont icofont-social-twitter"></i></a>
+						<a href="#"><i class="icofont icofont-social-linkedin"></i></a>
+						<a href="#"><i class="icofont icofont-social-google-plus"></i></a>
+						<a href="#"><i class="icofont icofont-camera"></i></a>
+					</div>
+				</form>
 			</div>
 		</div>
 		<div class="buy-ticket">
@@ -831,6 +856,50 @@
 		<script src="assets/js/isotope.pkgd.min.js"></script>
 		<!-- main JS -->
 		<script src="assets/js/main.js"></script>
+		<script>
+			function checkPassword(){
+				const submit = document.getElementById("sign-up");
+				const pass = document.getElementById("password-field").value;
+				const p = document.getElementById("passCheck");
+				var a = 0, b = 0, i = 0;
+				while (i <= pass.length){
+					if (!isNaN(pass.charAt(i) * 1)){
+						a++;
+					}
+					if (pass.charAt(i) == pass.charAt(i).toUpperCase() && isNaN(pass.charAt(i) * 1)) {
+						b++;
+					}
+					i++;
+				}
+
+				if(pass.length == 0){
+					p.innerHTML = "";
+				}
+				else if(a == 0 || b == 0 || pass.length < 8){
+					p.innerHTML = "Password must be at least 8 characters long, must contain at least one number and one capital letter.";
+				}
+				else{
+					p.innerHTML = "";
+            }
+            
+			}
+
+			function verifyPassword() {
+				const submit = document.getElementById("sign-up");
+				const mesazhi = document.getElementById("isItSame");
+				const password = document.getElementById("password-field").value;
+				const password2 = document.getElementById("password-field2").value;
+
+				if (password != password2) {
+					submit.disabled = true;
+					mesazhi.style.display = "flex";
+				}
+				else {
+					submit.disabled = false;
+					mesazhi.style.display = "none";
+				}
+			}
+		</script>
 	</body>
 
 </html>
