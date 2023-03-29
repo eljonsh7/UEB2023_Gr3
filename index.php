@@ -35,14 +35,14 @@
 			<div class="container">
 				<div class="header-area">
 					<div class="logo">
-						<a href="index-2.php"><img src="assets/img/logo.png" alt="logo" /></a>
+						<a href="index.php"><img src="assets/img/logo.png" alt="logo" /></a>
 					</div>
 					
 					<div class="menu-area">
 						<div class="responsive-menu"></div>
 					    <div class="mainmenu">
                             <ul id="primary-menu">
-                                <li><a class="active" href="index-2.php">Home</a></li>
+                                <li><a class="active" href="index.php">Home</a></li>
                                 <li><a href="movies.php">Movies</a></li>
                                 <li><a href="top-movies.php">Top Movies</a></li>
                                 <li><a href="blog.php">News</a></li>
@@ -343,6 +343,8 @@
 				while( $row = mysqli_fetch_array($result) ){
 					$Cover = $row['Cover'];
 					$Title = $row['Title'];
+					$Rating = $row['Rating'];
+					$Description = $row['Description'];
 					echo 
 					'<div class="row hero-area-slide">
 								<div class="col-lg-6 col-md-5">
@@ -356,41 +358,10 @@
 										<div class="review">
 											<div class="author-review">
 												<i class="icofont icofont-star"></i>
-												<i class="icofont icofont-star"></i>
-												<i class="icofont icofont-star"></i>
-												<i class="icofont icofont-star"></i>
-												<i class="icofont icofont-star"></i>
 											</div>
-											<h4>180k voters</h4>
+											<h4>'.$Rating.'</h4>
 										</div>
-										<p>She is a devil princess from the demon world. She grew up sheltered by her parents and doesn\'t really know how to be evil or any of the common actions,   She is unable to cry due to Keita\'s accidental first wish, despite needed for him to wish...</p>
-										<h3>Cast:</h3>
-										<div class="slide-cast">
-											<div class="single-slide-cast">
-												<img src="assets/img/cast/cast1.png" alt="about" />
-											</div>
-											<div class="single-slide-cast">
-												<img src="assets/img/cast/cast2.html" alt="about" />
-											</div>
-											<div class="single-slide-cast">
-												<img src="assets/img/cast/cast3.png" alt="about" />
-											</div>
-											<div class="single-slide-cast">
-												<img src="assets/img/cast/cast4.png" alt="about" />
-											</div>
-											<div class="single-slide-cast">
-												<img src="assets/img/cast/cast5.png" alt="about" />
-											</div>
-											<div class="single-slide-cast">
-												<img src="assets/img/cast/cast6.png" alt="about" />
-											</div>
-											<div class="single-slide-cast">
-												<img src="assets/img/cast/cast7.png" alt="about" />
-											</div>
-											<div class="single-slide-cast text-center">
-												5+
-											</div>
-										</div>
+										<p>'.$Description.'</p>
 										<div class="slide-trailor">
 											<h3>Watch Trailer</h3>
 											<a class="theme-btn theme-btn2" href="#"><i class="icofont icofont-play"></i> Tickets</a>
@@ -420,41 +391,10 @@
 											<div class="review">
 												<div class="author-review">
 													<i class="icofont icofont-star"></i>
-													<i class="icofont icofont-star"></i>
-													<i class="icofont icofont-star"></i>
-													<i class="icofont icofont-star"></i>
-													<i class="icofont icofont-star"></i>
 												</div>
-												<h4>180k voters</h4>
+												<h4>'.$Rating.'</h4>
 											</div>
-											<p>She is a devil princess from the demon world. She grew up sheltered by her parents and doesn\'t really know how to be evil or any of the common actions,   She is unable to cry due to Keita\'s accidental first wish, despite needed for him to wish...</p>
-											<h3>Cast:</h3>
-											<div class="slide-cast">
-												<div class="single-slide-cast">
-													<img src="assets/img/cast/cast1.png" alt="about" />
-												</div>
-												<div class="single-slide-cast">
-													<img src="assets/img/cast/cast2.html" alt="about" />
-												</div>
-												<div class="single-slide-cast">
-													<img src="assets/img/cast/cast3.png" alt="about" />
-												</div>
-												<div class="single-slide-cast">
-													<img src="assets/img/cast/cast4.png" alt="about" />
-												</div>
-												<div class="single-slide-cast">
-													<img src="assets/img/cast/cast5.png" alt="about" />
-												</div>
-												<div class="single-slide-cast">
-													<img src="assets/img/cast/cast6.png" alt="about" />
-												</div>
-												<div class="single-slide-cast">
-													<img src="assets/img/cast/cast7.png" alt="about" />
-												</div>
-												<div class="single-slide-cast text-center">
-													5+
-												</div>
-											</div>
+											<p>'.$Description.'</p>
 											<div class="slide-trailor">
 												<h3>Watch Trailer</h3>
 												<a class="theme-btn theme-btn2" href="#"><i class="icofont icofont-play"></i> Tickets</a>
@@ -481,41 +421,10 @@
 											<div class="review">
 												<div class="author-review">
 													<i class="icofont icofont-star"></i>
-													<i class="icofont icofont-star"></i>
-													<i class="icofont icofont-star"></i>
-													<i class="icofont icofont-star"></i>
-													<i class="icofont icofont-star"></i>
 												</div>
-												<h4>180k voters</h4>
+												<h4>'.$Rating.'</h4>
 											</div>
-											<p>She is a devil princess from the demon world. She grew up sheltered by her parents and doesn\'t really know how to be evil or any of the common actions,   She is unable to cry due to Keita\'s accidental first wish, despite needed for him to wish...</p>
-											<h3>Cast:</h3>
-											<div class="slide-cast">
-												<div class="single-slide-cast">
-													<img src="assets/img/cast/cast1.png" alt="about" />
-												</div>
-												<div class="single-slide-cast">
-													<img src="assets/img/cast/cast2.html" alt="about" />
-												</div>
-												<div class="single-slide-cast">
-													<img src="assets/img/cast/cast3.png" alt="about" />
-												</div>
-												<div class="single-slide-cast">
-													<img src="assets/img/cast/cast4.png" alt="about" />
-												</div>
-												<div class="single-slide-cast">
-													<img src="assets/img/cast/cast5.png" alt="about" />
-												</div>
-												<div class="single-slide-cast">
-													<img src="assets/img/cast/cast6.png" alt="about" />
-												</div>
-												<div class="single-slide-cast">
-													<img src="assets/img/cast/cast7.png" alt="about" />
-												</div>
-												<div class="single-slide-cast text-center">
-													5+
-												</div>
-											</div>
+											<p>'.$Description.'</p>
 											<div class="slide-trailor">
 												<h3>Watch Trailer</h3>
 												<a class="theme-btn theme-btn2" href="#"><i class="icofont icofont-play"></i> Tickets</a>

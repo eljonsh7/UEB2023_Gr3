@@ -36,7 +36,7 @@
 			<div class="container">
 				<div class="header-area">
 					<div class="logo">
-						<a href="index-2.php"><img src="assets/img/logo.png" alt="logo" /></a>
+						<a href="index.php"><img src="assets/img/logo.png" alt="logo" /></a>
 					</div>
 					<div class="menu-area">
 						<div class="responsive-menu"></div>
