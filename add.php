@@ -164,9 +164,9 @@
         // connect to the database
         $db_host = 'localhost';
         $db_user = 'root';
-        $db_pass = '';
+        $db_pass = 'root';
         $db_name = 'moviedb';
-        $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
+        $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
         // check if the form has been submitted
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
