@@ -364,9 +364,14 @@
 			<div class="container">
 			<div class="hero-area-slider">
 				<?php 
+				$count=0;
 				$result = mysqli_query( $conn, $sql);
 				while( $row = mysqli_fetch_array($result) ){
-					$Cover =  base64_encode($row['Cover']);
+					$count++;
+					if($count==2){
+						$Cover2=$row['Cover'];
+					}
+					$Cover = $row['Cover'];
 					$Title = $row['Title'];
 					$Rating = $row['Rating'];
 					$Description = $row['Description'];
@@ -374,7 +379,7 @@
 					'<div class="row hero-area-slide">
 								<div class="col-lg-6 col-md-5">
 									<div class="hero-area-content">
-									<img src="data:image/jpg;base64,' . $Cover . '">
+									<img src="' . $Cover . '" alt="about" id="test123" />
 									</div>
 								</div>
 								<div class="col-lg-6 col-md-7">
@@ -407,7 +412,7 @@
 						'<div class="row hero-area-slide">
 									<div class="col-lg-6 col-md-5">
 										<div class="hero-area-content">
-										<img src="data:image/jpg;base64,' . $Cover . '" alt="about" id="test123" />
+										<img src="' . $Cover . '" alt="about" id="test123" />
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-7">
@@ -437,7 +442,7 @@
 						'<div class="row hero-area-slide">
 									<div class="col-lg-6 col-md-5">
 										<div class="hero-area-content">
-										<img src="data:image/jpg;base64,' . $Cover . '" alt="about" id="test123" />
+										<img src="' . $Cover2 . '" alt="about" id="test123" />
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-7">

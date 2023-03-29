@@ -123,6 +123,9 @@
 
                     <label for="trailer">Trailer Link:</label>
                     <input class="form-control" type="text" id="trailer" placeholder="Trailer Link" name="trailer"><br>
+					
+					<label for="description">Description:</label>
+                    <textarea class="form-control" id="description" placeholder="Description:" name="description" style="color:black;"></textarea><br>
 
                     <input class="form-control submit" type="submit" value="Submit" name="movie_submit">
 				</form>
@@ -154,6 +157,9 @@
                     <label for="trailer">Trailer Link:</label>
                     <input class="form-control" type="text" id="trailer" placeholder="Trailer Link" name="trailer"><br>
 
+					<label for="description">Description:</label>
+                    <textarea class="form-control" id="description" placeholder="Description:" name="description" style="color:black;"></textarea><br>
+
                     <input class="form-control submit" type="submit" value="Submit" name="show_submit">
 				</form>
 
@@ -180,9 +186,10 @@
                 $studio = $_POST['studio'];
                 $cover = $_POST['cover'];
                 $trailer = $_POST['trailer'];
+				$description = $_Post['description'];
 
                 // insert the data into the movies table
-                $sql = "INSERT INTO movies (Title, Date, Rating, Director, Studio, Cover, Trailer) VALUES ('$title', '$date', '$rating', '$director', '$studio', '$cover', '$trailer')";
+                $sql = "INSERT INTO movies (Title, Date, Rating, Director, Studio, Trailer, Description, Cover) VALUES ('$title', '$date', '$rating', '$director', '$studio',  '$trailer','$description','$cover')";
                 mysqli_query($conn, $sql);
             } elseif (isset($_POST['show_submit'])) {
                 // get the form data
