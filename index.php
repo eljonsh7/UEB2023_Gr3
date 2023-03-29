@@ -319,18 +319,38 @@
 			</div>
 		</div><!-- header section end -->
 		<!-- hero area start -->
+		<?php 
+		$db_host = 'localhost';
+        $db_user = 'root';
+        $db_pass = 'root';
+        $db_name = 'moviedb';
+        $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+		
+
+
+		$sql = "SELECT * FROM `movies` WHERE `ID` = 1;";
+
+		$result = mysqli_query( $conn, $sql);
+
+		while( $row = mysqli_fetch_array($result) ){
+			$AvatarTxt = $row['Title'];
+			$coverArt = $row['Cover'];
+		}
+
+		
+		?>
 		<section class="hero-area" id="home">
 			<div class="container">
 				<div class="hero-area-slider">
 					<div class="row hero-area-slide">
 						<div class="col-lg-6 col-md-5">
 							<div class="hero-area-content">
-								<img src="assets/img/slide2.png" alt="about" />
+								<img src="<?php echo $coverArt ?>" alt="about" id = "test123"/>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-7">
 							<div class="hero-area-content pr-50">
-								<h2>The Devil Princess</h2>
+								<h2><?php echo $AvatarTxt?></h2>
 								<div class="review">
 									<div class="author-review">
 										<i class="icofont icofont-star"></i>
@@ -833,6 +853,7 @@
 			</div>
 		</section><!-- video section end -->
 		<!-- news section start -->
+		
 		<section class="news">
 			<div class="container">
 				<div class="row">
