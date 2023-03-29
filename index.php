@@ -330,7 +330,7 @@
 
 		$sql = "SELECT * FROM `movies`";
 
-		$result = mysqli_query( $conn, $sql);
+		$result = mysqli_query( $conn, $sql );
 
 
 		
