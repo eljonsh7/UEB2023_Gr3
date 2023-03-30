@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/bootstrap.css">
+    <!-- <link rel="stylesheet" href="css/bootstrap.css"> -->
 	<!-- <link rel="stylesheet" href="style.css"> -->
     <title>Document</title>
     <style>
@@ -86,7 +86,7 @@
 	<header>
 		<nav>
 			<div class="logo">
-				<a href="index.php"><img src="img/logo.png"></a>
+				<!-- <a href="index.php"><img src="img/logo.png"></a> -->
 			</div>
 			<ul class="nav-links">
 				<li><a href="home.php">Home</a></li>
@@ -99,39 +99,7 @@
 	<div class="container">
 		<div class="row justify-content-center mt-5">
 			<div class="col-md-6">
-
-				<form id="movie-add" method="post">
-					<h2><a href="#" id="show-link">Movie or a TV Show?</a></p></h2><br>
-                    <h2>Movie</h2>
-					<label for="title">Title:</label>
-                    <input class="form-control" type="text" id="title" placeholder="Title" name="title"><br>
-
-                    <label for="date">Date:</label>
-                    <input class="form-control" type="date" id="date" placeholder="Date" name="date"><br>
-
-                    <label for="rating">Rating:</label>
-                    <input class="form-control" type="text" id="rating" placeholder="Rating" name="rating"><br>
-
-                    <label for="director">Director:</label>
-                    <input class="form-control" type="text" id="director" placeholder="Director" name="director"><br>
-
-                    <label for="studio">Studio:</label>
-                    <input class="form-control" type="text" id="studio" placeholder="Studio" name="studio"><br>
-
-                    <label for="cover">Cover Link:</label>
-                    <input class="form-control" type="text" id="cover" placeholder="Cover Link" name="cover"><br>
-
-                    <label for="trailer">Trailer Link:</label>
-                    <input class="form-control" type="text" id="trailer" placeholder="Trailer Link" name="trailer"><br>
-					
-					<label for="description">Description:</label>
-                    <textarea class="form-control" id="description" placeholder="Description:" name="description" style="color:black;"></textarea><br>
-
-                    <input class="form-control submit" type="submit" value="Submit" name="movie_submit">
-				</form>
-
-				<form id="show-add" style="display: none;" method="post">
-                    <h2><a href="#" id="movie-link">Movie or a TV Show?<a></h2><br>
+				<form id="show-add" method="post">
                     <h2>TV Show</h2>
 					<label for="title">Title:</label>
                     <input class="form-control" type="text" id="title" placeholder="Title" name="title"><br>
@@ -158,7 +126,7 @@
                     <input class="form-control" type="text" id="trailer" placeholder="Trailer Link" name="trailer"><br>
 
 					<label for="description">Description:</label>
-                    <textarea class="form-control" id="description" placeholder="Description:" name="description" style="color:black;"></textarea><br>
+                    <textarea class="form-control" id="description" placeholder="Description:" name="description" style="color:black;" maxlength="1000"></textarea><br>
 
                     <input class="form-control submit" type="submit" value="Submit" name="show_submit">
 				</form>
@@ -174,40 +142,52 @@
         $db_name = 'moviedb';
         $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
+		class input{
+			public $value;
+			public $id;
+
+
+			function __construct($value,$id){
+				$this->value = $value;
+				$this->id = $id;
+			}
+		}
         // check if the form has been submitted
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // check which form was submitted
-            if (isset($_POST['movie_submit'])) {
                 // get the form data
-                $title = $_POST['title'];
-                $date = $_POST['date'];
-                $rating = $_POST['rating'];
-                $director = $_POST['director'];
-                $studio = $_POST['studio'];
-                $cover = $_POST['cover'];
-                $trailer = $_POST['trailer'];
-				$description = $_Post['description'];
-
-                // insert the data into the movies table
-                $sql = "INSERT INTO movies (Title, Date, Rating, Director, Studio, Trailer, Description, Cover) VALUES ('$title', '$date', '$rating', '$director', '$studio',  '$trailer','$description','$cover')";
-                mysqli_query($conn, $sql);
-            } elseif (isset($_POST['show_submit'])) {
-                // get the form data
-                $title = $_POST['title'];
-                $startdate = $_POST['startdate'];
-                $status = $_POST['status'];
-                $rating = $_POST['rating'];
-                $director = $_POST['director'];
-                $studio = $_POST['studio'];
-                $cover = $_POST['cover'];
-                $trailer = $_POST['trailer'];
-
-                // insert the data into the tvshows table
-                $sql = "INSERT INTO tvshows (Title, StartDate, Status, Rating, Director, Studio, Cover, Trailer) VALUES ('$title', '$startdate', '$status', '$rating', '$director', '$studio', '$cover', '$trailer')";
-                mysqli_query($conn, $sql);
-            }
+                $title = new input($_POST['title'],"title");
+                $startdate = new input($_POST['startdate'],"startdate");
+                $status = new input($_POST['status'],"status");
+                $rating = new input($_POST['rating'],"rating");
+				$director = new input($_POST['director'],"director");
+                $studio = new input($_POST['studio'],"studio");
+                $cover = new input($_POST['cover'],"cover");
+                $trailer = new input($_POST['trailer'],"trailer");
+				$description = new input($_POST['description'],"description");
+				$inputsTV = [$title,$startdate,$status,$rating,$director,$studio,$cover,$trailer,$description];
+				$temp = false;
+				for($i = 0; $i < sizeof($inputsTV) ; $i++){
+					if(empty($inputsTV[$i]->value)){
+						echo '<script>document.getElementById("'.$inputsTV[$i]->id.'").style.border="2px solid red";</script>';
+						$temp = true;
+					}else{
+						echo '<script>document.getElementById("'.$inputsTV[$i]->id.'").value="'.$inputsTV[$i]->value.'";</script>';
+					}
+					if(($i == sizeof($inputsTV)-1) && $temp == true){
+						echo "<h3>Please fill out every information about the movie!</h3>";
+					}
+				}
+				if($temp == false){
+                	// insert the data into the tvshows table
+                	$sql = "INSERT INTO tvshows (Title, StartDate, Status, Rating, Director, Studio, Cover, Trailer, Description) VALUES ('$title->value', '$startdate->value', '$status->value', '$rating->value', '$director->value', '$studio->value', '$cover->value', '$trailer->value','$description->value')";
+                	mysqli_query($conn, $sql);
+					for($i = 0; $i < sizeof($inputsTV) ; $i++){
+						echo '<script>document.getElementById("'.$inputsTV[$i]->id.'").value="'."".'";</script>';
+				}
+				}
         }
-        ?>
+        ?>	
 
     <footer>
 		<p>&copy; 2023 FlixFeast. All rights reserved.</p>
