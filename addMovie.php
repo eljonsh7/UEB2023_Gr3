@@ -217,7 +217,7 @@
 				while( $row = mysqli_fetch_array($result) ){
 					echo '
 				  			<tr>
-								<td class = "titleData">'.$row['Title'].'</td>
+								<td><a href="editDetails.php?detailsID='.$row['ID'].'&type=Movie">'.$row['Title'].'</a></td>
 								<td>'.$row['Date'].'</td>
 								<td>'.$row['Rating'].'</td>
 								<td>'.$row['Director'].'</td>
