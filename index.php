@@ -370,6 +370,9 @@
 					$count++;
 					if($count==2){
 						$Cover2=$row['Cover'];
+						$Title2 = $row['Title'];
+						$Rating2 = $row['Rating'];
+						$Description2 = $row['Description'];
 					}
 					$Cover = $row['Cover'];
 					$Title = $row['Title'];
@@ -447,14 +450,14 @@
 									</div>
 									<div class="col-lg-6 col-md-7">
 										<div class="hero-area-content pr-50">
-											<h2>'.$Title.'</h2>
+											<h2>'.$Title2.'</h2>
 											<div class="review">
 												<div class="author-review">
 													<i class="icofont icofont-star"></i>
 												</div>
-												<h4>'.$Rating.'</h4>
+												<h4>'.$Rating2.'</h4>
 											</div>
-											<p>'.$Description.'</p>
+											<p>'.$Description2.'</p>
 											<div class="slide-trailor">
 												<h3>Watch Trailer</h3>
 												<a class="theme-btn theme-btn2" href="#"><i class="icofont icofont-play"></i> Tickets</a>
