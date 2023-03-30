@@ -80,6 +80,21 @@
             display: flex;
             justify-content: center;
         }
+
+		td{
+			word-wrap: break-word;
+			max-width: 300px;
+			color:;
+			text-align: center;
+		}
+		table, th, td {
+  			border: 2px solid grey;
+  			border-collapse: collapse;
+		}
+		table{
+			margin-top: 5%;
+		}
+		
     </style>
 </head>
 <body style="background-color: #245953;">
@@ -185,7 +200,37 @@
 					}
 				}
         }
-        ?>	
+
+		echo '<table>
+				<tr>
+					<th>Title</th>
+					<th>Date</th>
+					<th>Rating</th>
+					<th>Director</th>
+					<th>Studio</th>
+					<th>Trailer</th>
+					<th>Description</th>
+					<th>Cover</th>
+				</tr>';
+		$sql = "SELECT * FROM `movies`";
+		$result = mysqli_query( $conn, $sql);
+				while( $row = mysqli_fetch_array($result) ){
+					echo '
+				  			<tr>
+								<td class = "titleData">'.$row['Title'].'</td>
+								<td>'.$row['Date'].'</td>
+								<td>'.$row['Rating'].'</td>
+								<td>'.$row['Director'].'</td>
+								<td>'.$row['Studio'].'</td>
+								<td>'.substr($row['Trailer'],0,30).'</td>
+								<td>'.substr($row['Description'],0,100).'</td>
+								<td>'.substr($row['Cover'],0,30).'</td>
+				  			</tr>
+						';
+				}
+		echo '</table>';
+        ?>
+	
 
     <footer>
 		<p>&copy; 2023 FlixFeast. All rights reserved.</p>

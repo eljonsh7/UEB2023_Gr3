@@ -80,6 +80,20 @@
             display: flex;
             justify-content: center;
         }
+        td{
+			word-wrap: break-word;
+			max-width: 300px;
+			color:;
+			text-align: center;
+		}
+		table, th, td {
+  			border: 2px solid grey;
+  			border-collapse: collapse;
+		}
+		table{
+			margin-top: 5%;
+		}
+		
     </style>
 </head>
 <body style="background-color: #245953;">
@@ -187,6 +201,36 @@
 				}
 				}
         }
+        echo '<table>
+				<tr>
+					<th>Title</th>
+					<th>Start Date</th>
+                    <th>Status</th>
+					<th>Rating</th>
+					<th>Director</th>
+					<th>Studio</th>
+                    <th>Cover</th>
+					<th>Trailer</th>
+					<th>Description</th>
+				</tr>';
+		$sql = "SELECT * FROM `tvshows`";
+		$result = mysqli_query( $conn, $sql);
+				while( $row = mysqli_fetch_array($result) ){
+					echo '
+				  			<tr>
+								<td class = "titleData">'.$row['Title'].'</td>
+								<td>'.$row['StartDate'].'</td>
+                                <td>'.$row['Status'].'</td>
+								<td>'.$row['Rating'].'</td>
+								<td>'.$row['Director'].'</td>
+								<td>'.$row['Studio'].'</td>
+                                <td>'.substr($row['Cover'],0,30).'</td>
+								<td>'.substr($row['Trailer'],0,30).'</td>
+								<td>'.substr($row['Description'],0,100).'</td>
+				  			</tr>
+						';
+				}
+		echo '</table>';
         ?>	
 
     <footer>
