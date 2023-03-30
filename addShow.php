@@ -154,7 +154,7 @@
         $db_user = 'root';
         $db_pass = 'root';
         $db_name = 'moviedb';
-        $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+        $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name,3307);
 
 		class input{
 			public $value;
