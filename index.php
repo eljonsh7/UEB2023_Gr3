@@ -5,7 +5,7 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Moviepoint - Online Movie,Vedio and TV Show HTML Template</title>
+		<title>FlixFeast</title>
 		<!-- Favicon Icon -->
 		<link rel="icon" type="image/png" href="assets/img/favcion.png" />
 		<!-- Bootstrap CSS -->
@@ -67,7 +67,7 @@
 					<h6>USERNAME OR EMAIL ADDRESS</h6>
 					<input type="text" />
 					<h6>PASSWORD</h6>
-					<input type="password" id="password-field" class="field input" required placeholder="Password"/>
+					<input type="password" id="password-field-login" class="field input" required placeholder="Password"/>
 					<div class="login-remember">
 						<input type="checkbox" />
 						<span>Remember Me</span>
@@ -93,15 +93,16 @@
 					<input type="text" id="email-field" class="field input" required />
 					<h6>PASSWORD</h6>
 					<input type="password" id="password-field" class="field input" required onkeyup="verifyPassword()" />
+					<p id="all" style="display: none; justify-content: center;">Password must contain at least one capital 
+					letter, one digit and must be at least 8 characters long!</p>
 					<h6>CONFIRM PASSWORD</h6>
-					<input type="password" type="password" id="password-field2" class="field input" required
-                    onkeyup="verifyPassword()" />
+					<input type="password" id="password-field2" class="field input" required onkeyup="verifyPassword()" />
 					<p id="isItSame" style="display: none; justify-content: center;">Passwords don't match</p>
 					<div class="login-remember">
 						<input type="checkbox" />
 						<span>Remember Me</span>
 					</div>
-					<button class="theme-btn" id="sign-up">SIGN UP</button>
+					<button class="theme-btn" id="sign-up" disabled>SIGN UP</button>
 					<span>Or Via Social</span>
 					<div class="login-social">
 						<a href="#"><i class="icofont icofont-social-facebook"></i></a>
@@ -865,47 +866,33 @@
 		<!-- main JS -->
 		<script src="assets/js/main.js"></script>
 		<script>
-			function checkPassword(){
-				const submit = document.getElementById("sign-up");
-				const pass = document.getElementById("password-field").value;
-				const p = document.getElementById("passCheck");
-				var a = 0, b = 0, i = 0;
-				while (i <= pass.length){
-					if (!isNaN(pass.charAt(i) * 1)){
-						a++;
-					}
-					if (pass.charAt(i) == pass.charAt(i).toUpperCase() && isNaN(pass.charAt(i) * 1)) {
-						b++;
-					}
-					i++;
-				}
-
-				if(pass.length == 0){
-					p.innerHTML = "";
-				}
-				else if(a == 0 || b == 0 || pass.length < 8){
-					p.innerHTML = "Password must be at least 8 characters long, must contain at least one number and one capital letter.";
-				}
-				else{
-					p.innerHTML = "";
-            }
-            
-			}
-
 			function verifyPassword() {
-				const submit = document.getElementById("sign-up");
-				const mesazhi = document.getElementById("isItSame");
-				const password = document.getElementById("password-field").value;
+				const password1 = document.getElementById("password-field").value;
 				const password2 = document.getElementById("password-field2").value;
+				const signUpButton = document.getElementById("sign-up");
+				const errorMessage = document.getElementById("isItSame");
+				const allMessage = document.getElementById("all");
 
-				if (password != password2) {
-					submit.disabled = true;
-					mesazhi.style.display = "flex";
+				const passwordRegex = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
+				const isPasswordValid = password1 === password2 && passwordRegex.test(password1);
+
+				if(!passwordRegex.test(password1)){
+					allMessage.style.display = "flex";
+					allMessage.style.color = "red"
+				} else {
+					allMessage.style.display = "none";
 				}
-				else {
-					submit.disabled = false;
-					mesazhi.style.display = "none";
+
+				if(password2.length != 0){
+					if (password1 !== password2) {
+						errorMessage.style.display = "flex";
+						errorMessage.style.color = "red";
+					} else {
+						errorMessage.style.display = "none";
+					}
 				}
+			
+				signUpButton.disabled = !isPasswordValid;
 			}
 		</script>
 	</body>
