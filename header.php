@@ -1,24 +1,11 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <header class="header">
 <div class="container">
     <div class="header-area">
         <div class="logo">
             <a href="index.php"><img src="assets/img/logo.png" alt="logo" /></a>
         </div>
-        <?php 
-        $db_host = 'localhost';
-        $db_user = 'root';
-        $db_pass = 'root';
-        $db_name = 'moviedb';
-        $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name,3307);
-		
 
-
-		$sql = "SELECT * FROM `movies`";
-
-		$result = mysqli_query( $conn, $sql );
-
-
-        ?>
         <div class="menu-area">
             <div class="responsive-menu"></div>
             <div class="mainmenu">
@@ -49,7 +36,6 @@
     $(document).ready(function(){
         $("#live_search").keyup(function(){
             var input = $(this).val();
-            alert (input);
             if(input != ""){
                 $.ajax({
                     url: "livesearch.php",
@@ -155,17 +141,3 @@ function verifyPassword() {
   signUpButton.disabled = !isPasswordValid;
 }
         </script>
-<!-- jquery main JS -->
-<script src="assets/js/jquery.min.js"></script>
-		<!-- Bootstrap JS -->
-		<script src="assets/js/bootstrap.min.js"></script>
-		<!-- Slick nav JS -->
-		<script src="assets/js/jquery.slicknav.min.js"></script>
-		<!-- owl carousel JS -->
-		<script src="assets/js/owl.carousel.min.js"></script>
-		<!-- Popup JS -->
-		<script src="assets/js/jquery.magnific-popup.min.js"></script>
-		<!-- Isotope JS -->
-		<script src="assets/js/isotope.pkgd.min.js"></script>
-		<!-- main JS -->
-		<script src="assets/js/main.js"></script>

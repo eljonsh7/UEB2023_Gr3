@@ -1,33 +1,3 @@
-function verifyPassword() {
-  const password1 = document.getElementById("password-field").value;
-  const password2 = document.getElementById("password-field2").value;
-  const signUpButton = document.getElementById("sign-up");
-  const errorMessage = document.getElementById("isItSame");
-  const allMessage = document.getElementById("all");
-
-  const passwordRegex = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
-  const isPasswordValid =
-    password1 === password2 && passwordRegex.test(password1);
-
-  if (!passwordRegex.test(password1)) {
-    allMessage.style.display = "flex";
-    allMessage.style.color = "red";
-  } else {
-    allMessage.style.display = "none";
-  }
-
-  if (password2.length != 0) {
-    if (password1 !== password2) {
-      errorMessage.style.display = "flex";
-      errorMessage.style.color = "red";
-    } else {
-      errorMessage.style.display = "none";
-    }
-  }
-
-  signUpButton.disabled = !isPasswordValid;
-}
-
 (function ($) {
   "use strict";
 
