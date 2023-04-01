@@ -8,7 +8,7 @@ if(isset($_POST['input'])){
 
     $input = mysqli_real_escape_string($conn, $_POST['input']);
 
-    $query = "SELECT Title, Cover FROM tvshows WHERE Title LIKE '%{$input}%' UNION SELECT Title, Cover FROM movies WHERE Title LIKE '%{$input}%' ";
+    $query = "SELECT Title, Cover, ID, Type FROM tvshows WHERE Title LIKE '%{$input}%' UNION SELECT Title, Cover, ID, Type FROM movies WHERE Title LIKE '%{$input}%' ";
     
     $result = mysqli_query( $conn, $query );
 
@@ -20,14 +20,16 @@ if(isset($_POST['input'])){
             while($row = mysqli_fetch_assoc($result)){
                 $title = $row['Title'];
                 $poster = $row['Cover'];
-                echo "<tr><td><img src='$poster' alt='' style = 'width: 100px;'></td><td>$title</td></tr>";
+                $id = $row['ID'];
+                $type = $row['Type'];
+                echo '<tr><td><a href="movie-details.php?id='.$id.'&type='.$type.'"><img src="'.$poster.'" alt="" style = "width: 100px;"></a></td><td><a href="movie-details.php?id='.$id.'&type='.$type.'">'.$title.'</a></td></tr>';
             }
         
         echo '</tbody>
         </table>';
     }
     else{
-        echo "<h6 class='text-danger text-center mt-3' style = 'position: absolute;' >No movies Found </h6>";
+        echo "<h6 class='text-danger text-center mt-3' style = 'position: absolute;' >No Movies or TV shows found! </h6>";
     }
 };
 

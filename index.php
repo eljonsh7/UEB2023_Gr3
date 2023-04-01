@@ -30,6 +30,10 @@
 			.home {
 				color: #00d9e1;
 			}
+			.img-wrapper {
+       		 	width: 100%;
+        		overflow: hidden;
+			}
 		</style>
 	</head>
 	<body>
@@ -68,29 +72,34 @@
 					$Description = $row['Description'];
 					$Trailer = $row['Trailer'];
 					echo 
-					'<div class="row hero-area-slide">
-								<div class="col-lg-6 col-md-5"><a href = "movie-details.php?id='.$row['ID'].'&type=movie"">
-									<div class="hero-area-content">
-									<img src="' . $Cover . '" alt="about" id="test123" />
-									</div></a>
-								</div>
-								<div class="col-lg-6 col-md-7">
-									<div class="hero-area-content pr-50">
-									<a href = "movie-details.php?id='.$row['ID'].'&type=movie""><h2>'.$Title.'</h2></a>
-										<div class="review">
-											<div class="author-review">
-												<i class="icofont icofont-star"></i>
-											</div>
-											<h4>'.$Rating.'</h4>
-										</div>
-										<p>'.$Description.'</p>
-										<div class="slide-trailor">
-											<h3>Watch Trailer</h3>
-											<a class="popup-youtube"  href="'.$Trailer.'"><i class="icofont icofont-play"></i> </a>
-										</div>
-									</div>
+					'<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;">
+					<div class="col-lg-6 col-md-5">
+						<a href="movie-details.php?id='.$row['ID'].'&type=movie">
+							<div class="hero-area-content">
+								<div class="img-wrapper" style="margin-bottom:4%;margin-top:-8.5%;">
+									<img src="' . $Cover . '" style="width: 100%;" alt="about" id="test123" />
 								</div>
 							</div>
+						</a>
+					</div>
+					<div class="col-lg-6 col-md-7">
+						<div class="hero-area-content pr-50">
+							<a href="movie-details.php?id='.$row['ID'].'&type=movie"><h2>'.$Title.'</h2></a>
+							<div class="review">
+								<div class="author-review">
+									<i class="icofont icofont-star"></i>
+								</div>
+								<h4>'.$Rating.'</h4>
+							</div>
+							<p>'.$Description.'</p>
+							<div class="slide-trailor">
+								<h3>Watch Trailer</h3>
+								<a class="popup-youtube" href="'.$Trailer.'"><i class="icofont icofont-play"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				
 							';}
 				?>
 				
@@ -101,10 +110,12 @@
 				<div class="thumb-prev">
 					<?php 
 						echo 
-						'<div class="row hero-area-slide">
+						'<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;">
 									<div class="col-lg-6 col-md-5">
 										<div class="hero-area-content">
-										<img src="' . $Cover . '" alt="about" id="test123" />
+											<div class="img-wrapper" style="margin-bottom:4%;margin-top:-8.5%;">
+												<img src="' . $Cover . '" style="width: 100%;" alt="about" id="test123" />
+											</div>
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-7">
@@ -131,10 +142,12 @@
 				<div class="thumb-next">
 				<?php 
 						echo 
-						'<div class="row hero-area-slide">
+						'<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;">
 									<div class="col-lg-6 col-md-5">
 										<div class="hero-area-content">
-										<img src="' . $Cover2 . '" alt="about" id="test123" />
+											<div class="img-wrapper" style="margin-bottom:4%;margin-top:-8.5%;">
+												<img src="' . $Cover2 . '" style="width: 100%;" alt="about" id="test123" />
+											</div>
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-7">

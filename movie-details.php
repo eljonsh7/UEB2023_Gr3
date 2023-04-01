@@ -355,43 +355,46 @@
     </section>
     <!-- breadcrumb area end -->
     <!-- transformers area start -->
-    <section class="transformers-area">
+    <?php
+    
+    if($_GET['type']=="movie"){
+      echo '<section class="transformers-area">
       <div class="container">
         <div class="transformers-box">
           <div class="row flexbox-center">
             <div class="col-lg-5 text-lg-left text-center">
               <div class="transformers-content">
-                <img src="<?php echo $row['Cover']; ?>" alt="about" />
+                <img src="'.$row["Cover"].'" alt="about" />
               </div>
             </div>
             <div class="col-lg-7">
               <div class="transformers-content">
-                <h2><?php echo $row['Title']; ?></h2>
-                <p>3D | Animation | Action | Sci-Fi</p>
+                <h2>'.$row["Title"].'</h2>
+                <p>'.$row['Genre'].'</p>
                 <ul>
                   <li>
-                    <div class="transformers-left">Movie:</div>
+                    <div class="transformers-left">Rating:</div>
                     <div class="transformers-right">
-                      <a href="#">Sci-Fic</a>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="transformers-left">Writer:</div>
-                    <div class="transformers-right">
-                      Stephen McFeely, Christopher Markus
+                      <i class="icofont icofont-star">'.$row['Rating'].'</i>
                     </div>
                   </li>
                   <li>
                     <div class="transformers-left">Director:</div>
-                    <div class="transformers-right">Joe Johnston</div>
+                    <div class="transformers-right">
+                      '.$row['Director'].'
+                    </div>
                   </li>
                   <li>
-                    <div class="transformers-left">Time:</div>
-                    <div class="transformers-right">190m</div>
+                    <div class="transformers-left">Studio:</div>
+                    <div class="transformers-right">'.$row['Studio'].'</div>
+                  </li>
+                  <li>
+                    <div class="transformers-left">Length:</div>
+                    <div class="transformers-right">'.$row['Length'].' minutes</div>
                   </li>
                   <li>
                     <div class="transformers-left">Release:</div>
-                    <div class="transformers-right">2018-07-22</div>
+                    <div class="transformers-right">'.$row['Date'].'</div>
                   </li>
                   <li>
                     <div class="transformers-left">Language:</div>
@@ -436,7 +439,96 @@
           >
         </div>
       </div>
-    </section>
+    </section>';
+    }else if($_GET['type']=="tvshow"){
+      echo '<section class="transformers-area">
+      <div class="container">
+        <div class="transformers-box">
+          <div class="row flexbox-center">
+            <div class="col-lg-5 text-lg-left text-center">
+              <div class="transformers-content">
+                <img src="'.$row["Cover"].'" alt="about" />
+              </div>
+            </div>
+            <div class="col-lg-7">
+              <div class="transformers-content">
+                <h2>'.$row["Title"].'</h2>
+                <p>'.$row['Genre'].'</p>
+                <ul>
+                  <li>
+                    <div class="transformers-left">Rating:</div>
+                    <div class="transformers-right">
+                      <i class="icofont icofont-star">'.$row['Rating'].'</i>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="transformers-left">Director:</div>
+                    <div class="transformers-right">
+                      '.$row['Director'].'
+                    </div>
+                  </li>
+                  <li>
+                    <div class="transformers-left">Studio:</div>
+                    <div class="transformers-right">'.$row['Studio'].'</div>
+                  </li>
+                  <li>
+                    <div class="transformers-left">Status:</div>
+                    <div class="transformers-right">'.$row['Status'].'</div>
+                  </li>
+                  <li>
+                    <div class="transformers-left">Start Date:</div>
+                    <div class="transformers-right">'.$row['StartDate'].'</div>
+                  </li>
+                  <li>
+                    <div class="transformers-left">Language:</div>
+                    <div class="transformers-right">English, Russian</div>
+                  </li>
+                  <li>
+                    <div class="transformers-left">Cinema:</div>
+                    <div class="transformers-right">
+                      HB Movies | HW Town
+                      <a href="#" class="theme-btn">Movies House</a>Grand Seats
+                      | HB Max
+                      <div class="transformers-bottom">
+                        <p>May 19, 2018 <span>15h47</span></p>
+                        <p>May 19, 2018 <span>15h47</span></p>
+                        <p>May 19, 2018 <span>15h47</span></p>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="transformers-left">Share:</div>
+                    <div class="transformers-right">
+                      <a href="#"
+                        ><i class="icofont icofont-social-facebook"></i
+                      ></a>
+                      <a href="#"
+                        ><i class="icofont icofont-social-twitter"></i
+                      ></a>
+                      <a href="#"
+                        ><i class="icofont icofont-social-google-plus"></i
+                      ></a>
+                      <a href="#"
+                        ><i class="icofont icofont-youtube-play"></i
+                      ></a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <a href="#" class="theme-btn"
+            ><i class="icofont icofont-ticket"></i> BUY TICKET</a
+          >
+        </div>
+      </div>
+    </section>';
+    }
+
+
+    
+    
+    ?>
     <!-- transformers area end -->
     <!-- details area start -->
     <section class="details-area">

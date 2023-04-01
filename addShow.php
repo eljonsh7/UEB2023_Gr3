@@ -140,7 +140,7 @@
 				<form id="show-add" method="post">
                     <h2>TV Show</h2>
 					<input type="hidden" name="addForm" value="submitted">
-					
+
 					<label for="title">Title:</label>
                     <input class="form-control" type="text" id="title" placeholder="Title" name="title"><br>
 
@@ -167,6 +167,9 @@
 
 					<label for="description">Description:</label>
                     <textarea class="form-control" id="description" placeholder="Description:" name="description" style="color:black;" maxlength="1000"></textarea><br>
+
+					<label for="genre">Genre:</label>
+                    <input class="form-control" type="text" id="genre" placeholder="Genre:" name="genre"><br>
 
                     <input class="form-control submit" type="submit" value="Submit" name="show_submit">
 				</form>
@@ -204,8 +207,9 @@
                 $studio = new input($_POST['studio'],"studio");
                 $cover = new input($_POST['cover'],"cover");
                 $trailer = new input($_POST['trailer'],"trailer");
-				$description = new input($_POST['description'],"description");
-				$inputsTV = [$title,$startdate,$status,$rating,$director,$studio,$cover,$trailer,$description];
+				$description = new input(mysqli_real_escape_string($conn,$_POST['description']),"description");
+				$genre = new input($_POST['genre'],"genre");
+				$inputsTV = [$title,$startdate,$status,$rating,$director,$studio,$cover,$trailer,$description,$genre];
 				$temp = false;
 				for($i = 0; $i < sizeof($inputsTV) ; $i++){
 					if(empty($inputsTV[$i]->value)){
@@ -220,7 +224,7 @@
 				}
 				if($temp == false){
                 	// insert the data into the tvshows table
-                	$sql = "INSERT INTO tvshows (Title, StartDate, Status, Rating, Director, Studio, Cover, Trailer, Description) VALUES ('$title->value', '$startdate->value', '$status->value', '$rating->value', '$director->value', '$studio->value', '$cover->value', '$trailer->value','$description->value')";
+                	$sql = "INSERT INTO tvshows (Title, StartDate, Status, Rating, Director, Studio, Cover, Trailer, Description, Genre) VALUES ('$title->value', '$startdate->value', '$status->value', '$rating->value', '$director->value', '$studio->value', '$cover->value', '$trailer->value','$description->value', '$genre->value')";
                 	mysqli_query($conn, $sql);
 					for($i = 0; $i < sizeof($inputsTV) ; $i++){
 						echo '<script>document.getElementById("'.$inputsTV[$i]->id.'").value="'."".'";</script>';
@@ -238,6 +242,7 @@
                     <th>Cover</th>
 					<th>Trailer</th>
 					<th>Description</th>
+					<th>Genre</th>
 					<th> </th>
 				</tr>';
 		$sql = "SELECT * FROM `tvshows`";
@@ -254,6 +259,7 @@
                                 <td>'.substr($row['Cover'],0,30).'</td>
 								<td>'.substr($row['Trailer'],0,30).'</td>
 								<td>'.substr($row['Description'],0,100).'</td>
+								<td>'.$row['Genre'].'</td>
 								<td><a href="addShow.php?removeID='.$row['ID'].'&mode=remove">x</a></td>
 				  			</tr>
 						';

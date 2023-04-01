@@ -57,23 +57,23 @@ if (isset($_POST['submit'])) {
     </div>
 </section>';
 
-    $query1 = "SELECT Title, Cover, ID FROM tvshows WHERE Title LIKE '%{$search}%'";
-    $query2 = "SELECT Title, Cover, ID FROM movies WHERE Title LIKE '%{$search}%' ";
     
-    $result1 = mysqli_query($conn, $query1);
-    $result2 = mysqli_query($conn, $query2);
+    $query = "SELECT Title, Cover, ID , Type FROM tvshows WHERE Title LIKE '%{$search}%' UNION SELECT Title, Cover, ID , Type FROM movies WHERE Title LIKE '%{$search}%'";
 
-    if (mysqli_num_rows($result1) > 0) {
+    $result = mysqli_query($conn,$query);
+
+    if (mysqli_num_rows($result) > 0) {
         echo '<section class="portfolio-area pt-60" >
         <div class="container">
             <div class="row portfolio-item">';
         
-            while ($row = mysqli_fetch_assoc($result1)) {
+            while ($row = mysqli_fetch_assoc($result)) {
                 $title = $row['Title'];
                 $poster = $row['Cover'];
                 $id = $row['ID'];
+                $type = $row['Type'];
                 echo '<div class="col-lg-3 col-md-4 col-sm-6 soon released">
-                <a href = "movie-details.php?id='.$id.'&type=tvshow">
+                <a href = "movie-details.php?id='.$id.'&type='.$type.'">
                     <div class="single-portfolio">
                         <div class="single-portfolio-img">
                             <img src="'.$poster.'" alt="portfolio" />
@@ -91,37 +91,9 @@ if (isset($_POST['submit'])) {
         echo '</div>
         </div>
     </section';
-    } 
-    else if (mysqli_num_rows($result2) > 0) {
-        echo '<section class="portfolio-area pt-60" >
-        <div class="container">
-            <div class="row portfolio-item">';
-        
-            while ($row = mysqli_fetch_assoc($result2)) {
-                $title = $row['Title'];
-                $poster = $row['Cover'];
-                $id = $row['ID'];
-                echo '<div class="col-lg-3 col-md-4 col-sm-6 soon released">
-                <a href = "movie-details.php?id='.$id.'&type=movie">
-                    <div class="single-portfolio">
-                        <div class="single-portfolio-img">
-                            <img src="'.$poster.'" alt="portfolio" />
-                        </div>
-                        <div class="portfolio-content">
-                            <h2>'.$title.'</h2>
-                        
-                        </div>
-                    </div>
-                    </a>
-                </div>';
-            }
-            
-        
-        echo '</div>
-        </div>
-    </section';
-    } else {
-        echo "<h6 class='text-danger text-center mt-3'>No movies found</h6>";
+    }
+    else {
+        echo '<h6 class=":text-danger text-center mt-3">No '.$type.'s found</h6>';
     }
 }
 

@@ -166,6 +166,12 @@
 					<label for="description">Description:</label>
                     <textarea class="form-control" id="description" placeholder="Description:" name="description" style="color:black;" maxlength="1000"></textarea><br>
 
+					<label for="genre">Genre:</label>
+                    <input class="form-control" type="text" id="genre" placeholder="Genre:" name="genre"><br>
+
+					<label for="length">Length:</label>
+                    <input class="form-control" type="text" id="length" placeholder="Length:" name="length"><br>
+
                     <input class="form-control submit" type="submit" value="Submit" name="movie_submit">
 				</form>
 
@@ -202,8 +208,10 @@
 				$studio = new input($_POST['studio'],"studio");
 				$cover = new input($_POST['cover'],"cover");
 				$trailer = new input($_POST['trailer'],"trailer");
-				$description = new input($_POST['description'],"description");
-				$inputs = [$title,$date,$rating,$director,$studio,$cover,$trailer,$description];
+				$description = new input(mysqli_real_escape_string($conn,$_POST['description']),"description");
+				$genre = new input($_POST['genre'],"genre");
+				$length = new input($_POST['length'],"length");
+				$inputs = [$title,$date,$rating,$director,$studio,$cover,$trailer,$description,$genre,$length];
 				$temp = false;
 				for($i = 0; $i < sizeof($inputs) ; $i++){
 					if(empty($inputs[$i]->value)){
@@ -218,7 +226,7 @@
 				}
                 if($temp == false){
 					// insert the data into the movies table
-                	$sql = "INSERT INTO movies (Title, Date, Rating, Director, Studio, Trailer, Description, Cover) VALUES ('$title->value', '$date->value', '$rating->value', '$director->value', '$studio->value',  '$trailer->value','$description->value','$cover->value')";
+                	$sql = "INSERT INTO movies (Title, Date, Rating, Director, Studio, Trailer, Description, Cover, Genre, Length) VALUES ('$title->value', '$date->value', '$rating->value', '$director->value', '$studio->value',  '$trailer->value','$description->value','$cover->value', '$genre->value', '$length->value')";
                 	mysqli_query($conn, $sql);
 					for($i = 0; $i < sizeof($inputs) ; $i++){
 							echo '<script>document.getElementById("'.$inputs[$i]->id.'").value="'."".'";</script>';
@@ -236,6 +244,8 @@
 					<th>Trailer</th>
 					<th>Description</th>
 					<th>Cover</th>
+					<th>Genre</th>
+					<th>Length</th>
 					<th></th>
 				</tr>';
 		$sql = "SELECT * FROM `movies`";
@@ -251,6 +261,8 @@
 								<td>'.substr($row['Trailer'],0,30).'</td>
 								<td>'.substr($row['Description'],0,100).'</td>
 								<td>'.substr($row['Cover'],0,30).'</td>
+								<td>'.$row['Genre'].'</td>
+								<td>'.$row['Length'].'</td>
 								<td><a href="addMovie.php?removeID='.$row['ID'].'&mode=remove">x</a></td>
 				  			</tr>
 					';
