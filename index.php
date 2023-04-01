@@ -26,39 +26,17 @@
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
+		<style>
+			.home {
+				color: #00d9e1;
+			}
+		</style>
 	</head>
 	<body>
 		<!-- Page loader -->
 	    <div id="preloader"></div>
 		<!-- header section start -->
-		<header class="header">
-			<div class="container">
-				<div class="header-area">
-					<div class="logo">
-						<a href="index.php"><img src="assets/img/logo.png" alt="logo" /></a>
-					</div>
-					
-					<div class="menu-area">
-						<div class="responsive-menu"></div>
-					    <div class="mainmenu">
-                            <ul id="primary-menu">
-                                <li><a class="active" href="index.php">Home</a></li>
-                                <li><a href="movies.php">Movies</a></li>
-                                <li><a href="top-movies.php">Tv Shows</a></li>
-                                <li><a href="blog.php">Top IMDb</a></li>
-								<li><a href="#">Profile <i class="icofont icofont-simple-down"></i></a>
-									<ul>
-										<li><a href="" class="signup-popup">Log in</a></li>
-										<li><a href="" class="login-popup">Sign up</a></li>
-									</ul>
-								</li>
-                                <li><a class="theme-btn" href="#"><i class="icofont icofont-ticket"></i> Tickets</a></li>
-                            </ul>
-					    </div>
-					</div>
-				</div>
-			</div>
-		</header>
+		<?php include("header.php");?>
 		<div class="login-area signup-area">
 			<div class="login-box">
 				<a href="#"><i class="icofont icofont-close"></i></a>
@@ -398,7 +376,7 @@
 										<p>'.$Description.'</p>
 										<div class="slide-trailor">
 											<h3>Watch Trailer</h3>
-											<a class="theme-btn theme-btn2" href="#"><i class="icofont icofont-play"></i> Tickets</a>
+											<a class="theme-btn theme-btn2" href="#"><i class="icofont icofont-play"></i> </a>
 										</div>
 									</div>
 								</div>
@@ -431,7 +409,7 @@
 											<p>'.$Description.'</p>
 											<div class="slide-trailor">
 												<h3>Watch Trailer</h3>
-												<a class="theme-btn theme-btn2" href="#"><i class="icofont icofont-play"></i> Tickets</a>
+												<a class="theme-btn theme-btn2" href="#"><i class="icofont icofont-play"></i></a>
 											</div>
 										</div>
 									</div>
@@ -461,7 +439,7 @@
 											<p>'.$Description2.'</p>
 											<div class="slide-trailor">
 												<h3>Watch Trailer</h3>
-												<a class="theme-btn theme-btn2" href="#"><i class="icofont icofont-play"></i> Tickets</a>
+												<a class="theme-btn theme-btn2" href="#"><i class="icofont icofont-play"></i> </a>
 											</div>
 										</div>
 									</div>

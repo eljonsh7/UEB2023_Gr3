@@ -59,62 +59,7 @@
     <!-- Page loader -->
     <div id="preloader"></div>
     <!-- header section start -->
-    <header class="header">
-      <div class="container">
-        <div class="header-area">
-          <div class="logo">
-            <a href="index.php"
-              ><img src="assets/img/logo.png" alt="logo"
-            /></a>
-          </div>
-          <!-- <div class="header-right">
-						<form action="#">
-							<select>
-								<option value="Movies">Movies</option>
-								<option value="Movies">Movies</option>
-								<option value="Movies">Movies</option>
-							</select>
-							<input type="text"/>
-							<button><i class="icofont icofont-search"></i></button>
-						</form>
-						<ul>
-							<li><a href="#">Welcome Guest!</a></li>
-							<li><a class="login-popup" href="#">Login</a></li>
-						</ul>
-					</div> -->
-          <div class="menu-area">
-            <div class="responsive-menu"></div>
-            <div class="mainmenu">
-              <ul id="primary-menu">
-                <li><a class="active" href="index.php">Home</a></li>
-                <li><a href="movies.php">Movies</a></li>
-                <li><a href="celebrities.php">CelebritiesList</a></li>
-                <li><a href="top-movies.php">Top Movies</a></li>
-                <li><a href="blog.php">News</a></li>
-                <li>
-                  <a class="active" href="#"
-                    >Pages <i class="icofont icofont-simple-down"></i
-                  ></a>
-                  <ul>
-                    <li><a href="blog-details.php">Blog Details</a></li>
-                    <li>
-                      <a class="active" href="movie-details.php"
-                        >Movie Details</a
-                      >
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a class="theme-btn" href="#"
-                    ><i class="icofont icofont-ticket"></i> Tickets</a
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
+    <?php include("header.php");?>
     <div class="login-area">
       <div class="login-box">
         <a href="#"><i class="icofont icofont-close"></i></a>

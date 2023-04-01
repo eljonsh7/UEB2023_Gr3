@@ -26,40 +26,17 @@
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
+        <style>
+			.tv {
+				color: #00d9e1;
+			}
+		</style>
 	</head>
 	<body>
 		<!-- Page loader -->
 	    <div id="preloader"></div>
 		<!-- header section start -->
-		<header class="header">
-			<div class="container">
-				<div class="header-area">
-					<div class="logo">
-						<a href="index.php"><img src="assets/img/logo.png" alt="logo" /></a>
-					</div>
-		
-					<div class="menu-area">
-						<div class="responsive-menu"></div>
-					    <div class="mainmenu">
-                            <ul id="primary-menu">
-                                <li><a href="index.php">Home</a></li>
-                                <li><a href="movies.php">Movies</a></li>
-                                <li><a href="celebrities.php">CelebritiesList</a></li>
-                                <li><a href="top-movies.php">Top Movies</a></li>
-                                <li><a class="active" href="blog.php">News</a></li>
-								<li><a href="#">Pages <i class="icofont icofont-simple-down"></i></a>
-									<ul>
-										<li><a href="blog-details.php">Blog Details</a></li>
-										<li><a href="movie-details.php">Movie Details</a></li>
-									</ul>
-								</li>
-                                <li><a class="theme-btn" href="#"><i class="icofont icofont-ticket"></i> Tickets</a></li>
-                            </ul>
-					    </div>
-					</div>
-				</div>
-			</div>
-		</header>
+		<?php include("header.php");?>
 		<div class="login-area">
 			<div class="login-box">
 				<a href="#"><i class="icofont icofont-close"></i></a>
@@ -325,65 +302,288 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="breadcrumb-area-content">
-							<h1>Blog Page</h1>
+							<h1>Movies Page</h1>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section><!-- breadcrumb area end -->
-		<!-- blog area start -->
-		<section class="blog-area">
+		<!-- portfolio section start -->
+		<section class="portfolio-area pt-60">
+			<div class="container">
+				<div class="row flexbox-center">
+					<div class="col-lg-6 text-center text-lg-left">
+					    <div class="section-title">
+							<h1><i class="icofont icofont-movie"></i> Spotlight This Month</h1>
+						</div>
+					</div>
+					<div class="col-lg-6 text-center text-lg-right">
+					    <div class="portfolio-menu">
+							<ul>
+								<li data-filter="*" class="active">Latest</li>
+								<li data-filter=".soon">Comming Soon</li>
+								<li data-filter=".top">Top Rated</li>
+								<li data-filter=".released">Recently Released</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<hr />
+				<div class="row portfolio-item">
+					<div class="col-lg-3 col-md-4 col-sm-6 soon released">
+						<div class="single-portfolio">
+							<div class="single-portfolio-img">
+								<img src="assets/img/portfolio/portfolio1.png" alt="portfolio" />
+								<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
+									<i class="icofont icofont-ui-play"></i>
+								</a>
+							</div>
+							<div class="portfolio-content">
+								<h2>Boyz II Men</h2>
+								<div class="review">
+									<div class="author-review">
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+									</div>
+									<h4>180k voters</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 top">
+						<div class="single-portfolio">
+							<div class="single-portfolio-img">
+								<img src="assets/img/portfolio/portfolio2.png" alt="portfolio" />
+								<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
+									<i class="icofont icofont-ui-play"></i>
+								</a>
+							</div>
+							<div class="portfolio-content">
+								<h2>Tale of Revemge</h2>
+								<div class="review">
+									<div class="author-review">
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+									</div>
+									<h4>180k voters</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 soon">
+						<div class="single-portfolio">
+							<div class="single-portfolio-img">
+								<img src="assets/img/portfolio/portfolio3.png" alt="portfolio" />
+								<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
+									<i class="icofont icofont-ui-play"></i>
+								</a>
+							</div>
+							<div class="portfolio-content">
+								<h2>The Lost City of Z</h2>
+								<div class="review">
+									<div class="author-review">
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+									</div>
+									<h4>180k voters</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 top released">
+						<div class="single-portfolio">
+							<div class="single-portfolio-img">
+								<img src="assets/img/portfolio/portfolio4.png" alt="portfolio" />
+								<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
+									<i class="icofont icofont-ui-play"></i>
+								</a>
+							</div>
+							<div class="portfolio-content">
+								<h2>Beast Beauty</h2>
+								<div class="review">
+									<div class="author-review">
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+									</div>
+									<h4>180k voters</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 released">
+						<div class="single-portfolio">
+							<div class="single-portfolio-img">
+								<img src="assets/img/portfolio/portfolio5.png" alt="portfolio" />
+								<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
+									<i class="icofont icofont-ui-play"></i>
+								</a>
+							</div>
+							<div class="portfolio-content">
+								<h2>In The Fade</h2>
+								<div class="review">
+									<div class="author-review">
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+									</div>
+									<h4>180k voters</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 soon top">
+						<div class="single-portfolio">
+							<div class="single-portfolio-img">
+								<img src="assets/img/portfolio/portfolio6.png" alt="portfolio" />
+								<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
+									<i class="icofont icofont-ui-play"></i>
+								</a>
+							</div>
+							<div class="portfolio-content">
+								<h2>Last Hero</h2>
+								<div class="review">
+									<div class="author-review">
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+									</div>
+									<h4>180k voters</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 soon">
+						<div class="single-portfolio">
+							<div class="single-portfolio-img">
+								<img src="assets/img/portfolio/portfolio3.png" alt="portfolio" />
+								<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
+									<i class="icofont icofont-ui-play"></i>
+								</a>
+							</div>
+							<div class="portfolio-content">
+								<h2>The Lost City of Z</h2>
+								<div class="review">
+									<div class="author-review">
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+									</div>
+									<h4>180k voters</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 top released">
+						<div class="single-portfolio">
+							<div class="single-portfolio-img">
+								<img src="assets/img/portfolio/portfolio4.png" alt="portfolio" />
+								<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
+									<i class="icofont icofont-ui-play"></i>
+								</a>
+							</div>
+							<div class="portfolio-content">
+								<h2>Beast Beauty</h2>
+								<div class="review">
+									<div class="author-review">
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+										<i class="icofont icofont-star"></i>
+									</div>
+									<h4>180k voters</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section><!-- portfolio section end -->
+		<!-- video section start -->
+		<section class="video ptb-90">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12">
 					    <div class="section-title pb-20">
-							<h1><i class="icofont icofont-coffee-cup"></i> Latest News</h1>
+							<h1><i class="icofont icofont-film"></i> Trailers & Videos</h1>
 						</div>
 					</div>
 				</div>
 				<hr />
 				<div class="row">
-					<div class="col-lg-12">
-						<div class="single-news">
-							<div class="news-bg-1"></div>
-							<div class="news-date">
-								<h2><span>NOV</span> 25</h2>
-								<h1>2017</h1>
+                    <div class="col-md-12">
+						<div class="video-slider mt-20">
+							<div class="video-area">
+								<img src="assets/img/video/video2.png" alt="video" />
+								<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
+									<i class="icofont icofont-ui-play"></i>
+								</a>
 							</div>
-							<div class="news-content">
-								<h2>The Witch Queen</h2>
-								<p>Witch Queen is a tall woman with a slim build. She has pink hair, which is pulled up under her hat, and teal eyes.</p>
+							<div class="video-area">
+								<img src="assets/img/video/video3.png" alt="video" />
+								<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
+									<i class="icofont icofont-ui-play"></i>
+								</a>
 							</div>
-							<a href="#">Read More</a>
+							<div class="video-area">
+								<img src="assets/img/video/video4.png" alt="video" />
+								<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
+									<i class="icofont icofont-ui-play"></i>
+								</a>
+							</div>
+							<div class="video-area">
+								<img src="assets/img/video/video5.png" alt="video" />
+								<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
+									<i class="icofont icofont-ui-play"></i>
+								</a>
+							</div>
+							<div class="video-area">
+								<img src="assets/img/video/video2.png" alt="video" />
+								<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
+									<i class="icofont icofont-ui-play"></i>
+								</a>
+							</div>
+							<div class="video-area">
+								<img src="assets/img/video/video3.png" alt="video" />
+								<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
+									<i class="icofont icofont-ui-play"></i>
+								</a>
+							</div>
+							<div class="video-area">
+								<img src="assets/img/video/video4.png" alt="video" />
+								<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
+									<i class="icofont icofont-ui-play"></i>
+								</a>
+							</div>
+							<div class="video-area">
+								<img src="assets/img/video/video5.png" alt="video" />
+								<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
+									<i class="icofont icofont-ui-play"></i>
+								</a>
+							</div>
 						</div>
-						<div class="single-news">
-							<div class="news-bg-2"></div>
-							<div class="news-date">
-								<h2><span>NOV</span> 25</h2>
-								<h1>2017</h1>
-							</div>
-							<div class="news-content">
-								<h2>The Witch Queen</h2>
-								<p>Witch Queen is a tall woman with a slim build. She has pink hair, which is pulled up under her hat, and teal eyes.</p>
-							</div>
-							<a href="#">Read More</a>
-						</div>
-						<div class="single-news">
-							<div class="news-bg-3"></div>
-							<div class="news-date">
-								<h2><span>NOV</span> 25</h2>
-								<h1>2017</h1>
-							</div>
-							<div class="news-content">
-								<h2>The Witch Queen</h2>
-								<p>Witch Queen is a tall woman with a slim build. She has pink hair, which is pulled up under her hat, and teal eyes.</p>
-							</div>
-							<a href="#">Read More</a>
-						</div>
-					</div>
+                    </div>
 				</div>
 			</div>
-		</section><!-- blog area end -->
+		</section><!-- video section end -->
 		<!-- footer section start -->
 		<footer class="footer">
 			<div class="container">

@@ -26,40 +26,17 @@
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
+		<style>
+			.movies {
+				color: #00d9e1;
+			}
+		</style>
 	</head>
 	<body>
 		<!-- Page loader -->
 	    <div id="preloader"></div>
 		<!-- header section start -->
-		<header class="header">
-			<div class="container">
-				<div class="header-area">
-					<div class="logo">
-						<a href="index.php"><img src="assets/img/logo.png" alt="logo" /></a>
-					</div>
-				
-					<div class="menu-area">
-						<div class="responsive-menu"></div>
-					    <div class="mainmenu">
-                            <ul id="primary-menu">
-                                <li><a href="index.php">Home</a></li>
-                                <li><a class="active" href="movies.php">Movies</a></li>
-                                <li><a href="celebrities.php">CelebritiesList</a></li>
-                                <li><a href="top-movies.php">Top Movies</a></li>
-                                <li><a href="blog.php">News</a></li>
-								<li><a href="#">Pages <i class="icofont icofont-simple-down"></i></a>
-									<ul>
-										<li><a href="blog-details.php">Blog Details</a></li>
-										<li><a href="movie-details.php">Movie Details</a></li>
-									</ul>
-								</li>
-                                <li><a class="theme-btn" href="#"><i class="icofont icofont-ticket"></i> Tickets</a></li>
-                            </ul>
-					    </div>
-					</div>
-				</div>
-			</div>
-		</header>
+		<?php include("header.php");?>
 		<div class="login-area">
 			<div class="login-box">
 				<a href="#"><i class="icofont icofont-close"></i></a>
