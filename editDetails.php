@@ -50,7 +50,7 @@
         }
     }
 
-    echo '<a href="add'.$_GET['type'].'.php" <button>Go back</button></a>';
+    echo '<button><a href="add'.$_GET['type'].'.php">Go back</a></button>';
 
     if($_GET['type']=="Movie" && $_GET['mode']=="info"){
         echo '

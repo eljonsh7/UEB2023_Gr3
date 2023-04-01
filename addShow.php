@@ -94,6 +94,30 @@
 			margin-top: 5%;
 		}
 		
+		.overlay {
+  			position: fixed;
+  			z-index: 9999;
+  			top: 0;
+  			left: 0;
+  			width: 100%;
+  			height: 100%;
+  			background-color: rgba(0, 0, 0, 0.5);
+		}
+
+		.modal {
+			display: flex;
+  			justify-content: center; /* centers horizontally */
+  			align-items: center; /* centers vertically */
+			width:10%;
+			height:15%;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 5px;
+		}
     </style>
 </head>
 <body style="background-color: #245953;">
@@ -115,6 +139,8 @@
 			<div class="col-md-6">
 				<form id="show-add" method="post">
                     <h2>TV Show</h2>
+					<input type="hidden" name="addForm" value="submitted">
+					
 					<label for="title">Title:</label>
                     <input class="form-control" type="text" id="title" placeholder="Title" name="title"><br>
 
@@ -167,7 +193,7 @@
 			}
 		}
         // check if the form has been submitted
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addForm'])) {
             // check which form was submitted
                 // get the form data
                 $title = new input($_POST['title'],"title");
@@ -212,6 +238,7 @@
                     <th>Cover</th>
 					<th>Trailer</th>
 					<th>Description</th>
+					<th> </th>
 				</tr>';
 		$sql = "SELECT * FROM `tvshows`";
 		$result = mysqli_query( $conn, $sql);
@@ -227,10 +254,29 @@
                                 <td>'.substr($row['Cover'],0,30).'</td>
 								<td>'.substr($row['Trailer'],0,30).'</td>
 								<td>'.substr($row['Description'],0,100).'</td>
+								<td><a href="addShow.php?removeID='.$row['ID'].'&mode=remove">x</a></td>
 				  			</tr>
 						';
 				}
 		echo '</table>';
+		if(isset($_GET['mode'])){
+			echo '<form id="show-remove" method="post">
+					<div class="overlay">
+  						<div class="modal">
+    						<input type="hidden" name="popForm" value="submitted">
+							<button style="background-color:red;margin:2%;"><a href="addShow.php?removeID='.$_GET['removeID'].'&mode=remove&confirm=1">Remove</a></button>
+							<button style="background-color:green;margin:2%;"><a href="addShow.php">Cancel</a></button>
+  						</div>
+					</div>
+					
+					</form>';
+		}
+		if(isset($_GET['confirm'])){
+			$removeID=$_GET['removeID'];
+			$sql = "DELETE FROM `tvshows` WHERE `tvshows`.`ID` = $removeID";
+            mysqli_query($conn, $sql);
+			echo '<script>window.location.href = "addShow.php";</script>';
+		}
         ?>	
 
     <footer>
@@ -243,19 +289,26 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-	<!-- Script to switch between login and register forms -->
+	
 	<script>
-		$(document).ready(function() {
-			$('#show-link').click(function() {
-				$('#movie-add').hide();
-				$('#show-add').show();
-			});
+		const overlay = document.querySelector('.overlay');
 
-			$('#movie-link').click(function() {
-				$('#show-add').hide();
-				$('#movie-add').show();
-			});
+		// Disable scrolling on the background content
+		document.body.style.overflow = 'hidden';
+
+		// Add a click event listener to the overlay
+		overlay.addEventListener('click', (e) => {
+  		if (e.target === overlay) {
+    	// Remove the overlay when it's clicked
+    	overlay.remove();
+		window.location.href = "addMovie.php";
+    
+    	// Enable scrolling on the background content
+    	document.body.style.overflow = '';
+  			}
 		});
+
+
 	</script>
 
 </body>
