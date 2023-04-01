@@ -1,3 +1,12 @@
+<?php
+ $db_host = 'localhost';
+ $db_user = 'root';
+ $db_pass = 'root';
+ $db_name = 'moviedb';
+ $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name,3307);
+
+?>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <header class="header">
 <div class="container">
@@ -20,9 +29,9 @@
                             <li><a href="" class="login-popup">Sign up</a></li>
                         </ul>
                     </li>
-                    <li><form  style = "display: flex;" method = "post" >
+                    <li><form  style = "display: flex;" method = "post" action="results.php">
                         <input type="text" name = "search" placeholder = "Search..." class = "form-control" id = "live_search" autocomplete = "off">
-                        <input type="submit" value="Go">
+                        <input type="submit" name ="submit" value="Go">
                     </form>
                 <div id = "searchresult">
 

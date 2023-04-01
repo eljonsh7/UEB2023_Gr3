@@ -8,7 +8,7 @@ if(isset($_POST['input'])){
 
     $input = mysqli_real_escape_string($conn, $_POST['input']);
 
-    $query = "SELECT Title, Cover FROM tvshows WHERE Title LIKE '{$input}%' UNION SELECT Title, Cover FROM movies WHERE Title LIKE '{$input}%' ";
+    $query = "SELECT Title, Cover FROM tvshows WHERE Title LIKE '%{$input}%' UNION SELECT Title, Cover FROM movies WHERE Title LIKE '%{$input}%' ";
     
     $result = mysqli_query( $conn, $query );
 
@@ -29,5 +29,6 @@ if(isset($_POST['input'])){
     else{
         echo "<h6 class='text-danger text-center mt-3' style = 'position: absolute;' >No movies Found </h6>";
     }
-}
+};
+
 ?>
