@@ -30,7 +30,7 @@
                         </ul>
                     </li>
                     <li><form  style = "display: flex;" method = "post" action="results.php">
-                        <input type="text" name = "search" placeholder = "Search..." class = "form-control" id = "live_search" autocomplete = "off">
+                        <input type="text" name = "search" placeholder = "Search..." class = "form-control" id = "live_search" autocomplete = "off" onkeyup="liveSearch()" onchange="liveSearch()">
                         <input type="submit" name ="submit" value="Go">
                     </form>
                 <div id = "searchresult">
@@ -42,24 +42,22 @@
     </div>
 </div>
 <script type = "text/javascript">
-    $(document).ready(function(){
-        $("#live_search").keyup(function(){
-            var input = $(this).val();
-            if(input != ""){
-                $.ajax({
-                    url: "livesearch.php",
-                    method:"POST",
-                    data:{input:input},
-
-                    success: function(data){
-                        $("#searchresult").html(data);
-                    }
-                });
-            } else {
-                $("#searchresult").css("display", "none");
+  function liveSearch(){
+    var input = $('#live_search').val();
+    if(input != ""){
+        $.ajax({
+            url: "livesearch.php",
+            method:"POST",
+            data:{input:input},
+            success: function(data){
+                $("#searchresult").html(data);
             }
         });
-    });
+    } else {
+        $("#searchresult").css("display", "none");
+    }
+}
+
 
 </script>
 </header>

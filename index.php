@@ -66,6 +66,7 @@
 					$Title = $row['Title'];
 					$Rating = $row['Rating'];
 					$Description = $row['Description'];
+					$Trailer = $row['Trailer'];
 					echo 
 					'<div class="row hero-area-slide">
 								<div class="col-lg-6 col-md-5">
@@ -85,7 +86,7 @@
 										<p>'.$Description.'</p>
 										<div class="slide-trailor">
 											<h3>Watch Trailer</h3>
-											<a class="theme-btn theme-btn2" href="#"><i class="icofont icofont-play"></i> </a>
+											<a class="popup-youtube"  href="'.$Trailer.'"><i class="icofont icofont-play"></i> </a>
 										</div>
 									</div>
 								</div>
@@ -118,7 +119,7 @@
 											<p>'.$Description.'</p>
 											<div class="slide-trailor">
 												<h3>Watch Trailer</h3>
-												<a class="theme-btn theme-btn2" href="#"><i class="icofont icofont-play"></i></a>
+												<a class="popup-youtube"  href="'.$Trailer.'"><i class="icofont icofont-play"></i> </a>
 											</div>
 										</div>
 									</div>
@@ -148,7 +149,7 @@
 											<p>'.$Description2.'</p>
 											<div class="slide-trailor">
 												<h3>Watch Trailer</h3>
-												<a class="theme-btn theme-btn2" href="#"><i class="icofont icofont-play"></i> </a>
+												<a class="popup-youtube"  href="'.$Trailer.'"><i class="icofont icofont-play"></i> </a>
 											</div>
 										</div>
 									</div>

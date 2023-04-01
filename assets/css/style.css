@@ -634,17 +634,11 @@ hr {
   line-height: 60px;
   color: #fff;
   border: 2px solid #fff;
-  border-radius: 50%;
+  border-radius: 10%;
   text-align: center;
-  font-size: 18px;
-  display: inline-block;
   transition: all 0.4s;
   position: absolute;
-  top: 0;
-  bottom: 0;
   margin: auto;
-  left: 0;
-  right: 0;
 }
 
 .video-text {
@@ -1201,7 +1195,7 @@ hr {
   margin-top: 5px;
 }
 
-.login-box form .theme-btn:hover{
+.login-box form .theme-btn:hover {
   color: #00d9e1;
 }
 

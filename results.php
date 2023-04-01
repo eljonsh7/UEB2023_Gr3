@@ -40,27 +40,29 @@
 	    <div id="preloader"></div>
 		<!-- header section start -->
 		<?php include("header.php");?>
-		<section class="breadcrumb-area">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="breadcrumb-area-content">
-							<h3>Results:</h3>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+
 <div style = "">
         <?php
 if (isset($_POST['submit'])) {
     $search = mysqli_real_escape_string($conn, $_POST['search']);
-    
+    echo '<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-area-content">
+                    <h3>Search results for "'.$search.'": </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>';
+
     $query = "SELECT Title, Cover FROM tvshows WHERE Title LIKE '%{$search}%' UNION SELECT Title, Cover FROM movies WHERE Title LIKE '%{$search}%' ";
     
     $result = mysqli_query($conn, $query);
 
     if (mysqli_num_rows($result) > 0) {
+
         echo '<section class="portfolio-area pt-60" >
         <div class="container">
             <div class="row portfolio-item">';
