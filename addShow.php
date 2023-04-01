@@ -189,7 +189,7 @@
 						echo '<script>document.getElementById("'.$inputsTV[$i]->id.'").value="'.$inputsTV[$i]->value.'";</script>';
 					}
 					if(($i == sizeof($inputsTV)-1) && $temp == true){
-						echo "<h3>Please fill out every information about the movie!</h3>";
+						echo "<h3>Please fill out every information about the show!</h3>";
 					}
 				}
 				if($temp == false){
@@ -218,7 +218,7 @@
 				while( $row = mysqli_fetch_array($result) ){
 					echo '
 				  			<tr>
-								<td><a href= "editDetails.php?detailsID='.$row['ID'].'&type=Show">'.$row['Title'].'</a></td>
+								<td><a href= "editDetails.php?detailsID='.$row['ID'].'&type=Show&mode=info">'.$row['Title'].'</a></td>
 								<td>'.$row['StartDate'].'</td>
                                 <td>'.$row['Status'].'</td>
 								<td>'.$row['Rating'].'</td>
