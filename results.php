@@ -57,32 +57,62 @@ if (isset($_POST['submit'])) {
     </div>
 </section>';
 
-    $query = "SELECT Title, Cover FROM tvshows WHERE Title LIKE '%{$search}%' UNION SELECT Title, Cover FROM movies WHERE Title LIKE '%{$search}%' ";
+    $query1 = "SELECT Title, Cover, ID FROM tvshows WHERE Title LIKE '%{$search}%'";
+    $query2 = "SELECT Title, Cover, ID FROM movies WHERE Title LIKE '%{$search}%' ";
     
-    $result = mysqli_query($conn, $query);
+    $result1 = mysqli_query($conn, $query1);
+    $result2 = mysqli_query($conn, $query2);
 
-    if (mysqli_num_rows($result) > 0) {
-
+    if (mysqli_num_rows($result1) > 0) {
         echo '<section class="portfolio-area pt-60" >
         <div class="container">
             <div class="row portfolio-item">';
         
-            while ($row = mysqli_fetch_assoc($result)) {
+            while ($row = mysqli_fetch_assoc($result1)) {
                 $title = $row['Title'];
                 $poster = $row['Cover'];
+                $id = $row['ID'];
                 echo '<div class="col-lg-3 col-md-4 col-sm-6 soon released">
+                <a href = "movie-details.php?id='.$id.'&type=tvshow">
                     <div class="single-portfolio">
                         <div class="single-portfolio-img">
                             <img src="'.$poster.'" alt="portfolio" />
-                            <a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-                                <i class="icofont icofont-ui-play"></i>
-                            </a>
                         </div>
                         <div class="portfolio-content">
                             <h2>'.$title.'</h2>
                         
                         </div>
                     </div>
+                    </a>
+                </div>';
+            }
+            
+        
+        echo '</div>
+        </div>
+    </section';
+    } 
+    else if (mysqli_num_rows($result2) > 0) {
+        echo '<section class="portfolio-area pt-60" >
+        <div class="container">
+            <div class="row portfolio-item">';
+        
+            while ($row = mysqli_fetch_assoc($result2)) {
+                $title = $row['Title'];
+                $poster = $row['Cover'];
+                $id = $row['ID'];
+                echo '<div class="col-lg-3 col-md-4 col-sm-6 soon released">
+                <a href = "movie-details.php?id='.$id.'&type=movie">
+                    <div class="single-portfolio">
+                        <div class="single-portfolio-img">
+                            <img src="'.$poster.'" alt="portfolio" />
+                        </div>
+                        <div class="portfolio-content">
+                            <h2>'.$title.'</h2>
+                        
+                        </div>
+                    </div>
+                    </a>
                 </div>';
             }
             

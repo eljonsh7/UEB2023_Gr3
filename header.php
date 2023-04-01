@@ -30,10 +30,11 @@
                         </ul>
                     </li>
                     <li><form  style = "display: flex;" method = "post" action="results.php">
-                        <input type="text" name = "search" placeholder = "Search..." class = "form-control" id = "live_search" autocomplete = "off" onkeyup="liveSearch()" onchange="liveSearch()">
-                        <input type="submit" name ="submit" value="Go">
+                    <input type="text" name="search" placeholder="Search..." class="form-control" id="live_search" autocomplete="off" onkeyup="liveSearch()" onchange="liveSearch()">
+                    <input type="submit" name ="submit" value="Go" id = "submit" style = "visibility: hidden;">
+                    
                     </form>
-                <div id = "searchresult">
+                    <div id = "searchresult" style = "display: flex; justify-content: left;">
 
                 </div></li>
                 </ul>
@@ -44,7 +45,8 @@
 <script type = "text/javascript">
   function liveSearch(){
     var input = $('#live_search').val();
-    if(input != ""){
+    if(input.length >= 2 ){
+        document.getElementById("submit").style.visibility = "visible";
         $.ajax({
             url: "livesearch.php",
             method:"POST",
@@ -54,9 +56,11 @@
             }
         });
     } else {
-        $("#searchresult").css("display", "none");
+        document.getElementById("submit").style.visibility = "hidden";
+        $("#searchresult").html("");
     }
 }
+
 
 
 </script>

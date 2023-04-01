@@ -1,3 +1,26 @@
+
+<?php
+ $db_host = 'localhost';
+ $db_user = 'root';
+ $db_pass = 'root';
+ $db_name = 'moviedb';
+ $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name,3307);
+ 
+
+ $ID= $_GET['id'];
+
+
+ if($_GET['type']=="movie"){
+     $sql = "SELECT * FROM `movies` WHERE `ID` = $ID";
+ }else if($_GET['type']=="tvshow"){
+     $sql = "SELECT * FROM `tvshows` WHERE `ID` = $ID";
+ }
+
+ $result = mysqli_query( $conn, $sql);
+ $row = mysqli_fetch_array($result);
+ 
+?>
+
 <!DOCTYPE html>
 <html lang="zxx">
   <head>
@@ -338,12 +361,12 @@
           <div class="row flexbox-center">
             <div class="col-lg-5 text-lg-left text-center">
               <div class="transformers-content">
-                <img src="assets/img/slide2.png" alt="about" />
+                <img src="<?php echo $row['Cover']; ?>" alt="about" />
               </div>
             </div>
             <div class="col-lg-7">
               <div class="transformers-content">
-                <h2>The Transformers</h2>
+                <h2><?php echo $row['Title']; ?></h2>
                 <p>3D | Animation | Action | Sci-Fi</p>
                 <ul>
                   <li>

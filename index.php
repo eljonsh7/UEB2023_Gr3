@@ -69,14 +69,14 @@
 					$Trailer = $row['Trailer'];
 					echo 
 					'<div class="row hero-area-slide">
-								<div class="col-lg-6 col-md-5">
+								<div class="col-lg-6 col-md-5"><a href = "movie-details.php?id='.$row['ID'].'&type=movie"">
 									<div class="hero-area-content">
 									<img src="' . $Cover . '" alt="about" id="test123" />
-									</div>
+									</div></a>
 								</div>
 								<div class="col-lg-6 col-md-7">
 									<div class="hero-area-content pr-50">
-										<h2>'.$Title.'</h2>
+									<a href = "movie-details.php?id='.$row['ID'].'&type=movie""><h2>'.$Title.'</h2></a>
 										<div class="review">
 											<div class="author-review">
 												<i class="icofont icofont-star"></i>
