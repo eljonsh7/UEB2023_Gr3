@@ -27,9 +27,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Moviepoint - Online Movie,Vedio and TV Show HTML Template</title>
+    <title>FlixFeast</title>
     <!-- Favicon Icon -->
-    <link rel="icon" type="image/png" href="assets/img/favcion.png" />
+    <link rel="icon" type="image/png" href="assets/img/logo2.png" />
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"

@@ -22,7 +22,7 @@
                     <li><a class="home" href="index.php">Home</a></li>
                     <li><a class="movies" href="movies.php">Movies</a></li>
                     <li><a class="tv" href="tv-shows.php">Tv Shows</a></li>
-                    <li><a class="imdb" href="top-movies.php">Top IMDb</a></li>
+                    <li><a class="imdb" href="imdb.php">Top IMDb</a></li>
                     <li><a href="#">Profile <i class="icofont icofont-simple-down"></i></a>
                         <ul>
                             <li><a href="" class="signup-popup">Log in</a></li>

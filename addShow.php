@@ -4,7 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="css/bootstrap.css"> -->
 	<!-- <link rel="stylesheet" href="style.css"> -->
-    <title>Document</title>
+	<link rel="icon" type="image/png" href="assets/img/logo2.png" />
+    <title>FlixFeast</title>
     <style>
         footer {
             background-color: #333;
