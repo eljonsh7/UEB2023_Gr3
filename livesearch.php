@@ -13,7 +13,7 @@ if(isset($_POST['input'])){
     $result = mysqli_query( $conn, $query );
 
     if(mysqli_num_rows($result) > 0){
-        echo '<table class="table  table-striped" style = "position: absolute;">
+        echo '<table class="table  table-striped" style = "position: absolute; z-index: 10000;">
             <thead>
             </thead>
             <tbody>';

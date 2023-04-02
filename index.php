@@ -72,7 +72,7 @@
 					$Description = $row['Description'];
 					$Trailer = $row['Trailer'];
 					echo 
-					'<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;">
+					'<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;  margin-top: 25%;">
 					<div class="col-lg-6 col-md-5">
 						<a href="movie-details.php?id='.$row['ID'].'&type=movie">
 							<div class="hero-area-content">
@@ -93,8 +93,10 @@
 							</div>
 							<p>'.$Description.'</p>
 							<div class="slide-trailor">
-								<h3>Watch Trailer</h3>
-								<a class="popup-youtube" href="'.$Trailer.'"><i class="icofont icofont-play"></i></a>
+						
+								<a href="'.$Trailer.'" class="theme-btn popup-youtube"
+          >Trailer  ▶</a
+        >
 							</div>
 						</div>
 					</div>
