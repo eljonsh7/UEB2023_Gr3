@@ -65,6 +65,7 @@
 						$Title2 = $row['Title'];
 						$Rating2 = $row['Rating'];
 						$Description2 = $row['Description'];
+						$Trailer2 = $row['Trailer'];
 					}
 					$Cover = $row['Cover'];
 					$Title = $row['Title'];
@@ -93,10 +94,7 @@
 							</div>
 							<p>'.$Description.'</p>
 							<div class="slide-trailor">
-						
-								<a href="'.$Trailer.'" class="theme-btn popup-youtube"
-          >Trailer  ▶</a
-        >
+								<a href="'.$Trailer.'" class="theme-btn popup-youtube">Trailer  ▶</a>
 							</div>
 						</div>
 					</div>
@@ -131,8 +129,7 @@
 											</div>
 											<p>'.$Description.'</p>
 											<div class="slide-trailor">
-												<h3>Watch Trailer</h3>
-												<a class="popup-youtube"  href="'.$Trailer.'"><i class="icofont icofont-play"></i> </a>
+												<a href="'.$Trailer.'" class="theme-btn popup-youtube">Trailer  ▶</a>
 											</div>
 										</div>
 									</div>
@@ -163,8 +160,7 @@
 											</div>
 											<p>'.$Description2.'</p>
 											<div class="slide-trailor">
-												<h3>Watch Trailer</h3>
-												<a class="popup-youtube"  href="'.$Trailer.'"><i class="icofont icofont-play"></i> </a>
+												<a href="'.$Trailer2.'" class="theme-btn popup-youtube">Trailer  ▶</a>
 											</div>
 										</div>
 									</div>
