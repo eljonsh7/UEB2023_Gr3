@@ -84,7 +84,7 @@
 		td{
 			word-wrap: break-word;
 			max-width: 300px;
-			color:;
+			color:white;
 			text-align: center;
 		}
 		table, th, td {

@@ -221,16 +221,7 @@
               <div class="details-overview">
                 <h2>Overview</h2>
                 <p>
-                  Humans are at war with the Transformers, and Optimus Prime is
-                  gone. The key to saving the future lies buried in the secrets
-                  of the past and the hidden history of Transformers on Earth.
-                  Now it's up to the unlikely alliance of inventor Cade Yeager,
-                  Bumblebee, a n English lord and an Oxford professor to save
-                  the world. Transformers: The Last Knight has a deeper mythos
-                  and bigger spectacle than its predecessors, yet still ends up
-                  being mostly hollow and cacophonous. The first "Transformers"
-                  movie that could actually be characterized as badass. Which
-                  isn't a bad thing. It may, in fact, be better.
+                  <?php echo $row['Description'];?>
                 </p>
               </div>
               <div class="details-reply">
