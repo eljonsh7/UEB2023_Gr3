@@ -98,7 +98,7 @@
                             <img src="'.$poster.'" alt="portfolio" />
                         </div>
                         <div class="portfolio-content">
-                            <h5>'.$title.'</h5>
+                            <h5 style = "text-align:center;">'.$title.'</h5>
                         
                         </div>
                     </div>
