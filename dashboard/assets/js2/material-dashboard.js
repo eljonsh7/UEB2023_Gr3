@@ -692,7 +692,7 @@ function darkMode(el) {
 
   const svg = document.querySelectorAll('g');
 
-  if (!el.getAttribute("checked")) {
+  if (el.getAttribute("checked")) {
     body.classList.add('dark-version');
     for (var i = 0; i < hr.length; i++) {
       if (hr[i].classList.contains('dark')) {
