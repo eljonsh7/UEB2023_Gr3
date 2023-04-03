@@ -28,29 +28,56 @@
     .table th {
       white-space: normal;
     }
-    .form-control {
-      /* background-color: white; */
-      padding: 5px;
-      border: 1px solid rgb(0, 0, 0, 0.7);
-      margin-bottom: 5px;
-    }
-    .form-group {
-      width: 600px;
-    }
-    @media (min-width: 768px) {
-      .col-md-6 {
-        flex: 0 0 auto;
-        width: 100%;
-      }
-    }
+
+    .overlay {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 25%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 7px;
+}
+
+    .modal p {
+  margin-top: 0;
+  margin-bottom: 1em;
+  text-align:center;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5%;
+  width:60%;
+}
+.modal-buttons a{
+  width:30%;
+}
   </style>
 </head>
 
-<body class="g-sidenav-show dark-version bg-gray-200">
+<body class="g-sidenav-show  bg-gray-200">
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href="index.php" target="_blank">
+      <a class="navbar-brand m-0" href="../index.php" target="_blank">
         <img src="../assets/img/logo.png" class="navbar-brand-img h-100" alt="main_logo">
       </a>
     </div>
@@ -120,7 +147,7 @@
           <div class="card my-4">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                <h6 class="text-white text-capitalize ps-3">Movie table</h6>
+                <h6 class="text-white text-capitalize ps-3">TV Shows table</h6>
               </div>
             </div>
             <div class="card-body px-0 pb-2">
@@ -209,27 +236,34 @@
                         <td>'.substr($row['Trailer'],0,30).'</td>
                         <td>'.substr($row['Description'],0,40).'</td>
                         <td>'.$row['Genre'].'</td>
-                        <td><a href="addMovie.php?removeID='.$row['ID'].'&mode=remove">x</a></td>
+                        <td><a href="shows-tb.php?removeID='.$row['ID'].'&mode=remove" class = "btn btn-primary text-white">x</a></td>
                     </tr>';
 				}
 		echo '</table>';
 		if(isset($_GET['mode'])){
+      $idRemove=$_GET['removeID'];
+      $sql = "SELECT * FROM `tvshows` WHERE `ID` = $idRemove";
+      $result = mysqli_query($conn, $sql);
+      $row = mysqli_fetch_array($result);
 			echo '<form id="movie-remove" method="post">
 					<div class="overlay">
-  						<div class="modal">
-    						<input type="hidden" name="popForm" value="submitted">
-							<button style="background-color:red;margin:2%;"><a href="addMovie.php?removeID='.$_GET['removeID'].'&mode=remove&confirm=1">Remove</a></button>
-							<button style="background-color:green;margin:2%;"><a href="addMovie.php">Cancel</a></button>
-  						</div>
+            <div class="modal">
+              <input type="hidden" name="popForm" value="submitted">
+              <p>Are you sure you want to remove "'.$row['Title'].'" from our database?</p>
+              <div class="modal-buttons">
+                <a href="shows-tb.php?removeID='.$_GET['removeID'].'&mode=remove&confirm=1" class="btn btn-primary text-white" style="margin:2%;color:white;">Yes</a>
+                <a href="shows-tb.php" class="btn btn-success text-white" style="margin:2%;">No</a></button>
+              </div>
+            </div>
 					</div>
 					
 					</form>';
 		}
 		if(isset($_GET['confirm'])){
 			$removeID=$_GET['removeID'];
-			$sql = "DELETE FROM `movies` WHERE `movies`.`ID` = $removeID";
+			$sql = "DELETE FROM `tvshows` WHERE `tvshows`.`ID` = $removeID";
             mysqli_query($conn, $sql);
-			echo '<script>window.location.href = "addMovie.php";</script>';
+			echo '<script>window.location.href = "shows-tb.php";</script>';
 		}
     ?>
               </div>
@@ -237,73 +271,7 @@
           </div>
         </div>
       </div>
-
-      <button class="btn bg-gradient-dark px-3 mb-2 active" data-class="bg-gradient-dark" onclick="add()">Want to add a tv-show?</button>
-
-      <div class="row justify-content-center mt-5" id="showadd" style="display: none;">
-        <div class="col-md-6" style="display: flex; justify-content: center;">
-          <form id="show-add" method="post">
-            <h2>Add TV-Show</h2>
-            <input type="hidden" name="addForm" value="submitted">
-
-            <div class="form-group">
-              <label for="title">Title:</label>
-              <input class="form-control dark" type="text" id="title" placeholder="Title:" name="title">
-            </div>
-
-            <div class="form-group">
-              <label for="date">Start Date:</label>
-              <input class="form-control dark" type="date" id="date" placeholder=Star "Date:" name="date">
-            </div>
-
-            <div class="form-group">
-              <label for="status">Status:</label>
-              <input class="form-control dark" type="text" id="status" placeholder="Status:" name="status">
-            </div>
-
-            <div class="form-group">
-              <label for="rating">Rating:</label>
-              <input class="form-control dark" type="text" id="rating" placeholder="Rating:" name="rating">
-            </div>
-
-            <div class="form-group">
-              <label for="director">Director:</label>
-              <input class="form-control dark" type="text" id="director" placeholder="Director:" name="director">
-            </div>
-
-            <div class="form-group">
-              <label for="studio">Studio:</label>
-              <input class="form-control dark" type="text" id="studio" placeholder="Studio:" name="studio">
-            </div>
-
-            <div class="form-group">
-              <label for="cover">Cover Link:</label>
-              <input class="form-control dark" type="text" id="cover" placeholder="Cover Link:" name="cover">
-            </div>
-
-            <div class="form-group">
-              <label for="trailer">Trailer Link:</label>
-              <input class="form-control dark" type="text" id="trailer" placeholder="Trailer Link:" name="trailer">
-            </div>
-
-            <div class="form-group">
-              <label for="description">Description:</label>
-              <textarea class="form-control dark" id="description" placeholder="Description:" name="description" style="color:black;" maxlength="1000"></textarea>
-            </div>
-
-            <div class="form-group">
-              <label for="genre">Genre:</label>
-              <input class="form-control dark" type="text" id="genre" placeholder="Genre:" name="genre">
-            </div>
-            <br>
-
-            <div class="form-group">
-              <input class="btn btn-primary" type="submit" value="Submit" name="movie_submit">
-            </div>
-          </form>
-        </div>
-      </div>
-
+      <button class="btn bg-gradient-dark px-3 mb-2 active" data-class="bg-gradient-dark" onclick="add()">Want to add a TV Show?</button>
       <footer class="footer py-4  ">
         <div class="container-fluid">
           <div class="row align-items-center justify-content-lg-between">
@@ -390,13 +358,24 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
     function add() {
-      var showAddDiv = document.getElementById("showadd");
-      if (showAddDiv.style.display === "none") {
-        showAddDiv.style.display = "block";
-      } else {
-        showAddDiv.style.display = "none";
-      }
+      window.location.href = "addShow.php";
     }
+    const overlay = document.querySelector('.overlay');
+
+		// Disable scrolling on the background content
+		document.body.style.overflow = 'hidden';
+
+		// Add a click event listener to the overlay
+		overlay.addEventListener('click', (e) => {
+  		if (e.target === overlay) {
+    	// Remove the overlay when it's clicked
+    	overlay.remove();
+		window.location.href = "shows-tb.php";
+    
+    	// Enable scrolling on the background content
+    	document.body.style.overflow = '';
+  			}
+    });
   </script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
