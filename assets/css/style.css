@@ -1331,3 +1331,21 @@ hr {
 /*--------------------------------------
 --------- Pre Loader Style END ---------
 ---------------------------------------*/
+
+.filmi {
+  align-items: center;
+  width: 221px;
+  height: 330px;
+  border-radius: 5%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.imgContentPortfolio {
+  transition: 0.9s;
+  position: relative;
+}
+
+.imgContentPortfolio:hover {
+  transform: scale(1.2);
+}
