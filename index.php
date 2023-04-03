@@ -36,6 +36,9 @@
             width: 100%;
             overflow: hidden;
         }
+        div.portfolio-content > h2 {
+            font-size: 20px;
+        }
     </style>
 </head>
 
@@ -187,164 +190,68 @@
                 <div class="col-lg-6 text-center text-lg-right">
                     <div class="portfolio-menu">
                         <ul>
-                            <li data-filter="*" class="active">Latest</li>
-                            <li data-filter=".soon">Comming Soon</li>
-                            <li data-filter=".top">Top Rated</li>
-                            <li data-filter=".released">Recently Released</li>
+                            <li data-filter=".latest" class="active" onclick="latest()">Latest</li>
+                            <li data-filter=".top" onclick="top()">Top Rated</li>
                         </ul>
                     </div>
                 </div>
             </div>
             <hr />
             <div class="row">
-                <div class="col-lg-9">
-                    <div class="row portfolio-item">
-                        <div class="col-md-4 col-sm-6 soon released">
-                            <div class="single-portfolio">
-                                <div class="single-portfolio-img">
-                                    <img src="assets/img/portfolio/portfolio1.png" alt="portfolio" />
-                                    <a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-                                        <i class="icofont icofont-ui-play"></i>
-                                    </a>
-                                </div>
-                                <div class="portfolio-content">
-                                    <h2>Boyz II Men</h2>
-                                    <div class="review">
-                                        <div class="author-review">
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4>180k voters</h4>
+                <div class="col-lg-9 portfolio-container latest">
+                    <div class="row portfolio-items" id="latest">
+                        <?php
+                            // Connect to the database
+                            $db = new mysqli('localhost', 'root', 'root', 'moviedb');
+
+                            $query = "SELECT * FROM movies ORDER BY Date DESC LIMIT 6";
+                            $result = $db->query($query);
+
+                            while ($row = $result->fetch_assoc()) {
+                                $title = $row['Title'];
+                                $cover = $row['Cover'];
+                                echo '<div class="col-md-4 col-sm-6 soon released">
+                                        <div class="single-portfolio">
+                                            <div class="single-portfolio-img">';
+                                echo '<img src="' . $cover . '" alt="portfolio" />';
+                                echo '</div>';
+                                echo '<div class="portfolio-content">';
+                                echo '<h2>' . $title . '</h2>';
+                                echo '</div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 top">
-                            <div class="single-portfolio">
-                                <div class="single-portfolio-img">
-                                    <img src="assets/img/portfolio/portfolio2.png" alt="portfolio" />
-                                    <a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-                                        <i class="icofont icofont-ui-play"></i>
-                                    </a>
-                                </div>
-                                <div class="portfolio-content">
-                                    <h2>Tale of Revemge</h2>
-                                    <div class="review">
-                                        <div class="author-review">
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4>180k voters</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 soon">
-                            <div class="single-portfolio">
-                                <div class="single-portfolio-img">
-                                    <img src="assets/img/portfolio/portfolio3.png" alt="portfolio" />
-                                    <a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-                                        <i class="icofont icofont-ui-play"></i>
-                                    </a>
-                                </div>
-                                <div class="portfolio-content">
-                                    <h2>The Lost City of Z</h2>
-                                    <div class="review">
-                                        <div class="author-review">
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4>180k voters</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 top released">
-                            <div class="single-portfolio">
-                                <div class="single-portfolio-img">
-                                    <img src="assets/img/portfolio/portfolio4.png" alt="portfolio" />
-                                    <a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-                                        <i class="icofont icofont-ui-play"></i>
-                                    </a>
-                                </div>
-                                <div class="portfolio-content">
-                                    <h2>Beast Beauty</h2>
-                                    <div class="review">
-                                        <div class="author-review">
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4>180k voters</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 released">
-                            <div class="single-portfolio">
-                                <div class="single-portfolio-img">
-                                    <img src="assets/img/portfolio/portfolio5.png" alt="portfolio" />
-                                    <a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-                                        <i class="icofont icofont-ui-play"></i>
-                                    </a>
-                                </div>
-                                <div class="portfolio-content">
-                                    <h2>In The Fade</h2>
-                                    <div class="review">
-                                        <div class="author-review">
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4>180k voters</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 soon top">
-                            <div class="single-portfolio">
-                                <div class="single-portfolio-img">
-                                    <img src="assets/img/portfolio/portfolio6.png" alt="portfolio" />
-                                    <a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-                                        <i class="icofont icofont-ui-play"></i>
-                                    </a>
-                                </div>
-                                <div class="portfolio-content">
-                                    <h2>Last Hero</h2>
-                                    <div class="review">
-                                        <div class="author-review">
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                            <i class="icofont icofont-star"></i>
-                                        </div>
-                                        <h4>180k voters</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                </div>';
+                            }
+
+                            // Close the database connection
+                            $db->close();
+                        ?>
                     </div>
-                </div>
-                <div class="col-lg-3 text-center text-lg-left">
-                    <div class="portfolio-sidebar">
-                        <img src="assets/img/sidebar/sidebar1.png" alt="sidebar" />
-                        <img src="assets/img/sidebar/sidebar2.png" alt="sidebar" />
-                        <img src="assets/img/sidebar/sidebar3.png" alt="sidebar" />
-                        <img src="assets/img/sidebar/sidebar4.png" alt="sidebar" />
+                    <div class="row portfolio-items" id="top" style="display: none;">
+                        <?php
+                            // Connect to the database
+                            $db = new mysqli('localhost', 'root', 'root', 'moviedb');
+
+                            $query = "SELECT * FROM movies ORDER BY Rating DESC LIMIT 6";
+                            $result = $db->query($query);
+
+                            while ($row = $result->fetch_assoc()) {
+                                $title = $row['Title'];
+                                $cover = $row['Cover'];
+                                echo '<div class="col-md-4 col-sm-6 soon released">
+                                        <div class="single-portfolio">
+                                            <div class="single-portfolio-img">';
+                                echo '<img src="' . $cover . '" alt="portfolio" />';
+                                echo '</div>';
+                                echo '<div class="portfolio-content">';
+                                echo '<h2>' . $title . '</h2>';
+                                echo '</div>
+                                    </div>
+                                </div>';
+                            }
+
+                            // Close the database connection
+                            $db->close();
+                        ?>
                     </div>
                 </div>
             </div>
@@ -512,6 +419,18 @@
     <script src="assets/js/isotope.pkgd.min.js"></script>
     <!-- main JS -->
     <script src="assets/js/main.js"></script>
+
+    <script>
+        function top(){
+            document.getElementById("top").display = "flex";
+            document.getElementById("latest").display = "none";
+        }
+
+        function latest(){
+            document.getElementById("top").display = "none";
+            document.getElementById("latest").display = "flex";
+        }
+    </script>
 
 </body>
 
