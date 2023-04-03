@@ -42,6 +42,40 @@
     .tv {
         color: #00d9e1;
     }
+    .grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 20px;
+}
+#imgContent{
+    width:221px;
+    height:330px;
+  }
+@media screen and (min-width: 576px) {
+  .grid-container {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .grid-container {
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+  }
+  
+}
+
+@media screen and (min-width: 1200px) {
+  .grid-container {
+    grid-template-columns: repeat(4, minmax(250px, 1fr));
+  }
+  
+}
     </style>
 </head>
 
@@ -71,46 +105,42 @@
                 <div class="col-lg-6 text-center text-lg-left">
                     <div class="portfolio-menu">
                         <ul>
-                            <li data-filter="*" class="active">All</li>
-                            <li data-filter=".Crime">Crime</li>
-                            <li data-filter=".Drama">Drama</li>
-                            <li data-filter=".Nature">Nature Documentary</li>
+                            <li data-filter="*" class="active" onclick="checkAjax('All')">All</li>
+                            <li data-filter=".Crime" onclick="checkAjax('Crime')">Crime</li>
+                            <li data-filter=".Drama" onclick="checkAjax('Drama')">Drama</li>
+                            <li data-filter=".Nature" onclick="checkAjax('Documentary')">Documentary</li>
                         </ul>
                     </div>
                 </div>
             </div>
             <hr />
+            <div class="grid-container" id="contentContainer">
             <?php
-				$i = 0;
 			while( $row = mysqli_fetch_array($result) ){
-				$i++;
 				$title = $row['Title'];
                 $poster = $row['Cover'];
                 $id = $row['ID'];
                 $type = $row['Type'];
 				$genre = $row['Genre'];
-				if($i%4==1){
-					echo '<div class="row portfolio-item">';
-				}
-                echo '<div class="col-lg-3 col-md-4 col-sm-6 '.$genre.'">
-                <a href = "movie-details.php?id='.$id.'&type='.$type.'">
-                    <div class="single-portfolio">
-                        <div class="single-portfolio-img">
-                            <img src="'.$poster.'" alt="portfolio" />
+                echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
+                    <div>
+                        <div>
+                            <center>
+                                <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
+                                    <img id="imgContent" src="' . $poster . '" alt="portfolio" style="border-radius:15px;"/>
+                                </a>
+                            </center>
                         </div>
                         <div class="portfolio-content">
-                            <h5>'.$title.'</h5>
-                        
+                            <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
+                                <h5 style = "text-align:center;">' . $title . '</h5>
+                            </a>
                         </div>
                     </div>
-                    </a>
                 </div>';
-				if($i%4==0){
-					echo '</div>';
-				}
 			}
 				?>
-
+            </div>
         </div>
     </section><!-- portfolio section end -->
     <!-- video section start -->
@@ -197,6 +227,22 @@
     <script src="assets/js/isotope.pkgd.min.js"></script>
     <!-- main JS -->
     <script src="assets/js/main.js"></script>
+
+    <script type="text/javascript">
+            function checkAjax(Genre) {
+                $.ajax({
+                    url: 'sortGenre.php?type=tvshow&genre='+ Genre,
+                    method: 'GET',
+                    dataType: 'html',
+                    success: function(data) {
+                    $('#contentContainer').html(data);
+                }
+      
+    });
+  };
+
+
+    </script>
 </body>
 
 </html>

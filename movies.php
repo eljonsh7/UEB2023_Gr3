@@ -107,10 +107,10 @@ $result = mysqli_query($conn, $sql);
                 <div class="col-lg-6 text-center text-lg-left">
                     <div class="portfolio-menu">
                         <ul>
-                            <li data-filter="*" class="active" onclick=checkAjax("All")>All</li>
-                            <li data-filter=".Action" onclick=checkAjax("Action")>Action</li>
-                            <li data-filter=".Drama" onclick=checkAjax("Drama")>Drama</li>
-                            <li data-filter=".Crime" onclick=checkAjax("Crime")>Crime</li>
+                            <li data-filter="*" class="active" onclick="checkAjax('All')">All</li>
+                            <li data-filter=".Action" onclick="checkAjax('Action')">Action</li>
+                            <li data-filter=".Drama" onclick="checkAjax('Drama')">Drama</li>
+                            <li data-filter=".Crime" onclick="checkAjax('Crime')">Crime</li>
                         </ul>
                     </div>
                 </div>
