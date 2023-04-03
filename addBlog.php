@@ -49,51 +49,25 @@
     <!-- breadcrumb area end -->
 
 
-    <form id="movie-add" method="post" style=" margin: 0 auto; width: 50%;">
-        <h2>Movie</h2>
+    <form id="blog-add" method="post" style="width: 50%; margin: 0 auto;">
+        <h2>Blog</h2>
         <input type="hidden" name="addForm" value="submitted">
         <label for="title">Title:</label>
         <input class="form-control" type="text" id="title" placeholder="Title:" name="title"><br>
 
-        <label for="date">Date:</label>
-        <input class="form-control" type="date" id="date" placeholder="Date:" name="date"><br>
+        <label for="id">Author ID:</label>
+        <input class="form-control" type="text" id="id" placeholder="Author ID:" name="id"><br>
 
-        <label for="rating">Rating:</label>
-        <input class="form-control" type="text" id="rating" placeholder="Rating:" name="rating"><br>
+        <label for="content">Content:</label>
+        <textarea class="form-control" id="content" placeholder="Content:" name="content"></textarea><br>
 
-        <label for="director">Director:</label>
-        <input class="form-control" type="text" id="director" placeholder="Director:" name="director"><br>
+        <label for="image">Image URL:</label>
+        <input class="form-control" type="text" id="image" placeholder="Image URL:" name="image"><br>
 
-        <label for="studio">Studio:</label>
-        <input class="form-control" type="text" id="studio" placeholder="Studio:" name="studio"><br>
 
-        <label for="cover">Cover Link:</label>
-        <input class="form-control" type="text" id="cover" placeholder="Cover Link:" name="cover"><br>
-
-        <label for="trailer">Trailer Link:</label>
-        <input class="form-control" type="text" id="trailer" placeholder="Trailer Link:" name="trailer"><br>
-
-        <label for="description">Description:</label>
-        <textarea class="form-control" id="description" placeholder="Description:" name="description" style="color:black;" maxlength="1000"></textarea><br>
-
-        <label for="genre">Genre:</label>
-        <input class="form-control" type="text" id="genre" placeholder="Genre:" name="genre"><br>
-
-        <label for="length">Length:</label>
-        <input class="form-control" type="text" id="length" placeholder="Length:" name="length"><br>
-
-        <input class="form-control submit" type="submit" value="Submit" name="movie_submit">
+        <input class="form-control submit" type="submit" value="Submit" name="blog_submit">
     </form>
-    <section class="breadcrumb-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb-area-content">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
     <?php
     // connect to the database
     $db_host = 'localhost';
@@ -120,16 +94,10 @@
 
         // get the form data
         $title = new input($_POST['title'], "title");
-        $date = new input($_POST['date'], "date");
-        $rating = new input($_POST['rating'], "rating");
-        $director = new input($_POST['director'], "director");
-        $studio = new input($_POST['studio'], "studio");
-        $cover = new input($_POST['cover'], "cover");
-        $trailer = new input($_POST['trailer'], "trailer");
-        $description = new input(mysqli_real_escape_string($conn, $_POST['description']), "description");
-        $genre = new input($_POST['genre'], "genre");
-        $length = new input($_POST['length'], "length");
-        $inputs = [$title, $date, $rating, $director, $studio, $cover, $trailer, $description, $genre, $length];
+        $id = new input($_POST['id'], "id");
+        $content = new input($_POST['content'], "content");
+        $image = new input($_POST['image'], "image");
+        $inputs = [$title, $id, $content, $image];
         $temp = false;
         for ($i = 0; $i < sizeof($inputs); $i++) {
             if (empty($inputs[$i]->value)) {
@@ -139,12 +107,12 @@
                 echo '<script>document.getElementById("' . $inputs[$i]->id . '").value="' . $inputs[$i]->value . '";</script>';
             }
             if (($i == sizeof($inputs) - 1) && $temp == true) {
-                echo "<h3>Please fill out every information about the movie!</h3>";
+                echo "<h3>Please fill out every information about the blog!</h3>";
             }
         }
         if ($temp == false) {
             // insert the data into the movies table
-            $sql = "INSERT INTO movies (Title, Date, Rating, Director, Studio, Trailer, Description, Cover, Genre, Length) VALUES ('$title->value', '$date->value', '$rating->value', '$director->value', '$studio->value',  '$trailer->value','$description->value','$cover->value', '$genre->value', '$length->value')";
+            $sql = "INSERT INTO blogs (Title, AuthorID, Content, Image) VALUES ('$title->value', '$date->value', '$rating->value', '$director->value', '$studio->value',  '$trailer->value','$description->value','$cover->value', '$genre->value', '$length->value')";
             mysqli_query($conn, $sql);
             for ($i = 0; $i < sizeof($inputs); $i++) {
                 echo '<script>document.getElementById("' . $inputs[$i]->id . '").value="' . "" . '";</script>';
@@ -152,48 +120,36 @@
         }
     }
 
-    echo '<table style=" margin: 0 auto; width: 90%;" class = "table table-bordered">
+    echo '<table style="margin: 0 auto;">
 				<tr>
 					<th>Title</th>
-					<th>Date</th>
-					<th>Rating</th>
-					<th>Director</th>
-					<th>Studio</th>
-					<th>Trailer</th>
-					<th>Description</th>
-					<th>Cover</th>
-					<th>Genre</th>
-					<th>Length</th>
+					<th>Author ID:</th>
+					<th>Content</th>
+					<th>Image URL:</th>
 					<th></th>
 				</tr>';
-    $sql = "SELECT * FROM `movies`";
+    $sql = "SELECT * FROM `blogs`";
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_array($result)) {
         echo '
 				  			<tr>
-								<td><a href="editDetails.php?detailsID=' . $row['ID'] . '&type=Movie&mode=info">' . $row['Title'] . '</a></td>
-								<td>' . $row['Date'] . '</td>
-								<td>' . $row['Rating'] . '</td>
-								<td>' . $row['Director'] . '</td>
-								<td>' . $row['Studio'] . '</td>
-								<td>' . substr($row['Trailer'], 0, 30) . '</td>
-								<td>' . substr($row['Description'], 0, 100) . '</td>
-								<td>' . substr($row['Cover'], 0, 30) . '</td>
-								<td>' . $row['Genre'] . '</td>
-								<td>' . $row['Length'] . '</td>
-								<td><a href="addMovie.php?removeID=' . $row['ID'] . '&mode=remove"><img style = "width: 50px;" src="assets/img/x.png">
-                                </a></td>
+								<td><a href="editDetails.php?detailsID=' . $row['ID'] . '&type=Blogs&mode=info">' . $row['Title'] . '</a></td>
+								<td>' . $row['Title'] . '</td>
+								<td>' . $row['AuthorID'] . '</td>
+								<td>' . $row['Content'] . '</td>
+								<td>' . $row['Image'] . '</td>
+								<td><a href="addBlog.php?removeID=' . $row['ID'] . '&mode=remove">x</a></td>
 				  			</tr>
 					';
     }
     echo '</table>';
     if (isset($_GET['mode'])) {
-        echo '<form id="movie-remove" method="post">
+        echo '<form id="blog-remove" method="post">
 					<div class="overlay">
   						<div class="modal">
     						<input type="hidden" name="popForm" value="submitted">
-							<button style="background-color:red;margin:2%;"><a href="addMovie.php?removeID=' . $_GET['removeID'] . '&mode=remove&confirm=1">Remove</a></button>
-							<button style="background-color:green;margin:2%;"><a href="addMovie.php">Cancel</a></button>
+							<button style="background-color:red;margin:2%;"><a href="addBlog.php?removeID=' . $_GET['removeID'] . '&mode=remove&confirm=1">Remove</a></button>
+							<button style="background-color:green;margin:2%;"><a href="addBlog.php">Cancel</a></button>
   						</div>
 					</div>
 					
@@ -201,11 +157,12 @@
     }
     if (isset($_GET['confirm'])) {
         $removeID = $_GET['removeID'];
-        $sql = "DELETE FROM `movies` WHERE `movies`.`ID` = $removeID";
+        $sql = "DELETE FROM `blogs` WHERE `blogs`.`ID` = $removeID";
         mysqli_query($conn, $sql);
-        echo '<script>window.location.href = "addMovie.php";</script>';
+        echo '<script>window.location.href = "addBlog.php";</script>';
     }
     ?>
+
 
     <!-- details area end -->
     <!-- footer section start -->

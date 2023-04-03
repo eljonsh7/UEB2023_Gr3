@@ -39,9 +39,10 @@ $result = mysqli_query($conn, $sql);
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
     <style>
-        .movies {
-            color: #00d9e1;
-        }
+    .movies {
+
+        color: #00d9e1;
+    }
     </style>
 </head>
 

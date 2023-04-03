@@ -27,14 +27,15 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
     <style>
-    .home {
-        color: #00d9e1;
-    }
+        .home {
+            visibility: hidden;
+            color: #00d9e1;
+        }
 
-    .img-wrapper {
-        width: 100%;
-        overflow: hidden;
-    }
+        .img-wrapper {
+            width: 100%;
+            overflow: hidden;
+        }
     </style>
 </head>
 
@@ -42,42 +43,42 @@
     <!-- Page loader -->
     <div id="preloader"></div>
     <!-- header section start -->
-    <?php include("header.php");?>
-    <?php 
-			$db_host = 'localhost';
-			$db_user = 'root';
-			$db_pass = 'root';
-			$db_name = 'moviedb';
-			$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
-			
-			$sql = "SELECT * FROM `movies`";
+    <?php include("header.php"); ?>
+    <?php
+    $db_host = 'localhost';
+    $db_user = 'root';
+    $db_pass = 'root';
+    $db_name = 'moviedb';
+    $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
 
-			$result = mysqli_query( $conn, $sql );
-		?>
+    $sql = "SELECT * FROM `movies`";
+
+    $result = mysqli_query($conn, $sql);
+    ?>
     <section class="hero-area" id="home">
         <div class="container">
             <div class="hero-area-slider">
-                <?php 
-				$count=0;
-				$result = mysqli_query( $conn, $sql);
-				while( $row = mysqli_fetch_array($result) ){
-					$count++;
-					if($count==2){
-						$Cover2=$row['Cover'];
-						$Title2 = $row['Title'];
-						$Rating2 = $row['Rating'];
-						$Description2 = $row['Description'];
-						$Trailer2 = $row['Trailer'];
-					}
-					$Cover = $row['Cover'];
-					$Title = $row['Title'];
-					$Rating = $row['Rating'];
-					$Description = $row['Description'];
-					$Trailer = $row['Trailer'];
-					echo 
-					'<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;  margin-top: 25%;">
+                <?php
+                $count = 0;
+                $result = mysqli_query($conn, $sql);
+                while ($row = mysqli_fetch_array($result)) {
+                    $count++;
+                    if ($count == 2) {
+                        $Cover2 = $row['Cover'];
+                        $Title2 = $row['Title'];
+                        $Rating2 = $row['Rating'];
+                        $Description2 = $row['Description'];
+                        $Trailer2 = $row['Trailer'];
+                    }
+                    $Cover = $row['Cover'];
+                    $Title = $row['Title'];
+                    $Rating = $row['Rating'];
+                    $Description = $row['Description'];
+                    $Trailer = $row['Trailer'];
+                    echo
+                    '<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;  margin-top: 25%;">
 					<div class="col-lg-6 col-md-5">
-						<a href="movie-details.php?id='.$row['ID'].'&type=movie">
+						<a href="movie-details.php?id=' . $row['ID'] . '&type=movie">
 							<div class="hero-area-content">
 								<div class="img-wrapper" style="margin-bottom:4%;margin-top:-8.5%;">
 									<img src="' . $Cover . '" style="width: 100%;" alt="about" id="test123" />
@@ -87,32 +88,33 @@
 					</div>
 					<div class="col-lg-6 col-md-7">
 						<div class="hero-area-content pr-50">
-							<a href="movie-details.php?id='.$row['ID'].'&type=movie"><h2>'.$Title.'</h2></a>
+							<a href="movie-details.php?id=' . $row['ID'] . '&type=movie"><h2>' . $Title . '</h2></a>
 							<div class="review">
 								<div class="author-review">
 									<i class="icofont icofont-star"></i>
 								</div>
-								<h4>'.$Rating.'</h4>
+								<h4>' . $Rating . '</h4>
 							</div>
-							<p>'.$Description.'</p>
+							<p>' . $Description . '</p>
 							<div class="slide-trailor">
-								<a href="'.$Trailer.'" class="theme-btn popup-youtube">Trailer  ▶</a>
+								<a href="' . $Trailer . '" class="theme-btn popup-youtube">Trailer  ▶</a>
 							</div>
 						</div>
 					</div>
 				</div>
 				
-							';}
-				?>
+							';
+                }
+                ?>
 
             </div>
         </div>
         </div>
         <div class="hero-area-thumb">
             <div class="thumb-prev">
-                <?php 
-						echo 
-						'<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;">
+                <?php
+                echo
+                '<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;">
 									<div class="col-lg-6 col-md-5">
 										<div class="hero-area-content">
 											<div class="img-wrapper" style="margin-bottom:4%;margin-top:-8.5%;">
@@ -122,28 +124,28 @@
 									</div>
 									<div class="col-lg-6 col-md-7">
 										<div class="hero-area-content pr-50">
-											<h2>'.$Title.'</h2>
+											<h2>' . $Title . '</h2>
 											<div class="review">
 												<div class="author-review">
 													<i class="icofont icofont-star"></i>
 												</div>
-												<h4>'.$Rating.'</h4>
+												<h4>' . $Rating . '</h4>
 											</div>
-											<p>'.$Description.'</p>
+											<p>' . $Description . '</p>
 											<div class="slide-trailor">
-												<a href="'.$Trailer.'" class="theme-btn popup-youtube">Trailer  ▶</a>
+												<a href="' . $Trailer . '" class="theme-btn popup-youtube">Trailer  ▶</a>
 											</div>
 										</div>
 									</div>
 								</div>
 								';
-					
-					?>
+
+                ?>
             </div>
             <div class="thumb-next">
-                <?php 
-						echo 
-						'<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;">
+                <?php
+                echo
+                '<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;">
 									<div class="col-lg-6 col-md-5">
 										<div class="hero-area-content">
 											<div class="img-wrapper" style="margin-bottom:4%;margin-top:-8.5%;">
@@ -153,23 +155,23 @@
 									</div>
 									<div class="col-lg-6 col-md-7">
 										<div class="hero-area-content pr-50">
-											<h2>'.$Title2.'</h2>
+											<h2>' . $Title2 . '</h2>
 											<div class="review">
 												<div class="author-review">
 													<i class="icofont icofont-star"></i>
 												</div>
-												<h4>'.$Rating2.'</h4>
+												<h4>' . $Rating2 . '</h4>
 											</div>
-											<p>'.$Description2.'</p>
+											<p>' . $Description2 . '</p>
 											<div class="slide-trailor">
-												<a href="'.$Trailer2.'" class="theme-btn popup-youtube">Trailer  ▶</a>
+												<a href="' . $Trailer2 . '" class="theme-btn popup-youtube">Trailer  ▶</a>
 											</div>
 										</div>
 									</div>
 								</div>
 								';
-					
-					?>
+
+                ?>
             </div>
         </div>
     </section><!-- hero area end -->
@@ -494,7 +496,7 @@
         </div>
     </section><!-- news section end -->
     <!-- footer section start -->
-    <?php include("footer.php");?>
+    <?php include("footer.php"); ?>
     <!-- footer section end -->
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>

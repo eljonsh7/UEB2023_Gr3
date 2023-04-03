@@ -95,7 +95,7 @@
     td {
         word-wrap: break-word;
         max-width: 300px;
-        color: ;
+        /* color: ; */
         text-align: center;
     }
 
