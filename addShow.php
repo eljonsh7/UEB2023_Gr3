@@ -7,156 +7,101 @@
     <!-- <link rel="stylesheet" href="style.css"> -->
     <link rel="icon" type="image/png" href="assets/img/logo2.png" />
     <title>FlixFeast</title>
-    <style>
-    footer {
-        background-color: #333;
-        color: #fff;
-        padding: 10px;
-        margin-top: 50px;
-        text-align: center;
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="assets/css2/nucleo-icons.css" rel="stylesheet" />
+  <link href="assets/css2/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="assets/css2/material-dashboard.css?v=3.0.5" rel="stylesheet" />
+  <!-- Nepcha Analytics (nepcha.com) -->
+  <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+  <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+  <style>
+    .table td,
+    .table th {
+      white-space: normal;
     }
-
-    .nav-links {
-        display: flex;
-        list-style: none;
+    .form-control {
+      background-color: white;
+      padding: 5px;
     }
-
-    ul {
-        margin-top: 13px;
+    .form-group {
+      width: 600px;
     }
-
-    .nav-links li {
-        margin-right: 20px;
-    }
-
-    .nav-links a,
-    a {
-        color: #fff;
-        text-decoration: none;
-    }
-
-    ul li a {
-        padding: 8px 10px;
-        border-radius: 5px;
-        font-weight: 700;
-    }
-
-    ul li a:hover {
-        background-color: white;
-        color: #333;
-    }
-
-    * {
-        color: white;
-    }
-
-    input {
-        color: grey;
-    }
-
-    header {
-        background-color: #333;
-        color: #fff;
-        padding: 10px;
-    }
-
-    nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 0 10%;
-    }
-
-    .logo img {
-        height: 50px;
-    }
-
-    a#show-link,
-    a#movie-link {
-        color: #333;
-    }
-
-    a#show-link:hover,
-    a#movie-link:hover {
-        color: white;
-    }
-
-    .submit {
-        color: white;
-        background-color: #333;
-        border: none;
-    }
-
-    h2 {
-        display: flex;
-        justify-content: center;
-    }
-
-    td {
-        word-wrap: break-word;
-        max-width: 300px;
-        /* color: ; */
-        text-align: center;
-    }
-
-    table,
-    th,
-    td {
-        border: 2px solid grey;
-        border-collapse: collapse;
-    }
-
-    table {
-        margin-top: 5%;
-    }
-
-    .overlay {
-        position: fixed;
-        z-index: 9999;
-        top: 0;
-        left: 0;
+    @media (min-width: 768px) {
+      .col-md-6 {
+        flex: 0 0 auto;
         width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
+      }
     }
-
-    .modal {
-        display: flex;
-        justify-content: center;
-        /* centers horizontally */
-        align-items: center;
-        /* centers vertically */
-        width: 10%;
-        height: 15%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-    }
-    </style>
+    body{overflow-x: hidden;}
+  </style>
 </head>
 
-<body style="background-color: #245953;">
-    <header>
-        <nav>
-            <div class="logo">
-                <!-- <a href="index.php"><img src="img/logo.png"></a> -->
+<body class="g-sidenav-show  bg-gray-200">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" href="index.php" target="_blank">
+        <img src="assets/img/logo.png" class="navbar-brand-img h-100" alt="main_logo">
+      </a>
+    </div>
+    <hr class="horizontal light mt-0 mb-2">
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link text-white " href="dashboard.php">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">dashboard</i>
             </div>
-            <ul class="nav-links">
-                <li><a href="home.php">Home</a></li>
-                <li><a href="movies.php">Movies</a></li>
-                <li><a href="shows.php">TV Shows</a></li>
-                <li><a href="imdb.php">Top IMDb</a></li>
-            </ul>
-        </nav>
-    </header>
-    <div class="container">
-        <div class="row justify-content-center mt-5">
-            <div class="col-md-6">
-                <form id="show-add" method="post">
+            <span class="nav-link-text ms-1">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="movies-tb.php">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">table_view</i>
+            </div>
+            <span class="nav-link-text ms-1">Movies table</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white active bg-gradient-primary" href="shows-tb.php">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">table_view</i>
+            </div>
+            <span class="nav-link-text ms-1">Tv Shows table</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="profile.php">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">person</i>
+            </div>
+            <span class="nav-link-text ms-1">Profile</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="sign-up.php">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">assignment</i>
+            </div>
+            <span class="nav-link-text ms-1">Sign Out</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+
+  <div class="row justify-content-center mt-5" id="movieadd">
+        <div class="col-md-6" style="display: flex; justify-content: center;">
+        <form id="show-add" method="post">
                     <h2>TV Show</h2>
                     <input type="hidden" name="addForm" value="submitted">
 
@@ -164,8 +109,7 @@
                     <input class="form-control" type="text" id="title" placeholder="Title" name="title"><br>
 
                     <label for="startdate">Start Date:</label>
-                    <input class="form-control" type="date" id="startdate" placeholder="Start Date"
-                        name="startdate"><br>
+                    <input class="form-control" type="date" id="startdate" placeholder="Start Date" name="startdate"><br>
 
                     <label for="status">Status:</label>
                     <input class="form-control" type="text" id="status" placeholder="Status" name="status"><br>
@@ -191,13 +135,14 @@
 
                     <label for="genre">Genre:</label>
                     <input class="form-control" type="text" id="genre" placeholder="Genre:" name="genre"><br>
+            <br>
 
-                    <input class="form-control submit" type="submit" value="Submit" name="show_submit">
-                </form>
-
+                <div class="form-group">
+              <input class="btn btn-primary" type="submit" value="Submit" name="movie_submit">
             </div>
+          </form>
         </div>
-    </div>
+      </div>
     <?php
         // connect to the database
         $db_host = 'localhost';
@@ -240,7 +185,7 @@
 						echo '<script>document.getElementById("'.$inputsTV[$i]->id.'").value="'.$inputsTV[$i]->value.'";</script>';
 					}
 					if(($i == sizeof($inputsTV)-1) && $temp == true){
-						echo "<h3>Please fill out every information about the show!</h3>";
+						echo "<h6 style='text-align:center;'>Please fill out every information about the show!</h6>";
 					}
 				}
 				if($temp == false){
@@ -249,63 +194,12 @@
                 	mysqli_query($conn, $sql);
 					for($i = 0; $i < sizeof($inputsTV) ; $i++){
 						echo '<script>document.getElementById("'.$inputsTV[$i]->id.'").value="'."".'";</script>';
-				}
+				    }
+                    echo '<script>window.location.href = "shows-tb.php";</script>';
 				}
         }
-        echo '<table>
-				<tr>
-					<th>Title</th>
-					<th>Start Date</th>
-                    <th>Status</th>
-					<th>Rating</th>
-					<th>Director</th>
-					<th>Studio</th>
-                    <th>Cover</th>
-					<th>Trailer</th>
-					<th>Description</th>
-					<th>Genre</th>
-					<th> </th>
-				</tr>';
-		$sql = "SELECT * FROM `tvshows`";
-		$result = mysqli_query( $conn, $sql);
-				while( $row = mysqli_fetch_array($result) ){
-					echo '
-				  			<tr>
-								<td><a href= "editDetails.php?detailsID='.$row['ID'].'&type=Show&mode=info">'.$row['Title'].'</a></td>
-								<td>'.$row['StartDate'].'</td>
-                                <td>'.$row['Status'].'</td>
-								<td>'.$row['Rating'].'</td>
-								<td>'.$row['Director'].'</td>
-								<td>'.$row['Studio'].'</td>
-                                <td>'.substr($row['Cover'],0,30).'</td>
-								<td>'.substr($row['Trailer'],0,30).'</td>
-								<td>'.substr($row['Description'],0,100).'</td>
-								<td>'.$row['Genre'].'</td>
-								<td><a href="addShow.php?removeID='.$row['ID'].'&mode=remove">x</a></td>
-				  			</tr>
-						';
-				}
-		echo '</table>';
-		if(isset($_GET['mode'])){
-			echo '<form id="show-remove" method="post">
-					<div class="overlay">
-  						<div class="modal">
-    						<input type="hidden" name="popForm" value="submitted">
-							<button style="background-color:red;margin:2%;"><a href="addShow.php?removeID='.$_GET['removeID'].'&mode=remove&confirm=1">Remove</a></button>
-							<button style="background-color:green;margin:2%;"><a href="addShow.php">Cancel</a></button>
-  						</div>
-					</div>
-					
-					</form>';
-		}
-		if(isset($_GET['confirm'])){
-			$removeID=$_GET['removeID'];
-			$sql = "DELETE FROM `tvshows` WHERE `tvshows`.`ID` = $removeID";
-            mysqli_query($conn, $sql);
-			echo '<script>window.location.href = "addShow.php";</script>';
-		}
         ?>
-
+    </main>
     <footer>
         <p>&copy; 2023 FlixFeast. All rights reserved.</p>
         <p>Made with commitment by BBEÇ.</p>
@@ -317,24 +211,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
-    <script>
-    const overlay = document.querySelector('.overlay');
-
-    // Disable scrolling on the background content
-    document.body.style.overflow = 'hidden';
-
-    // Add a click event listener to the overlay
-    overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) {
-            // Remove the overlay when it's clicked
-            overlay.remove();
-            window.location.href = "addMovie.php";
-
-            // Enable scrolling on the background content
-            document.body.style.overflow = '';
-        }
-    });
-    </script>
+    
 
 </body>
 

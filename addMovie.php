@@ -6,94 +6,163 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>FlixFeast</title>
-    <!-- Favicon Icon -->
-    <link rel="icon" type="image/png" href="assets/img/logo2.png" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" media="all" />
-    <!-- Slick nav CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/slicknav.min.css" media="all" />
-    <!-- Iconfont CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/icofont.css" media="all" />
-    <!-- Owl carousel CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/owl.carousel.css" />
-    <!-- Popup CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/magnific-popup.css" />
-    <!-- Main style CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css" media="all" />
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css" media="all" />
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="assets/css2/nucleo-icons.css" rel="stylesheet" />
+  <link href="assets/css2/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="assets/css2/material-dashboard.css?v=3.0.5" rel="stylesheet" />
+  <!-- Nepcha Analytics (nepcha.com) -->
+  <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+  <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+  <style>
+    .table td,
+    .table th {
+      white-space: normal;
+    }
+    .form-control {
+      background-color: white;
+      padding: 5px;
+    }
+    .form-group {
+      width: 600px;
+    }
+    @media (min-width: 768px) {
+      .col-md-6 {
+        flex: 0 0 auto;
+        width: 100%;
+      }
+    }
+    body{overflow-x: hidden;}
+  </style>
 </head>
 
-<body>
-    <!-- Page loader -->
-    <div id="preloader"></div>
-    <!-- header section start -->
-    <?php include("header.php"); ?>
 
-    <!-- header section end -->
-    <!-- breadcrumb area start -->
-    <section class="breadcrumb-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb-area-content">
-                    </div>
-                </div>
+<body class="g-sidenav-show  bg-gray-200">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark" id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" href="index.php" target="_blank">
+        <img src="assets/img/logo.png" class="navbar-brand-img h-100" alt="main_logo">
+      </a>
+    </div>
+    <hr class="horizontal light mt-0 mb-2">
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link text-white " href="dashboard.php">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">dashboard</i>
             </div>
-        </div>
-    </section>
-    <!-- breadcrumb area end -->
-
-
-    <form id="movie-add" method="post" style=" margin: 0 auto; width: 50%;">
-        <h2>Movie</h2>
-        <input type="hidden" name="addForm" value="submitted">
-        <label for="title">Title:</label>
-        <input class="form-control" type="text" id="title" placeholder="Title:" name="title"><br>
-
-        <label for="date">Date:</label>
-        <input class="form-control" type="date" id="date" placeholder="Date:" name="date"><br>
-
-        <label for="rating">Rating:</label>
-        <input class="form-control" type="text" id="rating" placeholder="Rating:" name="rating"><br>
-
-        <label for="director">Director:</label>
-        <input class="form-control" type="text" id="director" placeholder="Director:" name="director"><br>
-
-        <label for="studio">Studio:</label>
-        <input class="form-control" type="text" id="studio" placeholder="Studio:" name="studio"><br>
-
-        <label for="cover">Cover Link:</label>
-        <input class="form-control" type="text" id="cover" placeholder="Cover Link:" name="cover"><br>
-
-        <label for="trailer">Trailer Link:</label>
-        <input class="form-control" type="text" id="trailer" placeholder="Trailer Link:" name="trailer"><br>
-
-        <label for="description">Description:</label>
-        <textarea class="form-control" id="description" placeholder="Description:" name="description" style="color:black;" maxlength="1000"></textarea><br>
-
-        <label for="genre">Genre:</label>
-        <input class="form-control" type="text" id="genre" placeholder="Genre:" name="genre"><br>
-
-        <label for="length">Length:</label>
-        <input class="form-control" type="text" id="length" placeholder="Length:" name="length"><br>
-
-        <input class="form-control submit" type="submit" value="Submit" name="movie_submit">
-    </form>
-    <section class="breadcrumb-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb-area-content">
-                    </div>
-                </div>
+            <span class="nav-link-text ms-1">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white active bg-gradient-primary" href="movies-tb.php">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">table_view</i>
             </div>
+            <span class="nav-link-text ms-1">Movies table</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="shows-tb.php">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">table_view</i>
+            </div>
+            <span class="nav-link-text ms-1">Tv Shows table</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="profile.php">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">person</i>
+            </div>
+            <span class="nav-link-text ms-1">Profile</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="sign-up.php">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">assignment</i>
+            </div>
+            <span class="nav-link-text ms-1">Sign Out</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+
+  <div class="row justify-content-center mt-5" id="movieadd">
+        <div class="col-md-6" style="display: flex; justify-content: center;">
+          <form id="movie-add" method="post">
+            <h2>Movie</h2>
+            <input type="hidden" name="addForm" value="submitted">
+
+            <div class="form-group">
+              <label for="title">Title:</label>
+              <input class="form-control" type="text" id="title" placeholder="Title:" name="title">
+            </div>
+
+            <div class="form-group">
+              <label for="date">Date:</label>
+              <input class="form-control" type="date" id="date" placeholder="Date:" name="date">
+            </div>
+
+            <div class="form-group">
+              <label for="rating">Rating:</label>
+              <input class="form-control" type="text" id="rating" placeholder="Rating:" name="rating">
+            </div>
+
+            <div class="form-group">
+              <label for="director">Director:</label>
+              <input class="form-control" type="text" id="director" placeholder="Director:" name="director">
+            </div>
+
+            <div class="form-group">
+              <label for="studio">Studio:</label>
+              <input class="form-control" type="text" id="studio" placeholder="Studio:" name="studio">
+            </div>
+
+            <div class="form-group">
+              <label for="cover">Cover Link:</label>
+              <input class="form-control" type="text" id="cover" placeholder="Cover Link:" name="cover">
+            </div>
+
+            <div class="form-group">
+              <label for="trailer">Trailer Link:</label>
+              <input class="form-control" type="text" id="trailer" placeholder="Trailer Link:" name="trailer">
+            </div>
+
+            <div class="form-group">
+              <label for="description">Description:</label>
+              <textarea class="form-control" id="description" placeholder="Description:" name="description" style="color:black;" maxlength="1000"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="genre">Genre:</label>
+              <input class="form-control" type="text" id="genre" placeholder="Genre:" name="genre">
+            </div>
+
+            <div class="form-group">
+              <label for="length">Length:</label>
+              <input class="form-control" type="text" id="length" placeholder="Length:" name="length">
+            </div>
+            <br>
+
+            <div class="form-group">
+              <input class="btn btn-primary" type="submit" value="Submit" name="movie_submit">
+            </div>
+          </form>
         </div>
-    </section>
+      </div>
     <?php
     // connect to the database
     $db_host = 'localhost';
@@ -139,7 +208,7 @@
                 echo '<script>document.getElementById("' . $inputs[$i]->id . '").value="' . $inputs[$i]->value . '";</script>';
             }
             if (($i == sizeof($inputs) - 1) && $temp == true) {
-                echo "<h3>Please fill out every information about the movie!</h3>";
+                echo "<h6 style='text-align:center;'>Please fill out every information about the movie!</h6>";
             }
         }
         if ($temp == false) {
@@ -149,67 +218,14 @@
             for ($i = 0; $i < sizeof($inputs); $i++) {
                 echo '<script>document.getElementById("' . $inputs[$i]->id . '").value="' . "" . '";</script>';
             }
+            echo '<script>window.location.href = "movies-tb.php";</script>';
         }
-    }
-
-    echo '<table style=" margin: 0 auto; width: 90%;" class = "table table-bordered">
-				<tr>
-					<th>Title</th>
-					<th>Date</th>
-					<th>Rating</th>
-					<th>Director</th>
-					<th>Studio</th>
-					<th>Trailer</th>
-					<th>Description</th>
-					<th>Cover</th>
-					<th>Genre</th>
-					<th>Length</th>
-					<th></th>
-				</tr>';
-    $sql = "SELECT * FROM `movies`";
-    $result = mysqli_query($conn, $sql);
-    while ($row = mysqli_fetch_array($result)) {
-        echo '
-				  			<tr>
-								<td><a href="editDetails.php?detailsID=' . $row['ID'] . '&type=Movie&mode=info">' . $row['Title'] . '</a></td>
-								<td>' . $row['Date'] . '</td>
-								<td>' . $row['Rating'] . '</td>
-								<td>' . $row['Director'] . '</td>
-								<td>' . $row['Studio'] . '</td>
-								<td>' . substr($row['Trailer'], 0, 30) . '</td>
-								<td>' . substr($row['Description'], 0, 100) . '</td>
-								<td>' . substr($row['Cover'], 0, 30) . '</td>
-								<td>' . $row['Genre'] . '</td>
-								<td>' . $row['Length'] . '</td>
-								<td><a href="addMovie.php?removeID=' . $row['ID'] . '&mode=remove"><img style = "width: 50px;" src="assets/img/x.png">
-                                </a></td>
-				  			</tr>
-					';
-    }
-    echo '</table>';
-    if (isset($_GET['mode'])) {
-        echo '<form id="movie-remove" method="post">
-					<div class="overlay">
-  						<div class="modal">
-    						<input type="hidden" name="popForm" value="submitted">
-							<button style="background-color:red;margin:2%;"><a href="addMovie.php?removeID=' . $_GET['removeID'] . '&mode=remove&confirm=1">Remove</a></button>
-							<button style="background-color:green;margin:2%;"><a href="addMovie.php">Cancel</a></button>
-  						</div>
-					</div>
-					
-					</form>';
-    }
-    if (isset($_GET['confirm'])) {
-        $removeID = $_GET['removeID'];
-        $sql = "DELETE FROM `movies` WHERE `movies`.`ID` = $removeID";
-        mysqli_query($conn, $sql);
-        echo '<script>window.location.href = "addMovie.php";</script>';
     }
     ?>
 
+</main>
     <!-- details area end -->
     <!-- footer section start -->
-    <?php include("footer.php"); ?>
     <!-- footer section end -->
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>

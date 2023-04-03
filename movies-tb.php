@@ -41,6 +41,48 @@
         width: 100%;
       }
     }
+
+    .overlay {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 25%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 7px;
+}
+
+    .modal p {
+  margin-top: 0;
+  margin-bottom: 1em;
+  text-align:center;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5%;
+  width:60%;
+}
+.modal-buttons a{
+  width:30%;
+}
   </style>
 </head>
 
@@ -141,43 +183,7 @@
 				$this->id = $id;
 			}
 		}
-        // check if the form has been submitted
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addForm'])) {
-            // check which form was submitted
-            
-                // get the form data
-				$title = new input($_POST['title'],"title");
-				$date = new input($_POST['date'],"date");
-				$rating = new input($_POST['rating'],"rating");
-				$director = new input($_POST['director'],"director");
-				$studio = new input($_POST['studio'],"studio");
-				$cover = new input($_POST['cover'],"cover");
-				$trailer = new input($_POST['trailer'],"trailer");
-				$description = new input(mysqli_real_escape_string($conn,$_POST['description']),"description");
-				$genre = new input($_POST['genre'],"genre");
-				$length = new input($_POST['length'],"length");
-				$inputs = [$title,$date,$rating,$director,$studio,$cover,$trailer,$description,$genre,$length];
-				$temp = false;
-				for($i = 0; $i < sizeof($inputs) ; $i++){
-					if(empty($inputs[$i]->value)){
-						echo '<script>document.getElementById("'.$inputs[$i]->id.'").style.border="2px solid red";</script>';
-						$temp = true;
-					}else{
-						echo '<script>document.getElementById("'.$inputs[$i]->id.'").value="'.$inputs[$i]->value.'";</script>';
-					}
-					if(($i == sizeof($inputs)-1) && $temp == true){
-						echo "<h3>Please fill out every information about the movie!</h3>";
-					}
-				}
-                if($temp == false){
-					// insert the data into the movies table
-                	$sql = "INSERT INTO movies (Title, Date, Rating, Director, Studio, Trailer, Description, Cover, Genre, Length) VALUES ('$title->value', '$date->value', '$rating->value', '$director->value', '$studio->value',  '$trailer->value','$description->value','$cover->value', '$genre->value', '$length->value')";
-                	mysqli_query($conn, $sql);
-					for($i = 0; $i < sizeof($inputs) ; $i++){
-							echo '<script>document.getElementById("'.$inputs[$i]->id.'").value="'."".'";</script>';
-					}
-				}
-        }
+        
 
 		echo '<table class="table align-items-center mb-0" width="300px">
 				<tr>
@@ -199,7 +205,7 @@
 					echo '
 				  			<tr>
                 <td><img src="'.$row['Cover'].'" width="70px" height="94.5px"></td>
-								<td><a href="movie-details.php?id='.$row['ID'].'&type=Movie&mode=info">'.$row['Title'].'</a></td>
+								<td><a href="editDetails.php?detailsID='.$row['ID'].'&type=Movie&mode=info">'.$row['Title'].'</a></td>
 								<td>'.$row['Date'].'</td>
 								<td>'.$row['Rating'].'</td>
 								<td>'.$row['Director'].'</td>
@@ -208,18 +214,25 @@
 								<td>'.substr($row['Description'],0,40).'</td>
 								<td>'.$row['Genre'].'</td>
 								<td>'.$row['Length'].'</td>
-								<td><a href="addMovie.php?removeID='.$row['ID'].'&mode=remove">x</a></td>
+								<td><a href="movies-tb.php?removeID='.$row['ID'].'&mode=remove" class = "btn btn-primary text-white">x</a></td>
 				  			</tr>
 					';
 				}
 		echo '</table>';
 		if(isset($_GET['mode'])){
+      $idRemove=$_GET['removeID'];
+      $sql = "SELECT * FROM `movies` WHERE `ID` = $idRemove";
+      $result = mysqli_query($conn, $sql);
+      $row = mysqli_fetch_array($result);
 			echo '<form id="movie-remove" method="post">
 					<div class="overlay">
   						<div class="modal">
     						<input type="hidden" name="popForm" value="submitted">
-							<button style="background-color:red;margin:2%;"><a href="addMovie.php?removeID='.$_GET['removeID'].'&mode=remove&confirm=1">Remove</a></button>
-							<button style="background-color:green;margin:2%;"><a href="addMovie.php">Cancel</a></button>
+                <p>Are you sure you want to remove "'.$row['Title'].'" from our database?</p>
+                <div class="modal-buttons">
+							    <a href="movies-tb.php?removeID='.$_GET['removeID'].'&mode=remove&confirm=1" class="btn btn-primary text-white" style="margin:2%;color:white;">Yes</a>
+						      <a href="movies-tb.php" class="btn btn-success text-white" style="margin:2%;">No</a></button>
+                </div>
   						</div>
 					</div>
 					
@@ -229,7 +242,7 @@
 			$removeID=$_GET['removeID'];
 			$sql = "DELETE FROM `movies` WHERE `movies`.`ID` = $removeID";
             mysqli_query($conn, $sql);
-			echo '<script>window.location.href = "addMovie.php";</script>';
+			echo '<script>window.location.href = "movies-tb.php";</script>';
 		}
     ?>
               </div>
@@ -238,71 +251,7 @@
         </div>
       </div>
       <button class="btn bg-gradient-dark px-3 mb-2 active" data-class="bg-gradient-dark" onclick="add()">Want to add a movie?</button>
-
-      <div class="row justify-content-center mt-5" id="movieadd" style="display: none;">
-        <div class="col-md-6" style="display: flex; justify-content: center;">
-          <form id="movie-add" method="post">
-            <h2>Add Movie</h2>
-            <input type="hidden" name="addForm" value="submitted">
-
-            <div class="form-group">
-              <label for="title">Title:</label>
-              <input class="form-control" type="text" id="title" placeholder="Title:" name="title">
-            </div>
-
-            <div class="form-group">
-              <label for="date">Date:</label>
-              <input class="form-control" type="date" id="date" placeholder="Date:" name="date">
-            </div>
-
-            <div class="form-group">
-              <label for="rating">Rating:</label>
-              <input class="form-control" type="text" id="rating" placeholder="Rating:" name="rating">
-            </div>
-
-            <div class="form-group">
-              <label for="director">Director:</label>
-              <input class="form-control" type="text" id="director" placeholder="Director:" name="director">
-            </div>
-
-            <div class="form-group">
-              <label for="studio">Studio:</label>
-              <input class="form-control" type="text" id="studio" placeholder="Studio:" name="studio">
-            </div>
-
-            <div class="form-group">
-              <label for="cover">Cover Link:</label>
-              <input class="form-control" type="text" id="cover" placeholder="Cover Link:" name="cover">
-            </div>
-
-            <div class="form-group">
-              <label for="trailer">Trailer Link:</label>
-              <input class="form-control" type="text" id="trailer" placeholder="Trailer Link:" name="trailer">
-            </div>
-
-            <div class="form-group">
-              <label for="description">Description:</label>
-              <textarea class="form-control" id="description" placeholder="Description:" name="description" style="color:black;" maxlength="1000"></textarea>
-            </div>
-
-            <div class="form-group">
-              <label for="genre">Genre:</label>
-              <input class="form-control" type="text" id="genre" placeholder="Genre:" name="genre">
-            </div>
-
-            <div class="form-group">
-              <label for="length">Length:</label>
-              <input class="form-control" type="text" id="length" placeholder="Length:" name="length">
-            </div>
-            <br>
-
-            <div class="form-group">
-              <input class="btn btn-primary" type="submit" value="Submit" name="movie_submit">
-            </div>
-          </form>
-        </div>
-      </div>
-
+      
       <footer class="footer py-4  ">
         <div class="container-fluid">
           <div class="row align-items-center justify-content-lg-between">
@@ -389,14 +338,24 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
     function add() {
-      var movieAddDiv = document.getElementById("movieadd");
-      if (movieAddDiv.style.display === "none") {
-        movieAddDiv.style.display = "block";
-      } else {
-        movieAddDiv.style.display = "none";
-      }
+      window.location.href = "addMovie.php";
     }
+    const overlay = document.querySelector('.overlay');
 
+		// Disable scrolling on the background content
+		document.body.style.overflow = 'hidden';
+
+		// Add a click event listener to the overlay
+		overlay.addEventListener('click', (e) => {
+  		if (e.target === overlay) {
+    	// Remove the overlay when it's clicked
+    	overlay.remove();
+		window.location.href = "movies-tb.php";
+    
+    	// Enable scrolling on the background content
+    	document.body.style.overflow = '';
+  			}
+		});
   </script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>

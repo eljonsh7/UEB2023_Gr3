@@ -28,6 +28,48 @@
     .table th {
       white-space: normal;
     }
+
+    .overlay {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 25%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 7px;
+}
+
+    .modal p {
+  margin-top: 0;
+  margin-bottom: 1em;
+  text-align:center;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5%;
+  width:60%;
+}
+.modal-buttons a{
+  width:30%;
+}
   </style>
 </head>
 
@@ -105,7 +147,7 @@
           <div class="card my-4">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                <h6 class="text-white text-capitalize ps-3">Movie table</h6>
+                <h6 class="text-white text-capitalize ps-3">TV Shows table</h6>
               </div>
             </div>
             <div class="card-body px-0 pb-2">
@@ -194,27 +236,34 @@
                         <td>'.substr($row['Trailer'],0,30).'</td>
                         <td>'.substr($row['Description'],0,40).'</td>
                         <td>'.$row['Genre'].'</td>
-                        <td><a href="addMovie.php?removeID='.$row['ID'].'&mode=remove">x</a></td>
+                        <td><a href="shows-tb.php?removeID='.$row['ID'].'&mode=remove" class = "btn btn-primary text-white">x</a></td>
                     </tr>';
 				}
 		echo '</table>';
 		if(isset($_GET['mode'])){
+      $idRemove=$_GET['removeID'];
+      $sql = "SELECT * FROM `tvshows` WHERE `ID` = $idRemove";
+      $result = mysqli_query($conn, $sql);
+      $row = mysqli_fetch_array($result);
 			echo '<form id="movie-remove" method="post">
 					<div class="overlay">
-  						<div class="modal">
-    						<input type="hidden" name="popForm" value="submitted">
-							<button style="background-color:red;margin:2%;"><a href="addMovie.php?removeID='.$_GET['removeID'].'&mode=remove&confirm=1">Remove</a></button>
-							<button style="background-color:green;margin:2%;"><a href="addMovie.php">Cancel</a></button>
-  						</div>
+            <div class="modal">
+              <input type="hidden" name="popForm" value="submitted">
+              <p>Are you sure you want to remove "'.$row['Title'].'" from our database?</p>
+              <div class="modal-buttons">
+                <a href="shows-tb.php?removeID='.$_GET['removeID'].'&mode=remove&confirm=1" class="btn btn-primary text-white" style="margin:2%;color:white;">Yes</a>
+                <a href="shows-tb.php" class="btn btn-success text-white" style="margin:2%;">No</a></button>
+              </div>
+            </div>
 					</div>
 					
 					</form>';
 		}
 		if(isset($_GET['confirm'])){
 			$removeID=$_GET['removeID'];
-			$sql = "DELETE FROM `movies` WHERE `movies`.`ID` = $removeID";
+			$sql = "DELETE FROM `tvshows` WHERE `tvshows`.`ID` = $removeID";
             mysqli_query($conn, $sql);
-			echo '<script>window.location.href = "addMovie.php";</script>';
+			echo '<script>window.location.href = "shows-tb.php";</script>';
 		}
     ?>
               </div>
@@ -222,7 +271,7 @@
           </div>
         </div>
       </div>
-
+      <button class="btn bg-gradient-dark px-3 mb-2 active" data-class="bg-gradient-dark" onclick="add()">Want to add a TV Show?</button>
       <footer class="footer py-4  ">
         <div class="container-fluid">
           <div class="row align-items-center justify-content-lg-between">
@@ -308,6 +357,25 @@
       }
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
+    function add() {
+      window.location.href = "addShow.php";
+    }
+    const overlay = document.querySelector('.overlay');
+
+		// Disable scrolling on the background content
+		document.body.style.overflow = 'hidden';
+
+		// Add a click event listener to the overlay
+		overlay.addEventListener('click', (e) => {
+  		if (e.target === overlay) {
+    	// Remove the overlay when it's clicked
+    	overlay.remove();
+		window.location.href = "shows-tb.php";
+    
+    	// Enable scrolling on the background content
+    	document.body.style.overflow = '';
+  			}
+    });
   </script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
