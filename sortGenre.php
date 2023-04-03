@@ -8,24 +8,39 @@
 
 
 if($_GET['type']=='movie'){
-    
-    $input = $_GET['genre'];
+    if (isset($_GET['genre'])) {
+        $input = $_GET['genre'];
 
-    //SELECT *, Type FROM tvshows WHERE Genre LIKE '%{$input}%' UNION
+        
+        //SELECT *, Type FROM tvshows WHERE Genre LIKE '%{$input}%' UNION
 
-    if($input=="All"){
-        $query = "SELECT * FROM movies";
+        if ($input == "All") {
+            $query = "SELECT * FROM movies";
+        } else {
+            $query = "SELECT * FROM movies WHERE Genre LIKE '%$input%'";
+        }
     }else{
-        $query = "SELECT *, Type FROM movies WHERE Genre LIKE '%{$input}%' ";
+        $search = $_GET['search'];
+        if ($search == "All") {
+            $query = "SELECT * FROM movies";
+        }else{
+            $query = "SELECT * FROM movies WHERE Title LIKE '%$search%'";
+        }
+        
     }
 }else if($_GET['type']=='tvshow'){
-    $input = $_GET['genre'];
-    if($input=="All"){
-        $query = "SELECT * FROM tvshows";
-    }else{
-        $query = "SELECT *, Type FROM tvshows WHERE Genre LIKE '%{$input}%' ";
+    if (isset($_GET['genre'])) {
+        $input = $_GET['genre'];
+        $query = "SELECT * FROM tvshows WHERE Genre LIKE '%$input%' ";
+    }else {
+        $search = $_GET['search'];
+        $query = "SELECT * FROM tvshows WHERE Title LIKE '%$search%'";
+        
     }
-}
+}else if($_GET['type']=='All'){
+    $search = $_GET['search'];
+    $query = "SELECT Title, Cover, ID , Type, Genre FROM tvshows WHERE Title LIKE '%{$search}%' UNION SELECT Title, Cover, ID , Type, Genre FROM movies WHERE Title LIKE '%{$search}%'";
+} 
     
     $result = mysqli_query( $conn, $query );
 
@@ -36,8 +51,6 @@ if($_GET['type']=='movie'){
             $id = $row['ID'];
             $type = $row['Type'];
             $genre=$row['Genre'];
-
-            
             echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
                     <div>
                         <div>
@@ -57,5 +70,7 @@ if($_GET['type']=='movie'){
                 </div>';
         
         }
+        
     }
+
     

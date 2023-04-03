@@ -34,6 +34,47 @@ $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
+
+        <style>
+            .grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 20px;
+}
+#imgContent{
+    width:221px;
+    height:330px;
+  }
+@media screen and (min-width: 576px) {
+  .grid-container {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .grid-container {
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+  }
+  
+}
+
+@media screen and (min-width: 1200px) {
+  .grid-container {
+    grid-template-columns: repeat(4, minmax(250px, 1fr));
+  }
+  
+}
+
+
+
+
+        </style>
 </head>
 
 <body>
@@ -64,9 +105,9 @@ $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
 					<div class="col-lg-6 text-center text-lg-left">
 					    <div class="portfolio-menu">
 							<ul>
-								<li data-filter="*" class="active">All</li>
-								<li data-filter=".movie">Movies</li>
-								<li data-filter=".tvshow">TV Shows</li>
+								<li data-filter="*" class="active" onclick=\'checkAjax("All")\'>All</li>
+								<li data-filter=".movie" onclick=\'checkAjax("movie")\'>Movies</li>
+								<li data-filter=".tvshow" onclick=\'checkAjax("tvshow")\'>TV Shows</li>
 							</ul>
 						</div>
 					</div>
@@ -82,30 +123,35 @@ $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
 
         $result = mysqli_query($conn, $query);
 
-        echo '<div class="row portfolio-item">';
+        echo '<div class="grid-container" id="contentContainer">';
 
         if (mysqli_num_rows($result) > 0) {
-            $i = 0;
+    
             while ($row = mysqli_fetch_array($result)) {
-                $i++;
                 $title = $row['Title'];
                 $poster = $row['Cover'];
                 $id = $row['ID'];
                 $type = $row['Type'];
                 $genre = $row['Genre'];
-                echo '<div class="col-lg-3 col-md-4 col-sm-6 ' . $genre . ' ' . $type . '">
-                <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
-                    <div class="single-portfolio">
-                        <div class="single-portfolio-img">
-                            <img src="' . $poster . '" alt="portfolio" />
+                echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
+                    <div>
+                        <div>
+                            <center>
+                                <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
+                                    <img id="imgContent" src="' . $poster . '" alt="portfolio" style="border-radius:15px;"/>
+                                </a>
+                            </center>
                         </div>
                         <div class="portfolio-content">
-                            <h5 style = "text-align:center;">' . $title . '</h5>
+                            <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
+                                <h5 style = "text-align:center;">' . $title . '</h5>
+                            </a>
                         </div>
                     </div>
-                    </a>
                 </div>';
+                
             }
+            
             echo '</div>';
         } else {
             echo '<h6 class=":text-danger text-center mt-3">No Movies or TV Shows found!</h6>';
@@ -133,6 +179,25 @@ $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
     <script src="assets/js/isotope.pkgd.min.js"></script>
     <!-- main JS -->
     <script src="assets/js/main.js"></script>
+
+    <?php
+    echo '<script type="text/javascript">
+            function checkAjax(type) {
+                $.ajax({
+                    url: "sortGenre.php?type="+type+"&search='.$search.'",
+                    method: "GET",
+                    dataType: "html",
+                    success: function(data) {
+                    $("#contentContainer").html(data);
+                }
+      
+    });
+  };
+
+
+    </script>';
+    
+    ?>
 </body>
 
 </html>
