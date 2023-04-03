@@ -227,7 +227,7 @@
 					echo '
                     <tr>
                         <td><img src="'.$row['Cover'].'" width="70px" height="94.5px"></td>
-                        <td><a href="movie-details.php?id='.$row['ID'].'&type=Movie&mode=info">'.$row['Title'].'</a></td>
+                        <td><a href="editDetails.php?detailsID='.$row['ID'].'&type=Show&mode=info">'.$row['Title'].'</a></td>
                         <td>'.$row['StartDate'].'</td>
                         <td>'.$row['Status'].'</td>
                         <td>'.$row['Rating'].'</td>

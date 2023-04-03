@@ -110,7 +110,7 @@
             </nav>
         </div>
         </nav>
-  <div class="row justify-content-center mt-5" id="movieadd">
+      <div class="row justify-content-center mt-5" id="movieadd">
         <div class="col-md-6" style="display: flex; justify-content: center;">
         <form id="show-add" method="post">
                     <h2>TV Show</h2>
