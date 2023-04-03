@@ -31,7 +31,11 @@ if($_GET['type']=='movie'){
 }else if($_GET['type']=='tvshow'){
     if (isset($_GET['genre'])) {
         $input = $_GET['genre'];
-        $query = "SELECT * FROM tvshows WHERE Genre LIKE '%$input%' ";
+        if ($input == "All") {
+            $query = "SELECT * FROM tvshows";
+        } else {
+            $query = "SELECT * FROM tvshows WHERE Genre LIKE '%$input%' ";
+        }
     }else {
         $search = $_GET['search'];
         $query = "SELECT * FROM tvshows WHERE Title LIKE '%$search%'";
