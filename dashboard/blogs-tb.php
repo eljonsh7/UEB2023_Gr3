@@ -30,6 +30,22 @@
         white-space: normal;
     }
 
+    .form-control {
+        background-color: white;
+        padding: 5px;
+    }
+
+    .form-group {
+        width: 600px;
+    }
+
+    @media (min-width: 768px) {
+        .col-md-6 {
+            flex: 0 0 auto;
+            width: 100%;
+        }
+    }
+
     .overlay {
         position: fixed;
         z-index: 9999;
@@ -75,12 +91,11 @@
     </style>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var element = document.getElementById("tvshows");
+        var element = document.getElementById("blogs");
         element.classList.add("active", "bg-gradient-primary");
     });
     </script>
 </head>
-
 
 <body class="g-sidenav-show  bg-gray-200">
 
@@ -94,9 +109,9 @@
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a>
                         </li>
-                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">TV Shows table</li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Movies table</li>
                     </ol>
-                    <h6 class="font-weight-bolder mb-0">TV Shows table</h6>
+                    <h6 class="font-weight-bolder mb-0">Movies table</h6>
                 </nav>
             </div>
         </nav>
@@ -107,134 +122,99 @@
                     <div class="card my-4">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                <h6 class="text-white text-capitalize ps-3">TV Shows table</h6>
+                                <h6 class="text-white text-capitalize ps-3">Movie table</h6>
                             </div>
                         </div>
                         <div class="card-body px-0 pb-2">
                             <div class="table-responsive p-0">
                                 <?php
-                // connect to the database
-                $db_host = 'localhost';
-                $db_user = 'root';
-                $db_pass = 'root';
-                $db_name = 'moviedb';
-                $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
+                                // connect to the database
+                                $db_host = 'localhost';
+                                $db_user = 'root';
+                                $db_pass = 'root';
+                                $db_name = 'moviedb';
+                                $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
 
-                class input
-                {
-                  public $value;
-                  public $id;
+                                class input
+                                {
+                                    public $value;
+                                    public $id;
 
 
-                  function __construct($value, $id)
-                  {
-                    $this->value = $value;
-                    $this->id = $id;
-                  }
-                }
-                // check if the form has been submitted
-                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addForm'])) {
-                  // check which form was submitted
+                                    function __construct($value, $id)
+                                    {
+                                        $this->value = $value;
+                                        $this->id = $id;
+                                    }
+                                }
 
-                  // get the form data
-                  $title = new input($_POST['title'], "title");
-                  $date = new input($_POST['date'], "date");
-                  $rating = new input($_POST['rating'], "rating");
-                  $director = new input($_POST['director'], "director");
-                  $studio = new input($_POST['studio'], "studio");
-                  $cover = new input($_POST['cover'], "cover");
-                  $trailer = new input($_POST['trailer'], "trailer");
-                  $description = new input(mysqli_real_escape_string($conn, $_POST['description']), "description");
-                  $genre = new input($_POST['genre'], "genre");
-                  $length = new input($_POST['length'], "length");
-                  $inputs = [$title, $date, $rating, $director, $studio, $cover, $trailer, $description, $genre, $length];
-                  $temp = false;
-                  for ($i = 0; $i < sizeof($inputs); $i++) {
-                    if (empty($inputs[$i]->value)) {
-                      echo '<script>document.getElementById("' . $inputs[$i]->id . '").style.border="2px solid red";</script>';
-                      $temp = true;
-                    } else {
-                      echo '<script>document.getElementById("' . $inputs[$i]->id . '").value="' . $inputs[$i]->value . '";</script>';
-                    }
-                    if (($i == sizeof($inputs) - 1) && $temp == true) {
-                      echo "<h3>Please fill out every information about the movie!</h3>";
-                    }
-                  }
-                  if ($temp == false) {
-                    $sql = "INSERT INTO tvshows (Title, Date, Rating, Director, Studio, Trailer, Description, Cover, Genre, Length) VALUES ('$title->value', '$date->value', '$rating->value', '$director->value', '$studio->value',  '$trailer->value','$description->value','$cover->value', '$genre->value', '$length->value')";
-                    mysqli_query($conn, $sql);
-                    for ($i = 0; $i < sizeof($inputs); $i++) {
-                      echo '<script>document.getElementById("' . $inputs[$i]->id . '").value="' . "" . '";</script>';
-                    }
-                  }
-                }
 
-                echo '<table class="table align-items-center mb-0" width="300px">
+                                echo '<table class="table align-items-center mb-0" width="300px">
 				<tr>
           <th>Cover</th>
+					<th>ID</th>
 					<th>Title</th>
-					<th>Started</th>
-                    <th>Status</th>
-					<th>Rating</th>
+					<th>Content</th>
 					<th>Director</th>
-					<th>Studio</th>
-					<th>Trailer</th>
-					<th>Description</th>
-					<th>Genre</th>
+					<th>AuthorID</th>
+					<th>CreatedAt</th>
+					<th>UpdatedAt</th>
+					<th>Image</th>
 					<th></th>
 				</tr>';
-                $sql = "SELECT * FROM `tvshows`";
-                $result = mysqli_query($conn, $sql);
-                while ($row = mysqli_fetch_array($result)) {
-                  echo '
-                    <tr>
-                        <td><img src="' . $row['Cover'] . '" width="70px" height="94.5px"></td>
-                        <td><a href="editDetails.php?detailsID=' . $row['ID'] . '&type=Show&mode=info">' . $row['Title'] . '</a></td>
-                        <td>' . $row['StartDate'] . '</td>
-                        <td>' . $row['Status'] . '</td>
-                        <td>' . $row['Rating'] . '</td>
-                        <td>' . $row['Director'] . '</td>
-                        <td>' . $row['Studio'] . '</td>
-                        <td>' . substr($row['Trailer'], 0, 30) . '</td>
-                        <td>' . substr($row['Description'], 0, 40) . '</td>
-                        <td>' . $row['Genre'] . '</td>
-                        <td><a href="shows-tb.php?removeID=' . $row['ID'] . '&mode=remove" class = "btn btn-primary text-white">x</a></td>
-                    </tr>';
-                }
-                echo '</table>';
-                if (isset($_GET['mode'])) {
-                  $idRemove = $_GET['removeID'];
-                  $sql = "SELECT * FROM `tvshows` WHERE `ID` = $idRemove";
-                  $result = mysqli_query($conn, $sql);
-                  $row = mysqli_fetch_array($result);
-                  echo '<form id="movie-remove" method="post">
+                                $sql = "SELECT * FROM `blogs`";
+                                $result = mysqli_query($conn, $sql);
+                                while ($row = mysqli_fetch_array($result)) {
+                                    echo '
+				  			<tr>
+                <td><img src="' . $row['Cover'] . '" width="70px" height="94.5px"></td>
+								<td><a href="editDetails.php?detailsID=' . $row['ID'] . '&type=Movie&mode=info">' . $row['Title'] . '</a></td>
+								<td>' . $row['ID'] . '</td>
+								<td>' . $row['Title'] . '</td>
+								<td>' . substr($row['Content'], 0, 40) . '</td>
+								<td>' . $row['AuthorID'] . '</td>
+								<td>' . $row['CreatedAt'] . '</td>
+								<td>' . $row['UpdatedAt'] . '</td>
+								<td>' . substr($row['Image'], 0, 30) . '</td>
+								<td><a href="blogs-tb.php?removeID=' . $row['ID'] . '&mode=remove" class = "btn btn-primary text-white">x</a></td>
+				  			</tr>
+					';
+                                }
+                                echo '</table>';
+                                if (isset($_GET['mode'])) {
+                                    $idRemove = $_GET['removeID'];
+                                    $sql = "SELECT * FROM `movies` WHERE `ID` = $idRemove";
+                                    $result = mysqli_query($conn, $sql);
+                                    $row = mysqli_fetch_array($result);
+                                    echo '<form id="movie-remove" method="post">
 					<div class="overlay">
-            <div class="modal">
-              <input type="hidden" name="popForm" value="submitted">
-              <p>Are you sure you want to remove "' . $row['Title'] . '" from our database?</p>
-              <div class="modal-buttons">
-                <a href="shows-tb.php?removeID=' . $_GET['removeID'] . '&mode=remove&confirm=1" class="btn btn-primary text-white" style="margin:2%;color:white;">Yes</a>
-                <a href="shows-tb.php" class="btn btn-success text-white" style="margin:2%;">No</a></button>
-              </div>
-            </div>
+  						<div class="modal">
+    						<input type="hidden" name="popForm" value="submitted">
+                <p>Are you sure you want to remove "' . $row['Title'] . '" from our database?</p>
+                <div class="modal-buttons">
+							    <a href="blogs-tb.php?removeID=' . $_GET['removeID'] . '&mode=remove&confirm=1" class="btn btn-primary text-white" style="margin:2%;color:white;">Yes</a>
+						      <a href="blogs-tb.php" class="btn btn-success text-white" style="margin:2%;">No</a></button>
+                </div>
+  						</div>
 					</div>
 					
 					</form>';
-                }
-                if (isset($_GET['confirm'])) {
-                  $removeID = $_GET['removeID'];
-                  $sql = "DELETE FROM `tvshows` WHERE `tvshows`.`ID` = $removeID";
-                  mysqli_query($conn, $sql);
-                  echo '<script>window.location.href = "shows-tb.php";</script>';
-                }
-                ?>
+                                }
+                                if (isset($_GET['confirm'])) {
+                                    $removeID = $_GET['removeID'];
+                                    $sql = "DELETE FROM `movies` WHERE `movies`.`ID` = $removeID";
+                                    mysqli_query($conn, $sql);
+                                    echo '<script>window.location.href = "blogs-tb.php";</script>';
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <button class="btn bg-gradient-dark px-3 mb-2 active" data-class="bg-gradient-dark" onclick="add()">Want to
-                add a TV Show?</button>
+            <button class="btn bg-gradient-dark px-3 mb-2 active" data-class="bg-gradient-dark" onclick="add()">Add a
+                Blog</button>
+
             <footer class="footer py-4  ">
                 <div class="container-fluid">
                     <div class="row align-items-center justify-content-lg-between">
@@ -334,7 +314,7 @@
     }
 
     function add() {
-        window.location.href = "addShow.php";
+        window.location.href = "addBlog.php";
     }
     const overlay = document.querySelector('.overlay');
 
@@ -346,7 +326,7 @@
         if (e.target === overlay) {
             // Remove the overlay when it's clicked
             overlay.remove();
-            window.location.href = "shows-tb.php";
+            window.location.href = "blogs-tb.php";
 
             // Enable scrolling on the background content
             document.body.style.overflow = '';
