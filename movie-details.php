@@ -1,4 +1,3 @@
-
 <?php
  $db_host = 'localhost';
  $db_user = 'root';
@@ -23,7 +22,8 @@
 
 <!DOCTYPE html>
 <html lang="zxx">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -31,54 +31,26 @@
     <!-- Favicon Icon -->
     <link rel="icon" type="image/png" href="assets/img/logo2.png" />
     <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="assets/css/bootstrap.min.css"
-      media="all"
-    />
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" media="all" />
     <!-- Slick nav CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="assets/css/slicknav.min.css"
-      media="all"
-    />
+    <link rel="stylesheet" type="text/css" href="assets/css/slicknav.min.css" media="all" />
     <!-- Iconfont CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="assets/css/icofont.css"
-      media="all"
-    />
+    <link rel="stylesheet" type="text/css" href="assets/css/icofont.css" media="all" />
     <!-- Owl carousel CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/owl.carousel.css" />
     <!-- Popup CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="assets/css/magnific-popup.css"
-    />
+    <link rel="stylesheet" type="text/css" href="assets/css/magnific-popup.css" />
     <!-- Main style CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="assets/css/style.css"
-      media="all"
-    />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" media="all" />
     <!-- Responsive CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="assets/css/responsive.css"
-      media="all"
-    />
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css" media="all" />
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
-  <body>
+</head>
+
+<body>
     <!-- Page loader -->
     <div id="preloader"></div>
     <!-- header section start -->
@@ -87,14 +59,14 @@
     <!-- header section end -->
     <!-- breadcrumb area start -->
     <section class="breadcrumb-area">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="breadcrumb-area-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-area-content">
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </section>
     <!-- breadcrumb area end -->
     <!-- transformers area start -->
@@ -214,88 +186,88 @@
     <!-- transformers area end -->
     <!-- details area start -->
     <section class="details-area">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-9">
-            <div class="details-content">
-              <div class="details-overview">
-                <h2>Overview</h2>
-                <p>
-                  <?php echo $row['Description'];?>
-                </p>
-              </div>
-              <div class="details-reply">
-                <h2>Leave a Reply</h2>
-                <form action="#">
-                  <div class="row">
-                    <div class="col-lg-4">
-                      <div class="select-container">
-                        <input type="text" placeholder="Name" />
-                        <i class="icofont icofont-ui-user"></i>
-                      </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="details-content">
+                        <div class="details-overview">
+                            <h2>Overview</h2>
+                            <p>
+                                <?php echo $row['Description'];?>
+                            </p>
+                        </div>
+                        <div class="details-reply">
+                            <h2>Leave a Reply</h2>
+                            <form action="#">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="select-container">
+                                            <input type="text" placeholder="Name" />
+                                            <i class="icofont icofont-ui-user"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="select-container">
+                                            <input type="text" placeholder="Email" />
+                                            <i class="icofont icofont-envelope"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="select-container">
+                                            <input type="text" placeholder="Phone" />
+                                            <i class="icofont icofont-phone"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="textarea-container">
+                                            <textarea placeholder="Type Here Message"></textarea>
+                                            <button>
+                                                <i class="icofont icofont-send-mail"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="details-comment">
+                            <a class="theme-btn theme-btn2" href="#">Post Comment</a>
+                            <p>
+                                You may use these HTML tags and attributes: You may use these
+                                HTML tags and attributes: You may use these HTML tags and
+                                attributes:
+                            </p>
+                        </div>
+                        <div class="details-thumb">
+                            <div class="details-thumb-prev">
+                                <div class="thumb-icon">
+                                    <i class="icofont icofont-simple-left"></i>
+                                </div>
+                                <div class="thumb-text">
+                                    <h4>Previous Post</h4>
+                                    <p>Standard Post With Gallery</p>
+                                </div>
+                            </div>
+                            <div class="details-thumb-next">
+                                <div class="thumb-text">
+                                    <h4>Next Post</h4>
+                                    <p>Standard Post With Preview Image</p>
+                                </div>
+                                <div class="thumb-icon">
+                                    <i class="icofont icofont-simple-right"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-4">
-                      <div class="select-container">
-                        <input type="text" placeholder="Email" />
-                        <i class="icofont icofont-envelope"></i>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="select-container">
-                        <input type="text" placeholder="Phone" />
-                        <i class="icofont icofont-phone"></i>
-                      </div>
-                    </div>
-                    <div class="col-lg-12">
-                      <div class="textarea-container">
-                        <textarea placeholder="Type Here Message"></textarea>
-                        <button>
-                          <i class="icofont icofont-send-mail"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="details-comment">
-                <a class="theme-btn theme-btn2" href="#">Post Comment</a>
-                <p>
-                  You may use these HTML tags and attributes: You may use these
-                  HTML tags and attributes: You may use these HTML tags and
-                  attributes:
-                </p>
-              </div>
-              <div class="details-thumb">
-                <div class="details-thumb-prev">
-                  <div class="thumb-icon">
-                    <i class="icofont icofont-simple-left"></i>
-                  </div>
-                  <div class="thumb-text">
-                    <h4>Previous Post</h4>
-                    <p>Standard Post With Gallery</p>
-                  </div>
                 </div>
-                <div class="details-thumb-next">
-                  <div class="thumb-text">
-                    <h4>Next Post</h4>
-                    <p>Standard Post With Preview Image</p>
-                  </div>
-                  <div class="thumb-icon">
-                    <i class="icofont icofont-simple-right"></i>
-                  </div>
+                <div class="col-lg-3 text-center text-lg-left">
+                    <div class="portfolio-sidebar">
+                        <img src="assets/img/sidebar/sidebar1.png" alt="sidebar" />
+                        <img src="assets/img/sidebar/sidebar2.png" alt="sidebar" />
+                        <img src="assets/img/sidebar/sidebar4.png" alt="sidebar" />
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-          <div class="col-lg-3 text-center text-lg-left">
-            <div class="portfolio-sidebar">
-              <img src="assets/img/sidebar/sidebar1.png" alt="sidebar" />
-              <img src="assets/img/sidebar/sidebar2.png" alt="sidebar" />
-              <img src="assets/img/sidebar/sidebar4.png" alt="sidebar" />
-            </div>
-          </div>
         </div>
-      </div>
     </section>
     <!-- details area end -->
     <!-- footer section start -->
@@ -315,5 +287,6 @@
     <script src="assets/js/isotope.pkgd.min.js"></script>
     <!-- main JS -->
     <script src="assets/js/main.js"></script>
-  </body>
+</body>
+
 </html>

@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/bootstrap.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="icon" type="image/png" href="assets/img/logo2.png" />
 	<!-- <link rel="stylesheet" href="style.css"> -->
-    <title>Document</title>
-    <style>
+	<title>Document</title>
+	<style>
 		.nav-links {
 			display: flex;
 			list-style: none;
 		}
 
-		ul{
+		ul {
 			margin-top: 13px;
 		}
 
@@ -24,7 +25,7 @@
 			color: #fff;
 			text-decoration: none;
 		}
-		
+
 		ul li a {
 			padding: 8px 10px;
 			border-radius: 5px;
@@ -35,6 +36,7 @@
 			background-color: white;
 			color: #333;
 		}
+
 		* {
 			color: white;
 		}
@@ -44,9 +46,9 @@
 		}
 
 		header {
-		background-color: #333;
-		color: #fff;
-		padding: 10px;
+			background-color: #333;
+			color: #fff;
+			padding: 10px;
 		}
 
 		nav {
@@ -59,14 +61,19 @@
 		.logo img {
 			height: 50px;
 		}
-		a#register-link, a#login-link{
+
+		a#register-link,
+		a#login-link {
 			color: #333;
 		}
-		a#register-link:hover, a#login-link:hover{
-			color:white;
+
+		a#register-link:hover,
+		a#login-link:hover {
+			color: white;
 		}
-    </style>
+	</style>
 </head>
+
 <body style="background-color: #245953;">
 	<header>
 		<nav>
@@ -155,4 +162,5 @@
 	</script>
 
 </body>
+
 </html>

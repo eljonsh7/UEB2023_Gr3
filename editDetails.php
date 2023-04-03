@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -6,14 +7,15 @@
     <link rel="icon" type="image/png" href="assets/img/logo2.png" />
     <title>Details</title>
     <style>
-        .details{
-            margin:2% 2% 2%;
-            font-size: 17;
-        }
+    .details {
+        margin: 2% 2% 2%;
+        font-size: 17;
+    }
     </style>
 </head>
+
 <body>
-<?php
+    <?php
     $db_host = 'localhost';
     $db_user = 'root';
     $db_pass = 'root';
@@ -250,10 +252,7 @@
 
 
 ?>
-    
+
 </body>
+
 </html>
-
-
-
-

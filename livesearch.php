@@ -32,5 +32,3 @@ if(isset($_POST['input'])){
         echo "<h6 class='text-danger text-center mt-3' style = 'position: absolute;' >No Movies or TV shows found! </h6>";
     }
 };
-
-?>

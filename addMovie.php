@@ -1,149 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="css/bootstrap.css"> -->
-	<!-- <link rel="stylesheet" href="style.css"> -->
-	<link rel="icon" type="image/png" href="assets/img/logo2.png" />
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="icon" type="image/png" href="assets/img/logo2.png" />
     <title>FlixFeast</title>
     <style>
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            margin-top: 50px;
-            text-align: center;
-        }
-		.nav-links {
-			display: flex;
-			list-style: none;
-		}
+    footer {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        margin-top: 50px;
+        text-align: center;
+    }
 
-		ul{
-			margin-top: 13px;
-		}
+    .nav-links {
+        display: flex;
+        list-style: none;
+    }
 
-		.nav-links li {
-			margin-right: 20px;
-		}
+    ul {
+        margin-top: 13px;
+    }
 
-		.nav-links a, a {
-			color: #fff;
-			text-decoration: none;
-		}
-		
-		ul li a {
-			padding: 8px 10px;
-			border-radius: 5px;
-			font-weight: 700;
-		}
+    .nav-links li {
+        margin-right: 20px;
+    }
 
-		ul li a:hover {
-			background-color: white;
-			color: #333;
-		}
-		* {
-			color: white;
-		}
+    .nav-links a,
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
 
-		input {
-			color: grey;
-		}
+    ul li a {
+        padding: 8px 10px;
+        border-radius: 5px;
+        font-weight: 700;
+    }
 
-		header {
-		background-color: #333;
-		color: #fff;
-		padding: 10px;
-		}
+    ul li a:hover {
+        background-color: white;
+        color: #333;
+    }
 
-		nav {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			margin: 0 10%;
-		}
+    * {
+        color: white;
+    }
 
-		.logo img {
-			height: 50px;
-		}
-		a#show-link, a#movie-link{
-			color: #333;
-		}
-		a#show-link:hover, a#movie-link:hover{
-			color:white;
-		}
-        .submit{
-            color: white;
-            background-color: #333;
-            border: none;
-        }
-        h2{
-            display: flex;
-            justify-content: center;
-        }
+    input {
+        color: grey;
+    }
 
-		td{
-			word-wrap: break-word;
-			max-width: 300px;
-			color:white;
-			text-align: center;
-		}
-		table, th, td {
-  			border: 2px solid grey;
-  			border-collapse: collapse;
-		}
-		table{
-			margin-top: 5%;
-		}
-		
-		.overlay {
-  			position: fixed;
-  			z-index: 9999;
-  			top: 0;
-  			left: 0;
-  			width: 100%;
-  			height: 100%;
-  			background-color: rgba(0, 0, 0, 0.5);
-		}
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+    }
 
-		.modal {
-			display: flex;
-  			justify-content: center; /* centers horizontally */
-  			align-items: center; /* centers vertically */
-			width:10%;
-			height:15%;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			background-color: #fff;
-			padding: 20px;
-			border-radius: 5px;
-		}
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 10%;
+    }
+
+    .logo img {
+        height: 50px;
+    }
+
+    a#show-link,
+    a#movie-link {
+        color: #333;
+    }
+
+    a#show-link:hover,
+    a#movie-link:hover {
+        color: white;
+    }
+
+    .submit {
+        color: white;
+        background-color: #333;
+        border: none;
+    }
+
+    h2 {
+        display: flex;
+        justify-content: center;
+    }
+
+    td {
+        word-wrap: break-word;
+        max-width: 300px;
+        color: white;
+        text-align: center;
+    }
+
+    table,
+    th,
+    td {
+        border: 2px solid grey;
+        border-collapse: collapse;
+    }
+
+    table {
+        margin-top: 5%;
+    }
+
+    .overlay {
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal {
+        display: flex;
+        justify-content: center;
+        /* centers horizontally */
+        align-items: center;
+        /* centers vertically */
+        width: 10%;
+        height: 15%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+    }
     </style>
 </head>
-<body style="background-color: #245953;">
-	<header>
-		<nav>
-			<div class="logo">
-				<!-- <a href="index.php"><img src="img/logo.png"></a> -->
-			</div>
-			<ul class="nav-links">
-				<li><a href="home.php">Home</a></li>
-				<li><a href="movies.php">Movies</a></li>
-				<li><a href="shows.php">TV Shows</a></li>
-				<li><a href="imdb.php">Top IMDb</a></li>
-			</ul>
-		</nav>
-	</header>
-	<div class="container">
-		<div class="row justify-content-center mt-5">
-			<div class="col-md-6">
 
-				<form id="movie-add" method="post">
+<body style="background-color: #245953;">
+    <header>
+        <nav>
+            <div class="logo">
+                <!-- <a href="index.php"><img src="img/logo.png"></a> -->
+            </div>
+            <ul class="nav-links">
+                <li><a href="home.php">Home</a></li>
+                <li><a href="movies.php">Movies</a></li>
+                <li><a href="shows.php">TV Shows</a></li>
+                <li><a href="imdb.php">Top IMDb</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+
+                <form id="movie-add" method="post">
                     <h2>Movie</h2>
-					<input type="hidden" name="addForm" value="submitted">
-					<label for="title">Title:</label>
+                    <input type="hidden" name="addForm" value="submitted">
+                    <label for="title">Title:</label>
                     <input class="form-control" type="text" id="title" placeholder="Title:" name="title"><br>
 
                     <label for="date">Date:</label>
@@ -163,22 +180,23 @@
 
                     <label for="trailer">Trailer Link:</label>
                     <input class="form-control" type="text" id="trailer" placeholder="Trailer Link:" name="trailer"><br>
-					
-					<label for="description">Description:</label>
-                    <textarea class="form-control" id="description" placeholder="Description:" name="description" style="color:black;" maxlength="1000"></textarea><br>
 
-					<label for="genre">Genre:</label>
+                    <label for="description">Description:</label>
+                    <textarea class="form-control" id="description" placeholder="Description:" name="description"
+                        style="color:black;" maxlength="1000"></textarea><br>
+
+                    <label for="genre">Genre:</label>
                     <input class="form-control" type="text" id="genre" placeholder="Genre:" name="genre"><br>
 
-					<label for="length">Length:</label>
+                    <label for="length">Length:</label>
                     <input class="form-control" type="text" id="length" placeholder="Length:" name="length"><br>
 
                     <input class="form-control submit" type="submit" value="Submit" name="movie_submit">
-				</form>
+                </form>
 
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
     <?php
         // connect to the database
         $db_host = 'localhost';
@@ -288,39 +306,38 @@
 			echo '<script>window.location.href = "addMovie.php";</script>';
 		}
     ?>
-	
+
 
     <footer>
-		<p>&copy; 2023 FlixFeast. All rights reserved.</p>
-		<p>Made with commitment by BBEÇ.</p>
-	</footer>
+        <p>&copy; 2023 FlixFeast. All rights reserved.</p>
+        <p>Made with commitment by BBEÇ.</p>
+    </footer>
 
-	<!-- Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<script>
-		const overlay = document.querySelector('.overlay');
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+    const overlay = document.querySelector('.overlay');
 
-		// Disable scrolling on the background content
-		document.body.style.overflow = 'hidden';
+    // Disable scrolling on the background content
+    document.body.style.overflow = 'hidden';
 
-		// Add a click event listener to the overlay
-		overlay.addEventListener('click', (e) => {
-  		if (e.target === overlay) {
-    	// Remove the overlay when it's clicked
-    	overlay.remove();
-		window.location.href = "addMovie.php";
-    
-    	// Enable scrolling on the background content
-    	document.body.style.overflow = '';
-  			}
-		});
+    // Add a click event listener to the overlay
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            // Remove the overlay when it's clicked
+            overlay.remove();
+            window.location.href = "addMovie.php";
 
+            // Enable scrolling on the background content
+            document.body.style.overflow = '';
+        }
+    });
+    </script>
 
-	</script>
-
-	<!-- Script to switch between login and register forms -->
+    <!-- Script to switch between login and register forms -->
 
 </body>
+
 </html>

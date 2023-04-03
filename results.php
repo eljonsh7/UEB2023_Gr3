@@ -1,10 +1,10 @@
 <?php
- $db_host = 'localhost';
- $db_user = 'root';
- $db_pass = 'root';
- $db_name = 'moviedb';
- $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name,3307);
- 
+$db_host = 'localhost';
+$db_user = 'root';
+$db_pass = 'root';
+$db_name = 'moviedb';
+$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
+
 ?>
 <!DOCTYPE HTML>
 <html lang="zxx">
@@ -40,25 +40,25 @@
     <!-- Page loader -->
     <div id="preloader"></div>
     <!-- header section start -->
-    <?php include("header.php");?>
+    <?php include("header.php"); ?>
 
-    <div style="">
-        <?php
-if (isset($_POST['submit'])) {
-    $search = mysqli_real_escape_string($conn, $_POST['search']);
-    echo '<section class="breadcrumb-area">
+
+    <?php
+    if (isset($_POST['submit'])) {
+        $search = mysqli_real_escape_string($conn, $_POST['search']);
+        echo '<section class="breadcrumb-area">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb-area-content">
-                    <h3>Search results for "'.$search.'": </h3>
+                    <h3>Search results for "' . $search . '": </h3>
                 </div>
             </div>
         </div>
     </div>
 </section>';
 
-    echo '<section class="portfolio-area pt-60">
+        echo '<section class="portfolio-area pt-60">
 	<div class="container">
 	<div class="row ">
 					<div class="col-lg-6 text-center text-lg-left">
@@ -74,50 +74,50 @@ if (isset($_POST['submit'])) {
 				<hr />
 				
 	';
-    $query = "SELECT Title, Cover, ID , Type, Genre FROM tvshows WHERE Title LIKE '%{$search}%' UNION SELECT Title, Cover, ID , Type, Genre FROM movies WHERE Title LIKE '%{$search}%'";
+        $search = mysqli_real_escape_string($conn, $_POST['search']);
+        $search = trim($search);
+        $search = strip_tags($search);
+        $search = htmlspecialchars($search);
+        $query = "SELECT Title, Cover, ID , Type, Genre FROM tvshows WHERE Title LIKE '%{$search}%' UNION SELECT Title, Cover, ID , Type, Genre FROM movies WHERE Title LIKE '%{$search}%'";
 
-    $result = mysqli_query($conn,$query);
+        $result = mysqli_query($conn, $query);
 
-    if (mysqli_num_rows($result) > 0) {
+        echo '<div class="row portfolio-item">';
+
+        if (mysqli_num_rows($result) > 0) {
             $i = 0;
-			while( $row = mysqli_fetch_array($result) ){
-				$i++;
-				$title = $row['Title'];
+            while ($row = mysqli_fetch_array($result)) {
+                $i++;
+                $title = $row['Title'];
                 $poster = $row['Cover'];
                 $id = $row['ID'];
                 $type = $row['Type'];
-				$genre = $row['Genre'];
-				if($i%4==1){
-					echo '<div class="row portfolio-item">';
-				}
-                echo '<div class="col-lg-3 col-md-4 col-sm-6 '.$genre.' '.$type.'">
-                <a href = "movie-details.php?id='.$id.'&type='.$type.'">
+                $genre = $row['Genre'];
+                echo '<div class="col-lg-3 col-md-4 col-sm-6 ' . $genre . ' ' . $type . '">
+                <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
                     <div class="single-portfolio">
                         <div class="single-portfolio-img">
-                            <img src="'.$poster.'" alt="portfolio" />
+                            <img src="' . $poster . '" alt="portfolio" />
                         </div>
                         <div class="portfolio-content">
-                            <h5 style = "text-align:center;">'.$title.'</h5>
+                            <h5 style = "text-align:center;">' . $title . '</h5>
                         </div>
                     </div>
                     </a>
                 </div>';
-				if($i%4==0){
-					echo '</div>';
-				}
-			}
+            }
+            echo '</div>';
+        } else {
+            echo '<h6 class=":text-danger text-center mt-3">No Movies or TV Shows found!</h6>';
+        }
+        echo '</div></section>';
     }
-    else {
-        echo '<h6 class=":text-danger text-center mt-3">No Movies or TV Shows found!</h6>';
-    }
-	echo '</div></section>';
-}
 
-?>
-    </div>
+    ?>
+
 
     <!-- footer section start -->
-    <?php include("footer.php");?>
+    <?php include("footer.php"); ?>
     <!-- footer section end -->
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>

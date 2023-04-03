@@ -1,14 +1,14 @@
-<?php 
-			$db_host = 'localhost';
-			$db_user = 'root';
-			$db_pass = 'root';
-			$db_name = 'moviedb';
-			$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
-			
-			$sql = "SELECT * FROM `movies`";
+<?php
+$db_host = 'localhost';
+$db_user = 'root';
+$db_pass = 'root';
+$db_name = 'moviedb';
+$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
 
-			$result = mysqli_query( $conn, $sql );
-		?>
+$sql = "SELECT * FROM `movies`";
+
+$result = mysqli_query($conn, $sql);
+?>
 
 <!DOCTYPE HTML>
 <html lang="zxx">
@@ -39,9 +39,9 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
     <style>
-    .movies {
-        color: #00d9e1;
-    }
+        .movies {
+            color: #00d9e1;
+        }
     </style>
 </head>
 
@@ -49,7 +49,7 @@
     <!-- Page loader -->
     <div id="preloader"></div>
     <!-- header section start -->
-    <?php include("header.php");?>
+    <?php include("header.php"); ?>
 
     <section class="breadcrumb-area">
         <div class="container">
@@ -80,34 +80,36 @@
             </div>
             <hr />
             <?php
-				$i = 0;
-			while( $row = mysqli_fetch_array($result) ){
-				$i++;
-				$title = $row['Title'];
+            echo '<div class="row portfolio-item">';
+            $i = 0;
+            while ($row = mysqli_fetch_array($result)) {
+                $i++;
+                $title = $row['Title'];
                 $poster = $row['Cover'];
                 $id = $row['ID'];
                 $type = $row['Type'];
-				$genre = $row['Genre'];
-				if($i%4==1){
-					echo '<div class="row portfolio-item">';
-				}
-                echo '<div class="col-lg-3 col-md-4 col-sm-6 '.$genre.'">
-                <a href = "movie-details.php?id='.$id.'&type='.$type.'">
+                $genre = $row['Genre'];
+                // if($i%4==1){
+                // 	echo '<div class="row portfolio-item">';
+                // }
+                echo '<div class="col-lg-3 col-md-4 col-sm-6 ' . $genre . '">
+                <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
                     <div class="single-portfolio">
                         <div class="single-portfolio-img">
-                            <img src="'.$poster.'" alt="portfolio" />
+                            <img src="' . $poster . '" alt="portfolio" />
                         </div>
                         <div class="portfolio-content">
-                            <h5 style = "text-align:center;">'.$title.'</h5>
+                            <h5 style = "text-align:center;">' . $title . '</h5>
                         </div>
                     </div>
                     </a>
                 </div>';
-				if($i%4==0){
-					echo '</div>';
-				}
-			}
-				?>
+                // if($i%4==0){
+                // 	echo '</div>';
+                // }
+            }
+            echo '</div>';
+            ?>
     </section><!-- portfolio section end -->
     <!-- video section start -->
     <section class="video ptb-90">
@@ -177,7 +179,7 @@
         </div>
     </section><!-- video section end -->
     <!-- footer section start -->
-    <?php include("footer.php");?>
+    <?php include("footer.php"); ?>
     <!-- footer section end -->
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>
