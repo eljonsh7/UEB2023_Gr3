@@ -1,14 +1,14 @@
-<?php 
-			$db_host = 'localhost';
-			$db_user = 'root';
-			$db_pass = 'root';
-			$db_name = 'moviedb';
-			$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
-			
-			$sql = "SELECT * FROM `tvshows`";
+<?php
+$db_host = 'localhost';
+$db_user = 'root';
+$db_pass = 'root';
+$db_name = 'moviedb';
+$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
 
-			$result = mysqli_query( $conn, $sql );
-		?>
+$sql = "SELECT * FROM `tvshows`";
+
+$result = mysqli_query($conn, $sql);
+?>
 
 <!DOCTYPE HTML>
 <html lang="zxx">
@@ -42,40 +42,61 @@
     .tv {
         color: #00d9e1;
     }
+
+    .filmi {
+        align-items: center;
+        width: 221px;
+        height: 330px;
+        border-radius: 15px%;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .imgContentPortfolio {
+        transition: 0.9s;
+        position: relative;
+    }
+
+    .imgContentPortfolio:hover {
+        transform: scale(1.2);
+    }
+
     .grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-gap: 20px;
-}
-#imgContent{
-    width:221px;
-    height:330px;
-  }
-@media screen and (min-width: 576px) {
-  .grid-container {
-    grid-template-columns: repeat(2, minmax(250px, 1fr));
-  }
-}
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-gap: 20px;
+    }
 
-@media screen and (min-width: 768px) {
-  .grid-container {
-    grid-template-columns: repeat(2, minmax(250px, 1fr));
-  }
-}
+    #imgContent {
+        width: 221px;
+        height: 330px;
+    }
 
-@media screen and (min-width: 992px) {
-  .grid-container {
-    grid-template-columns: repeat(3, minmax(250px, 1fr));
-  }
-  
-}
+    @media screen and (min-width: 576px) {
+        .grid-container {
+            grid-template-columns: repeat(2, minmax(250px, 1fr));
+        }
+    }
 
-@media screen and (min-width: 1200px) {
-  .grid-container {
-    grid-template-columns: repeat(4, minmax(250px, 1fr));
-  }
-  
-}
+    @media screen and (min-width: 768px) {
+        .grid-container {
+            grid-template-columns: repeat(2, minmax(250px, 1fr));
+        }
+    }
+
+    @media screen and (min-width: 992px) {
+        .grid-container {
+            grid-template-columns: repeat(3, minmax(250px, 1fr));
+        }
+
+    }
+
+    @media screen and (min-width: 1200px) {
+        .grid-container {
+            grid-template-columns: repeat(4, minmax(250px, 1fr));
+        }
+
+    }
     </style>
 </head>
 
@@ -83,7 +104,7 @@
     <!-- Page loader -->
     <div id="preloader"></div>
     <!-- header section start -->
-    <?php include("header.php");?>
+    <?php include("header.php"); ?>
 
     <!-- breadcrumb area start -->
     <section class="breadcrumb-area">
@@ -115,19 +136,19 @@
             </div>
             <hr />
             <div class="grid-container" id="contentContainer">
-            <?php
-			while( $row = mysqli_fetch_array($result) ){
-				$title = $row['Title'];
-                $poster = $row['Cover'];
-                $id = $row['ID'];
-                $type = $row['Type'];
-				$genre = $row['Genre'];
-                echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
+                <?php
+                while ($row = mysqli_fetch_array($result)) {
+                    $title = $row['Title'];
+                    $poster = $row['Cover'];
+                    $id = $row['ID'];
+                    $type = $row['Type'];
+                    $genre = $row['Genre'];
+                    echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
                     <div>
-                        <div>
+                        <div  class = "filmi">
                             <center>
                                 <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
-                                    <img id="imgContent" src="' . $poster . '" alt="portfolio" style="border-radius:15px;"/>
+                                    <img id="imgContent" src="' . $poster . '" alt="portfolio" class="imgContentPortfolio" style="border-radius:15px;"/>
                                 </a>
                             </center>
                         </div>
@@ -138,8 +159,8 @@
                         </div>
                     </div>
                 </div>';
-			}
-				?>
+                }
+                ?>
             </div>
         </div>
     </section><!-- portfolio section end -->
@@ -211,7 +232,7 @@
         </div>
     </section><!-- video section end -->
     <!-- footer section start -->
-    <?php include("footer.php");?>
+    <?php include("footer.php"); ?>
     <!-- footer section end -->
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>
@@ -229,19 +250,17 @@
     <script src="assets/js/main.js"></script>
 
     <script type="text/javascript">
-            function checkAjax(Genre) {
-                $.ajax({
-                    url: 'sortGenre.php?type=tvshow&genre='+ Genre,
-                    method: 'GET',
-                    dataType: 'html',
-                    success: function(data) {
-                    $('#contentContainer').html(data);
-                }
-      
-    });
-  };
+    function checkAjax(Genre) {
+        $.ajax({
+            url: 'sortGenre.php?type=tvshow&genre=' + Genre,
+            method: 'GET',
+            dataType: 'html',
+            success: function(data) {
+                $('#contentContainer').html(data);
+            }
 
-
+        });
+    };
     </script>
 </body>
 

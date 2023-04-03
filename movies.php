@@ -44,41 +44,60 @@ $result = mysqli_query($conn, $sql);
         color: #00d9e1;
     }
 
+    .filmi {
+        align-items: center;
+        width: 221px;
+        height: 330px;
+        border-radius: 5%;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .imgContentPortfolio {
+        transition: 0.9s;
+        position: relative;
+    }
+
+    .imgContentPortfolio:hover {
+        transform: scale(1.2);
+    }
+
     .grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-gap: 20px;
-}
-#imgContent{
-    width:221px;
-    height:330px;
-  }
-@media screen and (min-width: 576px) {
-  .grid-container {
-    grid-template-columns: repeat(2, minmax(250px, 1fr));
-  }
-}
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-gap: 20px;
+    }
 
-@media screen and (min-width: 768px) {
-  .grid-container {
-    grid-template-columns: repeat(2, minmax(250px, 1fr));
-  }
-}
+    #imgContent {
+        width: 221px;
+        height: 330px;
+    }
 
-@media screen and (min-width: 992px) {
-  .grid-container {
-    grid-template-columns: repeat(3, minmax(250px, 1fr));
-  }
-  
-}
+    @media screen and (min-width: 576px) {
+        .grid-container {
+            grid-template-columns: repeat(2, minmax(250px, 1fr));
+        }
+    }
 
-@media screen and (min-width: 1200px) {
-  .grid-container {
-    grid-template-columns: repeat(4, minmax(250px, 1fr));
-  }
-  
-}
+    @media screen and (min-width: 768px) {
+        .grid-container {
+            grid-template-columns: repeat(2, minmax(250px, 1fr));
+        }
+    }
 
+    @media screen and (min-width: 992px) {
+        .grid-container {
+            grid-template-columns: repeat(3, minmax(250px, 1fr));
+        }
+
+    }
+
+    @media screen and (min-width: 1200px) {
+        .grid-container {
+            grid-template-columns: repeat(4, minmax(250px, 1fr));
+        }
+
+    }
     </style>
 </head>
 
@@ -117,20 +136,20 @@ $result = mysqli_query($conn, $sql);
             </div>
             <hr />
             <div class="grid-container" id="contentContainer">
-            
-            <?php
-            while ($row = mysqli_fetch_array($result)) {
-                $title = $row['Title'];
-                $poster = $row['Cover'];
-                $id = $row['ID'];
-                $type = $row['Type'];
-                $genre = $row['Genre'];
-                echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
+
+                <?php
+                while ($row = mysqli_fetch_array($result)) {
+                    $title = $row['Title'];
+                    $poster = $row['Cover'];
+                    $id = $row['ID'];
+                    $type = $row['Type'];
+                    $genre = $row['Genre'];
+                    echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
                     <div>
-                        <div>
+                        <div  class = "filmi">
                             <center>
                                 <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
-                                    <img id="imgContent" src="' . $poster . '" alt="portfolio" style="border-radius:15px;"/>
+                                    <img id="imgContent" src="' . $poster . '" alt="portfolio" class="imgContentPortfolio" style="border-radius:15px;"/>
                                 </a>
                             </center>
                         </div>
@@ -141,9 +160,8 @@ $result = mysqli_query($conn, $sql);
                         </div>
                     </div>
                 </div>';
-                
-            }
-            ?>
+                }
+                ?>
             </div>
         </div>
     </section><!-- portfolio section end -->
@@ -231,21 +249,19 @@ $result = mysqli_query($conn, $sql);
     <script src="assets/js/isotope.pkgd.min.js"></script>
     <!-- main JS -->
     <script src="assets/js/main.js"></script>
-    
+
     <script type="text/javascript">
-            function checkAjax(Genre) {
-                $.ajax({
-                    url: 'sortGenre.php?type=movie&genre='+ Genre,
-                    method: 'GET',
-                    dataType: 'html',
-                    success: function(data) {
-                    $('#contentContainer').html(data);
-                }
-      
-    });
-  };
+    function checkAjax(Genre) {
+        $.ajax({
+            url: 'sortGenre.php?type=movie&genre=' + Genre,
+            method: 'GET',
+            dataType: 'html',
+            success: function(data) {
+                $('#contentContainer').html(data);
+            }
 
-
+        });
+    };
     </script>
 </body>
 
