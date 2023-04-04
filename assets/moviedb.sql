@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Apr 02, 2023 at 01:11 AM
+-- Generation Time: Apr 04, 2023 at 02:13 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -51,7 +51,8 @@ INSERT INTO `movies` (`ID`, `Title`, `Date`, `Rating`, `Director`, `Studio`, `Tr
 (2, 'The Godfather', '1972-03-24', 9.2, 'Francis Ford Coppola', ' Paramount Pictures', 'https://www.youtube.com/watch?v=UaVTIH8mujA', 'Widely regarded as one of the greatest films of all time, this mob drama, based on Mario Puzo\'s novel of the same name, focuses on the powerful Italian-American crime family of Don Vito Corleone (Marlon Brando). When the don\'s youngest son, Michael (Al Pacino), reluctantly joins the Mafia, he becomes involved in the inevitable cycle of violence and betrayal. Although Michael tries to maintain a normal relationship with his wife, Kay (Diane Keaton), he is drawn deeper into the family business.', 'https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg', 'Crime Drama', 179, 'movie'),
 (3, 'The Dark Knight', '2008-07-16', 9, 'Christopher Nolan', 'Warner Bros. Pictures', 'https://www.youtube.com/watch?v=LDG9bisJEaI', 'With the help of allies Lt. Jim Gordon (Gary Oldman) and DA Harvey Dent (Aaron Eckhart), Batman (Christian Bale) has been able to keep a tight lid on crime in Gotham City. But when a vile young criminal calling himself the Joker (Heath Ledger) suddenly throws the town into chaos, the caped Crusader begins to tread a fine line between heroism and vigilantism.', 'https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg', 'Action Crime Drama', 152, 'movie'),
 (4, 'Avengers: Endgame', '2019-05-25', 8.4, 'Anthony & Joe Russo', 'Walt Disney Studios Motion Pictures', 'https://www.youtube.com/watch?v=TcMBFSGVi1c', 'Adrift in space with no food or water, Tony Stark sends a message to Pepper Potts as his oxygen supply starts to dwindle. Meanwhile, the remaining Avengers -- Thor, Black Widow, Captain America and Bruce Banner -- must figure out a way to bring back their vanquished allies for an epic showdown with Thanos -- the evil demigod who decimated the planet and the universe.', 'https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg', 'Action Adventure Drama Science Fiction', 181, 'movie'),
-(5, 'The Lord of the Rings: The Fellowship of the Ring', '2001-12-19', 8.8, 'Peter Jackson', 'New Line Cinema', 'https://www.youtube.com/watch?v=_e8QGuG50ro', 'The future of civilization rests in the fate of the One Ring, which has been lost for centuries. Powerful forces are unrelenting in their search for it. But fate has placed it in the hands of a young Hobbit named Frodo Baggins (Elijah Wood), who inherits the Ring and steps into legend. A daunting task lies ahead for Frodo when he becomes the Ringbearer - to destroy the One Ring in the fires of Mount Doom where it was forged.', 'https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_.jpg', 'Action Adventure Drama Fantasy', 228, 'movie');
+(5, 'The Lord of the Rings: The Fellowship of the Ring', '2001-12-19', 8.8, 'Peter Jackson', 'New Line Cinema', 'https://www.youtube.com/watch?v=_e8QGuG50ro', 'The future of civilization rests in the fate of the One Ring, which has been lost for centuries. Powerful forces are unrelenting in their search for it. But fate has placed it in the hands of a young Hobbit named Frodo Baggins (Elijah Wood), who inherits the Ring and steps into legend. A daunting task lies ahead for Frodo when he becomes the Ringbearer - to destroy the One Ring in the fires of Mount Doom where it was forged.', 'https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_.jpg', 'Action Adventure Drama Fantasy', 228, 'movie'),
+(6, 'Avengers: Infinity War', '2018-04-27', 8.4, 'Anthony & Joe Russo;', 'Walt Disney Studios Motion Pictures', 'https://www.youtube.com/watch?v=6ZfuNTqbHE8', 'In Avengers: Infinity War, the Marvel superheroes team up to stop the powerful villain Thanos from acquiring all six Infinity Stones, which would give him the power to destroy half the universe with a snap of his fingers. The Avengers travel to different parts of the galaxy to prevent Thanos from completing his mission, but they suffer heavy losses in the process. The movie ends on a cliffhanger as Thanos successfully acquires all the stones and snaps his fingers, causing many of the heroes to turn to dust.', 'https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_.jpg', 'Action\r\nAdventure\r\nFantasy\r\nScience Fiction', 149, 'movie');
 
 -- --------------------------------------------------------
 
@@ -90,13 +91,19 @@ INSERT INTO `tvshows` (`ID`, `Title`, `StartDate`, `Status`, `Rating`, `Director
 
 CREATE TABLE `users` (
   `ID` int(11) NOT NULL,
-  `username` varchar(15) DEFAULT NULL,
-  `email` varchar(30) DEFAULT NULL,
-  `password` varchar(30) DEFAULT NULL,
-  `phone` varchar(15) DEFAULT NULL,
+  `Username` varchar(15) DEFAULT NULL,
+  `Email` varchar(30) DEFAULT NULL,
+  `Password` varchar(30) DEFAULT NULL,
   `Admin` tinyint(1) NOT NULL,
   `Active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`ID`, `Username`, `Email`, `Password`, `Admin`, `Active`) VALUES
+(2, 'eljohn7', 'eljon.sh@gmail.com', 'Milton77', 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -128,7 +135,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `movies`
 --
 ALTER TABLE `movies`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `tvshows`
@@ -140,7 +147,7 @@ ALTER TABLE `tvshows`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

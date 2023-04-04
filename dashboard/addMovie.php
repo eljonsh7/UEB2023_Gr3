@@ -56,7 +56,7 @@
 </head>
 
 
-<body class="g-sidenav-show  bg-gray-200">
+<body class="g-sidenav-show dark-version bg-gray-200">
 
     <?php include("header.php"); ?>
 
@@ -85,53 +85,53 @@
 
                     <div class="form-group">
                         <label for="title">Title:</label>
-                        <input class="form-control" type="text" id="title" placeholder="Title:" name="title">
+                        <input class="form-control bg-dark" type="text" id="title" placeholder="Title:" name="title">
                     </div>
 
                     <div class="form-group">
                         <label for="date">Date:</label>
-                        <input class="form-control" type="date" id="date" placeholder="Date:" name="date">
+                        <input class="form-control bg-dark" type="date" id="date" placeholder="Date:" name="date">
                     </div>
 
                     <div class="form-group">
                         <label for="rating">Rating:</label>
-                        <input class="form-control" type="text" id="rating" placeholder="Rating:" name="rating">
+                        <input class="form-control bg-dark" type="text" id="rating" placeholder="Rating:" name="rating">
                     </div>
 
                     <div class="form-group">
                         <label for="director">Director:</label>
-                        <input class="form-control" type="text" id="director" placeholder="Director:" name="director">
+                        <input class="form-control bg-dark" type="text" id="director" placeholder="Director:" name="director">
                     </div>
 
                     <div class="form-group">
                         <label for="studio">Studio:</label>
-                        <input class="form-control" type="text" id="studio" placeholder="Studio:" name="studio">
+                        <input class="form-control bg-dark" type="text" id="studio" placeholder="Studio:" name="studio">
                     </div>
 
                     <div class="form-group">
                         <label for="cover">Cover Link:</label>
-                        <input class="form-control" type="text" id="cover" placeholder="Cover Link:" name="cover">
+                        <input class="form-control bg-dark" type="text" id="cover" placeholder="Cover Link:" name="cover">
                     </div>
 
                     <div class="form-group">
                         <label for="trailer">Trailer Link:</label>
-                        <input class="form-control" type="text" id="trailer" placeholder="Trailer Link:" name="trailer">
+                        <input class="form-control bg-dark" type="text" id="trailer" placeholder="Trailer Link:" name="trailer">
                     </div>
 
                     <div class="form-group">
                         <label for="description">Description:</label>
-                        <textarea class="form-control" id="description" placeholder="Description:" name="description"
+                        <textarea class="form-control bg-dark" id="description" placeholder="Description:" name="description"
                             style="color:black;" maxlength="1000"></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="genre">Genre:</label>
-                        <input class="form-control" type="text" id="genre" placeholder="Genre:" name="genre">
+                        <input class="form-control bg-dark" type="text" id="genre" placeholder="Genre:" name="genre">
                     </div>
 
                     <div class="form-group">
                         <label for="length">Length:</label>
-                        <input class="form-control" type="text" id="length" placeholder="Length:" name="length">
+                        <input class="form-control bg-dark" type="text" id="length" placeholder="Length:" name="length">
                     </div>
                     <br>
 

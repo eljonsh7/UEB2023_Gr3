@@ -15,7 +15,7 @@
                         <li><a class="tv" href="tv-shows.php">Tv Shows</a></li>
                         <li><a class="imdb" href="imdb.php">Top IMDb</a></li>
                         <li>
-                            <?php if (true) { ?>
+                            <?php if (false) { ?>
                                 <a href="#">Profile <i class="icofont icofont-simple-down"></i></a>
                                 <ul>
                                     <li><a href="" class="signup-popup">Edit</a></li>
