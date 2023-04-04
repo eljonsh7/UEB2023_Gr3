@@ -202,7 +202,7 @@
                     <div class="row portfolio-items" id="latest">
                         <?php
                             // Connect to the database
-                            $db = new mysqli('localhost', 'root', 'root', 'moviedb');
+                            $db = new mysqli('localhost', 'root', 'root', 'moviedb',3307);
 
                             $query = "SELECT * FROM movies ORDER BY Date DESC LIMIT 6";
                             $result = $db->query($query);
@@ -229,7 +229,7 @@
                     <div class="row portfolio-items" id="top" style="display: none;">
                         <?php
                             // Connect to the database
-                            $db = new mysqli('localhost', 'root', 'root', 'moviedb');
+                            $db = new mysqli('localhost', 'root', 'root', 'moviedb',3307);
 
                             $query = "SELECT * FROM movies ORDER BY Rating DESC LIMIT 6";
                             $result = $db->query($query);
