@@ -10,97 +10,97 @@ $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
 <html lang="zxx">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FlixFeast</title>
-  <!-- Favicon Icon -->
-  <link rel="icon" type="image/png" href="assets/img/logo2.png" />
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" media="all" />
-  <!-- Slick nav CSS -->
-  <link rel="stylesheet" type="text/css" href="assets/css/slicknav.min.css" media="all" />
-  <!-- Iconfont CSS -->
-  <link rel="stylesheet" type="text/css" href="assets/css/icofont.css" media="all" />
-  <!-- Owl carousel CSS -->
-  <link rel="stylesheet" type="text/css" href="assets/css/owl.carousel.css">
-  <!-- Popup CSS -->
-  <link rel="stylesheet" type="text/css" href="assets/css/magnific-popup.css">
-  <!-- Main style CSS -->
-  <link rel="stylesheet" type="text/css" href="assets/css/style.css" media="all" />
-  <!-- Responsive CSS -->
-  <link rel="stylesheet" type="text/css" href="assets/css/responsive.css" media="all" />
-  <!--[if lt IE 9]>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FlixFeast</title>
+    <!-- Favicon Icon -->
+    <link rel="icon" type="image/png" href="assets/img/logo2.png" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" media="all" />
+    <!-- Slick nav CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/slicknav.min.css" media="all" />
+    <!-- Iconfont CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/icofont.css" media="all" />
+    <!-- Owl carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/owl.carousel.css">
+    <!-- Popup CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/magnific-popup.css">
+    <!-- Main style CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" media="all" />
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css" media="all" />
+    <!--[if lt IE 9]>
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-  <style>
+    <style>
     .grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      grid-gap: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-gap: 20px;
     }
 
     .filmi {
-      align-items: center;
-      width: 221px;
-      height: 330px;
-      border-radius: 15px;
-      margin: 0 auto;
-      overflow: hidden;
+        align-items: center;
+        width: 221px;
+        height: 330px;
+        border-radius: 15px;
+        margin: 0 auto;
+        overflow: hidden;
     }
 
     .imgContentPortfolio {
-      transition: 0.9s;
-      position: relative;
+        transition: 0.9s;
+        position: relative;
     }
 
     .imgContentPortfolio:hover {
-      transform: scale(1.2);
+        transform: scale(1.2);
     }
 
     #imgContent {
-      width: 221px;
-      height: 330px;
+        width: 221px;
+        height: 330px;
     }
 
     @media screen and (min-width: 576px) {
-      .grid-container {
-        grid-template-columns: repeat(2, minmax(250px, 1fr));
-      }
+        .grid-container {
+            grid-template-columns: repeat(2, minmax(250px, 1fr));
+        }
     }
 
     @media screen and (min-width: 768px) {
-      .grid-container {
-        grid-template-columns: repeat(2, minmax(250px, 1fr));
-      }
+        .grid-container {
+            grid-template-columns: repeat(2, minmax(250px, 1fr));
+        }
     }
 
     @media screen and (min-width: 992px) {
-      .grid-container {
-        grid-template-columns: repeat(3, minmax(250px, 1fr));
-      }
+        .grid-container {
+            grid-template-columns: repeat(3, minmax(250px, 1fr));
+        }
 
     }
 
     @media screen and (min-width: 1200px) {
-      .grid-container {
-        grid-template-columns: repeat(4, minmax(250px, 1fr));
-      }
+        .grid-container {
+            grid-template-columns: repeat(4, minmax(250px, 1fr));
+        }
 
     }
-  </style>
+    </style>
 </head>
 
 <body>
-  <!-- Page loader -->
-  <div id="preloader"></div>
-  <!-- header section start -->
-  <?php include("header.php"); ?>
+    <!-- Page loader -->
+    <div id="preloader"></div>
+    <!-- header section start -->
+    <?php include("header.php"); ?>
 
 
-  <?php
+    <?php
   if (isset($_POST['submit'])) {
     $search = mysqli_real_escape_string($conn, $_POST['search']);
     echo '<section class="breadcrumb-area">
@@ -177,25 +177,25 @@ $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
   ?>
 
 
-  <!-- footer section start -->
-  <?php include("footer.php"); ?>
-  <!-- footer section end -->
-  <!-- jquery main JS -->
-  <script src="assets/js/jquery.min.js"></script>
-  <!-- Bootstrap JS -->
-  <script src="assets/js/bootstrap.min.js"></script>
-  <!-- Slick nav JS -->
-  <script src="assets/js/jquery.slicknav.min.js"></script>
-  <!-- owl carousel JS -->
-  <script src="assets/js/owl.carousel.min.js"></script>
-  <!-- Popup JS -->
-  <script src="assets/js/jquery.magnific-popup.min.js"></script>
-  <!-- Isotope JS -->
-  <script src="assets/js/isotope.pkgd.min.js"></script>
-  <!-- main JS -->
-  <script src="assets/js/main.js"></script>
+    <!-- footer section start -->
+    <?php include("footer.php"); ?>
+    <!-- footer section end -->
+    <!-- jquery main JS -->
+    <script src="assets/js/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- Slick nav JS -->
+    <script src="assets/js/jquery.slicknav.min.js"></script>
+    <!-- owl carousel JS -->
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <!-- Popup JS -->
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <!-- Isotope JS -->
+    <script src="assets/js/isotope.pkgd.min.js"></script>
+    <!-- main JS -->
+    <script src="assets/js/main.js"></script>
 
-  <?php
+    <?php
   echo '<script type="text/javascript">
             function checkAjax(type) {
                 $.ajax({
