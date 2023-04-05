@@ -1146,6 +1146,7 @@ hr {
   color: #03090e;
   margin: 200px auto 0;
   padding: 40px 25px 25px;
+  border-radius: 10px;
 }
 
 .login-box a {

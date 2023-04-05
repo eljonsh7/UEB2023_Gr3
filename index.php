@@ -41,6 +41,9 @@
             justify-content: center;
             display: flex;
         }
+        .row {
+            justify-content: center;
+        }
     </style>
 </head>
 
@@ -118,62 +121,58 @@
                 <?php
                 echo
                 '<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;">
-									<div class="col-lg-6 col-md-5">
-										<div class="hero-area-content">
-											<div class="img-wrapper" style="margin-bottom:4%;margin-top:-8.5%;">
-												<img src="' . $Cover . '" style="width: 100%;" alt="about" id="test123" />
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-6 col-md-7">
-										<div class="hero-area-content pr-50">
-											<h2>' . $Title . '</h2>
-											<div class="review">
-												<div class="author-review">
-													<i class="icofont icofont-star"></i>
-												</div>
-												<h4>' . $Rating . '</h4>
-											</div>
-											<p>' . $Description . '</p>
-											<div class="slide-trailor">
-												<a href="' . $Trailer . '" class="theme-btn popup-youtube">Trailer  ▶</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								';
-
+                    <div class="col-lg-6 col-md-5">
+                        <div class="hero-area-content">
+                            <div class="img-wrapper" style="margin-bottom:4%;margin-top:-8.5%;">
+                                <img src="' . $Cover . '" style="width: 100%;" alt="about" id="test123" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-7">
+                        <div class="hero-area-content pr-50">
+                            <h2>' . $Title . '</h2>
+                            <div class="review">
+                                <div class="author-review">
+                                    <i class="icofont icofont-star"></i>
+                                </div>
+                                <h4>' . $Rating . '</h4>
+                            </div>
+                            <p>' . $Description . '</p>
+                            <div class="slide-trailor">
+                                <a href="' . $Trailer . '" class="theme-btn popup-youtube">Trailer  ▶</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
                 ?>
             </div>
             <div class="thumb-next">
                 <?php
                 echo
                 '<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;">
-									<div class="col-lg-6 col-md-5">
-										<div class="hero-area-content">
-											<div class="img-wrapper" style="margin-bottom:4%;margin-top:-8.5%;">
-												<img src="' . $Cover2 . '" style="width: 100%;" alt="about" id="test123" />
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-6 col-md-7">
-										<div class="hero-area-content pr-50">
-											<h2>' . $Title2 . '</h2>
-											<div class="review">
-												<div class="author-review">
-													<i class="icofont icofont-star"></i>
-												</div>
-												<h4>' . $Rating2 . '</h4>
-											</div>
-											<p>' . $Description2 . '</p>
-											<div class="slide-trailor">
-												<a href="' . $Trailer2 . '" class="theme-btn popup-youtube">Trailer  ▶</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								';
-
+                    <div class="col-lg-6 col-md-5">
+                        <div class="hero-area-content">
+                            <div class="img-wrapper" style="margin-bottom:4%;margin-top:-8.5%;">
+                                <img src="' . $Cover2 . '" style="width: 100%;" alt="about" id="test123" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-7">
+                        <div class="hero-area-content pr-50">
+                            <h2>' . $Title2 . '</h2>
+                            <div class="review">
+                                <div class="author-review">
+                                    <i class="icofont icofont-star"></i>
+                                </div>
+                                <h4>' . $Rating2 . '</h4>
+                            </div>
+                            <p>' . $Description2 . '</p>
+                            <div class="slide-trailor">
+                                <a href="' . $Trailer2 . '" class="theme-btn popup-youtube">Trailer  ▶</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
                 ?>
             </div>
         </div>
@@ -190,15 +189,14 @@
                 <div class="col-lg-6 text-center text-lg-right">
                     <div class="portfolio-menu">
                         <ul>
-                            <li data-filter=".latest" class="active" onclick="latest()">Latest</li>
-                            <li data-filter=".top" onclick="top()">Top Rated</li>
+                            <li class="active">Latest</li>
                         </ul>
                     </div>
                 </div>
             </div>
             <hr />
             <div class="row">
-                <div class="col-lg-9 portfolio-container latest">
+                <div class="col-lg-9 portfolio-container">
                     <div class="row portfolio-items" id="latest">
                         <?php
                             // Connect to the database
@@ -214,33 +212,6 @@
                                         <div class="single-portfolio">
                                             <div class="single-portfolio-img">';
                                 echo '<img src="' . $cover . '" alt="portfolio"/>';
-                                echo '</div>';
-                                echo '<div class="portfolio-content">';
-                                echo '<h2>' . $title . '</h2>';
-                                echo '</div>
-                                    </div>
-                                </div>';
-                            }
-
-                            // Close the database connection
-                            $db->close();
-                        ?>
-                    </div>
-                    <div class="row portfolio-items" id="top" style="display: none;">
-                        <?php
-                            // Connect to the database
-                            $db = new mysqli('localhost', 'root', 'root', 'moviedb',3307);
-
-                            $query = "SELECT * FROM movies ORDER BY Rating DESC LIMIT 6";
-                            $result = $db->query($query);
-
-                            while ($row = $result->fetch_assoc()) {
-                                $title = $row['Title'];
-                                $cover = $row['Cover'];
-                                echo '<div class="col-md-4 col-sm-6 soon released">
-                                        <div class="single-portfolio">
-                                            <div class="single-portfolio-img">';
-                                echo '<img src="' . $cover . '" alt="portfolio" />';
                                 echo '</div>';
                                 echo '<div class="portfolio-content">';
                                 echo '<h2>' . $title . '</h2>';
@@ -419,18 +390,6 @@
     <script src="assets/js/isotope.pkgd.min.js"></script>
     <!-- main JS -->
     <script src="assets/js/main.js"></script>
-
-    <script>
-        function top(){
-            document.getElementById("top").display = "flex";
-            document.getElementById("latest").display = "none";
-        }
-
-        function latest(){
-            document.getElementById("top").display = "none";
-            document.getElementById("latest").display = "flex";
-        }
-    </script>
 
 </body>
 

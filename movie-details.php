@@ -85,12 +85,12 @@
             <div class="col-lg-7">
               <div class="transformers-content">
                 <h2>'.$row["Title"].'</h2>
-                <p>'.$row['Genre'].'</p>
+                <p>'.str_replace(" ", " | ", $row['Genre']).'</p>
                 <ul>
                   <li>
                     <div class="transformers-left">Rating:</div>
                     <div class="transformers-right">
-                      <i class="icofont icofont-star">'.$row['Rating'].'</i>
+                      <i class="icofont icofont-star">'. ' ' . $row['Rating'].'</i>
                     </div>
                   </li>
                   <li>

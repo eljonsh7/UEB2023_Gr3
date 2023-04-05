@@ -152,6 +152,7 @@ window.addEventListener('scroll', () => {
 <div class="login-area">
     <div class="login-box" style="background-color: #13151f; color: white;">
         <a href="#"><i class="icofont icofont-close"></i></a>
+        <input type="hidden" name="signUpForm" value="submitted">
         <h2 style="color: white;">SIGN UP</h2>
         <form method="post">
             <h6 style="color: white;">USERNAME</h6>
@@ -188,68 +189,66 @@ window.addEventListener('scroll', () => {
     </div>
 </div>
 <?php
-$db_host = 'localhost';
-$db_user = 'root';
-$db_pass = 'root';
-$db_name = 'moviedb';
-$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
+    $db_host = 'localhost';
+    $db_user = 'root';
+    $db_pass = 'root';
+    $db_name = 'moviedb';
+    $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
 
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username-field'];
-    $email = $_POST['email-field'];
-    $password = $_POST['password-field'];
-
-    $username = mysqli_real_escape_string($conn, $username);
-    $email = mysqli_real_escape_string($conn, $email);
-    $password = mysqli_real_escape_string($conn, $password);
-
-    $stmt = mysqli_prepare($conn, "INSERT INTO users (Username, Email, Password, Active) VALUES (?, ?, ?, 1)");
-    mysqli_stmt_bind_param($stmt, "sss", $username, $email, $password);
-    mysqli_stmt_execute($stmt);
-
-    if (mysqli_stmt_affected_rows($stmt) > 0) {
-        echo "<script>console.log('Data inserted successfully!')";
-    } else {
-        echo "<script>console.log('Error inserting data')";
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
     }
 
-    mysqli_stmt_close($stmt);
-}
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
+        $username = $_POST['username-field'];
+        $email = $_POST['email-field'];
+        $password = $_POST['password-field'];
 
-mysqli_close($conn);
+        $username = mysqli_real_escape_string($conn, $username);
+        $email = mysqli_real_escape_string($conn, $email);
+        $password = mysqli_real_escape_string($conn, $password);
+
+        $stmt = mysqli_prepare($conn, "INSERT INTO users (Username, Email, Password, Active) VALUES (?, ?, ?, 1)");
+        mysqli_stmt_bind_param($stmt, "sss", $username, $email, $password);
+        mysqli_stmt_execute($stmt);
+
+        if (mysqli_stmt_affected_rows($stmt) > 0) {
+            echo "<script>console.log('Data inserted successfully!')";
+        } else {
+            echo "<script>console.log('Error inserting data')";
+        }
+
+        mysqli_stmt_close($stmt);
+    }
 ?>
 <script>
-function verifyPassword() {
-    const password1 = document.getElementById("password-field").value;
-    const password2 = document.getElementById("password-field2").value;
-    const signUpButton = document.getElementById("sign-up");
-    const errorMessage = document.getElementById("isItSame");
-    const allMessage = document.getElementById("all");
+    function verifyPassword() {
+        const password1 = document.getElementById("password-field").value;
+        const password2 = document.getElementById("password-field2").value;
+        const signUpButton = document.getElementById("sign-up");
+        const errorMessage = document.getElementById("isItSame");
+        const allMessage = document.getElementById("all");
 
-    const passwordRegex = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
-    const isPasswordValid =
-        password1 === password2 && passwordRegex.test(password1);
+        const passwordRegex = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
+        const isPasswordValid =
+            password1 === password2 && passwordRegex.test(password1);
 
-    if (!passwordRegex.test(password1)) {
-        allMessage.style.display = "flex";
-        allMessage.style.color = "red";
-    } else {
-        allMessage.style.display = "none";
-    }
-
-    if (password2.length != 0) {
-        if (password1 !== password2) {
-            errorMessage.style.display = "flex";
-            errorMessage.style.color = "red";
+        if (!passwordRegex.test(password1)) {
+            allMessage.style.display = "flex";
+            allMessage.style.color = "red";
         } else {
-            errorMessage.style.display = "none";
+            allMessage.style.display = "none";
         }
-    }
 
-    signUpButton.disabled = !isPasswordValid;
-}
+        if (password2.length != 0) {
+            if (password1 !== password2) {
+                errorMessage.style.display = "flex";
+                errorMessage.style.color = "red";
+            } else {
+                errorMessage.style.display = "none";
+            }
+        }
+
+        signUpButton.disabled = !isPasswordValid;
+    }
 </script>

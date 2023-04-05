@@ -532,10 +532,7 @@ pre code {
   margin-left: auto;
 }
 .row {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
@@ -622,8 +619,8 @@ pre code {
   position: relative;
   width: 100%;
   min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: spx;
+  padding-left: spx;
 }
 .col {
   -ms-flex-preferred-size: 0;
