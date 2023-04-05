@@ -1,3 +1,16 @@
+<?php
+include ('connection.php');
+
+$sql = "SELECT * FROM `movies` ORDER BY Rating DESC LIMIT 10";
+
+$result = mysqli_query($conn, $sql);
+
+while($row = mysqli_fetch_array($result)){
+	echo '<script>console.log("Title: '.$row['Title'].' Rating: '.$row['Rating'].'\n")</script>';
+}
+?>
+
+
 <!DOCTYPE HTML>
 <html lang="zxx">
 

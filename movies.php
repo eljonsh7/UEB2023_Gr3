@@ -1,10 +1,6 @@
 <?php
-$db_host = 'localhost';
-$db_user = 'root';
-$db_pass = 'root';
-$db_name = 'moviedb';
-$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
 
+include ('connection.php');
 $sql = "SELECT * FROM `movies`";
 
 $result = mysqli_query($conn, $sql);

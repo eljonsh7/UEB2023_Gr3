@@ -1,9 +1,6 @@
 <?php
-$db_host = 'localhost';
-$db_user = 'root';
-$db_pass = 'root';
-$db_name = 'moviedb';
-$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
+
+include ('connection.php');
 
 $sql = "SELECT * FROM `tvshows`";
 
@@ -47,7 +44,7 @@ $result = mysqli_query($conn, $sql);
         align-items: center;
         width: 221px;
         height: 330px;
-        border-radius: 15px%;
+        border-radius: 15px;
         margin: 0 auto;
         overflow: hidden;
     }
