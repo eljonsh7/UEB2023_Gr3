@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>FlixFeast</title>
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
     <link href="assets/css2/nucleo-icons.css" rel="stylesheet" />
     <link href="assets/css2/nucleo-svg.css" rel="stylesheet" />
@@ -21,34 +22,34 @@
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
     <style>
-        .table td,
-        .table th {
-            white-space: normal;
-        }
+    .table td,
+    .table th {
+        white-space: normal;
+    }
 
-        .form-control {
-            background-color: white;
-            padding: 5px;
-        }
+    .form-control {
+        background-color: white;
+        padding: 5px;
+    }
 
-        .form-group {
-            width: 600px;
-        }
+    .form-group {
+        width: 600px;
+    }
 
-        @media (min-width: 768px) {
-            .col-md-6 {
-                flex: 0 0 auto;
-                width: 100%;
-            }
+    @media (min-width: 768px) {
+        .col-md-6 {
+            flex: 0 0 auto;
+            width: 100%;
         }
+    }
 
-        body {
-            overflow-x: hidden;
-        }
+    body {
+        overflow-x: hidden;
+    }
 
-        p {
-            overflow: auto;
-        }
+    p {
+        overflow: auto;
+    }
     </style>
 </head>
 
@@ -56,178 +57,73 @@
 <body class="g-sidenav-show dark-version bg-gray-200">
 
     <?php
+    echo '
+<style>
+    .table td,
+    .table th {
+        white-space: normal;
+    }
+
+    .overlay {
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 30%;
+        height: 25%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 7px;
+    }
+
+    .modal p {
+        margin-top: 0;
+        margin-bottom: 1em;
+        text-align: center;
+    }
+
+    .modal-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5%;
+        width: 60%;
+    }
+
+    .modal-buttons a {
+        width: 30%;
+    }
+</style>
+<script>
+    document.addEventListener(\'DOMContentLoaded\', function() {
+        var element = document.getElementById("';
     if ($_GET['type'] == "Movie") {
-        echo '
-<style>
-    .table td,
-    .table th {
-        white-space: normal;
-    }
-
-    .overlay {
-        position: fixed;
-        z-index: 9999;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    .modal {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 30%;
-        height: 25%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 7px;
-    }
-
-    .modal p {
-        margin-top: 0;
-        margin-bottom: 1em;
-        text-align: center;
-    }
-
-    .modal-buttons {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 5%;
-        width: 60%;
-    }
-
-    .modal-buttons a {
-        width: 30%;
-    }
-</style>
-<script>
-    document.addEventListener(\'DOMContentLoaded\', function() {
-        var element = document.getElementById("movies");
-        element.classList.add("active", "bg-gradient-primary");
-    });
-</script>';
+        echo 'movies';
     } else if ($_GET['type'] == "Show") {
-        echo '
-<style>
-    .table td,
-    .table th {
-        white-space: normal;
-    }
-
-    .overlay {
-        position: fixed;
-        z-index: 9999;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    .modal {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 30%;
-        height: 25%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 7px;
-    }
-
-    .modal p {
-        margin-top: 0;
-        margin-bottom: 1em;
-        text-align: center;
-    }
-
-    .modal-buttons {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 5%;
-        width: 60%;
-    }
-
-    .modal-buttons a {
-        width: 30%;
-    }
-</style>
-<script>
-    document.addEventListener(\'DOMContentLoaded\', function() {
-        var element = document.getElementById("tvshows");
-        element.classList.add("active", "bg-gradient-primary");
-    });
-</script>';
+        echo 'tvshows';
     } else if ($_GET['type'] == "Blogs") {
-        echo '
-<style>
-    .table td,
-    .table th {
-        white-space: normal;
+        echo 'blogs';
     }
 
-    .overlay {
-        position: fixed;
-        z-index: 9999;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
 
-    .modal {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 30%;
-        height: 25%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 7px;
-    }
-
-    .modal p {
-        margin-top: 0;
-        margin-bottom: 1em;
-        text-align: center;
-    }
-
-    .modal-buttons {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 5%;
-        width: 60%;
-    }
-
-    .modal-buttons a {
-        width: 30%;
-    }
-</style>
-<script>
-    document.addEventListener(\'DOMContentLoaded\', function() {
-        var element = document.getElementById("blogs");
+    echo '");
         element.classList.add("active", "bg-gradient-primary");
     });
 </script>';
-    }
+
 
     include('header.php');
     include('connection.php');
@@ -254,7 +150,8 @@
     ?>
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+            data-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
