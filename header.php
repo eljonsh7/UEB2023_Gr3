@@ -1,5 +1,43 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<header class="header">
+<style>
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+    transition: top 0.3s;
+}
+
+.header.hide {
+    top: -100px;
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.header');
+    header.classList.remove('hide');
+});
+
+let prevScrollPos = window.pageYOffset;
+
+window.addEventListener('scroll', () => {
+    const currentScrollPos = window.pageYOffset;
+    const header = document.querySelector('.header');
+
+    if (prevScrollPos > currentScrollPos) {
+        // scrolling up
+        header.classList.remove('hide');
+    } else {
+        // scrolling down
+        header.classList.add('hide');
+    }
+
+    prevScrollPos = currentScrollPos;
+});
+</script>
+
+</script>
+<header class="header" id="header">
     <div class="container">
         <div class="header-area">
             <div class="logo">
@@ -30,7 +68,7 @@
                             <?php } ?>
                         </li>
                         <li>
-                            <form style="display: flex;" method="post" action="results.php">
+                            <form style="display: flex;" method="post" action="results.php" id="myForm">
                                 <input type="text" name="search" placeholder="Search..." class="form-control"
                                     id="live_search" autocomplete="off" onkeyup="liveSearch()" onchange="liveSearch()">
                                 <input type="submit" name="submit" value="Go" id="submit" style="visibility: hidden;">
@@ -74,6 +112,16 @@
         }
     });
     </script>
+    <!-- <script>
+        var anchorTag = document.getElementById('myAnchorTag');
+
+        anchorTag.addEventListener('click', function(event) {
+
+            var form = document.getElementById('myForm');
+
+            form.submit();
+        });
+    </script> -->
 </header>
 <div class="login-area signup-area">
     <div class="login-box" style="background-color: #13151f; color: white;">
