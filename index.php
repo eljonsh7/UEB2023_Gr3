@@ -27,23 +27,24 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
     <style>
-        .home {
-            visibility: hidden;
-            color: #00d9e1;
-        }
+    .home {
+        color: #00d9e1;
+    }
 
-        .img-wrapper {
-            width: 100%;
-            overflow: hidden;
-        }
-        div.portfolio-content > h2 {
-            font-size: 20px;
-            justify-content: center;
-            display: flex;
-        }
-        .row {
-            justify-content: center;
-        }
+    .img-wrapper {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    div.portfolio-content>h2 {
+        font-size: 20px;
+        justify-content: center;
+        display: flex;
+    }
+
+    .row {
+        justify-content: center;
+    }
     </style>
 </head>
 
