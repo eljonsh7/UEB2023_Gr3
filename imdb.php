@@ -5,9 +5,8 @@ $sql = "SELECT * FROM `movies` ORDER BY Rating DESC LIMIT 10";
 
 $result = mysqli_query($conn, $sql);
 
-while($row = mysqli_fetch_array($result)){
-	echo '<script>console.log("Title: '.$row['Title'].' Rating: '.$row['Rating'].'\n")</script>';
-}
+
+
 ?>
 
 
@@ -84,191 +83,32 @@ while($row = mysqli_fetch_array($result)){
 				</div>
 			</div>
 			<hr />
-			<div class="row portfolio-item">
-				<div class="col-lg-3 col-md-4 col-sm-6 soon released">
-					<div class="single-portfolio">
-						<div class="single-portfolio-img">
-							<img src="assets/img/portfolio/portfolio1.png" alt="portfolio" />
-							<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-								<i class="icofont icofont-ui-play"></i>
-							</a>
-						</div>
-						<div class="portfolio-content">
-							<h2>Boyz II Men</h2>
-							<div class="review">
-								<div class="author-review">
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-								</div>
-								<h4>180k voters</h4>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 top">
-					<div class="single-portfolio">
-						<div class="single-portfolio-img">
-							<img src="assets/img/portfolio/portfolio2.png" alt="portfolio" />
-							<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-								<i class="icofont icofont-ui-play"></i>
-							</a>
-						</div>
-						<div class="portfolio-content">
-							<h2>Tale of Revemge</h2>
-							<div class="review">
-								<div class="author-review">
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-								</div>
-								<h4>180k voters</h4>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 soon">
-					<div class="single-portfolio">
-						<div class="single-portfolio-img">
-							<img src="assets/img/portfolio/portfolio3.png" alt="portfolio" />
-							<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-								<i class="icofont icofont-ui-play"></i>
-							</a>
-						</div>
-						<div class="portfolio-content">
-							<h2>The Lost City of Z</h2>
-							<div class="review">
-								<div class="author-review">
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-								</div>
-								<h4>180k voters</h4>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 top released">
-					<div class="single-portfolio">
-						<div class="single-portfolio-img">
-							<img src="assets/img/portfolio/portfolio4.png" alt="portfolio" />
-							<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-								<i class="icofont icofont-ui-play"></i>
-							</a>
-						</div>
-						<div class="portfolio-content">
-							<h2>Beast Beauty</h2>
-							<div class="review">
-								<div class="author-review">
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-								</div>
-								<h4>180k voters</h4>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 released">
-					<div class="single-portfolio">
-						<div class="single-portfolio-img">
-							<img src="assets/img/portfolio/portfolio5.png" alt="portfolio" />
-							<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-								<i class="icofont icofont-ui-play"></i>
-							</a>
-						</div>
-						<div class="portfolio-content">
-							<h2>In The Fade</h2>
-							<div class="review">
-								<div class="author-review">
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-								</div>
-								<h4>180k voters</h4>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 soon top">
-					<div class="single-portfolio">
-						<div class="single-portfolio-img">
-							<img src="assets/img/portfolio/portfolio6.png" alt="portfolio" />
-							<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-								<i class="icofont icofont-ui-play"></i>
-							</a>
-						</div>
-						<div class="portfolio-content">
-							<h2>Last Hero</h2>
-							<div class="review">
-								<div class="author-review">
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-								</div>
-								<h4>180k voters</h4>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 soon">
-					<div class="single-portfolio">
-						<div class="single-portfolio-img">
-							<img src="assets/img/portfolio/portfolio3.png" alt="portfolio" />
-							<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-								<i class="icofont icofont-ui-play"></i>
-							</a>
-						</div>
-						<div class="portfolio-content">
-							<h2>The Lost City of Z</h2>
-							<div class="review">
-								<div class="author-review">
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-								</div>
-								<h4>180k voters</h4>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 top released">
-					<div class="single-portfolio">
-						<div class="single-portfolio-img">
-							<img src="assets/img/portfolio/portfolio4.png" alt="portfolio" />
-							<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-								<i class="icofont icofont-ui-play"></i>
-							</a>
-						</div>
-						<div class="portfolio-content">
-							<h2>Beast Beauty</h2>
-							<div class="review">
-								<div class="author-review">
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-									<i class="icofont icofont-star"></i>
-								</div>
-								<h4>180k voters</h4>
-							</div>
-						</div>
-					</div>
-				</div>
+			<div>
+			<?php
+                while ($row = mysqli_fetch_array($result)) {
+                    $title = $row['Title'];
+                    $poster = $row['Cover'];
+                    $id = $row['ID'];
+                    $type = $row['Type'];
+                    $genre = $row['Genre'];
+                    echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
+                    <div >
+                        <div  class = "filmi">
+                            <center>
+                                <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
+                                    <img id="imgContent" src="' . $poster . '" alt="portfolio" class="imgContentPortfolio" style="border-radius:15px;"/>
+                                </a>
+                            </center>
+                        </div>
+                        <div class="portfolio-content">
+                            <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
+                                <h5 style = "text-align:center;">' . $title . '</h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>';
+                }
+                ?>
 			</div>
 		</div>
 	</section><!-- portfolio section end -->
