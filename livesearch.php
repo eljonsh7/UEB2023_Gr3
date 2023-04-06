@@ -26,11 +26,27 @@ if (isset($_POST['input'])) {
             $id = $row['ID'];
             $type = $row['Type'];
             if ($i > 3) {
-                echo '
-               <a id = "myAnchorTag"><h6 onclick = "document.getElementById("myForm").submit()">Show More</h6></a>';
+                echo '<div id = "searchMore" style="display: flex;margin-top:1%;" >
+                        <center style="width:100%;">
+                            <a onclick="submitForm()" id="myAnchorTag" style="width:100%;">
+                                <h6 >Show More</h6>
+                            </a>
+                        </center>
+                    </div>
+                    <hr>';
                 break;
             } else {
-                echo '<div style="position: relative; height:100%; " ><a style = "position: absolute; left: 0;" href="movie-details.php?id=' . $id . '&type=' . $type . '"><img src="' . $poster . '" alt="" style = "width: 50px;"></a><a href="movie-details.php?id=' . $id . '&type=' . $type . '">' . $title . '</a> </div>';
+                echo '<div style="display: flex;align-items: flex-start;margin-top:1%;" >
+                        <a href="movie-details.php?id=' . $id . '&type=' . $type . '">
+                            <img src="' . $poster . '" alt="" style = "width: 50px;float: left;">
+                        </a>
+                        <a href="movie-details.php?id=' . $id . '&type=' . $type . '">
+                            <h6 style="margin-top: 0;text-align:center;">' . $title . '</h6>
+                        </a>
+                    </div>
+                    <hr>
+                        '
+                            ;
             }
         }
         echo '</div>';
