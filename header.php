@@ -11,6 +11,14 @@
     .header.hide {
         top: -100px;
     }
+    #searchresult a:hover h6{
+        transition: 0.6s;
+        color:#00d9e1;
+    }
+    #searchresult a:hover~a h6{
+        transition: 0.6s;
+        color:#00d9e1;
+    }
 </style>
 
 </script>
@@ -46,7 +54,7 @@
                         </li>
                         <li>
                             <form style="display: flex;" method="post" action="results.php" id="myForm">
-                                <input type="text" name="search" placeholder="Search..." class="form-control" id="live_search" autocomplete="off" onkeyup="liveSearch()" onchange="liveSearch()">
+                                <input type="text" name="search" placeholder="Search..." class="form-control" id="live_search" autocomplete="off">
                                 <input type="submit" name="submit" value="Go" id="submit" style="visibility: hidden;">
 
                             </form>
@@ -83,10 +91,15 @@
         document.getElementById('live_search').addEventListener('input', function() {
             if (document.getElementById('live_search').value.length >= 2) {
                 document.getElementById('submit').disabled = false;
+                liveSearch();
             } else {
                 document.getElementById('submit').disabled = true;
             }
         });
+        function consoleF(){
+            console.log('Clicked');
+        }
+        
     </script>
     <!-- <script>
         var anchorTag = document.getElementById('myAnchorTag');
