@@ -42,6 +42,21 @@ $result = mysqli_query($conn, $sql);
 		.imdb {
 			color: #00d9e1;
 		}
+
+		.filmi{
+			width: 25%;
+			
+		}
+		div div{
+			float: left;
+		}
+		.title{
+			margin-right: 200px;
+		}
+		.main-div{
+			margin-top: 50px;
+		}
+
 	</style>
 </head>
 
@@ -92,17 +107,18 @@ $result = mysqli_query($conn, $sql);
                     $type = $row['Type'];
                     $genre = $row['Genre'];
                     echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
-                    <div >
-                        <div  class = "filmi">
+                    <div class="main-div">
+						<h5 class="title" style = "text-align:right;" >' . $title . '</h5>
+                        <div  class = "filmi"  >
                             <center>
                                 <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
-                                    <img id="imgContent" src="' . $poster . '" alt="portfolio" class="imgContentPortfolio" style="border-radius:15px;"/>
+                                    <img id="imgContent" src="' . $poster . '" alt="portfolio" class="imgContentPortfolio" style="border-radius:15px; " />
                                 </a>
                             </center>
                         </div>
                         <div class="portfolio-content">
                             <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
-                                <h5 style = "text-align:center;">' . $title . '</h5>
+                                
                             </a>
                         </div>
                     </div>
@@ -113,72 +129,7 @@ $result = mysqli_query($conn, $sql);
 		</div>
 	</section><!-- portfolio section end -->
 	<!-- video section start -->
-	<section class="video ptb-90">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="section-title pb-20">
-						<h1><i class="icofont icofont-film"></i> Trailers & Videos</h1>
-					</div>
-				</div>
-			</div>
-			<hr />
-			<div class="row">
-				<div class="col-md-12">
-					<div class="video-slider mt-20">
-						<div class="video-area">
-							<img src="assets/img/video/video2.png" alt="video" />
-							<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-								<i class="icofont icofont-ui-play"></i>
-							</a>
-						</div>
-						<div class="video-area">
-							<img src="assets/img/video/video3.png" alt="video" />
-							<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-								<i class="icofont icofont-ui-play"></i>
-							</a>
-						</div>
-						<div class="video-area">
-							<img src="assets/img/video/video4.png" alt="video" />
-							<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-								<i class="icofont icofont-ui-play"></i>
-							</a>
-						</div>
-						<div class="video-area">
-							<img src="assets/img/video/video5.png" alt="video" />
-							<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-								<i class="icofont icofont-ui-play"></i>
-							</a>
-						</div>
-						<div class="video-area">
-							<img src="assets/img/video/video2.png" alt="video" />
-							<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-								<i class="icofont icofont-ui-play"></i>
-							</a>
-						</div>
-						<div class="video-area">
-							<img src="assets/img/video/video3.png" alt="video" />
-							<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-								<i class="icofont icofont-ui-play"></i>
-							</a>
-						</div>
-						<div class="video-area">
-							<img src="assets/img/video/video4.png" alt="video" />
-							<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-								<i class="icofont icofont-ui-play"></i>
-							</a>
-						</div>
-						<div class="video-area">
-							<img src="assets/img/video/video5.png" alt="video" />
-							<a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-								<i class="icofont icofont-ui-play"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section><!-- video section end -->
+	
 	<!-- footer section start -->
 	<?php include("footer.php"); ?>
 	<!-- footer section end -->
