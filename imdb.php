@@ -50,9 +50,12 @@ $result = mysqli_query($conn, $sql);
 		div div{
 			float: left;
 		}
-		.title{
-			margin-right: 200px;
+		.portfolio-content{
+			width: 500px;
+			height: fit-content;
 		}
+
+
 		.main-div{
 			margin-top: 50px;
 		}
@@ -108,7 +111,6 @@ $result = mysqli_query($conn, $sql);
                     $genre = $row['Genre'];
                     echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
                     <div class="main-div">
-						<h5 class="title" style = "text-align:right;" >' . $title . '</h5>
                         <div  class = "filmi"  >
                             <center>
                                 <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
@@ -117,6 +119,8 @@ $result = mysqli_query($conn, $sql);
                             </center>
                         </div>
                         <div class="portfolio-content">
+						<h5 class="title" style = "text-align:right;" >' . $title . '</h5>
+						<p>a man who sponsors a person at baptism. : one having a relation to someone or something analogous to that of a male sponsor to his godchild: such as. : one that founds, supports, or inspires.</p>
                             <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
                                 
                             </a>
