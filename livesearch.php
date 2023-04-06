@@ -26,9 +26,9 @@ if (isset($_POST['input'])) {
             $id = $row['ID'];
             $type = $row['Type'];
             if ($i > 3) {
-                echo '<div style="display: flex;margin-top:1%;" >
+                echo '<div id = "searchMore" style="display: flex;margin-top:1%;" >
                         <center style="width:100%;">
-                            <a href="#" id = "myAnchorTag onclick = "document.getElementById("myForm").submit()" style="width:100%;">
+                            <a onclick="submitForm()" id="myAnchorTag" style="width:100%;">
                                 <h6 >Show More</h6>
                             </a>
                         </center>

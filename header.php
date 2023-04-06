@@ -89,16 +89,21 @@
         }
 
         document.getElementById('live_search').addEventListener('input', function() {
+            liveSearch();
             if (document.getElementById('live_search').value.length >= 2) {
                 document.getElementById('submit').disabled = false;
-                liveSearch();
+                
             } else {
                 document.getElementById('submit').disabled = true;
             }
         });
-        function consoleF(){
-            console.log('Clicked');
+        
+        function submitForm(){
+            var form = document.getElementById('myForm');
+
+            form.submit();
         }
+        
         
     </script>
     <!-- <script>
