@@ -53,6 +53,7 @@ $result = mysqli_query($conn, $sql);
 		.portfolio-content{
 			width: 500px;
 			height: fit-content;
+			padding-left: 40px;
 		}
 
 
@@ -100,8 +101,6 @@ $result = mysqli_query($conn, $sql);
 					</div>
 				</div>
 			</div>
-			<hr />
-			<div>
 			<?php
                 while ($row = mysqli_fetch_array($result)) {
                     $title = $row['Title'];
@@ -109,6 +108,8 @@ $result = mysqli_query($conn, $sql);
                     $id = $row['ID'];
                     $type = $row['Type'];
                     $genre = $row['Genre'];
+					$description = $row['Description'];
+					$rating = $row['Rating'];
                     echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
                     <div class="main-div">
                         <div  class = "filmi"  >
@@ -119,8 +120,9 @@ $result = mysqli_query($conn, $sql);
                             </center>
                         </div>
                         <div class="portfolio-content">
-						<h5 class="title" style = "text-align:right;" >' . $title . '</h5>
-						<p>a man who sponsors a person at baptism. : one having a relation to someone or something analogous to that of a male sponsor to his godchild: such as. : one that founds, supports, or inspires.</p>
+						<h5 class="title" style = "text-align:center;" >' . $title . '</h5>
+						<p>'.$description.'</p>
+						<h5 class="title" style = "text-align:center;" >Rating: ' . $rating . '</h5>
                             <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
                                 
                             </a>
@@ -129,6 +131,8 @@ $result = mysqli_query($conn, $sql);
                 </div>';
                 }
                 ?>
+			<hr />
+			<div>
 			</div>
 		</div>
 	</section><!-- portfolio section end -->
