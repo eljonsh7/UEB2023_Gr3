@@ -1,4 +1,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<?php session_start();?>
 <style>
     .header {
         position: fixed;
@@ -38,11 +39,11 @@
                         <li><a class="tv" href="tv-shows.php">Tv Shows</a></li>
                         <li><a class="imdb" href="imdb.php">Top IMDb</a></li>
                         <li>
-                            <?php if (false) { ?>
+                            <?php if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true) { ?>
                                 <a href="#">Profile <i class="icofont icofont-simple-down"></i></a>
                                 <ul>
-                                    <li><a href="" class="signup-popup">Edit</a></li>
-                                    <li><a href="" class="login-popup">Sign out</a></li>
+                                    <li><a href="">Edit</a></li>
+                                    <li><a href="logout.php">Sign out</a></li>
                                 </ul>
                             <?php } else { ?>
                                 <a href="#">Profile <i class="icofont icofont-simple-down"></i></a>
@@ -52,6 +53,7 @@
                                 </ul>
                             <?php } ?>
                         </li>
+                        <?php // if (isAdmin()) { echo '<li><a class="imdb" href="dashboard/dashboard.php">Dashboard</a></li>'} ?> 
                         <li>
                             <form style="display: flex;" method="post" action="results.php" id="myForm">
                                 <input type="text" name="search" placeholder="Search..." class="form-control" id="live_search" autocomplete="off">
@@ -120,17 +122,18 @@
 <div class="login-area signup-area" style="z-index: 10000;">
     <div class="login-box" style="background-color: #13151f; color: white;">
         <a href="#"><i class="icofont icofont-close"></i></a>
+        <input type="hidden" name="logInForm" value="submitted">
         <h2 style="color: white;">LOG IN</h2>
-        <form action=" #" style="color: white;">
+        <form method="post" style="color: white;">
             <h6 style="color: white;">EMAIL ADDRESS</h6>
-            <input type="text" id="email-field-login" style="color: white;" />
+            <input type="text" id="email-field-login" name="email-field-login" style="color: white;" />
             <h6 style="color: white;">PASSWORD</h6>
-            <input style="color: white;" type="password" id="password-field-login" class="field input" required placeholder="Password" />
+            <input style="color: white;" type="password" id="password-field-login" name="password-field-login" class="field input" required placeholder="Password" />
             <div class="login-remember">
                 <input style="color: white;" type="checkbox" />
                 <span style="color: white;">Remember Me</span>
             </div>
-            <button class="theme-btn" name="login_submit">LOG IN</button>
+            <button class="theme-btn" name="logInForm">LOG IN</button>
             <span>Or Via Social</span>
             <div class="login-social">
                 <a href="#"><i class="icofont icofont-social-facebook"></i></a>
@@ -178,37 +181,77 @@
     </div>
 </div>
 <?php
-$db_host = 'localhost';
-$db_user = 'root';
-$db_pass = 'root';
-$db_name = 'moviedb';
-$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
 
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
+    $db_host = 'localhost';
+    $db_user = 'root';
+    $db_pass = 'root';
+    $db_name = 'moviedb';
+    $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
-    $username = $_POST['username-field'];
-    $email = $_POST['email-field'];
-    $password = $_POST['password-field'];
-
-    $username = mysqli_real_escape_string($conn, $username);
-    $email = mysqli_real_escape_string($conn, $email);
-    $password = mysqli_real_escape_string($conn, $password);
-
-    $stmt = mysqli_prepare($conn, "INSERT INTO users (Username, Email, Password, Active) VALUES (?, ?, ?, 1)");
-    mysqli_stmt_bind_param($stmt, "sss", $username, $email, $password);
-    mysqli_stmt_execute($stmt);
-
-    if (mysqli_stmt_affected_rows($stmt) > 0) {
-        echo "<script>console.log('Data inserted successfully!')";
-    } else {
-        echo "<script>console.log('Error inserting data')";
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
     }
 
-    mysqli_stmt_close($stmt);
-}
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
+        $username = $_POST['username-field'];
+        $email = $_POST['email-field'];
+        $password = $_POST['password-field'];
+
+        $username = mysqli_real_escape_string($conn, $username);
+        $email = mysqli_real_escape_string($conn, $email);
+        $password = mysqli_real_escape_string($conn, $password);
+
+        $stmt = mysqli_prepare($conn, "INSERT INTO users (Username, Email, Password, Active) VALUES (?, ?, ?, 1)");
+        mysqli_stmt_bind_param($stmt, "sss", $username, $email, $password);
+        mysqli_stmt_execute($stmt);
+
+        if (mysqli_stmt_affected_rows($stmt) > 0) {
+            echo "<script>console.log('Data inserted successfully!')";
+            $_SESSION['user_logged_in'] = true;
+            $_SESSION['user'] = $email;
+        } else {
+            echo "<script>console.log('Error inserting data')";
+        }
+
+        $_SESSION['user_logged_in'] = true;
+
+        mysqli_stmt_close($stmt);
+    }
+
+    if (isset($_POST['logInForm'])) {
+        $email = $_POST['email-field-login'];
+        $password = $_POST['password-field-login'];
+
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+    
+        $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE email = ?");
+        mysqli_stmt_bind_param($stmt, 's', $email);
+        mysqli_stmt_execute($stmt);
+
+        $result = mysqli_stmt_get_result($stmt);
+    
+        if (mysqli_num_rows($result) == 1) {
+            $user = mysqli_fetch_assoc($result);
+            if ($password == $user['Password']) {
+                $_SESSION['user_logged_in'] = true;
+                $_SESSION['user'] = $email;
+            } else {
+                echo "<script>alert('Incorrect password');</script>";
+            }
+        } else {
+            echo "<script>alert('User not found');</script>";
+        }
+    }
+?>
+<?php
+    // function isAdmin(){
+    //     $query = "SELECT * FROM users WHERE email = '$_SESSION['user']'";
+    //     $result = mysqli_query($conn, $query);
+    //     $user = mysqli_fetch_assoc($result);
+    //     return $user['Admin'];
+    // }
 ?>
 <script>
     function verifyPassword() {
