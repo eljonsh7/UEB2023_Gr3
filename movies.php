@@ -1,8 +1,22 @@
 <?php
 
-include ('connection.php');
-$sql = "SELECT * FROM `movies`";
+include('connection.php');
 
+$sql = "SELECT * FROM `movies`";
+$result = mysqli_query($conn, $sql);
+$results_per_page = 4;
+$results_num = mysqli_num_rows($result);
+$pages = ceil($results_num / $results_per_page);
+
+if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+} else {
+    $page = 1;
+}
+$start_from = ($page - 1) * 4;
+
+
+$sql = "SELECT * FROM `movies` limit $start_from, $results_per_page";
 $result = mysqli_query($conn, $sql);
 ?>
 
@@ -101,7 +115,9 @@ $result = mysqli_query($conn, $sql);
     <!-- Page loader -->
     <div id="preloader"></div>
     <!-- header section start -->
-    <?php include("header.php"); ?>
+    <?php include("header.php");
+
+    ?>
 
     <section class="breadcrumb-area">
         <div class="container">
@@ -122,11 +138,12 @@ $result = mysqli_query($conn, $sql);
                 <div class="col-lg-6 text-center text-lg-left">
                     <div class="portfolio-menu">
                         <ul>
-                            <li data-filter="*" class="active" onclick="checkAjax('All')">All</li>
-                            <li data-filter=".Action" onclick="checkAjax('Action')">Action</li>
-                            <li data-filter=".Drama" onclick="checkAjax('Drama')">Drama</li>
-                            <li data-filter=".Crime" onclick="checkAjax('Crime')">Crime</li>
+                            <li data-filter="*" class="active" onclick="checkAjax('All', <?php echo $page ?>)">All</li>
+                            <li data-filter=".Action" onclick="checkAjax('Action', <?php echo $page ?>)">Action</li>
+                            <li data-filter=".Drama" onclick="checkAjax('Drama', <?php echo $page ?>)">Drama</li>
+                            <li data-filter=".Crime" onclick="checkAjax('Crime', <?php echo $page ?>)">Crime</li>
                         </ul>
+
                     </div>
                 </div>
             </div>
@@ -157,10 +174,21 @@ $result = mysqli_query($conn, $sql);
                     </div>
                 </div>';
                 }
+
+
                 ?>
             </div>
         </div>
     </section><!-- portfolio section end -->
+    <section>
+        <div class="container">
+            <?php
+
+            for ($i = 1; $i <= $pages; $i++) {
+                echo '<a href="movies.php?page=' . $i . '" style="display: inline-block; margin: 5px; padding: 5px 10px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">' . $i . '</a>';
+            }
+            ?></div>
+    </section>
     <!-- video section start -->
     <section class="video ptb-90">
         <div class="container">
@@ -247,9 +275,9 @@ $result = mysqli_query($conn, $sql);
     <script src="assets/js/main.js"></script>
 
     <script type="text/javascript">
-    function checkAjax(Genre) {
+    function checkAjax(Genre, Page) {
         $.ajax({
-            url: 'sortGenre.php?type=movie&genre=' + Genre,
+            url: 'sortGenre.php?type=movie&genre=' + Genre + '&page=' + Page,
             method: 'GET',
             dataType: 'html',
             success: function(data) {
