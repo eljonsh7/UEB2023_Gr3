@@ -122,9 +122,9 @@
 <div class="login-area signup-area" style="z-index: 10000;">
     <div class="login-box" style="background-color: #13151f; color: white;">
         <a href="#"><i class="icofont icofont-close"></i></a>
-        <input type="hidden" name="logInForm" value="submitted">
         <h2 style="color: white;">LOG IN</h2>
         <form method="post" style="color: white;">
+            <input type="hidden" name="logInForm" value="1">
             <h6 style="color: white;">EMAIL ADDRESS</h6>
             <input type="text" id="email-field-login" name="email-field-login" style="color: white;" />
             <h6 style="color: white;">PASSWORD</h6>
@@ -148,9 +148,9 @@
 <div class="login-area" style="z-index: 10000;">
     <div class="login-box" style="background-color: #13151f; color: white;">
         <a href="#"><i class="icofont icofont-close"></i></a>
-        <input type="hidden" name="signUpForm" value="submitted">
         <h2 style="color: white;">SIGN UP</h2>
         <form method="post">
+            <input type="hidden" name="signUpForm" value="1">
             <h6 style="color: white;">USERNAME</h6>
             <input style="color: white;" type="text" id="username-field" name="username-field" class="field input" required />
             <h6 style="color: white;">EMAIL ADDRESS</h6>
@@ -181,7 +181,6 @@
     </div>
 </div>
 <?php
-
     $db_host = 'localhost';
     $db_user = 'root';
     $db_pass = 'root';
@@ -197,13 +196,9 @@
         $email = $_POST['email-field'];
         $password = $_POST['password-field'];
 
-        $username = mysqli_real_escape_string($conn, $username);
-        $email = mysqli_real_escape_string($conn, $email);
-        $password = mysqli_real_escape_string($conn, $password);
-
-        $stmt = mysqli_prepare($conn, "INSERT INTO users (Username, Email, Password, Active) VALUES (?, ?, ?, 1)");
-        mysqli_stmt_bind_param($stmt, "sss", $username, $email, $password);
-        mysqli_stmt_execute($stmt);
+        $stmt = $conn->prepare("INSERT INTO users (Username, Email, password) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $username, $email, $password);
+        $stmt->execute();
 
         if (mysqli_stmt_affected_rows($stmt) > 0) {
             echo "<script>console.log('Data inserted successfully!')";
@@ -212,12 +207,9 @@
         } else {
             echo "<script>console.log('Error inserting data')";
         }
-
-        $_SESSION['user_logged_in'] = true;
-
-        mysqli_stmt_close($stmt);
     }
-
+?> 
+<?php 
     if (isset($_POST['logInForm'])) {
         $email = $_POST['email-field-login'];
         $password = $_POST['password-field-login'];
