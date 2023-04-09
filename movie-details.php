@@ -8,12 +8,7 @@ $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
 
 $ID = $_GET['id'];
 
-
-if ($_GET['type'] == "Movie") {
-  $sql = "SELECT * FROM `content` WHERE `ID` = $ID and `type` = 'movie'";
-} else if ($_GET['type'] == "TV Show") {
-  $sql = "SELECT * FROM `content` WHERE `ID` = $ID and `type` = 'TV Show'";
-}
+$sql = "SELECT * FROM `content` WHERE `ID` = $ID";
 
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_array($result);

@@ -51,7 +51,8 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background-color: #fff;
+
+        background-color: #344767;
         padding: 20px;
         border-radius: 7px;
     }

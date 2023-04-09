@@ -85,7 +85,7 @@
                     echo
                     '<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;  margin-top: 25%;">
                             <div class="col-lg-6 col-md-5">
-                                <a href="movie-details.php?id=' . $row['ID'] . '&type=movie">
+                                <a href="movie-details.php?id=' . $row['ID'] . '&type=Movie">
                                     <div class="hero-area-content">
                                         <div class="img-wrapper" style="margin-bottom:4%;margin-top:-8.5%;">
                                             <img src="' . $Cover . '" style="width: 100%;" alt="about" id="test123" />
@@ -95,7 +95,7 @@
                             </div>
                             <div class="col-lg-6 col-md-7">
                                 <div class="hero-area-content pr-50">
-                                    <a href="movie-details.php?id=' . $row['ID'] . '&type=movie"><h2>' . $Title . '</h2></a>
+                                    <a href="movie-details.php?id=' . $row['ID'] . '&type=Movie"><h2>' . $Title . '</h2></a>
                                     <div class="review">
                                         <div class="author-review">
                                             <i class="icofont icofont-star"></i>
