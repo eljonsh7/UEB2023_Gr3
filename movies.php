@@ -2,7 +2,7 @@
 
 include('connection.php');
 
-$sql = "SELECT * FROM `movies`";
+$sql = "SELECT * FROM `content` where type = 'movie'";
 $result = mysqli_query($conn, $sql);
 $results_per_page = 4;
 $results_num = mysqli_num_rows($result);
@@ -16,7 +16,7 @@ if (isset($_GET["page"])) {
 $start_from = ($page - 1) * 4;
 
 
-$sql = "SELECT * FROM `movies` limit $start_from, $results_per_page";
+$sql = "SELECT * FROM `content` where type = 'movie' limit $start_from, $results_per_page";
 $result = mysqli_query($conn, $sql);
 ?>
 

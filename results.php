@@ -1,5 +1,5 @@
 <?php
-include ('connection.php');
+include('connection.php');
 
 ?>
 <!DOCTYPE HTML>
@@ -97,9 +97,9 @@ include ('connection.php');
 
 
     <?php
-  if (isset($_POST['submit'])) {
-    $search = mysqli_real_escape_string($conn, $_POST['search']);
-    echo '<section class="breadcrumb-area">
+    if (isset($_POST['submit'])) {
+        $search = mysqli_real_escape_string($conn, $_POST['search']);
+        echo '<section class="breadcrumb-area">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -111,7 +111,7 @@ include ('connection.php');
     </div>
 </section>';
 
-    echo '<section class="portfolio-area pt-60">
+        echo '<section class="portfolio-area pt-60">
 	<div class="container">
 	<div class="row ">
 					<div class="col-lg-6 text-center text-lg-left">
@@ -127,25 +127,25 @@ include ('connection.php');
 				<hr />
 				
 	';
-    $search = mysqli_real_escape_string($conn, $_POST['search']);
-    $search = trim($search);
-    $search = strip_tags($search);
-    $search = htmlspecialchars($search);
-    $query = "SELECT Title, Cover, ID , Type, Genre FROM tvshows WHERE Title LIKE '%{$search}%' UNION SELECT Title, Cover, ID , Type, Genre FROM movies WHERE Title LIKE '%{$search}%'";
+        $search = mysqli_real_escape_string($conn, $_POST['search']);
+        $search = trim($search);
+        $search = strip_tags($search);
+        $search = htmlspecialchars($search);
+        $query = "SELECT Title, Cover, ID , Type, Genre FROM content WHERE Title LIKE '%{$search}%'";
 
-    $result = mysqli_query($conn, $query);
+        $result = mysqli_query($conn, $query);
 
-    echo '<div class="grid-container" id="contentContainer">';
+        echo '<div class="grid-container" id="contentContainer">';
 
-    if (mysqli_num_rows($result) > 0) {
+        if (mysqli_num_rows($result) > 0) {
 
-      while ($row = mysqli_fetch_array($result)) {
-        $title = $row['Title'];
-        $poster = $row['Cover'];
-        $id = $row['ID'];
-        $type = $row['Type'];
-        $genre = $row['Genre'];
-        echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
+            while ($row = mysqli_fetch_array($result)) {
+                $title = $row['Title'];
+                $poster = $row['Cover'];
+                $id = $row['ID'];
+                $type = $row['Type'];
+                $genre = $row['Genre'];
+                echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
                     <div>
                         <div  class = "filmi">
                             <center>
@@ -161,16 +161,16 @@ include ('connection.php');
                         </div>
                     </div>
                 </div>';
-      }
+            }
 
-      echo '</div>';
-    } else {
-      echo '<h6 class=":text-danger text-center mt-3">No Movies or TV Shows found!</h6>';
+            echo '</div>';
+        } else {
+            echo '<h6 class=":text-danger text-center mt-3">No Movies or TV Shows found!</h6>';
+        }
+        echo '</div></section>';
     }
-    echo '</div></section>';
-  }
 
-  ?>
+    ?>
 
 
     <!-- footer section start -->
@@ -192,7 +192,7 @@ include ('connection.php');
     <script src="assets/js/main.js"></script>
 
     <?php
-  echo '<script type="text/javascript">
+    echo '<script type="text/javascript">
             function checkAjax(type) {
                 $.ajax({
                     url: "sortGenre.php?type="+type+"&search=' . $search . '",
@@ -208,7 +208,7 @@ include ('connection.php');
 
     </script>';
 
-  ?>
+    ?>
 </body>
 
 </html>

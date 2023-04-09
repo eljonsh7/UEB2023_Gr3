@@ -55,35 +55,35 @@
     <?php include("header.php"); ?>
     <?php
 
-        include ('connection.php');
+    include('connection.php');
 
-        
-        $sql = "SELECT * FROM `movies`";
 
-        $result = mysqli_query($conn, $sql);
+    $sql = "SELECT * FROM `content`";
+
+    $result = mysqli_query($conn, $sql);
     ?>
     <section class="hero-area" id="home">
         <div class="container">
             <div class="hero-area-slider">
                 <?php
-                    $count = 0;
-                    $result = mysqli_query($conn, $sql);
-                    while ($row = mysqli_fetch_array($result)) {
-                        $count++;
-                        if ($count == 2) {
-                            $Cover2 = $row['Cover'];
-                            $Title2 = $row['Title'];
-                            $Rating2 = $row['Rating'];
-                            $Description2 = $row['Description'];
-                            $Trailer2 = $row['Trailer'];
-                        }
-                        $Cover = $row['Cover'];
-                        $Title = $row['Title'];
-                        $Rating = $row['Rating'];
-                        $Description = $row['Description'];
-                        $Trailer = $row['Trailer'];
-                        echo
-                        '<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;  margin-top: 25%;">
+                $count = 0;
+                $result = mysqli_query($conn, $sql);
+                while ($row = mysqli_fetch_array($result)) {
+                    $count++;
+                    if ($count == 2) {
+                        $Cover2 = $row['Cover'];
+                        $Title2 = $row['Title'];
+                        $Rating2 = $row['Rating'];
+                        $Description2 = $row['Description'];
+                        $Trailer2 = $row['Trailer'];
+                    }
+                    $Cover = $row['Cover'];
+                    $Title = $row['Title'];
+                    $Rating = $row['Rating'];
+                    $Description = $row['Description'];
+                    $Trailer = $row['Trailer'];
+                    echo
+                    '<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;  margin-top: 25%;">
                             <div class="col-lg-6 col-md-5">
                                 <a href="movie-details.php?id=' . $row['ID'] . '&type=movie">
                                     <div class="hero-area-content">
@@ -109,7 +109,7 @@
                                 </div>
                             </div>
                         </div>';
-                    }
+                }
                 ?>
 
             </div>
@@ -198,29 +198,29 @@
                 <div class="col-lg-9 portfolio-container">
                     <div class="row portfolio-items" id="latest">
                         <?php
-                            // Connect to the database
-                            $db = new mysqli('localhost', 'root', 'root', 'moviedb',3307);
+                        // Connect to the database
+                        $db = new mysqli('localhost', 'root', 'root', 'moviedb', 3307);
 
-                            $query = "SELECT * FROM movies ORDER BY Date DESC LIMIT 6";
-                            $result = $db->query($query);
+                        $query = "SELECT * FROM content ORDER BY Date DESC LIMIT 6";
+                        $result = $db->query($query);
 
-                            while ($row = $result->fetch_assoc()) {
-                                $title = $row['Title'];
-                                $cover = $row['Cover'];
-                                echo '<div class="col-md-4 col-sm-6 soon released">
+                        while ($row = $result->fetch_assoc()) {
+                            $title = $row['Title'];
+                            $cover = $row['Cover'];
+                            echo '<div class="col-md-4 col-sm-6 soon released">
                                         <div class="single-portfolio">
                                             <div class="single-portfolio-img">';
-                                echo '<img src="' . $cover . '" alt="portfolio"/>';
-                                echo '</div>';
-                                echo '<div class="portfolio-content">';
-                                echo '<h2>' . $title . '</h2>';
-                                echo '</div>
+                            echo '<img src="' . $cover . '" alt="portfolio"/>';
+                            echo '</div>';
+                            echo '<div class="portfolio-content">';
+                            echo '<h2>' . $title . '</h2>';
+                            echo '</div>
                                     </div>
                                 </div>';
-                            }
+                        }
 
-                            // Close the database connection
-                            $db->close();
+                        // Close the database connection
+                        $db->close();
                         ?>
                     </div>
                 </div>

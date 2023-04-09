@@ -2,7 +2,7 @@
 
 include('connection.php');
 
-$sql = "SELECT * FROM `movies`";
+$sql = "SELECT * FROM `content` where type = 'movie'";
 $result = mysqli_query($conn, $sql);
 $results_per_page = 4;
 $results_num = mysqli_num_rows($result);
@@ -26,33 +26,33 @@ if ($_GET['type'] == 'movie') {
         </script>';
         if ($input == "All") {
 
-            $query = "SELECT * FROM movies limit $start_from, $results_per_page";
+            $query = "SELECT * FROM content where type = 'movie' limit $start_from, $results_per_page";
         } else {
-            $query = "SELECT * FROM movies WHERE Genre LIKE '%$input%' limit $start_from, $results_per_page";
+            $query = "SELECT * FROM content where type = 'movie' and Genre LIKE '%$input%' limit $start_from, $results_per_page";
         }
     } else {
         $search = $_GET['search'];
         if ($search == "All") {
-            $query = "SELECT * FROM movies limit $start_from, $results_per_page";
+            $query = "SELECT * FROM content where type = 'movie' limit $start_from, $results_per_page";
         } else {
-            $query = "SELECT * FROM movies WHERE Title LIKE '%$search%' limit $start_from, $results_per_page";
+            $query = "SELECT * FROM content where type = 'movie' and Title LIKE '%$search%' limit $start_from, $results_per_page";
         }
     }
 } else if ($_GET['type'] == 'tvshow') {
     if (isset($_GET['genre'])) {
         $input = $_GET['genre'];
         if ($input == "All") {
-            $query = "SELECT * FROM tvshows limit $start_from, $results_per_page";
+            $query = "SELECT * FROM content where type = 'tv show' limit $start_from, $results_per_page";
         } else {
-            $query = "SELECT * FROM tvshows WHERE Genre LIKE '%$input%' limit $start_from, $results_per_page ";
+            $query = "SELECT * FROM content  WHERE type = 'tv show' and Genre LIKE '%$input%' limit $start_from, $results_per_page ";
         }
     } else {
         $search = $_GET['search'];
-        $query = "SELECT * FROM tvshows WHERE Title LIKE '%$search%' limit $start_from, $results_per_page";
+        $query = "SELECT * FROM content where type = 'tv show' and Title LIKE '%$search%' limit $start_from, $results_per_page";
     }
 } else if ($_GET['type'] == 'All') {
     $search = $_GET['search'];
-    $query = "SELECT Title, Cover, ID , Type, Genre FROM tvshows WHERE Title LIKE '%{$search}%' UNION SELECT Title, Cover, ID , Type, Genre FROM movies WHERE Title LIKE '%{$search}%' limit $start_from, $results_per_page";
+    $query = "SELECT Title, Cover, ID , Type, Genre FROM content WHERE Title LIKE '%{$search}%'";
 }
 
 $result = mysqli_query($conn, $query);

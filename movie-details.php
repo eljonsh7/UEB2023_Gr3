@@ -1,23 +1,23 @@
 <?php
- $db_host = 'localhost';
- $db_user = 'root';
- $db_pass = 'root';
- $db_name = 'moviedb';
- $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name,3307);
- 
-
- $ID= $_GET['id'];
+$db_host = 'localhost';
+$db_user = 'root';
+$db_pass = 'root';
+$db_name = 'moviedb';
+$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
 
 
- if($_GET['type']=="movie"){
-     $sql = "SELECT * FROM `movies` WHERE `ID` = $ID";
- }else if($_GET['type']=="tvshow"){
-     $sql = "SELECT * FROM `tvshows` WHERE `ID` = $ID";
- }
+$ID = $_GET['id'];
 
- $result = mysqli_query( $conn, $sql);
- $row = mysqli_fetch_array($result);
- 
+
+if ($_GET['type'] == "Movie") {
+  $sql = "SELECT * FROM `content` WHERE `ID` = $ID and `type` = 'movie'";
+} else if ($_GET['type'] == "TV Show") {
+  $sql = "SELECT * FROM `content` WHERE `ID` = $ID and `type` = 'TV Show'";
+}
+
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_array($result);
+
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +54,7 @@
     <!-- Page loader -->
     <div id="preloader"></div>
     <!-- header section start -->
-    <?php include("header.php");?>
+    <?php include("header.php"); ?>
 
     <!-- header section end -->
     <!-- breadcrumb area start -->
@@ -71,45 +71,45 @@
     <!-- breadcrumb area end -->
     <!-- transformers area start -->
     <?php
-    
-    if($_GET['type']=="movie"){
-      echo '<section class="transformers-area">
+
+  if ($_GET['type'] == "Movie") {
+    echo '<section class="transformers-area">
       <div class="container">
         <div class="transformers-box">
           <div class="row flexbox-center">
             <div class="col-lg-5 text-lg-left text-center">
               <div class="transformers-content">
-                <img src="'.$row["Cover"].'" alt="about" />
+                <img src="' . $row["Cover"] . '" alt="about" />
               </div>
             </div>
             <div class="col-lg-7">
               <div class="transformers-content">
-                <h2>'.$row["Title"].'</h2>
-                <p>'.str_replace(" ", " | ", $row['Genre']).'</p>
+                <h2>' . $row["Title"] . '</h2>
+                <p>' . str_replace(" ", " | ", $row['Genre']) . '</p>
                 <ul>
                   <li>
                     <div class="transformers-left">Rating:</div>
                     <div class="transformers-right">
-                      <i class="icofont icofont-star">'. ' ' . $row['Rating'].'</i>
+                      <i class="icofont icofont-star">' . ' ' . $row['Rating'] . '</i>
                     </div>
                   </li>
                   <li>
                     <div class="transformers-left">Director:</div>
                     <div class="transformers-right">
-                      '.$row['Director'].'
+                      ' . $row['Director'] . '
                     </div>
                   </li>
                   <li>
                     <div class="transformers-left">Studio:</div>
-                    <div class="transformers-right">'.$row['Studio'].'</div>
+                    <div class="transformers-right">' . $row['Studio'] . '</div>
                   </li>
                   <li>
                     <div class="transformers-left">Length:</div>
-                    <div class="transformers-right">'.$row['Length'].' minutes</div>
+                    <div class="transformers-right">' . $row['Length'] . ' minutes</div>
                   </li>
                   <li>
                     <div class="transformers-left">Release:</div>
-                    <div class="transformers-right">'.$row['Date'].'</div>
+                    <div class="transformers-right">' . $row['Date'] . '</div>
                   </li>
                   
                   
@@ -118,50 +118,50 @@
               </div>
             </div>
           </div>
-          <a href="'.$row['Trailer'].'" class="theme-btn popup-youtube"
+          <a href="' . $row['Trailer'] . '" class="theme-btn popup-youtube"
           >Trailer  ▶</a
         >
         </div>
       </div>
     </section>';
-    }else if($_GET['type']=="tvshow"){
-      echo '<section class="transformers-area">
+  } else if ($_GET['type'] == "TV Show") {
+    echo '<section class="transformers-area">
       <div class="container">
         <div class="transformers-box">
           <div class="row flexbox-center">
             <div class="col-lg-5 text-lg-left text-center">
               <div class="transformers-content">
-                <img src="'.$row["Cover"].'" alt="about" />
+                <img src="' . $row["Cover"] . '" alt="about" />
               </div>
             </div>
             <div class="col-lg-7">
               <div class="transformers-content">
-                <h2>'.$row["Title"].'</h2>
-                <p>'.$row['Genre'].'</p>
+                <h2>' . $row["Title"] . '</h2>
+                <p>' . $row['Genre'] . '</p>
                 <ul>
                   <li>
                     <div class="transformers-left">Rating:</div>
                     <div class="transformers-right">
-                      <i class="icofont icofont-star">'.$row['Rating'].'</i>
+                      <i class="icofont icofont-star">' . $row['Rating'] . '</i>
                     </div>
                   </li>
                   <li>
                     <div class="transformers-left">Director:</div>
                     <div class="transformers-right">
-                      '.$row['Director'].'
+                      ' . $row['Director'] . '
                     </div>
                   </li>
                   <li>
                     <div class="transformers-left">Studio:</div>
-                    <div class="transformers-right">'.$row['Studio'].'</div>
+                    <div class="transformers-right">' . $row['Studio'] . '</div>
                   </li>
                   <li>
                     <div class="transformers-left">Status:</div>
-                    <div class="transformers-right">'.$row['Status'].'</div>
+                    <div class="transformers-right">' . $row['Status'] . '</div>
                   </li>
                   <li>
                     <div class="transformers-left">Start Date:</div>
-                    <div class="transformers-right">'.$row['StartDate'].'</div>
+                    <div class="transformers-right">' . $row['Date'] . '</div>
                   </li>
               
                   
@@ -171,18 +171,18 @@
             </div>
           </div>
           
-          <a href="'.$row['Trailer'].'" class="theme-btn popup-youtube"
+          <a href="' . $row['Trailer'] . '" class="theme-btn popup-youtube"
             >Trailer  ▶</a
           >
         </div>
       </div>
     </section>';
-    }
+  }
 
 
-    
-    
-    ?>
+
+
+  ?>
     <!-- transformers area end -->
     <!-- details area start -->
     <section class="details-area">
@@ -193,7 +193,7 @@
                         <div class="details-overview">
                             <h2>Overview</h2>
                             <p>
-                                <?php echo $row['Description'];?>
+                                <?php echo $row['Description']; ?>
                             </p>
                         </div>
                         <div class="details-reply">
@@ -271,7 +271,7 @@
     </section>
     <!-- details area end -->
     <!-- footer section start -->
-    <?php include("footer.php");?>
+    <?php include("footer.php"); ?>
     <!-- footer section end -->
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>

@@ -1,8 +1,8 @@
 <?php
 
-include ('connection.php');
+include('connection.php');
 
-$sql = "SELECT * FROM `tvshows`";
+$sql = "SELECT * FROM `content` where type = 'tv show'";
 
 $result = mysqli_query($conn, $sql);
 ?>

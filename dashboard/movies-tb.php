@@ -129,9 +129,9 @@
                             <div class="table-responsive p-0">
                                 <?php
                                 // connect to the database
-                                include ('connection.php');
+                                include('connection.php');
 
-                                
+
                                 class input
                                 {
                                     public $value;
@@ -160,7 +160,7 @@
 					<th>Length</th>
 					<th></th>
 				</tr>';
-                                $sql = "SELECT * FROM `movies`";
+                                $sql = "SELECT * FROM `content` WHERE type = 'movie'";
                                 $result = mysqli_query($conn, $sql);
                                 while ($row = mysqli_fetch_array($result)) {
                                     echo '
@@ -182,7 +182,7 @@
                                 echo '</table>';
                                 if (isset($_GET['mode'])) {
                                     $idRemove = $_GET['removeID'];
-                                    $sql = "SELECT * FROM `movies` WHERE `ID` = $idRemove";
+                                    $sql = "SELECT * FROM `content` WHERE `ID` = $idRemove";
                                     $result = mysqli_query($conn, $sql);
                                     $row = mysqli_fetch_array($result);
                                     echo '<form id="movie-remove" method="post">
@@ -201,7 +201,7 @@
                                 }
                                 if (isset($_GET['confirm'])) {
                                     $removeID = $_GET['removeID'];
-                                    $sql = "DELETE FROM `movies` WHERE `movies`.`ID` = $removeID";
+                                    $sql = "DELETE FROM `content` WHERE `content`.`ID` = $removeID";
                                     mysqli_query($conn, $sql);
                                     echo '<script>window.location.href = "movies-tb.php";</script>';
                                 }

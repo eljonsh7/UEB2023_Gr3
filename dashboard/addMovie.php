@@ -100,7 +100,8 @@
 
                     <div class="form-group">
                         <label for="director">Director:</label>
-                        <input class="form-control bg-dark" type="text" id="director" placeholder="Director:" name="director">
+                        <input class="form-control bg-dark" type="text" id="director" placeholder="Director:"
+                            name="director">
                     </div>
 
                     <div class="form-group">
@@ -110,18 +111,20 @@
 
                     <div class="form-group">
                         <label for="cover">Cover Link:</label>
-                        <input class="form-control bg-dark" type="text" id="cover" placeholder="Cover Link:" name="cover">
+                        <input class="form-control bg-dark" type="text" id="cover" placeholder="Cover Link:"
+                            name="cover">
                     </div>
 
                     <div class="form-group">
                         <label for="trailer">Trailer Link:</label>
-                        <input class="form-control bg-dark" type="text" id="trailer" placeholder="Trailer Link:" name="trailer">
+                        <input class="form-control bg-dark" type="text" id="trailer" placeholder="Trailer Link:"
+                            name="trailer">
                     </div>
 
                     <div class="form-group">
                         <label for="description">Description:</label>
-                        <textarea class="form-control bg-dark" id="description" placeholder="Description:" name="description"
-                            style="color:black;" maxlength="1000"></textarea>
+                        <textarea class="form-control bg-dark" id="description" placeholder="Description:"
+                            name="description" style="color:black;" maxlength="1000"></textarea>
                     </div>
 
                     <div class="form-group">
@@ -133,6 +136,7 @@
                         <label for="length">Length:</label>
                         <input class="form-control bg-dark" type="text" id="length" placeholder="Length:" name="length">
                     </div>
+
                     <br>
 
                     <div class="form-group">
@@ -143,8 +147,8 @@
         </div>
         <?php
         // connect to the database
-        
-        include ('connection.php');
+
+        include('connection.php');
 
 
         class input
@@ -189,7 +193,7 @@
             }
             if ($temp == false) {
                 // insert the data into the movies table
-                $sql = "INSERT INTO movies (Title, Date, Rating, Director, Studio, Trailer, Description, Cover, Genre, Length) VALUES ('$title->value', '$date->value', '$rating->value', '$director->value', '$studio->value',  '$trailer->value','$description->value','$cover->value', '$genre->value', '$length->value')";
+                $sql = "INSERT INTO content (Title, Date, Rating, Director, Studio, Trailer, Description, Cover, Genre, Length, Type) VALUES ('$title->value', '$date->value', '$rating->value', '$director->value', '$studio->value',  '$trailer->value','$description->value','$cover->value', '$genre->value', '$length->value', 'Movie')";
                 mysqli_query($conn, $sql);
                 for ($i = 0; $i < sizeof($inputs); $i++) {
                     echo '<script>document.getElementById("' . $inputs[$i]->id . '").value="' . "" . '";</script>';

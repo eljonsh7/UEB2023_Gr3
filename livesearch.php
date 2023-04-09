@@ -8,7 +8,7 @@ if (isset($_POST['input'])) {
 
     $input = mysqli_real_escape_string($conn, $_POST['input']);
 
-    $query = "SELECT Title, Cover, ID, Type FROM tvshows WHERE Title LIKE '%{$input}%' UNION SELECT Title, Cover, ID, Type FROM movies WHERE Title LIKE '%{$input}%' ";
+    $query = "SELECT Title, Cover, ID, Type FROM content WHERE Title LIKE '%{$input}%'";
 
     $result = mysqli_query($conn, $query);
 
@@ -45,8 +45,7 @@ if (isset($_POST['input'])) {
                         </a>
                     </div>
                     <hr>
-                        '
-                            ;
+                        ';
             }
         }
         echo '</div>';

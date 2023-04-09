@@ -113,60 +113,60 @@
                         <div class="card-body px-0 pb-2">
                             <div class="table-responsive p-0">
                                 <?php
-                // connect to the database
-                
-                include ('connection.php');
+                                // connect to the database
 
-                class input
-                {
-                  public $value;
-                  public $id;
+                                include('connection.php');
+
+                                class input
+                                {
+                                    public $value;
+                                    public $id;
 
 
-                  function __construct($value, $id)
-                  {
-                    $this->value = $value;
-                    $this->id = $id;
-                  }
-                }
-                // check if the form has been submitted
-                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addForm'])) {
-                  // check which form was submitted
+                                    function __construct($value, $id)
+                                    {
+                                        $this->value = $value;
+                                        $this->id = $id;
+                                    }
+                                }
+                                // check if the form has been submitted
+                                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addForm'])) {
+                                    // check which form was submitted
 
-                  // get the form data
-                  $title = new input($_POST['title'], "title");
-                  $date = new input($_POST['date'], "date");
-                  $rating = new input($_POST['rating'], "rating");
-                  $director = new input($_POST['director'], "director");
-                  $studio = new input($_POST['studio'], "studio");
-                  $cover = new input($_POST['cover'], "cover");
-                  $trailer = new input($_POST['trailer'], "trailer");
-                  $description = new input(mysqli_real_escape_string($conn, $_POST['description']), "description");
-                  $genre = new input($_POST['genre'], "genre");
-                  $length = new input($_POST['length'], "length");
-                  $inputs = [$title, $date, $rating, $director, $studio, $cover, $trailer, $description, $genre, $length];
-                  $temp = false;
-                  for ($i = 0; $i < sizeof($inputs); $i++) {
-                    if (empty($inputs[$i]->value)) {
-                      echo '<script>document.getElementById("' . $inputs[$i]->id . '").style.border="2px solid red";</script>';
-                      $temp = true;
-                    } else {
-                      echo '<script>document.getElementById("' . $inputs[$i]->id . '").value="' . $inputs[$i]->value . '";</script>';
-                    }
-                    if (($i == sizeof($inputs) - 1) && $temp == true) {
-                      echo "<h3>Please fill out every information about the movie!</h3>";
-                    }
-                  }
-                  if ($temp == false) {
-                    $sql = "INSERT INTO tvshows (Title, Date, Rating, Director, Studio, Trailer, Description, Cover, Genre, Length) VALUES ('$title->value', '$date->value', '$rating->value', '$director->value', '$studio->value',  '$trailer->value','$description->value','$cover->value', '$genre->value', '$length->value')";
-                    mysqli_query($conn, $sql);
-                    for ($i = 0; $i < sizeof($inputs); $i++) {
-                      echo '<script>document.getElementById("' . $inputs[$i]->id . '").value="' . "" . '";</script>';
-                    }
-                  }
-                }
+                                    // get the form data
+                                    $title = new input($_POST['title'], "title");
+                                    $date = new input($_POST['date'], "date");
+                                    $rating = new input($_POST['rating'], "rating");
+                                    $director = new input($_POST['director'], "director");
+                                    $studio = new input($_POST['studio'], "studio");
+                                    $cover = new input($_POST['cover'], "cover");
+                                    $trailer = new input($_POST['trailer'], "trailer");
+                                    $description = new input(mysqli_real_escape_string($conn, $_POST['description']), "description");
+                                    $genre = new input($_POST['genre'], "genre");
+                                    $length = new input($_POST['length'], "length");
+                                    $inputs = [$title, $date, $rating, $director, $studio, $cover, $trailer, $description, $genre, $length];
+                                    $temp = false;
+                                    for ($i = 0; $i < sizeof($inputs); $i++) {
+                                        if (empty($inputs[$i]->value)) {
+                                            echo '<script>document.getElementById("' . $inputs[$i]->id . '").style.border="2px solid red";</script>';
+                                            $temp = true;
+                                        } else {
+                                            echo '<script>document.getElementById("' . $inputs[$i]->id . '").value="' . $inputs[$i]->value . '";</script>';
+                                        }
+                                        if (($i == sizeof($inputs) - 1) && $temp == true) {
+                                            echo "<h3>Please fill out every information about the movie!</h3>";
+                                        }
+                                    }
+                                    if ($temp == false) {
+                                        $sql = "INSERT INTO content (Title, Date, Rating, Director, Studio, Trailer, Description, Cover, Genre, Length) VALUES ('$title->value', '$date->value', '$rating->value', '$director->value', '$studio->value',  '$trailer->value','$description->value','$cover->value', '$genre->value', '$length->value')";
+                                        mysqli_query($conn, $sql);
+                                        for ($i = 0; $i < sizeof($inputs); $i++) {
+                                            echo '<script>document.getElementById("' . $inputs[$i]->id . '").value="' . "" . '";</script>';
+                                        }
+                                    }
+                                }
 
-                echo '<table class="table align-items-center mb-0" width="300px">
+                                echo '<table class="table align-items-center mb-0" width="300px">
 				<tr>
           <th>Cover</th>
 					<th>Title</th>
@@ -180,14 +180,14 @@
 					<th>Genre</th>
 					<th></th>
 				</tr>';
-                $sql = "SELECT * FROM `tvshows`";
-                $result = mysqli_query($conn, $sql);
-                while ($row = mysqli_fetch_array($result)) {
-                  echo '
+                                $sql = "SELECT * FROM `content` WHERE type = 'tv show'";
+                                $result = mysqli_query($conn, $sql);
+                                while ($row = mysqli_fetch_array($result)) {
+                                    echo '
                     <tr>
                         <td><img src="' . $row['Cover'] . '" width="70px" height="94.5px"></td>
                         <td><a href="editDetails.php?detailsID=' . $row['ID'] . '&type=Show&mode=info">' . $row['Title'] . '</a></td>
-                        <td>' . $row['StartDate'] . '</td>
+                        <td>' . $row['Date'] . '</td>
                         <td>' . $row['Status'] . '</td>
                         <td>' . $row['Rating'] . '</td>
                         <td>' . $row['Director'] . '</td>
@@ -197,14 +197,14 @@
                         <td>' . $row['Genre'] . '</td>
                         <td><a href="shows-tb.php?removeID=' . $row['ID'] . '&mode=remove" class = "btn btn-primary text-white">x</a></td>
                     </tr>';
-                }
-                echo '</table>';
-                if (isset($_GET['mode'])) {
-                  $idRemove = $_GET['removeID'];
-                  $sql = "SELECT * FROM `tvshows` WHERE `ID` = $idRemove";
-                  $result = mysqli_query($conn, $sql);
-                  $row = mysqli_fetch_array($result);
-                  echo '<form id="movie-remove" method="post">
+                                }
+                                echo '</table>';
+                                if (isset($_GET['mode'])) {
+                                    $idRemove = $_GET['removeID'];
+                                    $sql = "SELECT * FROM `content` WHERE `ID` = $idRemove";
+                                    $result = mysqli_query($conn, $sql);
+                                    $row = mysqli_fetch_array($result);
+                                    echo '<form id="movie-remove" method="post">
 					<div class="overlay">
             <div class="modal">
               <input type="hidden" name="popForm" value="submitted">
@@ -217,14 +217,14 @@
 					</div>
 					
 					</form>';
-                }
-                if (isset($_GET['confirm'])) {
-                  $removeID = $_GET['removeID'];
-                  $sql = "DELETE FROM `tvshows` WHERE `tvshows`.`ID` = $removeID";
-                  mysqli_query($conn, $sql);
-                  echo '<script>window.location.href = "shows-tb.php";</script>';
-                }
-                ?>
+                                }
+                                if (isset($_GET['confirm'])) {
+                                    $removeID = $_GET['removeID'];
+                                    $sql = "DELETE FROM `content` WHERE `tvshows`.`ID` = $removeID";
+                                    mysqli_query($conn, $sql);
+                                    echo '<script>window.location.href = "shows-tb.php";</script>';
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>

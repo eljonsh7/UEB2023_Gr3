@@ -137,9 +137,9 @@
     $ID = $_GET['detailsID'];
 
     if ($_GET['type'] == "Movie") {
-        $sql = "SELECT * FROM `movies` WHERE `ID` = $ID";
+        $sql = "SELECT * FROM `content` WHERE `ID` = $ID";
     } else if ($_GET['type'] == "Show") {
-        $sql = "SELECT * FROM `tvshows` WHERE `ID` = $ID";
+        $sql = "SELECT * FROM `content` WHERE `ID` = $ID";
     } else if ($_GET['type'] == "Blogs") {
         $sql = "SELECT * FROM `blogs` WHERE `ID` = $ID";
     }
@@ -317,7 +317,7 @@
                 }
                 if ($temp == false) {
                     // edit the data in the movies table
-                    $sql = "UPDATE movies SET Title=?, Date=?, Rating=?, Director=?, Studio=?, Trailer=?, Description=?, Cover=?, Genre=?, Length=? WHERE ID=?";
+                    $sql = "UPDATE content SET Title=?, Date=?, Rating=?, Director=?, Studio=?, Trailer=?, Description=?, Cover=?, Genre=?, Length=? WHERE ID=?";
                     $stmt = mysqli_prepare($conn, $sql);
                     mysqli_stmt_bind_param($stmt, "sssssssssdd", $title->value, $date->value, $rating->value, $director->value, $studio->value, $trailer->value, $description->value, $cover->value, $genre->value, $length->value, $ID);
                     mysqli_stmt_execute($stmt);
@@ -331,7 +331,7 @@
             <div>
                 <div id="viewDetails" style="width:50%;margin-left:5%;">
                     <p id="title" class="details"><b>Title: </b><br>' . $row['Title'] . '</p>
-                    <p id="date" class="details"><b>Start Date: </b><br>' . $row['StartDate'] . '</p>
+                    <p id="date" class="details"><b>Start Date: </b><br>' . $row['Date'] . '</p>
                     <p id="date" class="details"><b>Status: </b><br>' . $row['Status'] . '</p>
                     <p id="rating" class="details"><b>Rating: </b><br>' . $row['Rating'] . '</p>
                     <p id="director" class="details"><b>Director: </b><br>' . $row['Director'] . '</p>
@@ -360,7 +360,7 @@
                             <input class="form-control" value="' . $row['Title'] . '" type="text" id="title" placeholder="Title" name="title"><br>
 
                             <label for="startdate">Start Date:</label>
-                            <input class="form-control" value="' . $row['StartDate'] . '" type="date" id="startdate" placeholder="Start Date" name="startdate"><br>
+                            <input class="form-control" value="' . $row['Date'] . '" type="date" id="startdate" placeholder="Start Date" name="startdate"><br>
 
                             <label for="status">Status:</label>
                             <input class="form-control" value="' . $row['Status'] . '" type="text" id="status" placeholder="Status" name="status"><br>
@@ -428,7 +428,7 @@
                 }
                 if ($temp == false) {
                     // edit the data in the shows table
-                    $sql = "UPDATE tvshows SET Title=?, StartDate=?,Status=?, Rating=?, Director=?, Studio=?, Cover=?, Trailer=?,Description=?, Genre=? WHERE ID=?";
+                    $sql = "UPDATE content SET Title=?, Date=?,Status=?, Rating=?, Director=?, Studio=?, Cover=?, Trailer=?,Description=?, Genre=? WHERE ID=?";
                     $stmt = mysqli_prepare($conn, $sql);
                     mysqli_stmt_bind_param($stmt, "ssssssssssd", $title->value, $startdate->value, $status->value, $rating->value, $director->value, $studio->value, $cover->value, $trailer->value, $description->value, $genre->value, $ID);
                     mysqli_stmt_execute($stmt);

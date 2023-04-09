@@ -122,55 +122,57 @@
         </div>
         <?php
         // connect to the database
-        include ('connection.php');
-
-        
-		class input{
-			public $value;
-			public $id;
+        include('connection.php');
 
 
-			function __construct($value,$id){
-				$this->value = $value;
-				$this->id = $id;
-			}
-		}
+        class input
+        {
+            public $value;
+            public $id;
+
+
+            function __construct($value, $id)
+            {
+                $this->value = $value;
+                $this->id = $id;
+            }
+        }
         // check if the form has been submitted
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addForm'])) {
             // check which form was submitted
-                // get the form data
-                $title = new input($_POST['title'],"title");
-                $startdate = new input($_POST['startdate'],"startdate");
-                $status = new input($_POST['status'],"status");
-                $rating = new input($_POST['rating'],"rating");
-				$director = new input($_POST['director'],"director");
-                $studio = new input($_POST['studio'],"studio");
-                $cover = new input($_POST['cover'],"cover");
-                $trailer = new input($_POST['trailer'],"trailer");
-				$description = new input(mysqli_real_escape_string($conn,$_POST['description']),"description");
-				$genre = new input($_POST['genre'],"genre");
-				$inputsTV = [$title,$startdate,$status,$rating,$director,$studio,$cover,$trailer,$description,$genre];
-				$temp = false;
-				for($i = 0; $i < sizeof($inputsTV) ; $i++){
-					if(empty($inputsTV[$i]->value)){
-						echo '<script>document.getElementById("'.$inputsTV[$i]->id.'").style.border="2px solid red";</script>';
-						$temp = true;
-					}else{
-						echo '<script>document.getElementById("'.$inputsTV[$i]->id.'").value="'.$inputsTV[$i]->value.'";</script>';
-					}
-					if(($i == sizeof($inputsTV)-1) && $temp == true){
-						echo "<h6 style='text-align:center;'>Please fill out every information about the show!</h6>";
-					}
-				}
-				if($temp == false){
-                	// insert the data into the tvshows table
-                	$sql = "INSERT INTO tvshows (Title, StartDate, Status, Rating, Director, Studio, Cover, Trailer, Description, Genre) VALUES ('$title->value', '$startdate->value', '$status->value', '$rating->value', '$director->value', '$studio->value', '$cover->value', '$trailer->value','$description->value', '$genre->value')";
-                	mysqli_query($conn, $sql);
-					for($i = 0; $i < sizeof($inputsTV) ; $i++){
-						echo '<script>document.getElementById("'.$inputsTV[$i]->id.'").value="'."".'";</script>';
-				    }
-                    echo '<script>window.location.href = "shows-tb.php";</script>';
-				}
+            // get the form data
+            $title = new input($_POST['title'], "title");
+            $startdate = new input($_POST['startdate'], "startdate");
+            $status = new input($_POST['status'], "status");
+            $rating = new input($_POST['rating'], "rating");
+            $director = new input($_POST['director'], "director");
+            $studio = new input($_POST['studio'], "studio");
+            $cover = new input($_POST['cover'], "cover");
+            $trailer = new input($_POST['trailer'], "trailer");
+            $description = new input(mysqli_real_escape_string($conn, $_POST['description']), "description");
+            $genre = new input($_POST['genre'], "genre");
+            $inputsTV = [$title, $startdate, $status, $rating, $director, $studio, $cover, $trailer, $description, $genre];
+            $temp = false;
+            for ($i = 0; $i < sizeof($inputsTV); $i++) {
+                if (empty($inputsTV[$i]->value)) {
+                    echo '<script>document.getElementById("' . $inputsTV[$i]->id . '").style.border="2px solid red";</script>';
+                    $temp = true;
+                } else {
+                    echo '<script>document.getElementById("' . $inputsTV[$i]->id . '").value="' . $inputsTV[$i]->value . '";</script>';
+                }
+                if (($i == sizeof($inputsTV) - 1) && $temp == true) {
+                    echo "<h6 style='text-align:center;'>Please fill out every information about the show!</h6>";
+                }
+            }
+            if ($temp == false) {
+                // insert the data into the tvshows table
+                $sql = "INSERT INTO tvshows (Title, StartDate, Status, Rating, Director, Studio, Cover, Trailer, Description, Genre, Type) VALUES ('$title->value', '$startdate->value', '$status->value', '$rating->value', '$director->value', '$studio->value', '$cover->value', '$trailer->value','$description->value', '$genre->value', 'TV Show')";
+                mysqli_query($conn, $sql);
+                for ($i = 0; $i < sizeof($inputsTV); $i++) {
+                    echo '<script>document.getElementById("' . $inputsTV[$i]->id . '").value="' . "" . '";</script>';
+                }
+                echo '<script>window.location.href = "shows-tb.php";</script>';
+            }
         }
         ?>
     </main>
