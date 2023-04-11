@@ -45,6 +45,86 @@
     .row {
         justify-content: center;
     }
+    .sideFeatured{
+        display:none;
+    }
+    .importantDiv{
+        margin-bottom:50px !important;
+    }
+
+    .imgScroll {
+            width:400px !important;
+            height:597px !important;
+        }
+    
+    @media screen and (min-width: 450px) {
+        .imgScroll {
+            width:100% !important;
+            padding:10% 67px 0;
+        }
+        .textDiv{
+            
+        }
+        .importantDiv{
+            width:500px;
+            margin: 0 auto;
+        }
+        .picDiv{
+            width:100%;
+        }
+        
+    }
+    
+    @media screen and (min-width: 1075px) {
+        .imgScroll {
+            width:300px !important;
+            height:448px !important;
+            padding:0;
+        }
+        .picDiv{
+            padding-left:2%;
+            padding-top:4%;
+            margin-right:-1%;
+        }
+        .importantDiv{
+            width:99.5%;
+            
+        }
+        .textDiv{
+            display:block;
+        }
+    }
+
+    @media screen and (min-width: 1200px) {
+        .imgScroll {
+            width:300px !important;
+            height:448px !important;
+        }
+        .picDiv{
+            margin-left:-7%;
+            padding-top:2%;
+            margin-right:-8%;
+        }
+    }
+
+    @media screen and (min-width: 1286px) {
+        .imgScroll {
+            width:400px !important;
+            height:597px !important;
+        }
+        .picDiv{
+            padding-left:2%;
+            padding-top:0.5%;
+            margin-right:0;
+            margin-left:0;
+        }
+
+    }
+    @media screen and (min-width: 1300px) {
+        .sideFeatured{
+            display:block;
+        }
+    }
     </style>
 </head>
 
@@ -64,7 +144,7 @@
     ?>
     <section class="hero-area" id="home">
         <div class="container">
-            <div class="hero-area-slider">
+            <div class="hero-area-slider activeDiv">
                 <?php
                 $count = 0;
                 $result = mysqli_query($conn, $sql);
@@ -83,17 +163,17 @@
                     $Description = $row['Description'];
                     $Trailer = $row['Trailer'];
                     echo
-                    '<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;  margin-top: 25%;">
-                            <div class="col-lg-6 col-md-5">
+                    '<div class="row hero-area-slide importantDiv" style="display: flex;justify-content: center;align-items: center;  margin-top: 25%;">
+                            <div class="col-lg-6 col-md-5 picDiv">
                                 <a href="movie-details.php?id=' . $row['ID'] . '&type=Movie">
                                     <div class="hero-area-content">
                                         <div class="img-wrapper" style="margin-bottom:4%;margin-top:-8.5%;">
-                                            <img src="' . $Cover . '" style="width: 100%;" alt="about" id="test123" />
+                                            <img src="' . $Cover . '" alt="about" id="test123" class="imgScroll" />
                                         </div>
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-lg-6 col-md-7">
+                            <div class="col-lg-6 col-md-7 textDiv">
                                 <div class="hero-area-content pr-50">
                                     <a href="movie-details.php?id=' . $row['ID'] . '&type=Movie"><h2>' . $Title . '</h2></a>
                                     <div class="review">
@@ -115,19 +195,19 @@
             </div>
         </div>
         </div>
-        <div class="hero-area-thumb">
+        <div class="hero-area-thumb sideFeatured">
             <div class="thumb-prev">
                 <?php
                 echo
                 '<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;">
-                    <div class="col-lg-6 col-md-5">
+                    <div class="col-lg-6 col-md-5 picDiv">
                         <div class="hero-area-content">
                             <div class="img-wrapper" style="margin-bottom:4%;margin-top:-8.5%;">
-                                <img src="' . $Cover . '" style="width: 100%;" alt="about" id="test123" />
+                                <img src="' . $Cover . '" alt="about" id="test123" class="imgScroll"/>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-7">
+                    <div class="col-lg-6 col-md-7 textDiv">
                         <div class="hero-area-content pr-50">
                             <h2>' . $Title . '</h2>
                             <div class="review">
@@ -149,14 +229,14 @@
                 <?php
                 echo
                 '<div class="row hero-area-slide" style="display: flex;justify-content: center;align-items: center;">
-                    <div class="col-lg-6 col-md-5">
+                    <div class="col-lg-6 col-md-5 picDiv">
                         <div class="hero-area-content">
                             <div class="img-wrapper" style="margin-bottom:4%;margin-top:-8.5%;">
-                                <img src="' . $Cover2 . '" style="width: 100%;" alt="about" id="test123" />
+                                <img src="' . $Cover2 . '" alt="about" id="test123" class="imgScroll"/>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-7">
+                    <div class="col-lg-6 col-md-7 textDiv">
                         <div class="hero-area-content pr-50">
                             <h2>' . $Title2 . '</h2>
                             <div class="review">
