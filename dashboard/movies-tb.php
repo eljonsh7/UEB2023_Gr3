@@ -213,7 +213,14 @@
             </div>
             <button class="btn bg-gradient-dark px-3 mb-2 active" data-class="bg-gradient-dark" onclick="add()">Want to
                 add a movie?</button>
+            <?php
+            include('manageDtb.php');
+            
+            $row = new rowClass();
 
+            echo $row->getColumn(1);
+            
+            ?>
             <footer class="footer py-4  ">
                 <div class="container-fluid">
                     <div class="row align-items-center justify-content-lg-between">
