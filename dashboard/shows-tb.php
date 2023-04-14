@@ -117,7 +117,18 @@
                                 // connect to the database
 
                                 include('connection.php');
+                                $sql = "SELECT * FROM `content` where type = 'tv show'";
+                                $result = mysqli_query($conn, $sql);
+                                $results_per_page = 4;
+                                $results_num = mysqli_num_rows($result);
+                                $pages = ceil($results_num / $results_per_page);
 
+                                if (isset($_GET["page"])) {
+                                    $page = $_GET["page"];
+                                } else {
+                                    $page = 1;
+                                }
+                                $start_from = ($page - 1) * $results_per_page;
                                 class input
                                 {
                                     public $value;
@@ -130,6 +141,21 @@
                                         $this->id = $id;
                                     }
                                 }
+                                echo '<section>
+                                <div class="container">';
+
+
+                                for ($i = 1; $i <= $pages; $i++) {
+                                    echo '<a class = "btn btn-primary btn-lg';
+                                    if ($i != $page) {
+                                        echo 'btn-floating"';
+                                    } else {
+                                        echo '"';
+                                    }
+                                    echo 'href="shows-tb.php?page=' . $i . '">' . $i . '</a>';
+                                }
+                                echo '</div>
+                            </section>';
                                 // check if the form has been submitted
                                 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addForm'])) {
                                     // check which form was submitted
@@ -181,7 +207,7 @@
 					<th>Genre</th>
 					<th></th>
 				</tr>';
-                                $sql = "SELECT * FROM `content` WHERE type = 'tv show'";
+                                $sql = "SELECT * FROM `content` WHERE type = 'tv show' limit $start_from, $results_per_page";
                                 $result = mysqli_query($conn, $sql);
                                 while ($row = mysqli_fetch_array($result)) {
                                     echo '
