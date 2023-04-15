@@ -30,13 +30,9 @@
         }
 
         .form-control {
-            background-color: white;
             padding: 5px;
         }
 
-        .form-group {
-            width: 600px;
-        }
 
         @media (min-width: 768px) {
             .col-md-6 {
@@ -129,18 +125,29 @@
                                 // connect to the database
 
                                 include('connection.php');
-                                $sql = "SELECT * FROM `blogs`";
-                                $result = mysqli_query($conn, $sql);
-                                $results_per_page = 4;
-                                $results_num = mysqli_num_rows($result);
-                                $pages = ceil($results_num / $results_per_page);
-
                                 if (isset($_GET["page"])) {
                                     $page = $_GET["page"];
                                 } else {
                                     $page = 1;
                                 }
+                                $results_per_page = 2;
                                 $start_from = ($page - 1) * $results_per_page;
+                                if (isset($_GET['search'])) {
+                                    $search = $_GET['search'];
+                                    $sql = "SELECT * FROM `blogs` WHERE Title like '%{$search}%' LIMIT $start_from, $results_per_page";
+                                    $sql1 = "SELECT * FROM `blogs` WHERE Title like '%{$search}%'";
+                                    $result = mysqli_query($conn, $sql);
+                                    $result1 = mysqli_query($conn, $sql1);
+                                    $results_num = mysqli_num_rows($result1);
+                                    $pages = ceil($results_num / $results_per_page);
+                                } else {
+                                    $sql = "SELECT * FROM `blogs` limit $start_from, $results_per_page";
+                                    $sql1 = "SELECT * FROM `blogs`";
+                                    $result = mysqli_query($conn, $sql);
+                                    $result1 = mysqli_query($conn, $sql1);
+                                    $results_num = mysqli_num_rows($result1);
+                                    $pages = ceil($results_num / $results_per_page);
+                                }
 
                                 class input
                                 {
@@ -154,21 +161,14 @@
                                         $this->id = $id;
                                     }
                                 }
-                                echo '<section>
-                                <div class="container">';
 
-
-                                for ($i = 1; $i <= $pages; $i++) {
-                                    echo '<a class = "btn btn-primary btn-lg';
-                                    if ($i != $page) {
-                                        echo 'btn-floating"';
-                                    } else {
-                                        echo '"';
-                                    }
-                                    echo 'href="blogs-tb.php?page=' . $i . '">' . $i . '</a>';
-                                }
-                                echo '</div>
-                            </section>';
+                                echo '<form action="blogs-tb.php?page=' . $page . '" method="get" class="form-flex" style="display: flex;" onsubmit="return addSearchTermToAction()">
+                                <div class="form-group mx-sm-3 mb-2">
+                                    <input type="text" class="form-control" id="search" name="search" placeholder="Search for blogs...">
+                                    <input type="hidden" name="page" value="' . $page . '">
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Go</button>
+                            </form>';
 
 
                                 echo '<table class="table align-items-center mb-0" width="300px">
@@ -183,8 +183,6 @@
                 
 					<th></th>
 				</tr>';
-                                $sql = "SELECT * FROM `blogs` limit $start_from, $results_per_page";
-                                $result = mysqli_query($conn, $sql);
                                 while ($row = mysqli_fetch_array($result)) {
                                     echo '
 				  			<tr>
@@ -231,6 +229,36 @@
                     </div>
                 </div>
             </div>
+            <?php
+            if ($pages > 1) {
+                echo '<section>
+             <div class="container">';
+
+                if (isset($_GET['search'])) {
+                    for ($i = 1; $i <= $pages; $i++) {
+                        echo '<a class = "btn btn-primary btn-lg';
+                        if ($i != $page) {
+                            echo 'btn-floating"';
+                        } else {
+                            echo '"';
+                        }
+                        echo 'href="blogs-tb.php?page=' . $i . '&search=' . $search . '">' . $i . '</a>';
+                    }
+                } else {
+                    for ($i = 1; $i <= $pages; $i++) {
+                        echo '<a class = "btn btn-primary btn-lg';
+                        if ($i != $page) {
+                            echo 'btn-floating"';
+                        } else {
+                            echo '"';
+                        }
+                        echo 'href="blogs-tb.php?page=' . $i . '">' . $i . '</a>';
+                    }
+                }
+                echo '</div>
+         </section>';
+            }
+            ?>
             <button class="btn bg-gradient-dark px-3 mb-2 active" data-class="bg-gradient-dark" onclick="add()">Add a
                 Blog</button>
 

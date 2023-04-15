@@ -31,13 +31,9 @@
         }
 
         .form-control {
-            background-color: white;
             padding: 5px;
         }
 
-        .form-group {
-            width: 600px;
-        }
 
         @media (min-width: 768px) {
             .col-md-6 {
@@ -181,32 +177,7 @@
 
 
 
-                                echo '<section>
-                                <div class="container">';
 
-                                if (isset($_GET['search'])) {
-                                    for ($i = 1; $i <= $pages; $i++) {
-                                        echo '<a class = "btn btn-primary btn-lg';
-                                        if ($i != $page) {
-                                            echo 'btn-floating"';
-                                        } else {
-                                            echo '"';
-                                        }
-                                        echo 'href="movies-tb.php?page=' . $i . '&search=' . $search . '">' . $i . '</a>';
-                                    }
-                                } else {
-                                    for ($i = 1; $i <= $pages; $i++) {
-                                        echo '<a class = "btn btn-primary btn-lg';
-                                        if ($i != $page) {
-                                            echo 'btn-floating"';
-                                        } else {
-                                            echo '"';
-                                        }
-                                        echo 'href="movies-tb.php?page=' . $i . '">' . $i . '</a>';
-                                    }
-                                }
-                                echo '</div>
-                            </section>';
                                 echo '<table class="table align-items-center mb-0" width="300px">
                                 <tr>
                                     <th>Cover</th>
@@ -282,6 +253,36 @@
                     </div>
                 </div>
             </div>
+            <?php
+            if ($pages > 1) {
+                echo '<section>
+             <div class="container">';
+
+                if (isset($_GET['search'])) {
+                    for ($i = 1; $i <= $pages; $i++) {
+                        echo '<a class = "btn btn-primary btn-lg';
+                        if ($i != $page) {
+                            echo 'btn-floating"';
+                        } else {
+                            echo '"';
+                        }
+                        echo 'href="movies-tb.php?page=' . $i . '&search=' . $search . '">' . $i . '</a>';
+                    }
+                } else {
+                    for ($i = 1; $i <= $pages; $i++) {
+                        echo '<a class = "btn btn-primary btn-lg';
+                        if ($i != $page) {
+                            echo 'btn-floating"';
+                        } else {
+                            echo '"';
+                        }
+                        echo 'href="movies-tb.php?page=' . $i . '">' . $i . '</a>';
+                    }
+                }
+                echo '</div>
+         </section>';
+            }
+            ?>
             <button class="btn bg-gradient-dark px-3 mb-2 active" data-class="bg-gradient-dark" onclick="add()">Add a
                 Movie</button>
             <footer class="footer py-4  ">
