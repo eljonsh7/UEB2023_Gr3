@@ -57,6 +57,7 @@
             height:597px !important;
         }
     
+    
     @media screen and (min-width: 450px) {
         .imgScroll {
             width:100% !important;
@@ -73,6 +74,23 @@
             width:100%;
         }
         
+    }
+    @media screen and (max-width: 1074px) {
+        .col-md-5 {
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 41.666667%;
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .textDiv {
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 50%;
+            flex: 0 0 80%;
+            max-width: 80%;
+        }
+        .textDiv p{
+            text-align: justify;
+        }
     }
     
     @media screen and (min-width: 1075px) {
