@@ -28,13 +28,16 @@
     }
 
     .form-control {
-        background-color: white;
+        background-color: #2e3757;
         padding: 5px;
     }
 
     .form-group {
         width: 600px;
     }
+
+
+
 
     @media (min-width: 768px) {
         .col-md-6 {

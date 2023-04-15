@@ -31,8 +31,15 @@
         }
 
         .form-control {
-            padding: 5px;
+
+            background-color: #2e3757;
         }
+
+        .container {
+            margin: 0;
+        }
+
+
 
 
         @media (min-width: 768px) {
@@ -260,7 +267,7 @@
 
                 if (isset($_GET['search'])) {
                     for ($i = 1; $i <= $pages; $i++) {
-                        echo '<a class = "btn btn-primary btn-lg';
+                        echo '<a style = "margin-right: 5px;" class = "btn btn-primary btn-lg';
                         if ($i != $page) {
                             echo 'btn-floating"';
                         } else {
@@ -270,7 +277,7 @@
                     }
                 } else {
                     for ($i = 1; $i <= $pages; $i++) {
-                        echo '<a class = "btn btn-primary btn-lg';
+                        echo '<a style = "margin-right: 5px;" class = "btn btn-primary btn-lg';
                         if ($i != $page) {
                             echo 'btn-floating"';
                         } else {
