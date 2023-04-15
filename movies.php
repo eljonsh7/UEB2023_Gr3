@@ -1,23 +1,30 @@
 <?php
 
 include('connection.php');
-
-$sql = "SELECT * FROM `content` where type = 'movie'";
-$result = mysqli_query($conn, $sql);
 $results_per_page = 4;
-$results_num = mysqli_num_rows($result);
-$pages = ceil($results_num / $results_per_page);
-
 if (isset($_GET["page"])) {
     $page = $_GET["page"];
 } else {
     $page = 1;
 }
-$start_from = ($page - 1) * 4;
+$start_from = ($page - 1) * $results_per_page;
+if (isset($_GET['genre'])) {
+    $genreGET = $_GET['genre'];
+    $sql = "SELECT * FROM `content` WHERE type = 'movie' AND Genre LIKE '%{$genreGET}%' LIMIT $start_from, $results_per_page";
+    $sql1 = "SELECT * FROM `content` where type = 'movie' and Genre like '%{$genreGET}%'";
+    $result = mysqli_query($conn, $sql);
+    $result1 = mysqli_query($conn, $sql1);
+    $results_num = mysqli_num_rows($result1);
+    $pages = ceil($results_num / $results_per_page);
+} else {
+    $sql = "SELECT * FROM `content` where type = 'movie' limit $start_from, $results_per_page";
+    $sql1 = "SELECT * FROM `content` where type = 'movie'";
+    $result = mysqli_query($conn, $sql);
+    $result1 = mysqli_query($conn, $sql1);
+    $results_num = mysqli_num_rows($result1);
+    $pages = ceil($results_num / $results_per_page);
+}
 
-
-$sql = "SELECT * FROM `content` where type = 'movie' limit $start_from, $results_per_page";
-$result = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE HTML>
@@ -49,65 +56,77 @@ $result = mysqli_query($conn, $sql);
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
     <style>
-    .movies {
-
-        color: #00d9e1;
-    }
-
-    .filmi {
-        align-items: center;
-        width: 221px;
-        height: 330px;
-        border-radius: 5%;
-        margin: 0 auto;
-        overflow: hidden;
-    }
-
-    .imgContentPortfolio {
-        transition: 0.9s;
-        position: relative;
-    }
-
-    .imgContentPortfolio:hover {
-        transform: scale(1.2);
-    }
-
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        grid-gap: 20px;
-    }
-
-    #imgContent {
-        width: 221px;
-        height: 330px;
-    }
-
-    @media screen and (min-width: 576px) {
-        .grid-container {
-            grid-template-columns: repeat(2, minmax(250px, 1fr));
-        }
-    }
-
-    @media screen and (min-width: 768px) {
-        .grid-container {
-            grid-template-columns: repeat(2, minmax(250px, 1fr));
-        }
-    }
-
-    @media screen and (min-width: 992px) {
-        .grid-container {
-            grid-template-columns: repeat(3, minmax(250px, 1fr));
+        .btn {
+            background-color: #3a444f;
+            border-width: 0;
         }
 
-    }
-
-    @media screen and (min-width: 1200px) {
-        .grid-container {
-            grid-template-columns: repeat(4, minmax(250px, 1fr));
+        .btn:hover,
+        .btn:active {
+            background-color: transparent;
+            border-width: 3px;
+            border-color: white;
         }
 
-    }
+        .movies {
+
+            color: #00d9e1;
+        }
+
+        .filmi {
+            align-items: center;
+            width: 221px;
+            height: 330px;
+            border-radius: 5%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .imgContentPortfolio {
+            transition: 0.9s;
+            position: relative;
+        }
+
+        .imgContentPortfolio:hover {
+            transform: scale(1.2);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 20px;
+        }
+
+        #imgContent {
+            width: 221px;
+            height: 330px;
+        }
+
+        @media screen and (min-width: 576px) {
+            .grid-container {
+                grid-template-columns: repeat(2, minmax(250px, 1fr));
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(2, minmax(250px, 1fr));
+            }
+        }
+
+        @media screen and (min-width: 992px) {
+            .grid-container {
+                grid-template-columns: repeat(3, minmax(250px, 1fr));
+            }
+
+        }
+
+        @media screen and (min-width: 1200px) {
+            .grid-container {
+                grid-template-columns: repeat(4, minmax(250px, 1fr));
+            }
+
+        }
     </style>
 </head>
 
@@ -133,20 +152,36 @@ $result = mysqli_query($conn, $sql);
     <!-- portfolio section start -->
     <section class="portfolio-area pt-60">
         <div class="container">
-            <div class="row ">
 
+            <div class="row">
                 <div class="col-lg-6 text-center text-lg-left">
                     <div class="portfolio-menu">
                         <ul>
-                            <li data-filter="*" class="active" onclick="checkAjax('All', <?php echo $page ?>)">All</li>
-                            <li data-filter=".Action" onclick="checkAjax('Action', <?php echo $page ?>)">Action</li>
-                            <li data-filter=".Drama" onclick="checkAjax('Drama', <?php echo $page ?>)">Drama</li>
-                            <li data-filter=".Crime" onclick="checkAjax('Crime', <?php echo $page ?>)">Crime</li>
+                            <li data-filter="*" <?php if (!isset($_GET['genre']) || $_GET['genre'] === '') {
+                                                    echo 'class="active"';
+                                                } ?>>
+                                <a href="movies.php">All</a>
+                            </li>
+                            <li data-filter=".Action" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'action') {
+                                                            echo 'class="active"';
+                                                        } ?>>
+                                <a href="movies.php?genre=action">Action</a>
+                            </li>
+                            <li data-filter=".Drama" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'drama') {
+                                                            echo 'class="active"';
+                                                        } ?>>
+                                <a href="movies.php?genre=drama">Drama</a>
+                            </li>
+                            <li data-filter=".Crime" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'crime') {
+                                                            echo 'class="active"';
+                                                        } ?>>
+                                <a href="movies.php?genre=crime">Crime</a>
+                            </li>
                         </ul>
-
                     </div>
                 </div>
             </div>
+
             <hr />
             <div class="grid-container" id="contentContainer">
 
@@ -180,15 +215,37 @@ $result = mysqli_query($conn, $sql);
             </div>
         </div>
     </section><!-- portfolio section end -->
-    <section>
-        <div class="container">
-            <?php
+    <?php
+    if ($pages > 1) {
+        echo '<section>
+        <center>
+             <div class="container">';
 
+        if (isset($_GET['genre'])) {
             for ($i = 1; $i <= $pages; $i++) {
-                echo '<a href="movies.php?page=' . $i . '" style="display: inline-block; margin: 5px; padding: 5px 10px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">' . $i . '</a>';
+                echo '<a style = "margin-right: 5px;" class = "btn btn-primary btn-lg';
+                if ($i != $page) {
+                    echo 'btn-floating"';
+                } else {
+                    echo '"';
+                }
+                echo 'href="movies.php?page=' . $i . '&genre=' . $genreGET . '">' . $i . '</a>';
             }
-            ?></div>
-    </section>
+        } else {
+            for ($i = 1; $i <= $pages; $i++) {
+                echo '<a style = "margin-right: 5px;" class = "btn btn-primary btn-lg';
+                if ($i != $page) {
+                    echo 'btn-floating"';
+                } else {
+                    echo '"';
+                }
+                echo 'href="movies.php?page=' . $i . '">' . $i . '</a>';
+            }
+        }
+        echo '</div>
+        <center>
+         </section>';
+    } ?>
     <!-- video section start -->
     <section class="video ptb-90">
         <div class="container">
@@ -275,17 +332,17 @@ $result = mysqli_query($conn, $sql);
     <script src="assets/js/main.js"></script>
 
     <script type="text/javascript">
-    function checkAjax(Genre, Page) {
-        $.ajax({
-            url: 'sortGenre.php?type=movie&genre=' + Genre + '&page=' + Page,
-            method: 'GET',
-            dataType: 'html',
-            success: function(data) {
-                $('#contentContainer').html(data);
-            }
+        function checkAjax(Genre, Page) {
+            $.ajax({
+                url: 'sortGenre.php?type=movie&genre=' + Genre + '&page=' + Page,
+                method: 'GET',
+                dataType: 'html',
+                success: function(data) {
+                    $('#contentContainer').html(data);
+                }
 
-        });
-    };
+            });
+        };
     </script>
 </body>
 
