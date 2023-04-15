@@ -43,6 +43,29 @@ $row = mysqli_fetch_array($result);
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <style>
+      @media screen and (min-width: 992px) {
+        .contentInformation{
+            padding-left: 3%;
+        }
+    }
+    @media screen and (max-width: 991px) {
+        .contentInformation{
+            padding-top: 3%;
+        }
+    }
+    @media screen and (max-width: 767px) {
+        .transformers-area{
+            margin-top: -30%;
+        }
+    }
+
+
+
+    </style>
+
+
 </head>
 
 <body>
@@ -77,7 +100,7 @@ $row = mysqli_fetch_array($result);
                 <img src="' . $row["Cover"] . '" alt="about" />
               </div>
             </div>
-            <div class="col-lg-7">
+            <div class="col-lg-7 contentInformation">
               <div class="transformers-content">
                 <h2>' . $row["Title"] . '</h2>
                 <p>' . str_replace(" ", " | ", $row['Genre']) . '</p>
