@@ -138,7 +138,7 @@
                                 } else {
                                     $page = 1;
                                 }
-                                $results_per_page = 2;
+                                $results_per_page = 5;
                                 $start_from = ($page - 1) * $results_per_page;
                                 if (isset($_GET['search'])) {
                                     $search = $_GET['search'];
