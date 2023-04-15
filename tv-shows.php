@@ -2,11 +2,31 @@
 
 include('connection.php');
 
-$sql = "SELECT * FROM `content` where type = 'tv show'";
+$results_per_page = 4;
+if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+} else {
+    $page = 1;
+}
+$start_from = ($page - 1) * $results_per_page;
+if (isset($_GET['genre'])) {
+    $genreGET = $_GET['genre'];
+    $sql = "SELECT * FROM `content` WHERE type = 'tv show' AND Genre LIKE '%{$genreGET}%' LIMIT $start_from, $results_per_page";
+    $sql1 = "SELECT * FROM `content` where type = 'tv show' and Genre like '%{$genreGET}%'";
+    $result = mysqli_query($conn, $sql);
+    $result1 = mysqli_query($conn, $sql1);
+    $results_num = mysqli_num_rows($result1);
+    $pages = ceil($results_num / $results_per_page);
+} else {
+    $sql = "SELECT * FROM `content` where type = 'tv show' limit $start_from, $results_per_page";
+    $sql1 = "SELECT * FROM `content` where type = 'tv show'";
+    $result = mysqli_query($conn, $sql);
+    $result1 = mysqli_query($conn, $sql1);
+    $results_num = mysqli_num_rows($result1);
+    $pages = ceil($results_num / $results_per_page);
+}
 
-$result = mysqli_query($conn, $sql);
 ?>
-
 <!DOCTYPE HTML>
 <html lang="zxx">
 
@@ -36,64 +56,76 @@ $result = mysqli_query($conn, $sql);
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
     <style>
-    .tv {
-        color: #00d9e1;
-    }
-
-    .filmi {
-        align-items: center;
-        width: 221px;
-        height: 330px;
-        border-radius: 15px;
-        margin: 0 auto;
-        overflow: hidden;
-    }
-
-    .imgContentPortfolio {
-        transition: 0.9s;
-        position: relative;
-    }
-
-    .imgContentPortfolio:hover {
-        transform: scale(1.2);
-    }
-
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        grid-gap: 20px;
-    }
-
-    #imgContent {
-        width: 221px;
-        height: 330px;
-    }
-
-    @media screen and (min-width: 576px) {
-        .grid-container {
-            grid-template-columns: repeat(2, minmax(250px, 1fr));
-        }
-    }
-
-    @media screen and (min-width: 768px) {
-        .grid-container {
-            grid-template-columns: repeat(2, minmax(250px, 1fr));
-        }
-    }
-
-    @media screen and (min-width: 992px) {
-        .grid-container {
-            grid-template-columns: repeat(3, minmax(250px, 1fr));
+        .btn {
+            background-color: #3a444f;
+            border-width: 0;
         }
 
-    }
-
-    @media screen and (min-width: 1200px) {
-        .grid-container {
-            grid-template-columns: repeat(4, minmax(250px, 1fr));
+        .btn:hover,
+        .btn:active {
+            background-color: transparent;
+            border-width: 3px;
+            border-color: white;
         }
 
-    }
+        .tv {
+            color: #00d9e1;
+        }
+
+        .filmi {
+            align-items: center;
+            width: 221px;
+            height: 330px;
+            border-radius: 15px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .imgContentPortfolio {
+            transition: 0.9s;
+            position: relative;
+        }
+
+        .imgContentPortfolio:hover {
+            transform: scale(1.2);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 20px;
+        }
+
+        #imgContent {
+            width: 221px;
+            height: 330px;
+        }
+
+        @media screen and (min-width: 576px) {
+            .grid-container {
+                grid-template-columns: repeat(2, minmax(250px, 1fr));
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(2, minmax(250px, 1fr));
+            }
+        }
+
+        @media screen and (min-width: 992px) {
+            .grid-container {
+                grid-template-columns: repeat(3, minmax(250px, 1fr));
+            }
+
+        }
+
+        @media screen and (min-width: 1200px) {
+            .grid-container {
+                grid-template-columns: repeat(4, minmax(250px, 1fr));
+            }
+
+        }
     </style>
 </head>
 
@@ -119,14 +151,29 @@ $result = mysqli_query($conn, $sql);
     <section class="portfolio-area pt-60">
         <div class="container">
             <div class="row">
-
                 <div class="col-lg-6 text-center text-lg-left">
                     <div class="portfolio-menu">
                         <ul>
-                            <li data-filter="*" class="active" onclick="checkAjax('All')">All</li>
-                            <li data-filter=".Crime" onclick="checkAjax('Crime')">Crime</li>
-                            <li data-filter=".Drama" onclick="checkAjax('Drama')">Drama</li>
-                            <li data-filter=".Nature" onclick="checkAjax('Documentary')">Documentary</li>
+                            <li data-filter="*" <?php if (!isset($_GET['genre']) || $_GET['genre'] === '') {
+                                                    echo 'class="active"';
+                                                } ?>>
+                                <a href="tv-shows.php">All</a>
+                            </li>
+                            <li data-filter=".Crime" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'crime') {
+                                                            echo 'class="active"';
+                                                        } ?>>
+                                <a href="tv-shows.php?genre=crime">Crime</a>
+                            </li>
+                            <li data-filter=".Drama" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'drama') {
+                                                            echo 'class="active"';
+                                                        } ?>>
+                                <a href="tv-shows.php?genre=drama">Drama</a>
+                            </li>
+                            <li data-filter=".Documentary" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'documentary') {
+                                                                echo 'class="active"';
+                                                            } ?>>
+                                <a href="tv-shows.php?genre=documentary">Documentary</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -161,6 +208,37 @@ $result = mysqli_query($conn, $sql);
             </div>
         </div>
     </section><!-- portfolio section end -->
+    <?php
+    if ($pages > 1) {
+        echo '<section>
+        <center>
+             <div class="container">';
+
+        if (isset($_GET['genre'])) {
+            for ($i = 1; $i <= $pages; $i++) {
+                echo '<a style = "margin-right: 5px;" class = "btn btn-primary btn-lg';
+                if ($i != $page) {
+                    echo 'btn-floating"';
+                } else {
+                    echo '"';
+                }
+                echo 'href="tv-shows.php?page=' . $i . '&genre=' . $genreGET . '">' . $i . '</a>';
+            }
+        } else {
+            for ($i = 1; $i <= $pages; $i++) {
+                echo '<a style = "margin-right: 5px;" class = "btn btn-primary btn-lg';
+                if ($i != $page) {
+                    echo 'btn-floating"';
+                } else {
+                    echo '"';
+                }
+                echo 'href="tv-shows.php?page=' . $i . '">' . $i . '</a>';
+            }
+        }
+        echo '</div>
+        <center>
+         </section>';
+    } ?>
     <!-- video section start -->
     <section class="video ptb-90">
         <div class="container">
@@ -247,17 +325,17 @@ $result = mysqli_query($conn, $sql);
     <script src="assets/js/main.js"></script>
 
     <script type="text/javascript">
-    function checkAjax(Genre) {
-        $.ajax({
-            url: 'sortGenre.php?type=tvshow&genre=' + Genre,
-            method: 'GET',
-            dataType: 'html',
-            success: function(data) {
-                $('#contentContainer').html(data);
-            }
+        function checkAjax(Genre) {
+            $.ajax({
+                url: 'sortGenre.php?type=tvshow&genre=' + Genre,
+                method: 'GET',
+                dataType: 'html',
+                success: function(data) {
+                    $('#contentContainer').html(data);
+                }
 
-        });
-    };
+            });
+        };
     </script>
 </body>
 
