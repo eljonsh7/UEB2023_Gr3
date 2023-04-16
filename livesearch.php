@@ -8,7 +8,13 @@ if (isset($_POST['input'])) {
 
     $input = mysqli_real_escape_string($conn, $_POST['input']);
 
-    $query = "SELECT Title, Cover, ID, Type FROM content WHERE Title LIKE '%{$input}%'";
+    $query = "SELECT content.Type, content.Trailer, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
+    FROM content
+    JOIN director ON content.ID = director.ID
+    JOIN studio ON content.ID = studio.ID
+    JOIN genre ON content.ID = genre.ID
+    where content.Title like '%{$input}%'
+    GROUP BY content.ID";
 
     $result = mysqli_query($conn, $query);
 

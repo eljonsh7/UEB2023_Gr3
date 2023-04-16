@@ -77,47 +77,108 @@
         </nav>
         <div class="row justify-content-center mt-5" id="movieadd">
             <div class="col-md-6" style="display: flex; justify-content: center;">
-                <form id="show-add" method="post">
-                    <h2>TV Show</h2>
+                <form id="movie-add" method="post">
+                    <h2>Movie</h2>
                     <input type="hidden" name="addForm" value="submitted">
 
-                    <label for="title">Title:</label>
-                    <input class="form-control" type="text" id="title" placeholder="Title" name="title"><br>
+                    <div class="form-group">
+                        <label for="title">Title:</label>
+                        <input class="form-control bg-dark" type="text" id="title" placeholder="Title:" name="title">
+                    </div>
 
-                    <label for="startdate">Start Date:</label>
-                    <input class="form-control" type="date" id="startdate" placeholder="Start Date"
-                        name="startdate"><br>
+                    <div class="form-group">
+                        <label for="date">Start Date:</label>
+                        <input class="form-control bg-dark" type="date" id="startdate" placeholder="Start Date:"
+                            name="startdate">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="radio" name="status" value="Filming">In Production / Filming
+                        </label>
+                        <label>
+                            <input type="radio" name="status" value="Airing">On Air / Airing
+                        </label>
+                        <label>
+                            <input type="radio" name="status" value="Hiatus">Hiatus
+                        </label>
+                        <label>
+                            <input type="radio" name="status" value="Canceled">Canceled / Ended
+                        </label>
+                        <label>
+                            <input type="radio" name="status" value="Renewed">Renewed
+                        </label>
+                        <label>
+                            <input type="radio" name="status" value="Suspended">Suspended
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="rating">Rating:</label>
+                        <input class="form-control bg-dark" type="text" id="rating" placeholder="Rating:" name="rating">
+                    </div>
 
-                    <label for="status">Status:</label>
-                    <input class="form-control" type="text" id="status" placeholder="Status" name="status"><br>
+                    <div class="form-group">
+                        <label for="director">Director:</label>
+                        <input class="form-control bg-dark" type="text" id="director" placeholder="Director:"
+                            name="director">
+                    </div>
 
-                    <label for="rating">Rating:</label>
-                    <input class="form-control" type="text" id="rating" placeholder="Rating" name="rating"><br>
+                    <div class="form-group">
+                        <label for="studio">Studio:</label>
+                        <input class="form-control bg-dark" type="text" id="studio" placeholder="Studio:" name="studio">
+                    </div>
 
-                    <label for="director">Director:</label>
-                    <input class="form-control" type="text" id="director" placeholder="Director" name="director"><br>
+                    <div class="form-group">
+                        <label for="cover">Cover:</label>
+                        <input class="form-control bg-dark" type="text" id="cover" placeholder="Cover Link:"
+                            name="cover">
+                    </div>
 
-                    <label for="studio">Studio:</label>
-                    <input class="form-control" type="text" id="studio" placeholder="Studio" name="studio"><br>
+                    <div class="form-group">
+                        <label for="trailer">Trailer:</label>
+                        <input class="form-control bg-dark" type="text" id="trailer" placeholder="Trailer Link:"
+                            name="trailer">
+                    </div>
 
-                    <label for="cover">Cover Link:</label>
-                    <input class="form-control" type="text" id="cover" placeholder="Cover Link" name="cover"><br>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea class="form-control bg-dark" id="description" placeholder="Description:"
+                            name="description" style="color:black;" maxlength="1000"></textarea>
+                    </div>
 
-                    <label for="trailer">Trailer Link:</label>
-                    <input class="form-control" type="text" id="trailer" placeholder="Trailer Link" name="trailer"><br>
-
-                    <label for="description">Description:</label>
-                    <textarea class="form-control" id="description" placeholder="Description:" name="description"
-                        style="color:black;" maxlength="1000"></textarea><br>
-
-                    <label for="genre">Genre:</label>
-                    <input class="form-control" type="text" id="genre" placeholder="Genre:" name="genre"><br>
+                    <div class="form-group">
+                        <label>Genres:</label><br>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                value="Action"> Action</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                value="Comedy"> Comedy</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                value="Documentary"> Documentary</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                value="Drama"> Drama</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                value="Fantasy"> Fantasy</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                value="Horror"> Horror</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                value="Musical"> Musical</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                value="Mystery"> Mystery</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                value="Romance"> Romance</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                value="Science Fiction"> Science Fiction</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                value="Thriller"> Thriller</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                value="Western"> Western</label>
+                    </div>
                     <br>
-
                     <div class="form-group">
                         <input class="btn btn-primary" type="submit" value="Submit" name="movie_submit">
                     </div>
                 </form>
+
+
             </div>
         </div>
         <?php
@@ -141,17 +202,17 @@
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addForm'])) {
             // check which form was submitted
             // get the form data
-            $title = new input($_POST['title'], "title");
-            $startdate = new input($_POST['startdate'], "startdate");
-            $status = new input($_POST['status'], "status");
-            $rating = new input($_POST['rating'], "rating");
-            $director = new input($_POST['director'], "director");
-            $studio = new input($_POST['studio'], "studio");
-            $cover = new input($_POST['cover'], "cover");
-            $trailer = new input($_POST['trailer'], "trailer");
+            $title = new input(mysqli_real_escape_string($conn, $_POST['title']), "title");
+            $startdate = new input(mysqli_real_escape_string($conn, $_POST['startdate']), "startdate");
+            $status = new input(mysqli_real_escape_string($conn, $_POST['status']), "status");
+            $rating = new input(mysqli_real_escape_string($conn, $_POST['rating']), "rating");
+            $cover = new input(mysqli_real_escape_string($conn, $_POST['cover']), "cover");
+            $trailer = new input(mysqli_real_escape_string($conn, $_POST['trailer']), "trailer");
+            $director = new input(mysqli_real_escape_string($conn, $_POST['director']), "director");
+            $studio = new input(mysqli_real_escape_string($conn, $_POST['studio']), "studio");
             $description = new input(mysqli_real_escape_string($conn, $_POST['description']), "description");
-            $genre = new input($_POST['genre'], "genre");
-            $inputsTV = [$title, $startdate, $status, $rating, $director, $studio, $cover, $trailer, $description, $genre];
+            $genre = new input(isset($_POST['genre']) ? $_POST['genre'] : [], "genre");
+            $inputsTV = [$title, $startdate, $status, $rating, $director, $studio, $cover, $trailer, $description];
             $temp = false;
             for ($i = 0; $i < sizeof($inputsTV); $i++) {
                 if (empty($inputsTV[$i]->value)) {
@@ -166,8 +227,24 @@
             }
             if ($temp == false) {
                 // insert the data into the tvshows table
-                $sql = "INSERT INTO tvshows (Title, StartDate, Status, Rating, Director, Studio, Cover, Trailer, Description, Genre, Type) VALUES ('$title->value', '$startdate->value', '$status->value', '$rating->value', '$director->value', '$studio->value', '$cover->value', '$trailer->value','$description->value', '$genre->value', 'TV Show')";
+                $sql = "INSERT INTO content (Title, Date, Status, Rating, Cover, Trailer, Description, Type) VALUES ('$title->value', '$startdate->value', '$status->value', '$rating->value', '$cover->value', '$trailer->value','$description->value', 'TV Show')";
                 mysqli_query($conn, $sql);
+                $id = mysqli_insert_id($conn);
+                //insert into genres table
+                if (!empty($genre->value)) {
+                    foreach ($genre->value as $genreValue) {
+                        $genreValue = mysqli_real_escape_string($conn, $genreValue);
+                        $sql1 = "INSERT INTO genre (ID, Genre) VALUES ('$id', '$genreValue')";
+                        mysqli_query($conn, $sql1);
+                    }
+                }
+                //insert into studios table
+                $sql2 = "INSERT INTO studio (ID, Studio) VALUES ('$id', '$studio->value')";
+                mysqli_query($conn, $sql2);
+                //insert into director table
+                $sql3 = "INSERT INTO director (ID, Director) VALUES ('$id', '$director->value')";
+                mysqli_query($conn, $sql3);
+
                 for ($i = 0; $i < sizeof($inputsTV); $i++) {
                     echo '<script>document.getElementById("' . $inputsTV[$i]->id . '").value="' . "" . '";</script>';
                 }

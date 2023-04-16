@@ -11,15 +11,41 @@ if (isset($_GET["page"])) {
 $start_from = ($page - 1) * $results_per_page;
 if (isset($_GET['genre'])) {
     $genreGET = $_GET['genre'];
-    $sql = "SELECT * FROM `content` WHERE type = 'tv show' AND Genre LIKE '%{$genreGET}%' LIMIT $start_from, $results_per_page";
-    $sql1 = "SELECT * FROM `content` where type = 'tv show' and Genre like '%{$genreGET}%'";
+    $sql = "SELECT content.Type, content.Trailer, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
+    FROM content
+    JOIN director ON content.ID = director.ID
+    JOIN studio ON content.ID = studio.ID
+    JOIN genre ON content.ID = genre.ID
+    WHERE content.Type = 'tv show' and Genre like '%{$genreGET}%'
+    GROUP BY content.ID
+    LIMIT $start_from, $results_per_page";
+    $sql1 = "SELECT content.Type, content.Trailer, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
+    FROM content
+    JOIN director ON content.ID = director.ID
+    JOIN studio ON content.ID = studio.ID
+    JOIN genre ON content.ID = genre.ID
+    WHERE content.Type = 'tv show' and Genre like '%{$genreGET}%'
+    GROUP BY content.ID;";
     $result = mysqli_query($conn, $sql);
     $result1 = mysqli_query($conn, $sql1);
     $results_num = mysqli_num_rows($result1);
     $pages = ceil($results_num / $results_per_page);
 } else {
-    $sql = "SELECT * FROM `content` where type = 'tv show' limit $start_from, $results_per_page";
-    $sql1 = "SELECT * FROM `content` where type = 'tv show'";
+    $sql = "SELECT content.Type, content.Trailer, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
+    FROM content
+    JOIN director ON content.ID = director.ID
+    JOIN studio ON content.ID = studio.ID
+    JOIN genre ON content.ID = genre.ID
+    WHERE content.Type = 'tv show'
+    GROUP BY content.ID
+    limit $start_from, $results_per_page;";
+    $sql1 = "SELECT content.Type, content.Trailer, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
+    FROM content
+    JOIN director ON content.ID = director.ID
+    JOIN studio ON content.ID = studio.ID
+    JOIN genre ON content.ID = genre.ID
+    WHERE content.Type = 'tv show'
+    GROUP BY content.ID;";
     $result = mysqli_query($conn, $sql);
     $result1 = mysqli_query($conn, $sql1);
     $results_num = mysqli_num_rows($result1);

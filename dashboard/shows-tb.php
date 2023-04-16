@@ -135,15 +135,41 @@
                                 $start_from = ($page - 1) * $results_per_page;
                                 if (isset($_GET['search'])) {
                                     $search = $_GET['search'];
-                                    $sql = "SELECT * FROM `content` WHERE type = 'tv show' and Title like '%{$search}%' LIMIT $start_from, $results_per_page";
-                                    $sql1 = "SELECT * FROM `content` WHERE type = 'tv show' and Title like '%{$search}%'";
+                                    $sql = "SELECT content.Trailer, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
+                                    FROM content
+                                    JOIN director ON content.ID = director.ID
+                                    JOIN studio ON content.ID = studio.ID
+                                    JOIN genre ON content.ID = genre.ID
+                                    WHERE content.Type = 'tv show' and content.Title like '%{$search}%'
+                                    GROUP BY content.ID
+                                    LIMIT $start_from, $results_per_page";
+                                    $sql1 = "SELECT content.Trailer, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
+                                    FROM content
+                                    JOIN director ON content.ID = director.ID
+                                    JOIN studio ON content.ID = studio.ID
+                                    JOIN genre ON content.ID = genre.ID
+                                    WHERE content.Type = 'tv show' and content.Title like '%{$search}%'
+                                    GROUP BY content.ID;";
                                     $result = mysqli_query($conn, $sql);
                                     $result1 = mysqli_query($conn, $sql1);
                                     $results_num = mysqli_num_rows($result1);
                                     $pages = ceil($results_num / $results_per_page);
                                 } else {
-                                    $sql = "SELECT * FROM `content` WHERE type = 'tv show' limit $start_from, $results_per_page";
-                                    $sql1 = "SELECT * FROM `content` WHERE type = 'tv show'";
+                                    $sql = "SELECT content.Trailer, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
+                                    FROM content
+                                    JOIN director ON content.ID = director.ID
+                                    JOIN studio ON content.ID = studio.ID
+                                    JOIN genre ON content.ID = genre.ID
+                                    WHERE content.Type = 'tv show'
+                                    GROUP BY content.ID
+                                    limit $start_from, $results_per_page;";
+                                    $sql1 = "SELECT content.Trailer, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
+                                    FROM content
+                                    JOIN director ON content.ID = director.ID
+                                    JOIN studio ON content.ID = studio.ID
+                                    JOIN genre ON content.ID = genre.ID
+                                    WHERE content.Type = 'tv show'
+                                    GROUP BY content.ID;";
                                     $result = mysqli_query($conn, $sql);
                                     $result1 = mysqli_query($conn, $sql1);
                                     $results_num = mysqli_num_rows($result1);
@@ -263,8 +289,14 @@
                                 }
                                 if (isset($_GET['confirm'])) {
                                     $removeID = $_GET['removeID'];
-                                    $sql = "DELETE FROM `content` WHERE `tvshows`.`ID` = $removeID";
-                                    mysqli_query($conn, $sql);
+                                    $sql1 = "DELETE FROM `director` WHERE `ID` = $removeID";
+                                    $sql2 = "DELETE FROM `studio` WHERE `ID` = $removeID";
+                                    $sql3 = "DELETE FROM `genre` WHERE `ID` = $removeID";
+                                    $sql4 = "DELETE FROM `content` WHERE `ID` = $removeID";
+                                    mysqli_query($conn, $sql1);
+                                    mysqli_query($conn, $sql2);
+                                    mysqli_query($conn, $sql3);
+                                    mysqli_query($conn, $sql4);
                                     echo '<script>window.location.href = "shows-tb.php";</script>';
                                 }
                                 ?>
@@ -304,8 +336,8 @@
             echo '</div>
                             </section>';
             ?>
-            <button class="btn bg-gradient-dark px-3 mb-2 active" data-class="bg-gradient-dark" onclick="add()">Want to
-                add a TV Show?</button>
+            <button class="btn bg-gradient-dark px-3 mb-2 active" data-class="bg-gradient-dark" onclick="add()">Add a TV
+                Show</button>
             <footer class="footer py-4  ">
                 <div class="container-fluid">
                     <div class="row align-items-center justify-content-lg-between">

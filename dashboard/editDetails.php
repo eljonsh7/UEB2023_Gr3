@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>FlixFeast</title>
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
     <link href="assets/css2/nucleo-icons.css" rel="stylesheet" />
     <link href="assets/css2/nucleo-svg.css" rel="stylesheet" />
@@ -22,37 +21,37 @@
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
     <style>
-    .table td,
-    .table th {
-        white-space: normal;
-    }
-
-    .form-control {
-        background-color: #2e3757;
-        padding: 5px;
-    }
-
-    .form-group {
-        width: 600px;
-    }
-
-
-
-
-    @media (min-width: 768px) {
-        .col-md-6 {
-            flex: 0 0 auto;
-            width: 100%;
+        .table td,
+        .table th {
+            white-space: normal;
         }
-    }
 
-    body {
-        overflow-x: hidden;
-    }
+        .form-control {
+            background-color: #2e3757;
+            padding: 5px;
+        }
 
-    p {
-        overflow: auto;
-    }
+        .form-group {
+            width: 600px;
+        }
+
+
+
+
+        @media (min-width: 768px) {
+            .col-md-6 {
+                flex: 0 0 auto;
+                width: 100%;
+            }
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        p {
+            overflow: auto;
+        }
     </style>
 </head>
 
@@ -157,8 +156,7 @@
     ?>
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
-            data-scroll="true">
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -399,8 +397,24 @@
                             <label for="startdate">Start Date:</label>
                             <input class="form-control" value="' . $row['Date'] . '" type="date" id="startdate" placeholder="Start Date" name="startdate"><br>
 
-                            <label for="status">Status:</label>
-                            <input class="form-control" value="' . $row['Status'] . '" type="text" id="status" placeholder="Status" name="status"><br>
+                            <label>
+                            <input type="radio" name="status" value="Filming">In Production / Filming
+                        </label>
+                        <label>
+                            <input type="radio" name="status" value="Airing">On Air / Airing
+                        </label>
+                        <label>
+                            <input type="radio" name="status" value="Hiatus">Hiatus
+                        </label>
+                        <label>
+                            <input type="radio" name="status" value="Canceled">Canceled / Ended
+                        </label>
+                        <label>
+                            <input type="radio" name="status" value="Renewed">Renewed
+                        </label>
+                        <label>
+                            <input type="radio" name="status" value="Suspended">Suspended
+                        </label><br>
 
                             <label for="rating">Rating:</label>
                             <input class="form-control" value="' . $row['Rating'] . '" type="text" id="rating" placeholder="Rating" name="rating"><br>
@@ -420,8 +434,21 @@
                             <label for="description">Description:</label>
                             <textarea class="form-control" id="description" placeholder="Description:" name="description" style="color:black;" maxlength="1000">' . $row['Description'] . '</textarea><br>
 
-                            <label for="genre">Genre:</label>
-                            <input class="form-control" value="' . $row['Genre'] . '" type="text" id="genre" placeholder="Genre:" name="genre"><br>
+                            <div class="form-group">
+                            <label>Genres:</label><br>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Action"> Action</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Comedy"> Comedy</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Documentary"> Documentary</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Drama"> Drama</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Fantasy"> Fantasy</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Horror"> Horror</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Musical"> Musical</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Mystery"> Mystery</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Romance"> Romance</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Science Fiction"> Science Fiction</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Thriller"> Thriller</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Western"> Western</label>
+                        </div><br>
                             <br>
 
                             <div class="form-group">
@@ -450,7 +477,7 @@
                 $trailer = new input($_POST['trailer'], "trailer");
                 $description = new input($_POST['description'], "description");
                 $genre = new input($_POST['genre'], "genre");
-                $inputsTV = [$title, $startdate, $status, $rating, $director, $studio, $cover, $trailer, $description, $genre];
+                $inputsTV = [$title, $startdate, $status, $rating, $director, $studio, $cover, $trailer, $description];
                 $temp = false;
                 for ($i = 0; $i < sizeof($inputsTV); $i++) {
                     if (empty($inputsTV[$i]->value)) {
@@ -465,10 +492,29 @@
                 }
                 if ($temp == false) {
                     // edit the data in the shows table
-                    $sql = "UPDATE content SET Title=?, Date=?,Status=?, Rating=?, Director=?, Studio=?, Cover=?, Trailer=?,Description=?, Genre=? WHERE ID=?";
+                    $sql = "UPDATE content SET Title=?, Date=?,Status=?, Rating=?, Cover=?, Trailer=?,Description=? WHERE ID=?";
                     $stmt = mysqli_prepare($conn, $sql);
-                    mysqli_stmt_bind_param($stmt, "ssssssssssd", $title->value, $startdate->value, $status->value, $rating->value, $director->value, $studio->value, $cover->value, $trailer->value, $description->value, $genre->value, $ID);
+                    mysqli_stmt_bind_param($stmt, "sssssssd", $title->value, $startdate->value, $status->value, $rating->value, $cover->value, $trailer->value, $description->value, $ID);
                     mysqli_stmt_execute($stmt);
+                    $sql1 = "UPDATE director SET Director=? WHERE ID=?";
+                    $stmt1 = mysqli_prepare($conn, $sql1);
+                    mysqli_stmt_bind_param($stmt1, "sd", $director->value, $ID);
+                    mysqli_stmt_execute($stmt1);
+                    $sql2 = "UPDATE studio SET Studio=? WHERE ID=?";
+                    $stmt2 = mysqli_prepare($conn, $sql2);
+                    mysqli_stmt_bind_param($stmt2, "sd", $studio->value, $ID);
+                    mysqli_stmt_execute($stmt2);
+                    $sql3 = "DELETE from genre WHERE ID=?";
+                    $stmt3 = mysqli_prepare($conn, $sql3);
+                    mysqli_stmt_bind_param($stmt3, "d", $ID);
+                    mysqli_stmt_execute($stmt3);
+                    if (!empty($genre->value)) {
+                        foreach ($genre->value as $genreValue) {
+                            $genreValue = mysqli_real_escape_string($conn, $genreValue);
+                            $sql4 = "INSERT INTO genre (ID, Genre) VALUES ('$ID', '$genreValue')";
+                            mysqli_query($conn, $sql4);
+                        }
+                    }
                     echo '<script>window.location.href = "editDetails.php?detailsID=' . $ID . '&type=Show&mode=info";</script>';
                 }
             }

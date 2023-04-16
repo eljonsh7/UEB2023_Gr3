@@ -149,7 +149,7 @@
                                     JOIN director ON content.ID = director.ID
                                     JOIN studio ON content.ID = studio.ID
                                     JOIN genre ON content.ID = genre.ID
-                                    WHERE content.Type = 'movie' and cotent.Title like '%{$search}%'
+                                    WHERE content.Type = 'movie' and content.Title like '%{$search}%'
                                     GROUP BY content.ID
                                     LIMIT $start_from, $results_per_page";
                                     $sql1 = "SELECT content.Trailer, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
@@ -157,7 +157,7 @@
                                     JOIN director ON content.ID = director.ID
                                     JOIN studio ON content.ID = studio.ID
                                     JOIN genre ON content.ID = genre.ID
-                                    WHERE content.Type = 'movie' and cotent.Title like '%{$search}%'
+                                    WHERE content.Type = 'movie' and content.Title like '%{$search}%'
                                     GROUP BY content.ID;";
                                     $result = mysqli_query($conn, $sql);
                                     $result1 = mysqli_query($conn, $sql1);
