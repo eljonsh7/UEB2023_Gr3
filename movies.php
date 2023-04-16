@@ -10,7 +10,7 @@ if (isset($_GET["page"])) {
 $start_from = ($page - 1) * $results_per_page;
 if (isset($_GET['genre'])) {
     $genreGET = $_GET['genre'];
-    $sql = "SELECT content.Trailer,content.Type, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
+    $sql = "SELECT content.Trailer, content.Type, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
     FROM content
     JOIN director ON content.ID = director.ID
     JOIN studio ON content.ID = studio.ID

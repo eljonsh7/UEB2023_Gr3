@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Apr 16, 2023 at 04:49 PM
+-- Generation Time: Apr 17, 2023 at 12:20 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -68,8 +68,11 @@ CREATE TABLE `content` (
 --
 
 INSERT INTO `content` (`ID`, `Title`, `Date`, `Status`, `Rating`, `Cover`, `Trailer`, `Description`, `Type`, `Length`) VALUES
-(21, 'Avatar', '2009-01-02', NULL, '8.9', 'https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_.jpg', 'https://www.youtube.com/watch?v=5PSNL1qE6VY', 'Blue People.', 'Movie', 254),
-(22, 'Avatar', '2009-01-01', NULL, '8.7', 'https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_.jpg', 'https://www.youtube.com/watch?v=5PSNL1qE6VY', 'Blue.', 'Movie', 254);
+(27, 'Avatar', '2009-12-12', NULL, '7.9', 'https://upload.wikimedia.org/wikipedia/en/d/d6/Avatar_%282009_film%29_poster.jpg', 'https://www.youtube.com/watch?v=5PSNL1qE6VY', 'In 2154, the natural resources of the Earth have been depleted. The Resources Development Administration (RDA) mines the valuable mineral unobtanium on Pandora, a moon in the Alpha Centauri star system. Pandora, whose atmosphere is inhospitable to humans, is inhabited by the Na\'vi, 10-foot-tall (3.0 m), blue-skinned, sapient humanoids that live in harmony with nature. To explore Pandora, genetically matched human scientists use Na\'vi-human hybrids called \"avatars.\" Paraplegic Marine Jake Sully is sent to Pandora to replace his deceased identical twin, who had signed up to be an operator. Avatar Program head Dr. Grace Augustine considers Sully inadequate but accepts him as a bodyguard.', 'Movie', 162),
+(28, 'The Batman', '2022-04-03', NULL, '7.8', 'https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg', 'https://www.youtube.com/watch?v=mqqft2x_Aa4', 'A reclusive billionaire who obsessively protects Gotham City as a masked vigilante to cope with his traumatic past. Batman is around 30 years old and is not yet an experienced crime fighter, as director Matt Reeves wanted to explore the character before he becomes \"fully formed\".', 'Movie', 176),
+(29, 'Breaking Bad', '2008-02-01', 'Canceled', '9.5', 'https://m.media-amazon.com/images/M/MV5BYmQ4YWMxYjUtNjZmYi00MDQ1LWFjMjMtNjA5ZDdiYjdiODU5XkEyXkFqcGdeQXVyMTMzNDExODE5._V1_.jpg', 'https://www.youtube.com/watch?v=HhesaQXLuRY&ab_channel=TrailerBlend', 'Created by Vince Gilligan, the series follows the exploits of Walter White, a modest high school chemistry teacher, who discovers a new purpose in life when he learns he has terminal cancer and turns to a life of crime to provide for his family.', 'TV Show', NULL),
+(30, 'Game of Thrones', '2011-12-04', 'Canceled', '9.2', 'https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_.jpg', 'https://www.youtube.com/watch?v=rlR4PJn8b8I', 'Game of Thrones is an American fantasy drama television series created by David Benioff and D. B. Weiss for HBO. It is an adaptation of A Song of Ice and Fire, a series of fantasy novels by George R. R.', 'TV Show', NULL),
+(31, 'The Godfather', '1972-02-04', NULL, '9.2', 'https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg', 'https://www.youtube.com/watch?v=UaVTIH8mujA', 'The Godfather is set in the 1940s and takes place entirely within the world of the Corleones, a fictional New York Mafia family. It opens inside the dark office of the family patriarch, Don Vito Corleone (also known as the Godfather and played by Brando), on the wedding day of his daughter, Connie (Talia Shire).', 'Movie', 175);
 
 -- --------------------------------------------------------
 
@@ -87,8 +90,10 @@ CREATE TABLE `director` (
 --
 
 INSERT INTO `director` (`ID`, `Director`) VALUES
-(21, 'Christophor Nolan'),
-(22, 'Christophor Nolan');
+(27, 'James Cameron'),
+(29, 'Vince Gilligan'),
+(30, 'Mark Mylod '),
+(31, 'Francis Ford Coppola');
 
 -- --------------------------------------------------------
 
@@ -106,13 +111,16 @@ CREATE TABLE `genre` (
 --
 
 INSERT INTO `genre` (`ID`, `Genre`) VALUES
-(21, 'Action'),
-(21, 'Documentary'),
-(21, 'Romance'),
-(22, 'Comedy'),
-(22, 'Drama'),
-(22, 'Romance'),
-(22, 'Thriller');
+(27, 'Action'),
+(27, 'Fantasy'),
+(27, 'Science Fiction'),
+(29, 'Drama'),
+(29, 'Thriller'),
+(30, 'Action'),
+(30, 'Drama'),
+(30, 'Fantasy'),
+(30, 'Thriller'),
+(31, 'Drama');
 
 -- --------------------------------------------------------
 
@@ -130,8 +138,10 @@ CREATE TABLE `studio` (
 --
 
 INSERT INTO `studio` (`ID`, `Studio`) VALUES
-(21, 'Marvel Studios'),
-(22, 'Marvel Studios');
+(27, '20th Century Fox'),
+(29, 'AMC'),
+(30, 'Linen Mills Studios'),
+(31, 'Paramount Pictures');
 
 -- --------------------------------------------------------
 
@@ -210,7 +220,7 @@ ALTER TABLE `blogs`
 -- AUTO_INCREMENT for table `content`
 --
 ALTER TABLE `content`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `users`
