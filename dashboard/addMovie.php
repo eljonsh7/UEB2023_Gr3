@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>FlixFeast</title>
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
     <link href="assets/css2/nucleo-icons.css" rel="stylesheet" />
     <link href="assets/css2/nucleo-svg.css" rel="stylesheet" />
@@ -22,36 +21,36 @@
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var element = document.getElementById("movies");
-        element.classList.add("active", "bg-gradient-primary");
-    });
+        document.addEventListener('DOMContentLoaded', function() {
+            var element = document.getElementById("movies");
+            element.classList.add("active", "bg-gradient-primary");
+        });
     </script>
     <style>
-    .table td,
-    .table th {
-        white-space: normal;
-    }
-
-    .form-control {
-        background-color: white;
-        padding: 5px;
-    }
-
-    .form-group {
-        width: 600px;
-    }
-
-    @media (min-width: 768px) {
-        .col-md-6 {
-            flex: 0 0 auto;
-            width: 100%;
+        .table td,
+        .table th {
+            white-space: normal;
         }
-    }
 
-    body {
-        overflow-x: hidden;
-    }
+        .form-control {
+            background-color: white;
+            padding: 5px;
+        }
+
+        .form-group {
+            width: 600px;
+        }
+
+        @media (min-width: 768px) {
+            .col-md-6 {
+                flex: 0 0 auto;
+                width: 100%;
+            }
+        }
+
+        body {
+            overflow-x: hidden;
+        }
     </style>
 </head>
 
@@ -62,8 +61,7 @@
 
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
-            data-scroll="true">
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -100,8 +98,7 @@
 
                     <div class="form-group">
                         <label for="director">Director:</label>
-                        <input class="form-control bg-dark" type="text" id="director" placeholder="Director:"
-                            name="director">
+                        <input class="form-control bg-dark" type="text" id="director" placeholder="Director:" name="director">
                     </div>
 
                     <div class="form-group">
@@ -111,25 +108,33 @@
 
                     <div class="form-group">
                         <label for="cover">Cover Link:</label>
-                        <input class="form-control bg-dark" type="text" id="cover" placeholder="Cover Link:"
-                            name="cover">
+                        <input class="form-control bg-dark" type="text" id="cover" placeholder="Cover Link:" name="cover">
                     </div>
 
                     <div class="form-group">
                         <label for="trailer">Trailer Link:</label>
-                        <input class="form-control bg-dark" type="text" id="trailer" placeholder="Trailer Link:"
-                            name="trailer">
+                        <input class="form-control bg-dark" type="text" id="trailer" placeholder="Trailer Link:" name="trailer">
                     </div>
 
                     <div class="form-group">
                         <label for="description">Description:</label>
-                        <textarea class="form-control bg-dark" id="description" placeholder="Description:"
-                            name="description" style="color:black;" maxlength="1000"></textarea>
+                        <textarea class="form-control bg-dark" id="description" placeholder="Description:" name="description" style="color:black;" maxlength="1000"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="genre">Genre:</label>
-                        <input class="form-control bg-dark" type="text" id="genre" placeholder="Genre:" name="genre">
+                        <label>Genres:</label><br>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Action"> Action</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Comedy"> Comedy</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Documentary"> Documentary</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Drama"> Drama</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Fantasy"> Fantasy</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Horror"> Horror</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Musical"> Musical</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Mystery"> Mystery</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Romance"> Romance</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Science Fiction"> Science Fiction</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Thriller"> Thriller</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Western"> Western</label>
                     </div>
 
                     <div class="form-group">
@@ -168,39 +173,57 @@
             // check which form was submitted
 
             // get the form data
-            $title = new input($_POST['title'], "title");
-            $date = new input($_POST['date'], "date");
-            $rating = new input($_POST['rating'], "rating");
-            $director = new input($_POST['director'], "director");
-            $studio = new input($_POST['studio'], "studio");
-            $cover = new input($_POST['cover'], "cover");
-            $trailer = new input($_POST['trailer'], "trailer");
+            $title = new input(mysqli_real_escape_string($conn, $_POST['title']), "title");
+            $date = new input(mysqli_real_escape_string($conn, $_POST['date']), "date");
+            $rating = new input(mysqli_real_escape_string($conn, $_POST['rating']), "rating");
+            $cover = new input(mysqli_real_escape_string($conn, $_POST['cover']), "cover");
+            $trailer = new input(mysqli_real_escape_string($conn, $_POST['trailer']), "trailer");
+            $director = new input(mysqli_real_escape_string($conn, $_POST['director']), "director");
+            $studio = new input(mysqli_real_escape_string($conn, $_POST['studio']), "studio");
             $description = new input(mysqli_real_escape_string($conn, $_POST['description']), "description");
-            $genre = new input($_POST['genre'], "genre");
-            $length = new input($_POST['length'], "length");
-            $inputs = [$title, $date, $rating, $director, $studio, $cover, $trailer, $description, $genre, $length];
+            $length = new input(mysqli_real_escape_string($conn, $_POST['length']), "length");
+            $genre = new input(isset($_POST['genre']) ? $_POST['genre'] : [], "genre");
+            $inputs = [$title, $date, $rating, $director, $studio, $cover, $trailer, $description, $length];
             $temp = false;
-            for ($i = 0; $i < sizeof($inputs); $i++) {
-                if (empty($inputs[$i]->value)) {
-                    echo '<script>document.getElementById("' . $inputs[$i]->id . '").style.border="2px solid red";</script>';
+
+            foreach ($inputs as $input) {
+                if (empty($input->value)) {
+                    echo '<script>document.getElementById("' . $input->id . '").style.border="2px solid red";</script>';
                     $temp = true;
                 } else {
-                    echo '<script>document.getElementById("' . $inputs[$i]->id . '").value="' . $inputs[$i]->value . '";</script>';
-                }
-                if (($i == sizeof($inputs) - 1) && $temp == true) {
-                    echo "<h6 style='text-align:center;'>Please fill out every information about the movie!</h6>";
+                    echo '<script>document.getElementById("' . $input->id . '").value="' . $input->value . '";</script>';
                 }
             }
-            if ($temp == false) {
-                // insert the data into the movies table
-                $sql = "INSERT INTO content (Title, Date, Rating, Director, Studio, Trailer, Description, Cover, Genre, Length, Type) VALUES ('$title->value', '$date->value', '$rating->value', '$director->value', '$studio->value',  '$trailer->value','$description->value','$cover->value', '$genre->value', '$length->value', 'Movie')";
+
+            if ($temp == true) {
+                echo "<h6 style='text-align:center;'>Please fill out every information about the movie!</h6>";
+            } else {
+                // insert the data into the content table
+                $sql = "INSERT INTO content (Title, Date, Rating, Trailer, Description, Cover, Length, Type) VALUES ('$title->value', '$date->value', '$rating->value', '$trailer->value','$description->value','$cover->value', '$length->value', 'Movie')";
                 mysqli_query($conn, $sql);
-                for ($i = 0; $i < sizeof($inputs); $i++) {
-                    echo '<script>document.getElementById("' . $inputs[$i]->id . '").value="' . "" . '";</script>';
+                $id = mysqli_insert_id($conn);
+                //insert into genres table
+                if (!empty($genre->value)) {
+                    foreach ($genre->value as $genreValue) {
+                        $genreValue = mysqli_real_escape_string($conn, $genreValue);
+                        $sql1 = "INSERT INTO genre (ID, Genre) VALUES ('$id', '$genreValue')";
+                        mysqli_query($conn, $sql1);
+                    }
+                }
+                //insert into studios table
+                $sql2 = "INSERT INTO studio (ID, Studio) VALUES ('$id', '$studio->value')";
+                mysqli_query($conn, $sql2);
+                //insert into director table
+                $sql3 = "INSERT INTO director (ID, Director) VALUES ('$id', '$director->value')";
+                mysqli_query($conn, $sql3);
+
+                foreach ($inputs as $input) {
+                    echo '<script>document.getElementById("' . $input->id . '").value="' . "" . '";</script>';
                 }
                 echo '<script>window.location.href = "movies-tb.php";</script>';
             }
         }
+
         ?>
 
     </main>

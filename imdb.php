@@ -1,7 +1,14 @@
 <?php
 include('connection.php');
 
-$sql = "SELECT * FROM `content` where type = 'movie' ORDER BY Rating DESC LIMIT 10";
+$sql = "SELECT content.Trailer, content.Type, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
+FROM content
+JOIN director ON content.ID = director.ID
+JOIN studio ON content.ID = studio.ID
+JOIN genre ON content.ID = genre.ID
+WHERE content.Type = 'movie'
+GROUP BY content.ID
+ORDER BY Rating DESC LIMIT 10";
 
 $result = mysqli_query($conn, $sql);
 
@@ -39,29 +46,29 @@ $result = mysqli_query($conn, $sql);
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
     <style>
-    .imdb {
-        color: #00d9e1;
-    }
+        .imdb {
+            color: #00d9e1;
+        }
 
-    .filmi {
-        width: 25%;
+        .filmi {
+            width: 25%;
 
-    }
+        }
 
-    div div {
-        float: left;
-    }
+        div div {
+            float: left;
+        }
 
-    .portfolio-content {
-        width: 500px;
-        height: fit-content;
-        padding-left: 40px;
-    }
+        .portfolio-content {
+            width: 500px;
+            height: fit-content;
+            padding-left: 40px;
+        }
 
 
-    .main-div {
-        margin-top: 50px;
-    }
+        .main-div {
+            margin-top: 50px;
+        }
     </style>
 </head>
 
@@ -103,15 +110,15 @@ $result = mysqli_query($conn, $sql);
                 </div>
             </div>
             <?php
-			while ($row = mysqli_fetch_array($result)) {
-				$title = $row['Title'];
-				$poster = $row['Cover'];
-				$id = $row['ID'];
-				$type = $row['Type'];
-				$genre = $row['Genre'];
-				$description = $row['Description'];
-				$rating = $row['Rating'];
-				echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
+            while ($row = mysqli_fetch_array($result)) {
+                $title = $row['Title'];
+                $poster = $row['Cover'];
+                $id = $row['ID'];
+                $type = $row['Type'];
+                $genre = $row['Genre'];
+                $description = $row['Description'];
+                $rating = $row['Rating'];
+                echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
                     <div class="main-div">
                         <div  class = "filmi"  >
                             <center>
@@ -130,8 +137,8 @@ $result = mysqli_query($conn, $sql);
                         </div>
                     </div>
                 </div>';
-			}
-			?>
+            }
+            ?>
             <hr />
             <div>
             </div>

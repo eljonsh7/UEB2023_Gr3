@@ -139,11 +139,15 @@
 
     $ID = $_GET['detailsID'];
 
-    if ($_GET['type'] == "Movie") {
-        $sql = "SELECT * FROM `content` WHERE `ID` = $ID";
-    } else if ($_GET['type'] == "Show") {
-        $sql = "SELECT * FROM `content` WHERE `ID` = $ID";
-    } else if ($_GET['type'] == "Blogs") {
+    if ($_GET['type'] == "Movie" | $_GET['type'] == "Show") {
+        $sql = "SELECT content.Trailer, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
+        FROM content
+        JOIN director ON content.ID = director.ID
+        JOIN studio ON content.ID = studio.ID
+        JOIN genre ON content.ID = genre.ID
+        WHERE content.ID = $ID
+        GROUP BY content.ID";
+    } else {
         $sql = "SELECT * FROM `blogs` WHERE `ID` = $ID";
     }
 
@@ -270,9 +274,20 @@
                             </div>
                 
                             <div class="form-group">
-                            <label for="genre">Genre:</label>
-                            <input class="form-control" value="' . $row['Genre'] . '" type="text" id="genre" placeholder="Genre:" name="genre">
-                            </div>
+                            <label>Genres:</label><br>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Action"> Action</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Comedy"> Comedy</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Documentary"> Documentary</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Drama"> Drama</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Fantasy"> Fantasy</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Horror"> Horror</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Musical"> Musical</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Mystery"> Mystery</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Romance"> Romance</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Science Fiction"> Science Fiction</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Thriller"> Thriller</label>
+                            <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Western"> Western</label>
+                        </div>
                 
                             <div class="form-group">
                             <label for="length">Length:</label>
@@ -295,17 +310,17 @@
                 // check which form was submitted
 
                 // get the form data
-                $title = new input($_POST['title'], "title");
-                $date = new input($_POST['date'], "date");
-                $rating = new input($_POST['rating'], "rating");
-                $director = new input($_POST['director'], "director");
-                $studio = new input($_POST['studio'], "studio");
-                $cover = new input($_POST['cover'], "cover");
-                $trailer = new input($_POST['trailer'], "trailer");
-                $description = new input($_POST['description'], "description");
-                $genre = new input($_POST['genre'], "genre");
-                $length = new input($_POST['length'], "length");
-                $inputs = [$title, $date, $rating, $director, $studio, $cover, $trailer, $description, $genre, $length];
+                $title = new input(mysqli_real_escape_string($conn, $_POST['title']), "title");
+                $date = new input(mysqli_real_escape_string($conn, $_POST['date']), "date");
+                $rating = new input(mysqli_real_escape_string($conn, $_POST['rating']), "rating");
+                $cover = new input(mysqli_real_escape_string($conn, $_POST['cover']), "cover");
+                $trailer = new input(mysqli_real_escape_string($conn, $_POST['trailer']), "trailer");
+                $director = new input(mysqli_real_escape_string($conn, $_POST['director']), "director");
+                $studio = new input(mysqli_real_escape_string($conn, $_POST['studio']), "studio");
+                $description = new input(mysqli_real_escape_string($conn, $_POST['description']), "description");
+                $length = new input(mysqli_real_escape_string($conn, $_POST['length']), "length");
+                $genre = new input(isset($_POST['genre']) ? $_POST['genre'] : [], "genre");
+                $inputs = [$title, $date, $rating, $director, $studio, $cover, $trailer, $description, $length];
                 $temp = false;
                 for ($i = 0; $i < sizeof($inputs); $i++) {
                     if (empty($inputs[$i]->value)) {
@@ -320,10 +335,29 @@
                 }
                 if ($temp == false) {
                     // edit the data in the movies table
-                    $sql = "UPDATE content SET Title=?, Date=?, Rating=?, Director=?, Studio=?, Trailer=?, Description=?, Cover=?, Genre=?, Length=? WHERE ID=?";
+                    $sql = "UPDATE content SET Title=?, Date=?, Rating=?, Trailer=?, Description=?, Cover=?, Length=? WHERE ID=?";
                     $stmt = mysqli_prepare($conn, $sql);
-                    mysqli_stmt_bind_param($stmt, "sssssssssdd", $title->value, $date->value, $rating->value, $director->value, $studio->value, $trailer->value, $description->value, $cover->value, $genre->value, $length->value, $ID);
+                    mysqli_stmt_bind_param($stmt, "ssssssdd", $title->value, $date->value, $rating->value, $trailer->value, $description->value, $cover->value, $length->value, $ID);
                     mysqli_stmt_execute($stmt);
+                    $sql1 = "UPDATE director SET Director=? WHERE ID=?";
+                    $stmt1 = mysqli_prepare($conn, $sql1);
+                    mysqli_stmt_bind_param($stmt1, "sd", $director->value, $ID);
+                    mysqli_stmt_execute($stmt1);
+                    $sql2 = "UPDATE studio SET Studio=? WHERE ID=?";
+                    $stmt2 = mysqli_prepare($conn, $sql2);
+                    mysqli_stmt_bind_param($stmt2, "sd", $studio->value, $ID);
+                    mysqli_stmt_execute($stmt2);
+                    $sql3 = "DELETE from genre WHERE ID=?";
+                    $stmt3 = mysqli_prepare($conn, $sql3);
+                    mysqli_stmt_bind_param($stmt3, "d", $ID);
+                    mysqli_stmt_execute($stmt3);
+                    if (!empty($genre->value)) {
+                        foreach ($genre->value as $genreValue) {
+                            $genreValue = mysqli_real_escape_string($conn, $genreValue);
+                            $sql4 = "INSERT INTO genre (ID, Genre) VALUES ('$ID', '$genreValue')";
+                            mysqli_query($conn, $sql4);
+                        }
+                    }
                     echo '<script>window.location.href = "editDetails.php?detailsID=' . $ID . '&type=Movie&mode=info";</script>';
                 }
             }

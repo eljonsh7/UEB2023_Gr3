@@ -45,36 +45,40 @@
     .row {
         justify-content: center;
     }
-    .sideFeatured{
-        display:none;
+
+    .sideFeatured {
+        display: none;
     }
-    .importantDiv{
-        margin-bottom:50px !important;
+
+    .importantDiv {
+        margin-bottom: 50px !important;
     }
 
     .imgScroll {
-            width:400px !important;
-            height:597px !important;
-        }
-    
-    
+        width: 400px !important;
+        height: 597px !important;
+    }
+
+
     @media screen and (min-width: 450px) {
         .imgScroll {
-            width:100% !important;
-            padding:10% 67px 0;
+            width: 100% !important;
+            padding: 10% 67px 0;
         }
-        .textDiv{
-            
-        }
-        .importantDiv{
-            width:500px;
+
+        .textDiv {}
+
+        .importantDiv {
+            width: 500px;
             margin: 0 auto;
         }
-        .picDiv{
-            width:100%;
+
+        .picDiv {
+            width: 100%;
         }
-        
+
     }
+
     @media screen and (max-width: 1074px) {
         .col-md-5 {
             -webkit-box-flex: 0;
@@ -82,65 +86,73 @@
             flex: 0 0 100%;
             max-width: 100%;
         }
+
         .textDiv {
             -webkit-box-flex: 0;
             -ms-flex: 0 0 50%;
             flex: 0 0 80%;
             max-width: 80%;
         }
-        .textDiv p{
+
+        .textDiv p {
             text-align: justify;
         }
     }
-    
+
     @media screen and (min-width: 1075px) {
         .imgScroll {
-            width:300px !important;
-            height:448px !important;
-            padding:0;
+            width: 300px !important;
+            height: 448px !important;
+            padding: 0;
         }
-        .picDiv{
-            padding-left:2%;
-            padding-top:4%;
-            margin-right:-1%;
+
+        .picDiv {
+            padding-left: 2%;
+            padding-top: 4%;
+            margin-right: -1%;
         }
-        .importantDiv{
-            width:99.5%;
-            
+
+        .importantDiv {
+            width: 99.5%;
+
         }
-        .textDiv{
-            display:block;
+
+        .textDiv {
+            display: block;
         }
     }
 
     @media screen and (min-width: 1200px) {
         .imgScroll {
-            width:300px !important;
-            height:448px !important;
+            width: 300px !important;
+            height: 448px !important;
         }
-        .picDiv{
-            margin-left:-7%;
-            padding-top:2%;
-            margin-right:-8%;
+
+        .picDiv {
+            margin-left: -7%;
+            padding-top: 2%;
+            margin-right: -8%;
         }
     }
 
     @media screen and (min-width: 1286px) {
         .imgScroll {
-            width:400px !important;
-            height:597px !important;
+            width: 400px !important;
+            height: 597px !important;
         }
-        .picDiv{
-            padding-left:2%;
-            padding-top:0.5%;
-            margin-right:0;
-            margin-left:0;
+
+        .picDiv {
+            padding-left: 2%;
+            padding-top: 0.5%;
+            margin-right: 0;
+            margin-left: 0;
         }
 
     }
+
     @media screen and (min-width: 1300px) {
-        .sideFeatured{
-            display:block;
+        .sideFeatured {
+            display: block;
         }
     }
     </style>
@@ -273,7 +285,7 @@
                 ?>
             </div>
         </div>
-    </section><!-- hero area end -->
+    </section>hero area end
     <!-- portfolio section start -->
     <section class="portfolio-area pt-60">
         <div class="container">
