@@ -88,25 +88,29 @@
                         <label for="date">Start Date:</label>
                         <input class="form-control bg-dark" type="date" id="startdate" placeholder="Start Date:" name="startdate">
                     </div>
-                    <div class="form-group">
-                        <label>Status:</label><br>
+                    <label>Status:</label><br>
+                    <div class="form-group" id="status">
+                        
                         <label>
-                            <input type="radio" name="status" value="Filming">In Production / Filming
+                            <input type="radio" name="status" id="Filming" value="Filming">In Production / Filming
                         </label>
                         <label>
-                            <input type="radio" name="status" value="Airing">On Air / Airing
+                            <input type="radio" name="status" id="Airing" value="Airing">On Air / Airing
                         </label>
                         <label>
-                            <input type="radio" name="status" value="Hiatus">Hiatus
+                            <input type="radio" name="status" id="Hiatus" value="Hiatus">Hiatus
                         </label>
                         <label>
-                            <input type="radio" name="status" value="Canceled">Canceled / Ended
+                            <input type="radio" name="status" id="Canceled" value="Canceled">Canceled
                         </label>
                         <label>
-                            <input type="radio" name="status" value="Renewed">Renewed
+                            <input type="radio" name="status" id="Ended" value="Ended">Ended
                         </label>
                         <label>
-                            <input type="radio" name="status" value="Suspended">Suspended
+                            <input type="radio" name="status" id="Renewed" value="Renewed">Renewed
+                        </label>
+                        <label>
+                            <input type="radio" name="status" id="Suspended" value="Suspended">Suspended
                         </label>
                     </div>
                     <div class="form-group">
@@ -139,20 +143,37 @@
                         <textarea class="form-control bg-dark" id="description" placeholder="Description:" name="description" style="color:black;" maxlength="1000"></textarea>
                     </div>
 
-                    <div class="form-group">
-                        <label>Genres:</label><br>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Action"> Action</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Comedy"> Comedy</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Documentary"> Documentary</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Drama"> Drama</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Fantasy"> Fantasy</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Horror"> Horror</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Musical"> Musical</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Mystery"> Mystery</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Romance"> Romance</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Science Fiction"> Science Fiction</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Thriller"> Thriller</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" value="Western"> Western</label>
+                    <label >Genres:</label><br>
+
+                    <div class="form-group" id="genres" style="border-radius:10px;">
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Action" value="Action"> Action</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Comedy" value="Comedy"> Comedy</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Documentary" value="Documentary"> Documentary</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Drama" value="Drama"> Drama</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Fantasy" value="Fantasy"> Fantasy</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Horror" value="Horror"> Horror</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Animation" value="Animation"> Animation</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Mystery" value="Mystery"> Mystery</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Romance" value="Romance"> Romance</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Science Fiction" value="Science Fiction"> Science Fiction</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Thriller" value="Thriller"> Thriller</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Family" value="Family"> Family</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" 
+                                id="Crime" value="Crime"> Crime</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" 
+                                id="Adventure" value="Adventure"> Adventure</label>
                     </div>
                     <br>
                     <div class="form-group">
@@ -184,9 +205,14 @@
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addForm'])) {
             // check which form was submitted
             // get the form data
+            
             $title = new input(mysqli_real_escape_string($conn, $_POST['title']), "title");
             $startdate = new input(mysqli_real_escape_string($conn, $_POST['startdate']), "startdate");
-            $status = new input(mysqli_real_escape_string($conn, $_POST['status']), "status");
+            if(isset($_POST['status'])){
+                $status = new input(mysqli_real_escape_string($conn, $_POST['status']), "status");
+            }else{
+                $status = new input(NULL, "status");
+            }
             $rating = new input(mysqli_real_escape_string($conn, $_POST['rating']), "rating");
             $cover = new input(mysqli_real_escape_string($conn, $_POST['cover']), "cover");
             $trailer = new input(mysqli_real_escape_string($conn, $_POST['trailer']), "trailer");
@@ -206,6 +232,20 @@
                 if (($i == sizeof($inputsTV) - 1) && $temp == true) {
                     echo "<h6 style='text-align:center;'>Please fill out every information about the show!</h6>";
                 }
+            }
+            if (sizeof($genre->value)==0) {
+                echo '<script>document.getElementById("genres").style.border="2px solid red";</script>';
+                $temp = true;}
+            else {
+                foreach ($genre->value as $genreValue) {
+                    echo '<script>document.getElementById("'.$genreValue.'").checked=true;</script>';
+                }
+            }
+            if ($status->value == NULL) {
+                echo '<script>document.getElementById("status").style.border="2px solid red";</script>';
+                $temp = true;}
+            else {
+                echo '<script>document.getElementById("'.$status->value.'").checked=true;</script>';
             }
             if ($temp == false) {
                 // insert the data into the tvshows table

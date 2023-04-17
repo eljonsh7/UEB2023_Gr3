@@ -126,33 +126,37 @@
                         <textarea class="form-control bg-dark" id="description" placeholder="Description:"
                             name="description" style="color:black;" maxlength="1000"></textarea>
                     </div>
+                    <label >Genres:</label><br>
 
-                    <div class="form-group">
-                        <label>Genres:</label><br>
+                    <div class="form-group" id="genres" style="border-radius:10px;">
                         <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
-                                value="Action"> Action</label>
+                                id="Action" value="Action"> Action</label>
                         <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
-                                value="Comedy"> Comedy</label>
+                                id="Comedy" value="Comedy"> Comedy</label>
                         <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
-                                value="Documentary"> Documentary</label>
+                                id="Documentary" value="Documentary"> Documentary</label>
                         <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
-                                value="Drama"> Drama</label>
+                                id="Drama" value="Drama"> Drama</label>
                         <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
-                                value="Fantasy"> Fantasy</label>
+                                id="Fantasy" value="Fantasy"> Fantasy</label>
                         <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
-                                value="Horror"> Horror</label>
+                                id="Horror" value="Horror"> Horror</label>
                         <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
-                                value="Musical"> Musical</label>
+                                id="Animation" value="Animation"> Animation</label>
                         <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
-                                value="Mystery"> Mystery</label>
+                                id="Mystery" value="Mystery"> Mystery</label>
                         <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
-                                value="Romance"> Romance</label>
+                                id="Romance" value="Romance"> Romance</label>
                         <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
-                                value="Science Fiction"> Science Fiction</label>
+                                id="Science Fiction" value="Science Fiction"> Science Fiction</label>
                         <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
-                                value="Thriller"> Thriller</label>
+                                id="Thriller" value="Thriller"> Thriller</label>
                         <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
-                                value="Western"> Western</label>
+                                id="Family" value="Family"> Family</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" 
+                                id="Crime" value="Crime"> Crime</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" 
+                                id="Adventure" value="Adventure"> Adventure</label>
                     </div>
 
                     <div class="form-group">
@@ -210,6 +214,15 @@
                     $temp = true;
                 } else {
                     echo '<script>document.getElementById("' . $input->id . '").value="' . $input->value . '";</script>';
+                }
+            }
+
+            if (sizeof($genre->value)==0) {
+                echo '<script>document.getElementById("genres").style.border="2px solid red";</script>';
+                $temp = true;}
+            else {
+                foreach ($genre->value as $genreValue) {
+                    echo '<script>document.getElementById("'.$genreValue.'").checked=true;</script>';
                 }
             }
 
