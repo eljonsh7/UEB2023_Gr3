@@ -285,7 +285,7 @@
                 ?>
             </div>
         </div>
-    </section>hero area end
+    </section>
     <!-- portfolio section start -->
     <section class="portfolio-area pt-60">
         <div class="container">

@@ -8,7 +8,13 @@ $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
 
 $ID = $_GET['id'];
 
-$sql = "SELECT * FROM `content` WHERE `ID` = $ID";
+$sql = "SELECT content.Trailer, content.Type, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ' | ') as Genre
+    FROM content
+    JOIN director ON content.ID = director.ID
+    JOIN studio ON content.ID = studio.ID
+    JOIN genre ON content.ID = genre.ID
+    WHERE content.ID = '$ID'
+    GROUP BY content.ID";
 
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_array($result);
@@ -103,7 +109,7 @@ $row = mysqli_fetch_array($result);
             <div class="col-lg-7 contentInformation">
               <div class="transformers-content">
                 <h2>' . $row["Title"] . '</h2>
-                <p>' . str_replace(" ", " | ", $row['Genre']) . '</p>
+                <p>' . $row['Genre'] . '</p>
                 <ul>
                   <li>
                     <div class="transformers-left">Rating:</div>
