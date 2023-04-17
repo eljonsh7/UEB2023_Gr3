@@ -212,7 +212,7 @@
                                         </div>
                                         <h4>' . $Rating . '</h4>
                                     </div>
-                                    <p>' . $Description . '</p>
+                                    <p>' . stripslashes($Description) . '</p>
                                     <div class="slide-trailor">
                                         <a href="' . $Trailer . '" class="theme-btn popup-youtube">Trailer  ▶</a>
                                     </div>
@@ -246,7 +246,7 @@
                                 </div>
                                 <h4>' . $Rating . '</h4>
                             </div>
-                            <p>' . $Description . '</p>
+                            <p>' . stripslashes($Description) . '</p>
                             <div class="slide-trailor">
                                 <a href="' . $Trailer . '" class="theme-btn popup-youtube">Trailer  ▶</a>
                             </div>
@@ -275,7 +275,7 @@
                                 </div>
                                 <h4>' . $Rating2 . '</h4>
                             </div>
-                            <p>' . $Description2 . '</p>
+                            <p>' . stripslashes($Description2) . '</p>
                             <div class="slide-trailor">
                                 <a href="' . $Trailer2 . '" class="theme-btn popup-youtube">Trailer  ▶</a>
                             </div>

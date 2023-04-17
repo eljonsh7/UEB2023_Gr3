@@ -213,7 +213,7 @@
                     <p id="studio" class="details"><b>Studio: </b><br>' . $row['Studio'] . '</p>
                     <p id="cover" class="details" style="word-break: break-all;"><b>Cover: </b><br>' . $row['Cover'] . '</p>
                     <p id="trailer" class="details"><b>Trailer: </b><br>' . $row['Trailer'] . '</p>
-                    <p id="description" class="details"><b>Description:</b> <br>' . $row['Description'] . '</p>
+                    <p id="description" class="details"><b>Description:</b> <br>' . stripslashes($row['Description']) . '</p>
                     <p id="genre" class="details"><b>Genre: </b><br>' . $row['Genre'] . '</p>
                     <p id="length" class="details"><b>Length: </b><br>' . $row['Length'] . '</p>
                 </div>
@@ -405,7 +405,7 @@
                     <p id="studio" class="details"><b>Studio: </b><br>' . $row['Studio'] . '</p>
                     <p id="cover" class="details" style="word-break: break-all;"><b>Cover: </b><br>' . $row['Cover'] . '</p>
                     <p id="trailer" class="details"><b>Trailer: </b><br>' . $row['Trailer'] . '</p>
-                    <p id="trailer" class="details"><b>Description: </b><br>' . $row['Description'] . '</p>
+                    <p id="trailer" class="details"><b>Description: </b><br>' . stripslashes($row['Description']) . '</p>
                     <p id="genre" class="details"><b>Genre: </b><br>' . $row['Genre'] . '</p>
                 </div>
                 <a class="btn btn-warning" href="editDetails.php?detailsID=' . $ID . '&type=Show&mode=edit" style = "margin-left:5%;">Edit</a>

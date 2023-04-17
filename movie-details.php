@@ -158,7 +158,7 @@ $row = mysqli_fetch_array($result);
                 <img src="' . $row["Cover"] . '" alt="about" />
               </div>
             </div>
-            <div class="col-lg-7">
+            <div class="col-lg-7 contentInformation">
               <div class="transformers-content">
                 <h2>' . $row["Title"] . '</h2>
                 <p>' . $row['Genre'] . '</p>
@@ -217,7 +217,7 @@ $row = mysqli_fetch_array($result);
                         <div class="details-overview">
                             <h2>Overview</h2>
                             <p>
-                                <?php echo $row['Description']; ?>
+                                <?php echo stripslashes($row['Description']); ?>
                             </p>
                         </div>
                         <div class="details-reply">

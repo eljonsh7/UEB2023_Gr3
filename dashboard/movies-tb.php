@@ -242,7 +242,7 @@
                                     <td>' . $row['Director'] . '</td>
                                     <td>' . $row['Studio'] . '</td>
                                     <td>' . substr($row['Trailer'], 0, 30) . '</td>
-                                    <td>' . substr($row['Description'], 0, 40) . '</td>
+                                    <td>' . stripslashes(substr($row['Description'], 0, 40)) . '</td>
                                     <td>' . $row['Genre'] . '</td>
                                     <td>' . $row['Length'] . '</td>
                                     <td><a href="movies-tb.php?removeID=' . $row['ID'] . '&mode=remove"
