@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>FlixFeast</title>
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
     <link href="assets/css2/nucleo-icons.css" rel="stylesheet" />
     <link href="assets/css2/nucleo-svg.css" rel="stylesheet" />
@@ -21,37 +22,37 @@
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
     <style>
-        .table td,
-        .table th {
-            white-space: normal;
+    .table td,
+    .table th {
+        white-space: normal;
+    }
+
+    .form-control {
+        background-color: #2e3757;
+        padding: 5px;
+    }
+
+    .form-group {
+        width: 600px;
+    }
+
+
+
+
+    @media (min-width: 768px) {
+        .col-md-6 {
+            flex: 0 0 auto;
+            width: 100%;
         }
+    }
 
-        .form-control {
-            background-color: #2e3757;
-            padding: 5px;
-        }
+    body {
+        overflow-x: hidden;
+    }
 
-        .form-group {
-            width: 600px;
-        }
-
-
-
-
-        @media (min-width: 768px) {
-            .col-md-6 {
-                flex: 0 0 auto;
-                width: 100%;
-            }
-        }
-
-        body {
-            overflow-x: hidden;
-        }
-
-        p {
-            overflow: auto;
-        }
+    p {
+        overflow: auto;
+    }
     </style>
 </head>
 
@@ -158,7 +159,8 @@
     ?>
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+            data-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -203,7 +205,7 @@
         if ($_GET['type'] == "Movie" && $_GET['mode'] == "info") {
             echo '
             <div style = "display:flex;margin-left:3%;margin-top:3%;" >
-            <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
+            <img src="../' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
             <div>
                 <div id="viewDetails" style="width:50%;margin-left:5%;">
                     <p id="title" class="details"><b>Title:</b> <br>' . $row['Title'] . '</p>
@@ -226,10 +228,10 @@
         } else if ($_GET['type'] == "Movie" && $_GET['mode'] == "edit") {
             echo '
             <div style = "display:flex; margin-left:3%;margin-top:3%;">
-                <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
+                <img src="../' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
                 <div class="row justify-content-center mt-5" id="movieadd" style="margin-left:3%;">
                     <div class="col-md-6" style="display: flex; justify-content: center;">
-                        <form id="movie-add" method="post">
+                        <form id="movie-add" method="post" enctype="multipart/form-data">
                             <h2>Movie</h2>
                             <input type="hidden" name="addForm" value="submitted">
     
@@ -259,8 +261,9 @@
                             </div>
                 
                             <div class="form-group">
-                            <label for="cover">Cover Link:</label>
-                            <input class="form-control" value="' . $row['Cover'] . '" type="text" id="cover" placeholder="Cover Link:" name="cover">
+                            <label for="cover">Cover Image:</label>
+                            <input class="form-control bg-dark" type="file" id="cover" name="cover">
+                            <input type="hidden" name="coverHidden" value="' . $row['Cover'] . '">
                             </div>
                 
                             <div class="form-group">
@@ -324,18 +327,35 @@
                     </div>
                 </div>
             </div>';
-                
+
             foreach ($genreArray as $genreValue) {
-                    echo '<script>document.getElementById("'.$genreValue.'").checked=true;</script>';
+                echo '<script>document.getElementById("' . $genreValue . '").checked=true;</script>';
             }
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // check which form was submitted
-
+                $image_name = '';
+                if (isset($_FILES['cover'])) {
+                    $image_name = $_FILES['cover']['name'];
+                    $image_temp_name = $_FILES['cover']['tmp_name'];
+                    $img_ex = pathinfo($image_name, PATHINFO_EXTENSION);
+                    $img_lc = strtolower($img_ex);
+                    $allowed_array = array("jpg", "jpeg", "png");
+                    if (in_array($img_lc, $allowed_array)) {
+                        $new_img_name = "Images/Posters/" . $_POST['title'] . "." . $img_lc;
+                        $upload_path = '../' . $new_img_name;
+                        move_uploaded_file($image_temp_name, $upload_path);
+                    } else {
+                        echo "Wrong format";
+                    }
+                }
+                if (empty($image_name)) {
+                    $new_img_name = $_POST['coverHidden'];
+                }
                 // get the form data
                 $title = new input(mysqli_real_escape_string($conn, $_POST['title']), "title");
                 $date = new input(mysqli_real_escape_string($conn, $_POST['date']), "date");
                 $rating = new input(mysqli_real_escape_string($conn, $_POST['rating']), "rating");
-                $cover = new input(mysqli_real_escape_string($conn, $_POST['cover']), "cover");
+                $cover = new input(mysqli_real_escape_string($conn, $new_img_name), "cover");
                 $trailer = new input(mysqli_real_escape_string($conn, $_POST['trailer']), "trailer");
                 $director = new input(mysqli_real_escape_string($conn, $_POST['director']), "director");
                 $studio = new input(mysqli_real_escape_string($conn, $_POST['studio']), "studio");
@@ -355,12 +375,12 @@
                         echo '<script>document.getElementById("detailsWarning").style.display="inline";</script>';
                     }
                 }
-                if (sizeof($genre->value)==0) {
+                if (sizeof($genre->value) == 0) {
                     echo '<script>document.getElementById("genres").style.border="2px solid red";</script>';
-                    $temp = true;}
-                else {
+                    $temp = true;
+                } else {
                     foreach ($genre->value as $genreValue) {
-                        echo '<script>document.getElementById("'.$genreValue.'").checked=true;</script>';
+                        echo '<script>document.getElementById("' . $genreValue . '").checked=true;</script>';
                     }
                 }
                 if ($temp == false) {
@@ -394,7 +414,7 @@
         } else if ($_GET['type'] == "Show" && $_GET['mode'] == "info") {
             echo '
             <div style = "display:flex;margin-left:3%;margin-top:3%;" >
-            <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
+            <img src="../' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
             <div>
                 <div id="viewDetails" style="width:50%;margin-left:5%;">
                     <p id="title" class="details"><b>Title: </b><br>' . $row['Title'] . '</p>
@@ -416,10 +436,10 @@
         } else if ($_GET['type'] == "Show" && $_GET['mode'] == "edit") {
             echo '
             <div style = "display:flex;margin-left:3%;margin-top:3%;" >
-                <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
+                <img src="../' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
                 <div class="row justify-content-center mt-5" id="movieadd" style="margin-left:3%;">
                     <div class="col-md-6" style="display: flex; justify-content: center;">
-                        <form id="show-add" method="post">
+                        <form id="show-add" method="post" enctype="multipart/form-data">
                             <h2>TV Show</h2>
                             <input type="hidden" name="addForm" value="submitted">
 
@@ -464,10 +484,13 @@
 
                             <label for="studio">Studio:</label>
                             <input class="form-control" value="' . $row['Studio'] . '" type="text" id="studio" placeholder="Studio" name="studio"><br>
-
-                            <label for="cover">Cover Link:</label>
-                            <input class="form-control" value="' . $row['Cover'] . '" type="text" id="cover" placeholder="Cover Link" name="cover"><br>
-
+                            
+                            <div class="form-group">
+                            <label for="cover">Cover Image:</label>
+                            <input class="form-control bg-dark" type="file" id="cover" name="cover">
+                            <input type="hidden" name="coverHidden" value="' . $row['Cover'] . '">
+                            </div>
+                            
                             <label for="trailer">Trailer Link:</label>
                             <input class="form-control" value="' . $row['Trailer'] . '" type="text" id="trailer" placeholder="Trailer Link" name="trailer"><br>
 
@@ -523,24 +546,43 @@
                 </div>
             ';
             foreach ($genreArray as $genreValue) {
-                echo '<script>document.getElementById("'.$genreValue.'").checked=true;</script>';
+                echo '<script>document.getElementById("' . $genreValue . '").checked=true;</script>';
             }
-            echo '<script>document.getElementById("'.$row['Status'].'").checked=true;</script>';
+            echo '<script>document.getElementById("' . $row['Status'] . '").checked=true;</script>';
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // check which form was submitted
                 // get the form data
+                $image_name = '';
+                if (isset($_FILES['cover'])) {
+                    $image_name = $_FILES['cover']['name'];
+                    $image_temp_name = $_FILES['cover']['tmp_name'];
+                    $img_ex = pathinfo($image_name, PATHINFO_EXTENSION);
+                    $img_lc = strtolower($img_ex);
+                    $allowed_array = array("jpg", "jpeg", "png");
+                    if (in_array($img_lc, $allowed_array)) {
+                        $new_img_name = "Images/Posters/" . $_POST['title'] . "." . $img_lc;
+                        $upload_path = '../' . $new_img_name;
+                        move_uploaded_file($image_temp_name, $upload_path);
+                    } else {
+                        echo "Wrong format";
+                    }
+                }
+                if (empty($image_name)) {
+                    $new_img_name = $_POST['coverHidden'];
+                }
                 $title = new input($_POST['title'], "title");
                 $startdate = new input($_POST['startdate'], "startdate");
-                if(isset($_POST['status'])){
+                if (isset($_POST['status'])) {
                     $status = new input(mysqli_real_escape_string($conn, $_POST['status']), "status");
-                }else{
+                } else {
                     $status = new input(NULL, "status");
                 }
+
                 $rating = new input($_POST['rating'], "rating");
                 $director = new input($_POST['director'], "director");
                 $studio = new input($_POST['studio'], "studio");
-                $cover = new input($_POST['cover'], "cover");
+                $cover = new input($new_img_name, "cover");
                 $trailer = new input($_POST['trailer'], "trailer");
                 $description = new input($_POST['description'], "description");
                 $genre = new input(isset($_POST['genre']) ? $_POST['genre'] : [], "genre");
@@ -557,19 +599,19 @@
                         echo '<script>document.getElementById("detailsWarning").style.display="inline";</script>';
                     }
                 }
-                if (sizeof($genre->value)==0) {
+                if (sizeof($genre->value) == 0) {
                     echo '<script>document.getElementById("genresTV").style.border="2px solid red";</script>';
-                    $temp = true;}
-                else {
+                    $temp = true;
+                } else {
                     foreach ($genre->value as $genreValue) {
-                        echo '<script>document.getElementById("'.$genreValue.'").checked=true;</script>';
+                        echo '<script>document.getElementById("' . $genreValue . '").checked=true;</script>';
                     }
                 }
                 if ($status->value == NULL) {
                     echo '<script>document.getElementById("status").style.border="2px solid red";</script>';
-                    $temp = true;}
-                else {
-                    echo '<script>document.getElementById("'.$status->value.'").checked=true;</script>';
+                    $temp = true;
+                } else {
+                    echo '<script>document.getElementById("' . $status->value . '").checked=true;</script>';
                 }
                 if ($temp == false) {
                     // edit the data in the shows table
@@ -674,12 +716,12 @@
                         echo '<script>document.getElementById("detailsWarning").style.display="inline";</script>';
                     }
                 }
-                if (sizeof($genre->value)==0) {
+                if (sizeof($genre->value) == 0) {
                     echo '<script>document.getElementById("genres").style.border="2px solid red";</script>';
-                    $temp = true;}
-                else {
+                    $temp = true;
+                } else {
                     foreach ($genre->value as $genreValue) {
-                        echo '<script>document.getElementById("'.$genreValue.'").checked=true;</script>';
+                        echo '<script>document.getElementById("' . $genreValue . '").checked=true;</script>';
                     }
                 }
                 if ($temp == false) {

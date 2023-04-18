@@ -79,7 +79,7 @@
         </nav>
         <div class="row justify-content-center mt-5" id="movieadd">
             <div class="col-md-6" style="display: flex; justify-content: center;">
-                <form id="movie-add" method="post">
+                <form id="movie-add" method="post" enctype="multipart/form-data">
                     <h2>Movie</h2>
                     <input type="hidden" name="addForm" value="submitted">
 
@@ -105,14 +105,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="studio">Studio:</label>
-                        <input class="form-control bg-dark" type="text" id="studio" placeholder="Studio:" name="studio">
+                        <label for="studio" class="form-label">Studio:</label>
+                        <input type="text" class="form-control bg-dark" id="studio" placeholder="Studio:" name="studio">
                     </div>
 
                     <div class="form-group">
-                        <label for="cover">Cover Link:</label>
-                        <input class="form-control bg-dark" type="text" id="cover" placeholder="Cover Link:"
-                            name="cover">
+                        <label for="cover">Cover Image:</label>
+                        <input class="form-control bg-dark" type="file" id="cover" name="cover">
                     </div>
 
                     <div class="form-group">
@@ -126,7 +125,7 @@
                         <textarea class="form-control bg-dark" id="description" placeholder="Description:"
                             name="description" style="color:black;" maxlength="1000"></textarea>
                     </div>
-                    <label >Genres:</label><br>
+                    <label>Genres:</label><br>
 
                     <div class="form-group" id="genres" style="border-radius:10px;">
                         <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
@@ -153,9 +152,9 @@
                                 id="Thriller" value="Thriller"> Thriller</label>
                         <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
                                 id="Family" value="Family"> Family</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" 
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
                                 id="Crime" value="Crime"> Crime</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" 
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
                                 id="Adventure" value="Adventure"> Adventure</label>
                     </div>
 
@@ -193,12 +192,23 @@
         // check if the form has been submitted
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addForm'])) {
             // check which form was submitted
-
+            $image_name = $_FILES['cover']['name'];
+            $image_temp_name = $_FILES['cover']['tmp_name'];
+            $img_ex = pathinfo($image_name, PATHINFO_EXTENSION);
+            $img_lc = strtolower($img_ex);
+            $allowed_array = array("jpg", "jpeg", "png");
+            if (in_array($img_lc, $allowed_array)) {
+                $new_img_name = "Images/Posters/" . $_POST['title'] . "." . $img_lc;
+                $upload_path = '../' . $new_img_name;
+                move_uploaded_file($image_temp_name, $upload_path);
+            } else {
+                echo "Wrong format";
+            }
             // get the form data
             $title = new input(mysqli_real_escape_string($conn, $_POST['title']), "title");
             $date = new input(mysqli_real_escape_string($conn, $_POST['date']), "date");
             $rating = new input(mysqli_real_escape_string($conn, $_POST['rating']), "rating");
-            $cover = new input(mysqli_real_escape_string($conn, $_POST['cover']), "cover");
+            $cover = new input(mysqli_real_escape_string($conn, $new_img_name), "cover");
             $trailer = new input(mysqli_real_escape_string($conn, $_POST['trailer']), "trailer");
             $director = new input(mysqli_real_escape_string($conn, $_POST['director']), "director");
             $studio = new input(mysqli_real_escape_string($conn, $_POST['studio']), "studio");
@@ -217,12 +227,12 @@
                 }
             }
 
-            if (sizeof($genre->value)==0) {
+            if (sizeof($genre->value) == 0) {
                 echo '<script>document.getElementById("genres").style.border="2px solid red";</script>';
-                $temp = true;}
-            else {
+                $temp = true;
+            } else {
                 foreach ($genre->value as $genreValue) {
-                    echo '<script>document.getElementById("'.$genreValue.'").checked=true;</script>';
+                    echo '<script>document.getElementById("' . $genreValue . '").checked=true;</script>';
                 }
             }
 
