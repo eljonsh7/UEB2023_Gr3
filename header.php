@@ -42,7 +42,7 @@
                             <?php if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true) { ?>
                                 <a href="#">Profile <i class="icofont icofont-simple-down"></i></a>
                                 <ul>
-                                    <li><a href="">Edit</a></li>
+                                    <li><a href="user.php">Edit</a></li>
                                     <li><a href="logout.php">Sign out</a></li>
                                 </ul>
                             <?php } else { ?>
@@ -53,7 +53,7 @@
                                 </ul>
                             <?php } ?>
                         </li>
-                        <?php // if (isAdmin()) { echo '<li><a class="imdb" href="dashboard/dashboard.php">Dashboard</a></li>'} ?> 
+                        <?php // session_start(); if(isset($_SESSION['admin'])){ if($_SESSION['admin'] == 1){ echo '<li><a class="dashboard" href="dashboard/dashboard.php">Dashboard</a></li>'}} ?> 
                         <li>
                             <form style="display: flex;" method="post" action="results.php" id="myForm">
                                 <input type="text" name="search" placeholder="Search..." class="form-control" id="live_search" autocomplete="off">
@@ -196,16 +196,34 @@
         $email = $_POST['email-field'];
         $password = $_POST['password-field'];
 
-        $stmt = $conn->prepare("INSERT INTO users (Username, Email, password) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $username, $email, $password);
-        $stmt->execute();
+        $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE email = ?");
+        mysqli_stmt_bind_param($stmt, 's', $email);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
 
-        if (mysqli_stmt_affected_rows($stmt) > 0) {
-            echo "<script>console.log('Data inserted successfully!')";
-            $_SESSION['user_logged_in'] = true;
-            $_SESSION['user'] = $email;
+        $stmt1 = mysqli_prepare($conn, "SELECT * FROM users WHERE username = ?");
+        mysqli_stmt_bind_param($stmt1, 's', $username);
+        mysqli_stmt_execute($stmt1);
+        $result1 = mysqli_stmt_get_result($stmt1);
+
+        if(mysqli_num_rows($result) == 0 && mysqli_num_rows($result1) == 0) {
+            $stmt = $conn->prepare("INSERT INTO users (Username, Email, password) VALUES (?, ?, ?)");
+            $stmt->bind_param("sss", $username, $email, $password);
+            $stmt->execute();
+
+            if (mysqli_stmt_affected_rows($stmt) > 0) {
+                echo "<script>console.log('Data inserted successfully!')";
+                $_SESSION['user_logged_in'] = true;
+                $_SESSION['user'] = false;
+            } else {
+                echo "<script>console.log('Error inserting data')";
+            }
         } else {
-            echo "<script>console.log('Error inserting data')";
+            echo '<div class="overlay">
+                    <div class="modal">
+                        <p>Username or E-mail already in use</p>
+                    </div>
+                </div>';
         }
     }
 ?> 
@@ -228,7 +246,8 @@
             $user = mysqli_fetch_assoc($result);
             if ($password == $user['Password']) {
                 $_SESSION['user_logged_in'] = true;
-                $_SESSION['user'] = $email;
+                $_SESSION['user'] = $user['ID'];
+                $_SESSION['admin'] = $user['Admin'];
             } else {
                 echo "<script>alert('Incorrect password');</script>";
             }
@@ -239,10 +258,15 @@
 ?>
 <?php
     // function isAdmin(){
-    //     $query = "SELECT * FROM users WHERE email = '$_SESSION['user']'";
-    //     $result = mysqli_query($conn, $query);
+    //     $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE email = ?");
+    //     mysqli_stmt_bind_param($stmt, 's', $_SESSION['user']);
+    //     mysqli_stmt_execute($stmt);
+    //     $result = mysqli_stmt_get_result($stmt);
     //     $user = mysqli_fetch_assoc($result);
-    //     return $user['Admin'];
+    //     if ($user['Admin'] == 1){
+    //         return true;
+    //     } 
+    //     return false;
     // }
 ?>
 <script>
