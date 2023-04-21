@@ -39,21 +39,26 @@
                         <li><a class="tv" href="tv-shows.php">Tv Shows</a></li>
                         <li><a class="imdb" href="imdb.php">Top IMDb</a></li>
                         <li>
-                            <?php if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true) { ?>
-                                <a href="#">Profile <i class="icofont icofont-simple-down"></i></a>
-                                <ul>
-                                    <li><a href="user.php">Edit</a></li>
-                                    <li><a href="logout.php">Sign out</a></li>
-                                </ul>
-                            <?php } else { ?>
-                                <a href="#">Profile <i class="icofont icofont-simple-down"></i></a>
-                                <ul>
-                                    <li><a href="" class="signup-popup">Log in</a></li>
-                                    <li><a href="" class="login-popup">Sign up</a></li>
-                                </ul>
-                            <?php } ?>
-                        </li>
-                        <?php // session_start(); if(isset($_SESSION['admin'])){ if($_SESSION['admin'] == 1){ echo '<li><a class="dashboard" href="dashboard/dashboard.php">Dashboard</a></li>'}} ?> 
+                            <?php 
+                                if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true) {
+                                    echo '<a href="#">Profile <i class="icofont icofont-simple-down"></i></a>
+                                            <ul>
+                                                <li><a href="user.php">Edit</a></li>';
+                                                    if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1){
+                                                        echo '<li><a class="dashboard" href="dashboard/dashboard.php" target="_blank">Dashboard</a></li>';
+                                                    }
+                                            echo'<li><a href="logout.php">Sign out</a></li>';
+                                        
+                                    echo '</ul>';
+                                }else{
+                                    echo '<a href="#">Profile <i class="icofont icofont-simple-down"></i></a>
+                                            <ul>
+                                                <li><a href="" class="signup-popup">Log in</a></li>
+                                                <li><a href="" class="login-popup">Sign up</a></li>
+                                            </ul>';
+                                }
+                            ?>
+                        </li> 
                         <li>
                             <form style="display: flex;" method="post" action="results.php" id="myForm">
                                 <input type="text" name="search" placeholder="Search..." class="form-control" id="live_search" autocomplete="off">
@@ -212,11 +217,38 @@
             $stmt->execute();
 
             if (mysqli_stmt_affected_rows($stmt) > 0) {
-                echo "<script>console.log('Data inserted successfully!')";
+                echo "<script>console.log('Data inserted successfully!</script>')";
                 $_SESSION['user_logged_in'] = true;
                 $_SESSION['user'] = false;
+                // require 'vendor/autoload.php'; // If you're using Composer (recommended)
+// Comment out the above line if not using Composer
+require("<PATH TO>/send-grid/sendgrid-php.php");
+// If not using Composer, uncomment the above line and
+// download sendgrid-php.zip from the latest release here,
+// replacing <PATH TO> with the path to the sendgrid-php.php file,
+// which is included in the download:
+// https://github.com/sendgrid/sendgrid-php/releases
+
+$email = new \SendGrid\Mail\Mail(); 
+$email->setFrom("test@example.com", "Example User");
+$email->setSubject("Sending with SendGrid is Fun");
+$email->addTo("test@example.com", "Example User");
+$email->addContent("text/plain", "and easy to do anywhere, even with PHP");
+$email->addContent(
+    "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
+);
+$sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+try {
+    $response = $sendgrid->send($email);
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: '. $e->getMessage() ."\n";
+}
+
             } else {
-                echo "<script>console.log('Error inserting data')";
+                echo "<script>console.log('Error inserting data')</script>";
             }
         } else {
             echo '<div class="overlay">
@@ -248,6 +280,7 @@
                 $_SESSION['user_logged_in'] = true;
                 $_SESSION['user'] = $user['ID'];
                 $_SESSION['admin'] = $user['Admin'];
+                echo '<script>window.location.href = "index.php";</script>';
             } else {
                 echo "<script>alert('Incorrect password');</script>";
             }
