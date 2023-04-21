@@ -1,57 +1,8 @@
 <?php
 
 include('connection.php');
-
-$results_per_page = 4;
-if (isset($_GET["page"])) {
-    $page = $_GET["page"];
-} else {
-    $page = 1;
-}
-$start_from = ($page - 1) * $results_per_page;
-if (isset($_GET['genre'])) {
-    $genreGET = $_GET['genre'];
-    $sql = "SELECT content.Type, content.Trailer, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
-    FROM content
-    JOIN director ON content.ID = director.ID
-    JOIN studio ON content.ID = studio.ID
-    JOIN genre ON content.ID = genre.ID
-    WHERE content.Type = 'tv show' and Genre like '%{$genreGET}%'
-    GROUP BY content.ID
-    LIMIT $start_from, $results_per_page";
-    $sql1 = "SELECT content.Type, content.Trailer, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
-    FROM content
-    JOIN director ON content.ID = director.ID
-    JOIN studio ON content.ID = studio.ID
-    JOIN genre ON content.ID = genre.ID
-    WHERE content.Type = 'tv show' and Genre like '%{$genreGET}%'
-    GROUP BY content.ID;";
-    $result = mysqli_query($conn, $sql);
-    $result1 = mysqli_query($conn, $sql1);
-    $results_num = mysqli_num_rows($result1);
-    $pages = ceil($results_num / $results_per_page);
-} else {
-    $sql = "SELECT content.Type, content.Trailer, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
-    FROM content
-    JOIN director ON content.ID = director.ID
-    JOIN studio ON content.ID = studio.ID
-    JOIN genre ON content.ID = genre.ID
-    WHERE content.Type = 'tv show'
-    GROUP BY content.ID
-    limit $start_from, $results_per_page;";
-    $sql1 = "SELECT content.Type, content.Trailer, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
-    FROM content
-    JOIN director ON content.ID = director.ID
-    JOIN studio ON content.ID = studio.ID
-    JOIN genre ON content.ID = genre.ID
-    WHERE content.Type = 'tv show'
-    GROUP BY content.ID;";
-    $result = mysqli_query($conn, $sql);
-    $result1 = mysqli_query($conn, $sql1);
-    $results_num = mysqli_num_rows($result1);
-    $pages = ceil($results_num / $results_per_page);
-}
-
+$type = "tv show";
+include('pagination.php');
 ?>
 <!DOCTYPE HTML>
 <html lang="zxx">
@@ -82,76 +33,76 @@ if (isset($_GET['genre'])) {
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
     <style>
-        .btn {
-            background-color: #3a444f;
-            border-width: 0;
-        }
+    .btn {
+        background-color: #3a444f;
+        border-width: 0;
+    }
 
-        .btn:hover,
-        .btn:active {
-            background-color: transparent;
-            border-width: 3px;
-            border-color: white;
-        }
+    .btn:hover,
+    .btn:active {
+        background-color: transparent;
+        border-width: 3px;
+        border-color: white;
+    }
 
-        .tv {
-            color: #00d9e1;
-        }
+    .tv {
+        color: #00d9e1;
+    }
 
-        .filmi {
-            align-items: center;
-            width: 221px;
-            height: 330px;
-            border-radius: 15px;
-            margin: 0 auto;
-            overflow: hidden;
-        }
+    .filmi {
+        align-items: center;
+        width: 221px;
+        height: 330px;
+        border-radius: 15px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
 
-        .imgContentPortfolio {
-            transition: 0.9s;
-            position: relative;
-        }
+    .imgContentPortfolio {
+        transition: 0.9s;
+        position: relative;
+    }
 
-        .imgContentPortfolio:hover {
-            transform: scale(1.2);
-        }
+    .imgContentPortfolio:hover {
+        transform: scale(1.2);
+    }
 
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-gap: 20px;
+    }
+
+    #imgContent {
+        width: 221px;
+        height: 330px;
+    }
+
+    @media screen and (min-width: 576px) {
         .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            grid-gap: 20px;
+            grid-template-columns: repeat(2, minmax(250px, 1fr));
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        .grid-container {
+            grid-template-columns: repeat(2, minmax(250px, 1fr));
+        }
+    }
+
+    @media screen and (min-width: 992px) {
+        .grid-container {
+            grid-template-columns: repeat(3, minmax(250px, 1fr));
         }
 
-        #imgContent {
-            width: 221px;
-            height: 330px;
+    }
+
+    @media screen and (min-width: 1200px) {
+        .grid-container {
+            grid-template-columns: repeat(4, minmax(250px, 1fr));
         }
 
-        @media screen and (min-width: 576px) {
-            .grid-container {
-                grid-template-columns: repeat(2, minmax(250px, 1fr));
-            }
-        }
-
-        @media screen and (min-width: 768px) {
-            .grid-container {
-                grid-template-columns: repeat(2, minmax(250px, 1fr));
-            }
-        }
-
-        @media screen and (min-width: 992px) {
-            .grid-container {
-                grid-template-columns: repeat(3, minmax(250px, 1fr));
-            }
-
-        }
-
-        @media screen and (min-width: 1200px) {
-            .grid-container {
-                grid-template-columns: repeat(4, minmax(250px, 1fr));
-            }
-
-        }
+    }
     </style>
 </head>
 
@@ -179,27 +130,31 @@ if (isset($_GET['genre'])) {
             <div class="row">
                 <div class="col-lg-6 text-center text-lg-left">
                     <div class="portfolio-menu">
-                        <ul>
-                            <li data-filter="*" <?php if (!isset($_GET['genre']) || $_GET['genre'] === '') {
-                                                    echo 'class="active"';
-                                                } ?>>
-                                <a href="tv-shows.php">All</a>
-                            </li>
-                            <li data-filter=".Crime" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'crime') {
-                                                            echo 'class="active"';
-                                                        } ?>>
-                                <a href="tv-shows.php?genre=crime">Crime</a>
-                            </li>
-                            <li data-filter=".Drama" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'drama') {
-                                                            echo 'class="active"';
-                                                        } ?>>
-                                <a href="tv-shows.php?genre=drama">Drama</a>
-                            </li>
-                            <li data-filter=".Documentary" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'documentary') {
+                        <ul><a href="tv-shows.php">
+                                <li data-filter="*" <?php if (!isset($_GET['genre']) || $_GET['genre'] === '') {
+                                                        echo 'class="active"';
+                                                    } ?>>
+                                    All
+                                </li>
+                            </a><a href="tv-shows.php?genre=crime">
+                                <li data-filter=".Crime" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'crime') {
                                                                 echo 'class="active"';
                                                             } ?>>
-                                <a href="tv-shows.php?genre=documentary">Documentary</a>
-                            </li>
+                                    Crime
+                                </li>
+                            </a><a href="tv-shows.php?genre=drama">
+                                <li data-filter=".Drama" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'drama') {
+                                                                echo 'class="active"';
+                                                            } ?>>
+                                    Drama
+                                </li>
+                            </a><a href="tv-shows.php?genre=documentary">
+                                <li data-filter=".Documentary" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'documentary') {
+                                                                    echo 'class="active"';
+                                                                } ?>>
+                                    Documentary
+                                </li>
+                            </a>
                         </ul>
                     </div>
                 </div>
@@ -351,17 +306,17 @@ if (isset($_GET['genre'])) {
     <script src="assets/js/main.js"></script>
 
     <script type="text/javascript">
-        function checkAjax(Genre) {
-            $.ajax({
-                url: 'sortGenre.php?type=tvshow&genre=' + Genre,
-                method: 'GET',
-                dataType: 'html',
-                success: function(data) {
-                    $('#contentContainer').html(data);
-                }
+    function checkAjax(Genre) {
+        $.ajax({
+            url: 'sortGenre.php?type=tvshow&genre=' + Genre,
+            method: 'GET',
+            dataType: 'html',
+            success: function(data) {
+                $('#contentContainer').html(data);
+            }
 
-            });
-        };
+        });
+    };
     </script>
 </body>
 

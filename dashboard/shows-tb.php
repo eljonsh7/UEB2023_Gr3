@@ -254,7 +254,7 @@
                                 while ($row = mysqli_fetch_array($result)) {
                                     echo '
                     <tr>
-                        <td><img src="../' . $row['Cover'] . '" width="70px" height="94.5px"></td>
+                        <td><img src="' . $row['Cover'] . '" width="70px" height="94.5px"></td>
                         <td><a href="editDetails.php?detailsID=' . $row['ID'] . '&type=Show&mode=info">' . $row['Title'] . '</a></td>
                         <td>' . $row['Date'] . '</td>
                         <td>' . $row['Status'] . '</td>

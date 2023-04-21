@@ -111,7 +111,7 @@
 
                     <div class="form-group">
                         <label for="cover">Cover Image:</label>
-                        <input class="form-control bg-dark" type="file" id="cover" name="cover">
+                        <input class="form-control bg-dark" type="text" id="cover" name="cover">
                     </div>
 
                     <div class="form-group">
@@ -192,23 +192,23 @@
         // check if the form has been submitted
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addForm'])) {
             // check which form was submitted
-            $image_name = $_FILES['cover']['name'];
-            $image_temp_name = $_FILES['cover']['tmp_name'];
-            $img_ex = pathinfo($image_name, PATHINFO_EXTENSION);
-            $img_lc = strtolower($img_ex);
-            $allowed_array = array("jpg", "jpeg", "png");
-            if (in_array($img_lc, $allowed_array)) {
-                $new_img_name = "Images/Posters/" . $_POST['title'] . "." . $img_lc;
-                $upload_path = '../' . $new_img_name;
-                move_uploaded_file($image_temp_name, $upload_path);
-            } else {
-                echo "Wrong format";
-            }
+            // $image_name = $_FILES['cover']['name'];
+            // $image_temp_name = $_FILES['cover']['tmp_name'];
+            // $img_ex = pathinfo($image_name, PATHINFO_EXTENSION);
+            // $img_lc = strtolower($img_ex);
+            // $allowed_array = array("jpg", "jpeg", "png");
+            // if (in_array($img_lc, $allowed_array)) {
+            //     $new_img_name = "Images/Posters/" . $_POST['title'] . "." . $img_lc;
+            //     $upload_path = '../' . $new_img_name;
+            //     move_uploaded_file($image_temp_name, $upload_path);
+            // } else {
+            //     echo "Wrong format";
+            // }
             // get the form data
             $title = new input(mysqli_real_escape_string($conn, $_POST['title']), "title");
             $date = new input(mysqli_real_escape_string($conn, $_POST['date']), "date");
             $rating = new input(mysqli_real_escape_string($conn, $_POST['rating']), "rating");
-            $cover = new input(mysqli_real_escape_string($conn, $new_img_name), "cover");
+            $cover = new input(mysqli_real_escape_string($conn, $_POST['cover']), "cover");
             $trailer = new input(mysqli_real_escape_string($conn, $_POST['trailer']), "trailer");
             $director = new input(mysqli_real_escape_string($conn, $_POST['director']), "director");
             $studio = new input(mysqli_real_escape_string($conn, $_POST['studio']), "studio");

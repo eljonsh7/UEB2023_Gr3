@@ -205,7 +205,7 @@
         if ($_GET['type'] == "Movie" && $_GET['mode'] == "info") {
             echo '
             <div style = "display:flex;margin-left:3%;margin-top:3%;" >
-            <img src="../' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
+            <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
             <div>
                 <div id="viewDetails" style="width:50%;margin-left:5%;">
                     <p id="title" class="details"><b>Title:</b> <br>' . $row['Title'] . '</p>
@@ -228,7 +228,7 @@
         } else if ($_GET['type'] == "Movie" && $_GET['mode'] == "edit") {
             echo '
             <div style = "display:flex; margin-left:3%;margin-top:3%;">
-                <img src="../' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
+                <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
                 <div class="row justify-content-center mt-5" id="movieadd" style="margin-left:3%;">
                     <div class="col-md-6" style="display: flex; justify-content: center;">
                         <form id="movie-add" method="post" enctype="multipart/form-data">
@@ -262,8 +262,7 @@
                 
                             <div class="form-group">
                             <label for="cover">Cover Image:</label>
-                            <input class="form-control bg-dark" type="file" id="cover" name="cover">
-                            <input type="hidden" name="coverHidden" value="' . $row['Cover'] . '">
+                            <input class="form-control bg-dark" type="text" value="' . $row['Cover'] . ' id="cover" name="cover">
                             </div>
                 
                             <div class="form-group">
@@ -333,29 +332,29 @@
             }
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // check which form was submitted
-                $image_name = '';
-                if (isset($_FILES['cover'])) {
-                    $image_name = $_FILES['cover']['name'];
-                    $image_temp_name = $_FILES['cover']['tmp_name'];
-                    $img_ex = pathinfo($image_name, PATHINFO_EXTENSION);
-                    $img_lc = strtolower($img_ex);
-                    $allowed_array = array("jpg", "jpeg", "png");
-                    if (in_array($img_lc, $allowed_array)) {
-                        $new_img_name = "Images/Posters/" . $_POST['title'] . "." . $img_lc;
-                        $upload_path = '../' . $new_img_name;
-                        move_uploaded_file($image_temp_name, $upload_path);
-                    } else {
-                        echo "Wrong format";
-                    }
-                }
-                if (empty($image_name)) {
-                    $new_img_name = $_POST['coverHidden'];
-                }
+                // $image_name = '';
+                // if (isset($_FILES['cover'])) {
+                //     $image_name = $_FILES['cover']['name'];
+                //     $image_temp_name = $_FILES['cover']['tmp_name'];
+                //     $img_ex = pathinfo($image_name, PATHINFO_EXTENSION);
+                //     $img_lc = strtolower($img_ex);
+                //     $allowed_array = array("jpg", "jpeg", "png");
+                //     if (in_array($img_lc, $allowed_array)) {
+                //         $new_img_name = "Images/Posters/" . $_POST['title'] . "." . $img_lc;
+                //         $upload_path = '../' . $new_img_name;
+                //         move_uploaded_file($image_temp_name, $upload_path);
+                //     } else {
+                //         echo "Wrong format";
+                //     }
+                // }
+                // if (empty($image_name)) {
+                //     $new_img_name = $_POST['coverHidden'];
+                // }
                 // get the form data
                 $title = new input(mysqli_real_escape_string($conn, $_POST['title']), "title");
                 $date = new input(mysqli_real_escape_string($conn, $_POST['date']), "date");
                 $rating = new input(mysqli_real_escape_string($conn, $_POST['rating']), "rating");
-                $cover = new input(mysqli_real_escape_string($conn, $new_img_name), "cover");
+                $cover = new input(mysqli_real_escape_string($conn, $_POST['cover']), "cover");
                 $trailer = new input(mysqli_real_escape_string($conn, $_POST['trailer']), "trailer");
                 $director = new input(mysqli_real_escape_string($conn, $_POST['director']), "director");
                 $studio = new input(mysqli_real_escape_string($conn, $_POST['studio']), "studio");
@@ -414,7 +413,7 @@
         } else if ($_GET['type'] == "Show" && $_GET['mode'] == "info") {
             echo '
             <div style = "display:flex;margin-left:3%;margin-top:3%;" >
-            <img src="../' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
+            <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
             <div>
                 <div id="viewDetails" style="width:50%;margin-left:5%;">
                     <p id="title" class="details"><b>Title: </b><br>' . $row['Title'] . '</p>
@@ -436,7 +435,7 @@
         } else if ($_GET['type'] == "Show" && $_GET['mode'] == "edit") {
             echo '
             <div style = "display:flex;margin-left:3%;margin-top:3%;" >
-                <img src="../' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
+                <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
                 <div class="row justify-content-center mt-5" id="movieadd" style="margin-left:3%;">
                     <div class="col-md-6" style="display: flex; justify-content: center;">
                         <form id="show-add" method="post" enctype="multipart/form-data">
@@ -487,8 +486,7 @@
                             
                             <div class="form-group">
                             <label for="cover">Cover Image:</label>
-                            <input class="form-control bg-dark" type="file" id="cover" name="cover">
-                            <input type="hidden" name="coverHidden" value="' . $row['Cover'] . '">
+                            <input class="form-control bg-dark" value="' . $row['Cover'] . ' type="text" id="cover" name="cover">
                             </div>
                             
                             <label for="trailer">Trailer Link:</label>
@@ -553,24 +551,24 @@
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // check which form was submitted
                 // get the form data
-                $image_name = '';
-                if (isset($_FILES['cover'])) {
-                    $image_name = $_FILES['cover']['name'];
-                    $image_temp_name = $_FILES['cover']['tmp_name'];
-                    $img_ex = pathinfo($image_name, PATHINFO_EXTENSION);
-                    $img_lc = strtolower($img_ex);
-                    $allowed_array = array("jpg", "jpeg", "png");
-                    if (in_array($img_lc, $allowed_array)) {
-                        $new_img_name = "Images/Posters/" . $_POST['title'] . "." . $img_lc;
-                        $upload_path = '../' . $new_img_name;
-                        move_uploaded_file($image_temp_name, $upload_path);
-                    } else {
-                        echo "Wrong format";
-                    }
-                }
-                if (empty($image_name)) {
-                    $new_img_name = $_POST['coverHidden'];
-                }
+                // $image_name = '';
+                // if (isset($_FILES['cover'])) {
+                //     $image_name = $_FILES['cover']['name'];
+                //     $image_temp_name = $_FILES['cover']['tmp_name'];
+                //     $img_ex = pathinfo($image_name, PATHINFO_EXTENSION);
+                //     $img_lc = strtolower($img_ex);
+                //     $allowed_array = array("jpg", "jpeg", "png");
+                //     if (in_array($img_lc, $allowed_array)) {
+                //         $new_img_name = "Images/Posters/" . $_POST['title'] . "." . $img_lc;
+                //         $upload_path = '../' . $new_img_name;
+                //         move_uploaded_file($image_temp_name, $upload_path);
+                //     } else {
+                //         echo "Wrong format";
+                //     }
+                // }
+                // if (empty($image_name)) {
+                //     $new_img_name = $_POST['coverHidden'];
+                // }
                 $title = new input($_POST['title'], "title");
                 $startdate = new input($_POST['startdate'], "startdate");
                 if (isset($_POST['status'])) {
@@ -582,7 +580,7 @@
                 $rating = new input($_POST['rating'], "rating");
                 $director = new input($_POST['director'], "director");
                 $studio = new input($_POST['studio'], "studio");
-                $cover = new input($new_img_name, "cover");
+                $cover = new input($_POST['cover'], "cover");
                 $trailer = new input($_POST['trailer'], "trailer");
                 $description = new input($_POST['description'], "description");
                 $genre = new input(isset($_POST['genre']) ? $_POST['genre'] : [], "genre");

@@ -1,27 +1,27 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <?php session_start(); ?>
 <style>
-    .header {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 9999;
-        transition: top 0.3s;
-    }
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+    transition: top 0.3s;
+}
 
-    .header.hide {
-        top: -100px;
-    }
+.header.hide {
+    top: -100px;
+}
 
-    #searchresult a:hover h6 {
-        transition: 0.6s;
-        color: #00d9e1;
-    }
+#searchresult a:hover h6 {
+    transition: 0.6s;
+    color: #00d9e1;
+}
 
-    #searchresult a:hover~a h6 {
-        transition: 0.6s;
-        color: #00d9e1;
-    }
+#searchresult a:hover~a h6 {
+    transition: 0.6s;
+    color: #00d9e1;
+}
 </style>
 
 </script>
@@ -78,43 +78,41 @@
         </div>
     </div>
     <script type="text/javascript">
-        function liveSearch() {
-            var input = $('#live_search').val();
-            if (input.length >= 2) {
-                document.getElementById("submit").style.visibility = "visible";
-                $.ajax({
-                    url: "livesearch.php",
-                    method: "POST",
-                    data: {
-                        input: input
-                    },
-                    success: function (data) {
-                        $("#searchresult").html(data);
-                    }
-                });
-            } else {
-                document.getElementById("submit").style.visibility = "hidden";
-                $("#searchresult").html("");
-            }
+    function liveSearch() {
+        var input = $('#live_search').val();
+        if (input.length >= 2) {
+            document.getElementById("submit").style.visibility = "visible";
+            $.ajax({
+                url: "livesearch.php",
+                method: "POST",
+                data: {
+                    input: input
+                },
+                success: function(data) {
+                    $("#searchresult").html(data);
+                }
+            });
+        } else {
+            document.getElementById("submit").style.visibility = "hidden";
+            $("#searchresult").html("");
         }
+    }
 
-        document.getElementById('live_search').addEventListener('input', function () {
-            liveSearch();
-            if (document.getElementById('live_search').value.length >= 2) {
-                document.getElementById('submit').disabled = false;
+    document.getElementById('live_search').addEventListener('input', function() {
+        liveSearch();
+        if (document.getElementById('live_search').value.length >= 2) {
+            document.getElementById('submit').disabled = false;
 
-            } else {
-                document.getElementById('submit').disabled = true;
-            }
-        });
-
-        function submitForm() {
-            var form = document.getElementById('myForm');
-
-            form.submit();
+        } else {
+            document.getElementById('submit').disabled = true;
         }
+    });
 
+    function submitForm() {
+        var form = document.getElementById('myForm');
 
+        form.submit();
+    }
     </script>
     <!-- <script>
         var anchorTag = document.getElementById('myAnchorTag');
@@ -218,32 +216,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
     mysqli_stmt_bind_param($stmt1, 's', $username);
     mysqli_stmt_execute($stmt1);
     $result1 = mysqli_stmt_get_result($stmt1);
-    
+
     if (mysqli_num_rows($result) == 0 && mysqli_num_rows($result1) == 0) {
         $message = bin2hex(random_bytes(32));
         $salt = bin2hex(random_bytes(16));
         $hashed_token = hash('sha256', $message . $salt);
 
         require("Services/vendor/autoload.php");
-                $SGemail = new \SendGrid\Mail\Mail();
-                $SGemail->setFrom("flixfeastt@gmail.com", "FlixFeast");
-                $SGemail->setTemplateId("d-b86719bb7e9a4cafbd0ef38bd39bb15c");
-                $SGemail->addDynamicTemplateData('username', $username);
-                $SGemail->addDynamicTemplateData('actToken', $hashed_token);
-                $SGemail->addTo($email, "Example User");
-                $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
-                try {
-                    $response = $sendgrid->send($SGemail);
-                } catch (Exception $e) {
-                    echo 'Caught exception: '. $e->getMessage() ."\n";
-                }
+        $SGemail = new \SendGrid\Mail\Mail();
+        $SGemail->setFrom("flixfeastt@gmail.com", "FlixFeast");
+        $SGemail->setTemplateId("d-b86719bb7e9a4cafbd0ef38bd39bb15c");
+        $SGemail->addDynamicTemplateData('username', $username);
+        $SGemail->addDynamicTemplateData('actToken', $hashed_token);
+        $SGemail->addTo($email, "Example User");
+        $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+        try {
+            $response = $sendgrid->send($SGemail);
+        } catch (Exception $e) {
+            echo 'Caught exception: ' . $e->getMessage() . "\n";
+        }
         $tempInfo = fopen("tempReg.txt", "w");
         fwrite($tempInfo, "Username: " . $username);
         fwrite($tempInfo, "\nPassword: " . $password);
         fwrite($tempInfo, "\nEmail: " . $email);
         fwrite($tempInfo, "\nToken: " . $hashed_token);
         fclose($tempInfo);
-    }else{
+    } else {
         echo '<div class="overlay">
                     <div class="modal">
                         <p>Username or E-mail already in use</p>
@@ -251,46 +249,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
                 </div>';
     }
 }
-if(isset($_GET['activation_token'])){
-        $tempInfos = fopen("tempReg.txt", "r");
-        $tempUsername = "";
-        $tempPassword = "";
-        $tempEmail = "";
-        $tempToken = "";
-        while(!feof($tempInfos)) {
-            $line = fgets($tempInfos);
-            if (strpos($line, "Username: ") !== false) {
-                $tempUsername = trim(str_replace("Username: ", "", $line));
-            }
-            if (strpos($line, "Password: ") !== false) {
-                $tempPassword = trim(str_replace("Password: ", "", $line));
-            }
-            if (strpos($line, "Email: ") !== false) {
-                $tempEmail = trim(str_replace("Email: ", "", $line));
-            }
-            if (strpos($line, "Token: ") !== false) {
-                $tempToken = trim(str_replace("Token: ", "", $line));
-            }
+if (isset($_GET['activation_token'])) {
+    $tempInfos = fopen("tempReg.txt", "r");
+    $tempUsername = "";
+    $tempPassword = "";
+    $tempEmail = "";
+    $tempToken = "";
+    while (!feof($tempInfos)) {
+        $line = fgets($tempInfos);
+        if (strpos($line, "Username: ") !== false) {
+            $tempUsername = trim(str_replace("Username: ", "", $line));
         }
-        if($_GET['activation_token'] == $tempToken){
-            $stmt = $conn->prepare("INSERT INTO users (Username, Email, password) VALUES (?, ?, ?)");
-                    $stmt->bind_param("sss", $tempUsername, $tempEmail, $tempPassword);
-                    $stmt->execute();
+        if (strpos($line, "Password: ") !== false) {
+            $tempPassword = trim(str_replace("Password: ", "", $line));
+        }
+        if (strpos($line, "Email: ") !== false) {
+            $tempEmail = trim(str_replace("Email: ", "", $line));
+        }
+        if (strpos($line, "Token: ") !== false) {
+            $tempToken = trim(str_replace("Token: ", "", $line));
+        }
+    }
+    if ($_GET['activation_token'] == $tempToken) {
+        $stmt = $conn->prepare("INSERT INTO users (Username, Email, password) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $tempUsername, $tempEmail, $tempPassword);
+        $stmt->execute();
 
-                    if (mysqli_stmt_affected_rows($stmt) > 0) {
-                        echo "<script>console.log('Data inserted successfully!')</script>";
-                        $_SESSION['user_logged_in'] = true;
-                        $_SESSION['user'] = false;
-                        unlink("tempReg.txt");
-                        echo '<script>window.location.href = "index.php";</script>';
-                        $tempToken = "";
-                        
-                    } else {
-                        echo "<script>console.log('Error inserting data')</script>";
+        if (mysqli_stmt_affected_rows($stmt) > 0) {
+            echo "<script>console.log('Data inserted successfully!')</script>";
+            $_SESSION['user_logged_in'] = true;
+            $_SESSION['user'] = false;
+            unlink("tempReg.txt");
+            echo '<script>window.location.href = "index.php";</script>';
+            $tempToken = "";
+        } else {
+            echo "<script>console.log('Error inserting data')</script>";
         }
-        
     }
-    }
+}
 ?>
 <?php
 if (isset($_POST['logInForm'])) {
@@ -336,56 +332,56 @@ if (isset($_POST['logInForm'])) {
 // }
 ?>
 <script>
-    function verifyPassword() {
-        const password1 = document.getElementById("password-field").value;
-        const password2 = document.getElementById("password-field2").value;
-        const signUpButton = document.getElementById("sign-up");
-        const errorMessage = document.getElementById("isItSame");
-        const allMessage = document.getElementById("all");
+function verifyPassword() {
+    const password1 = document.getElementById("password-field").value;
+    const password2 = document.getElementById("password-field2").value;
+    const signUpButton = document.getElementById("sign-up");
+    const errorMessage = document.getElementById("isItSame");
+    const allMessage = document.getElementById("all");
 
-        const passwordRegex = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
-        const isPasswordValid =
-            password1 === password2 && passwordRegex.test(password1);
+    const passwordRegex = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
+    const isPasswordValid =
+        password1 === password2 && passwordRegex.test(password1);
 
-        if (!passwordRegex.test(password1)) {
-            allMessage.style.display = "flex";
-            allMessage.style.color = "red";
-        } else {
-            allMessage.style.display = "none";
-        }
-
-        if (password2.length != 0) {
-            if (password1 !== password2) {
-                errorMessage.style.display = "flex";
-                errorMessage.style.color = "red";
-            } else {
-                errorMessage.style.display = "none";
-            }
-        }
-
-        signUpButton.disabled = !isPasswordValid;
+    if (!passwordRegex.test(password1)) {
+        allMessage.style.display = "flex";
+        allMessage.style.color = "red";
+    } else {
+        allMessage.style.display = "none";
     }
+
+    if (password2.length != 0) {
+        if (password1 !== password2) {
+            errorMessage.style.display = "flex";
+            errorMessage.style.color = "red";
+        } else {
+            errorMessage.style.display = "none";
+        }
+    }
+
+    signUpButton.disabled = !isPasswordValid;
+}
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const header = document.querySelector('.header');
+document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.header');
+    header.classList.remove('hide');
+});
+
+let prevScrollPos = window.pageYOffset;
+
+window.addEventListener('scroll', () => {
+    const currentScrollPos = window.pageYOffset;
+    const header = document.querySelector('.header');
+
+    if (prevScrollPos > currentScrollPos) {
+        // scrolling up
         header.classList.remove('hide');
-    });
+    } else {
+        // scrolling down
+        header.classList.add('hide');
+    }
 
-    let prevScrollPos = window.pageYOffset;
-
-    window.addEventListener('scroll', () => {
-        const currentScrollPos = window.pageYOffset;
-        const header = document.querySelector('.header');
-
-        if (prevScrollPos > currentScrollPos) {
-            // scrolling up
-            header.classList.remove('hide');
-        } else {
-            // scrolling down
-            header.classList.add('hide');
-        }
-
-        prevScrollPos = currentScrollPos;
-    });
+    prevScrollPos = currentScrollPos;
+});
 </script>
