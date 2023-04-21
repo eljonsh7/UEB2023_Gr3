@@ -223,14 +223,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
         $message = bin2hex(random_bytes(32));
         $salt = bin2hex(random_bytes(16));
         $hashed_token = hash('sha256', $message . $salt);
-        require("send-grid/sendgrid-php.php");
+
+        require("Services/vendor/autoload.php");
                 $SGemail = new \SendGrid\Mail\Mail();
                 $SGemail->setFrom("flixfeastt@gmail.com", "FlixFeast");
                 $SGemail->setTemplateId("d-b86719bb7e9a4cafbd0ef38bd39bb15c");
                 $SGemail->addDynamicTemplateData('username', $username);
                 $SGemail->addDynamicTemplateData('actToken', $hashed_token);
                 $SGemail->addTo($email, "Example User");
-                $sendgrid = new \SendGrid('');
+                $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
                 try {
                     $response = $sendgrid->send($SGemail);
                 } catch (Exception $e) {
