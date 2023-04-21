@@ -230,7 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
                 $SGemail->addDynamicTemplateData('username', $username);
                 $SGemail->addDynamicTemplateData('actToken', $hashed_token);
                 $SGemail->addTo($email, "Example User");
-                $sendgrid = new \SendGrid('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');
+                $sendgrid = new \SendGrid('');
                 try {
                     $response = $sendgrid->send($SGemail);
                 } catch (Exception $e) {
