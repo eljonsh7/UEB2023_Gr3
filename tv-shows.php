@@ -1,7 +1,8 @@
 <?php
 
 include('connection.php');
-$type = "tv show";
+$searchCondition = "";
+$type = "'tv show'";
 include('pagination.php');
 ?>
 <!DOCTYPE HTML>
@@ -33,76 +34,64 @@ include('pagination.php');
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
     <style>
-    .btn {
-        background-color: #3a444f;
-        border-width: 0;
-    }
-
-    .btn:hover,
-    .btn:active {
-        background-color: transparent;
-        border-width: 3px;
-        border-color: white;
-    }
-
-    .tv {
-        color: #00d9e1;
-    }
-
-    .filmi {
-        align-items: center;
-        width: 221px;
-        height: 330px;
-        border-radius: 15px;
-        margin: 0 auto;
-        overflow: hidden;
-    }
-
-    .imgContentPortfolio {
-        transition: 0.9s;
-        position: relative;
-    }
-
-    .imgContentPortfolio:hover {
-        transform: scale(1.2);
-    }
-
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        grid-gap: 20px;
-    }
-
-    #imgContent {
-        width: 221px;
-        height: 330px;
-    }
-
-    @media screen and (min-width: 576px) {
-        .grid-container {
-            grid-template-columns: repeat(2, minmax(250px, 1fr));
-        }
-    }
-
-    @media screen and (min-width: 768px) {
-        .grid-container {
-            grid-template-columns: repeat(2, minmax(250px, 1fr));
-        }
-    }
-
-    @media screen and (min-width: 992px) {
-        .grid-container {
-            grid-template-columns: repeat(3, minmax(250px, 1fr));
+        .tv {
+            color: #00d9e1;
         }
 
-    }
-
-    @media screen and (min-width: 1200px) {
-        .grid-container {
-            grid-template-columns: repeat(4, minmax(250px, 1fr));
+        .filmi {
+            align-items: center;
+            width: 221px;
+            height: 330px;
+            border-radius: 15px;
+            margin: 0 auto;
+            overflow: hidden;
         }
 
-    }
+        .imgContentPortfolio {
+            transition: 0.9s;
+            position: relative;
+        }
+
+        .imgContentPortfolio:hover {
+            transform: scale(1.2);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 20px;
+        }
+
+        #imgContent {
+            width: 221px;
+            height: 330px;
+        }
+
+        @media screen and (min-width: 576px) {
+            .grid-container {
+                grid-template-columns: repeat(2, minmax(250px, 1fr));
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(2, minmax(250px, 1fr));
+            }
+        }
+
+        @media screen and (min-width: 992px) {
+            .grid-container {
+                grid-template-columns: repeat(3, minmax(250px, 1fr));
+            }
+
+        }
+
+        @media screen and (min-width: 1200px) {
+            .grid-container {
+                grid-template-columns: repeat(4, minmax(250px, 1fr));
+            }
+
+        }
     </style>
 </head>
 
@@ -190,36 +179,9 @@ include('pagination.php');
         </div>
     </section><!-- portfolio section end -->
     <?php
-    if ($pages > 1) {
-        echo '<section>
-        <center>
-             <div class="container">';
-
-        if (isset($_GET['genre'])) {
-            for ($i = 1; $i <= $pages; $i++) {
-                echo '<a style = "margin-right: 5px;" class = "btn btn-primary btn-lg';
-                if ($i != $page) {
-                    echo 'btn-floating"';
-                } else {
-                    echo '"';
-                }
-                echo 'href="tv-shows.php?page=' . $i . '&genre=' . $genreGET . '">' . $i . '</a>';
-            }
-        } else {
-            for ($i = 1; $i <= $pages; $i++) {
-                echo '<a style = "margin-right: 5px;" class = "btn btn-primary btn-lg';
-                if ($i != $page) {
-                    echo 'btn-floating"';
-                } else {
-                    echo '"';
-                }
-                echo 'href="tv-shows.php?page=' . $i . '">' . $i . '</a>';
-            }
-        }
-        echo '</div>
-        <center>
-         </section>';
-    } ?>
+    $site = 'tv-shows';
+    include('paginationNumbers.php');
+    ?>
     <!-- video section start -->
     <section class="video ptb-90">
         <div class="container">
@@ -305,19 +267,6 @@ include('pagination.php');
     <!-- main JS -->
     <script src="assets/js/main.js"></script>
 
-    <script type="text/javascript">
-    function checkAjax(Genre) {
-        $.ajax({
-            url: 'sortGenre.php?type=tvshow&genre=' + Genre,
-            method: 'GET',
-            dataType: 'html',
-            success: function(data) {
-                $('#contentContainer').html(data);
-            }
-
-        });
-    };
-    </script>
 </body>
 
 </html>

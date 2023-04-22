@@ -1,7 +1,17 @@
 <?php
 include('connection.php');
-
+$search = $_GET['search'];
+if (isset($_GET['type'])) {
+    $type = "'" . $_GET['type'] . "'";
+    $searchCondition = "and content.Title like '%{$search}%'";
+} else {
+    $type = "'movie','tv show'";
+    $searchCondition = "and content.Title like '%{$search}%'";
+}
+include('pagination.php');
+// echo $sql;
 ?>
+
 <!DOCTYPE HTML>
 <html lang="zxx">
 
@@ -97,9 +107,7 @@ include('connection.php');
 
 
     <?php
-    if (isset($_POST['submit'])) {
-        $search = mysqli_real_escape_string($conn, $_POST['search']);
-        echo '<section class="breadcrumb-area">
+    echo '<section class="breadcrumb-area">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -111,47 +119,46 @@ include('connection.php');
     </div>
 </section>';
 
-        echo '<section class="portfolio-area pt-60">
-	<div class="container">
-	<div class="row ">
-					<div class="col-lg-6 text-center text-lg-left">
-					    <div class="portfolio-menu">
-							<ul>
-								<li data-filter="*" class="active" onclick=\'checkAjax("All")\'>All</li>
-								<li data-filter=".movie" onclick=\'checkAjax("movie")\'>Movies</li>
-								<li data-filter=".tvshow" onclick=\'checkAjax("tvshow")\'>TV Shows</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<hr />
-				
-	';
-        $search = mysqli_real_escape_string($conn, $_POST['search']);
-        $search = trim($search);
-        $search = strip_tags($search);
-        $search = htmlspecialchars($search);
-        $query = "SELECT content.Trailer, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
-        FROM content
-        JOIN director ON content.ID = director.ID
-        JOIN studio ON content.ID = studio.ID
-        JOIN genre ON content.ID = genre.ID
-        where content.Title like '%{$search}%'
-        GROUP BY content.ID";
+    ?><section class="portfolio-area pt-60">
+        <div class="container">
+            <div class="row ">
+                <div class="col-lg-6 text-center text-lg-left">
+                    <div class="portfolio-menu">
+                        <ul><a href="results.php?search=<?php echo $search ?>">
+                                <li <?php if (!isset($_GET['type']) || $_GET['type'] === '') {
+                                        echo 'class="active"';
+                                    } ?>>
+                                    All
+                                </li>
+                            </a><a href="results.php?type=movie&search=<?php echo $search ?>">
+                                <li <?php if (isset($_GET['type']) && $_GET['type'] === 'movie') {
+                                        echo 'class="active"';
+                                    } ?>>
+                                    Movies
+                            </a><a href="results.php?type=tv show&search=<?php echo $search ?>">
+                                <li <?php if (isset($_GET['type']) && $_GET['type'] === 'tv show') {
+                                        echo 'class="active"';
+                                    } ?>>
+                                    TV Shows
+                                </li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr />
 
-        $result = mysqli_query($conn, $query);
+            <div class="grid-container" id="contentContainer">
+                <?php
+                if (mysqli_num_rows($result) > 0) {
 
-        echo '<div class="grid-container" id="contentContainer">';
-
-        if (mysqli_num_rows($result) > 0) {
-
-            while ($row = mysqli_fetch_array($result)) {
-                $title = $row['Title'];
-                $poster = $row['Cover'];
-                $id = $row['ID'];
-                $type = $row['Type'];
-                $genre = $row['Genre'];
-                echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
+                    while ($row = mysqli_fetch_array($result)) {
+                        $title = $row['Title'];
+                        $poster = $row['Cover'];
+                        $id = $row['ID'];
+                        $type = $row['Type'];
+                        $genre = $row['Genre'];
+                        echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
                     <div>
                         <div  class = "filmi">
                             <center>
@@ -167,54 +174,79 @@ include('connection.php');
                         </div>
                     </div>
                 </div>';
-            }
+                    }
 
-            echo '</div>';
-        } else {
-            echo '<h6 class=":text-danger text-center mt-3">No Movies or TV Shows found!</h6>';
-        }
-        echo '</div></section>';
-    }
-
-    ?>
-
-
-    <!-- footer section start -->
-    <?php include("footer.php"); ?>
-    <!-- footer section end -->
-    <!-- jquery main JS -->
-    <script src="assets/js/jquery.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <!-- Slick nav JS -->
-    <script src="assets/js/jquery.slicknav.min.js"></script>
-    <!-- owl carousel JS -->
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <!-- Popup JS -->
-    <script src="assets/js/jquery.magnific-popup.min.js"></script>
-    <!-- Isotope JS -->
-    <script src="assets/js/isotope.pkgd.min.js"></script>
-    <!-- main JS -->
-    <script src="assets/js/main.js"></script>
-
-    <?php
-    echo '<script type="text/javascript">
-            function checkAjax(type) {
-                $.ajax({
-                    url: "sortGenre.php?type="+type+"&search=' . $search . '",
-                    method: "GET",
-                    dataType: "html",
-                    success: function(data) {
-                    $("#contentContainer").html(data);
+                    echo '</div>';
+                } else {
+                    echo '<h6 class=":text-danger text-center mt-3">No Movies or TV Shows found!</h6>';
                 }
-      
-    });
-  };
+                echo '</div></section>';
+                ?>
+                <style>
+                .btn {
+                    background-color: #3a444f;
+                    border-width: 0;
+                }
 
+                .btn:hover,
+                .btn:active {
+                    background-color: transparent;
+                    border-width: 3px;
+                    border-color: white;
+                }
+                </style>
 
-    </script>';
+                <?php
+                if ($pages > 1) {
+                    echo '<section>
+    <center>
+         <div class="container">';
 
-    ?>
+                    if (isset($_GET['type'])) {
+                        $type = $_GET['type'];
+                        for ($i = 1; $i <= $pages; $i++) {
+                            echo '<a style = "margin-right: 5px;" class = "btn btn-primary btn-lg';
+                            if ($i != $page) {
+                                echo 'btn-floating"';
+                            } else {
+                                echo '"';
+                            }
+                            echo 'href="results.php?page=' . $i . '&type=' . $type . '&search=' . $search . '">' . $i . '</a>';
+                        }
+                    } else {
+                        for ($i = 1; $i <= $pages; $i++) {
+                            echo '<a style = "margin-right: 5px;" class = "btn btn-primary btn-lg';
+                            if ($i != $page) {
+                                echo 'btn-floating"';
+                            } else {
+                                echo '"';
+                            }
+                            echo 'href="results.php?page=' . $i . '&search=' . $search . '">' . $i . '</a>';
+                        }
+                    }
+                    echo '</div>
+    <center>
+     </section>';
+                } ?>
+
+                <!-- footer section start -->
+                <?php include("footer.php"); ?>
+                <!-- footer section end -->
+                <!-- jquery main JS -->
+                <script src="assets/js/jquery.min.js"></script>
+                <!-- Bootstrap JS -->
+                <script src="assets/js/bootstrap.min.js"></script>
+                <!-- Slick nav JS -->
+                <script src="assets/js/jquery.slicknav.min.js"></script>
+                <!-- owl carousel JS -->
+                <script src="assets/js/owl.carousel.min.js"></script>
+                <!-- Popup JS -->
+                <script src="assets/js/jquery.magnific-popup.min.js"></script>
+                <!-- Isotope JS -->
+                <script src="assets/js/isotope.pkgd.min.js"></script>
+                <!-- main JS -->
+                <script src="assets/js/main.js"></script>
+
 </body>
 
 </html>

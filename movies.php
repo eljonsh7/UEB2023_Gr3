@@ -1,7 +1,8 @@
 <?php
 
 include('connection.php');
-$type = "movie";
+$searchCondition = "";
+$type = "'movie'";
 include('pagination.php');
 
 ?>
@@ -35,18 +36,6 @@ include('pagination.php');
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
     <style>
-        .btn {
-            background-color: #3a444f;
-            border-width: 0;
-        }
-
-        .btn:hover,
-        .btn:active {
-            background-color: transparent;
-            border-width: 3px;
-            border-color: white;
-        }
-
         .movies {
 
             color: #00d9e1;
@@ -136,27 +125,27 @@ include('pagination.php');
                 <div class="col-lg-6 text-center text-lg-left">
                     <div class="portfolio-menu">
                         <ul><a href="movies.php">
-                                <li data-filter="*" <?php if (!isset($_GET['genre']) || $_GET['genre'] === '') {
-                                                        echo 'class="active"';
-                                                    } ?>>
+                                <li <?php if (!isset($_GET['genre']) || $_GET['genre'] === '') {
+                                        echo 'class="active"';
+                                    } ?>>
                                     All
                                 </li>
                             </a><a href="movies.php?genre=action">
-                                <li data-filter=".Action" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'action') {
-                                                                echo 'class="active"';
-                                                            } ?>>
+                                <li <?php if (isset($_GET['genre']) && $_GET['genre'] === 'action') {
+                                        echo 'class="active"';
+                                    } ?>>
                                     Action
                                 </li>
                             </a><a href="movies.php?genre=drama">
-                                <li data-filter=".Drama" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'drama') {
-                                                                echo 'class="active"';
-                                                            } ?>>
+                                <li <?php if (isset($_GET['genre']) && $_GET['genre'] === 'drama') {
+                                        echo 'class="active"';
+                                    } ?>>
                                     Drama
                                 </li>
                             </a> <a href="movies.php?genre=crime">
-                                <li data-filter=".Crime" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'crime') {
-                                                                echo 'class="active"';
-                                                            } ?>>
+                                <li <?php if (isset($_GET['genre']) && $_GET['genre'] === 'crime') {
+                                        echo 'class="active"';
+                                    } ?>>
                                     Crime
                                 </li>
                             </a>
@@ -199,36 +188,9 @@ include('pagination.php');
         </div>
     </section><!-- portfolio section end -->
     <?php
-    if ($pages > 1) {
-        echo '<section>
-        <center>
-             <div class="container">';
-
-        if (isset($_GET['genre'])) {
-            for ($i = 1; $i <= $pages; $i++) {
-                echo '<a style = "margin-right: 5px;" class = "btn btn-primary btn-lg';
-                if ($i != $page) {
-                    echo 'btn-floating"';
-                } else {
-                    echo '"';
-                }
-                echo 'href="movies.php?page=' . $i . '&genre=' . $genreGET . '">' . $i . '</a>';
-            }
-        } else {
-            for ($i = 1; $i <= $pages; $i++) {
-                echo '<a style = "margin-right: 5px;" class = "btn btn-primary btn-lg';
-                if ($i != $page) {
-                    echo 'btn-floating"';
-                } else {
-                    echo '"';
-                }
-                echo 'href="movies.php?page=' . $i . '">' . $i . '</a>';
-            }
-        }
-        echo '</div>
-        <center>
-         </section>';
-    } ?>
+    $site = 'movies';
+    include('paginationNumbers.php');
+    ?>
     <!-- video section start -->
     <section class="video ptb-90">
         <div class="container">
@@ -313,20 +275,6 @@ include('pagination.php');
     <script src="assets/js/isotope.pkgd.min.js"></script>
     <!-- main JS -->
     <script src="assets/js/main.js"></script>
-
-    <script type="text/javascript">
-        function checkAjax(Genre, Page) {
-            $.ajax({
-                url: 'sortGenre.php?type=movie&genre=' + Genre + '&page=' + Page,
-                method: 'GET',
-                dataType: 'html',
-                success: function(data) {
-                    $('#contentContainer').html(data);
-                }
-
-            });
-        };
-    </script>
 </body>
 
 </html>
