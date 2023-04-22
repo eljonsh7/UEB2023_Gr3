@@ -1,4 +1,4 @@
-<?php $results_per_page = 4;
+<?php $results_per_page = 8;
 if (isset($_GET["page"])) {
     $page = $_GET["page"];
 } else {

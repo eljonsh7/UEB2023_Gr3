@@ -469,7 +469,7 @@
                         <h2>' . $title . '</h2>
                         <p>' . substr($content, 0, 50) . '</p>
                     </div>
-                    <a href="#">Read More</a>
+                    <a href="blog-details.php?id=' . $row1['ID'] . '">Read More</a>
                 </div>';
                 }
                 ?>

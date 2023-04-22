@@ -14,8 +14,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>FlixFeast</title>
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
     <link href="assets/css2/nucleo-icons.css" rel="stylesheet" />
     <link href="assets/css2/nucleo-svg.css" rel="stylesheet" />
@@ -29,37 +28,37 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
     <style>
-    .table td,
-    .table th {
-        white-space: normal;
-    }
-
-    .form-control {
-        background-color: #2e3757;
-        padding: 5px;
-    }
-
-    .form-group {
-        width: 600px;
-    }
-
-
-
-
-    @media (min-width: 768px) {
-        .col-md-6 {
-            flex: 0 0 auto;
-            width: 100%;
+        .table td,
+        .table th {
+            white-space: normal;
         }
-    }
 
-    body {
-        overflow-x: hidden;
-    }
+        .form-control {
+            background-color: #2e3757;
+            padding: 5px;
+        }
 
-    p {
-        overflow: auto;
-    }
+        .form-group {
+            width: 600px;
+        }
+
+
+
+
+        @media (min-width: 768px) {
+            .col-md-6 {
+                flex: 0 0 auto;
+                width: 100%;
+            }
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        p {
+            overflow: auto;
+        }
     </style>
 </head>
 
@@ -165,8 +164,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     ?>
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
-            data-scroll="true">
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -657,7 +655,6 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
             <div>
                 <div id="viewDetails" style="width:50%;margin-left:5%;">
                     <p id="title" class="details"><b>Title: </b><br>' . $row['Title'] . '</p>
-                    <p id="id" class="details"><b>Author ID: </b><br>' . $row['AuthorID'] . '</p>
                     <p id="content" class="details"><b>Content: </b><br>' . $row['Content'] . '</p>
                     <p id="image" class="details"><b>Image URL: </b><br>' . $row['Image'] . '</p>
                 </div>
@@ -679,8 +676,6 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                             <label for="title">Title:</label>
                             <input class="form-control" value="' . $row['Title'] . '" type="text" id="title" placeholder="Title" name="title"><br>
 
-                            <label for="id">Author ID:</label>
-                            <input class="form-control" value="' . $row['AuthorID'] . '" type="text" id="id" placeholder="Author ID" name="id"><br>
 
                             <label for="content">Content:</label>
                             <textarea class="form-control" id="content" placeholder="Content" name="content" style="color:black;" maxlength="1000">' . $row['Content'] . '</textarea><br>
@@ -708,28 +703,29 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                 // check which form was submitted
                 // get the form data
                 $title = new input($_POST['title'], "title");
-                $id = new input($_POST['id'], "id");
                 $content = new input($_POST['content'], "content");
                 $image = new input($_POST['image'], "image");
 
-                $inputsBlog = [$title, $id, $content, $image];
+                $inputsBlog = [$title, $content, $image];
                 $temp = false;
                 for ($i = 0; $i < sizeof($inputsBlog); $i++) {
                     if (empty($inputsBlog[$i]->value)) {
                         echo '<script>document.getElementById("' . $inputsBlog[$i]->id . '").style.border="2px solid red";</script>';
                         $temp = true;
                     } else {
+                        echo 'What';
                         echo '<script>document.getElementById("' . $inputsBlog[$i]->id . '").value="' . $inputsBlog[$i]->value . '";</script>';
                     }
                     if (($i == sizeof($inputsBlog) - 1) && $temp == true) {
+
                         echo '<script>document.getElementById("detailsWarning").style.display="inline";</script>';
                     }
                 }
                 if ($temp == false) {
                     // edit the data in the shows table
-                    $sql = "UPDATE blogs SET Title=?, AuthorID=?,Content=?, Image=? WHERE ID=?";
+                    $sql = "UPDATE blogs SET Title=?,Content=?, Image=? WHERE ID=?";
                     $stmt = mysqli_prepare($conn, $sql);
-                    mysqli_stmt_bind_param($stmt, "ssssd", $title->value, $id->value, $content->value, $image->value, $ID);
+                    mysqli_stmt_bind_param($stmt, "sssd", $title->value, $content->value, $image->value, $ID);
                     mysqli_stmt_execute($stmt);
                     echo '<script>window.location.href = "editDetails.php?detailsID=' . $ID . '&type=Blogs&mode=info";</script>';
                 }

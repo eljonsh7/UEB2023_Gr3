@@ -1,3 +1,34 @@
+<?php
+include('connection.php');
+$id = $_GET['id'];
+$sql = "SELECT * FROM blogs where id ='$id' ";
+$sql1 = "SELECT users.Photo as Photo, users.Firstname as Name, users.Lastname as Surname FROM blogs
+        join users
+        on blogs.AuthorID = users.ID
+        where blogs.ID ='$id'";
+
+
+$result = mysqli_query($conn, $sql);
+$result1 = mysqli_query($conn, $sql1);
+
+$row = mysqli_fetch_array($result);
+$row1 = mysqli_fetch_array($result1);
+
+$profilePic = $row1['Photo'];
+$authorName = $row1['Name'] . $row1['Surname'];
+
+$title = $row['Title'];
+$date = $row['UpdatedAt'];
+$content = $row['Content'];
+$image = $row['Image'];
+$year = date("Y", strtotime($date));
+$month = date("m", strtotime($date));
+$day = date("d", strtotime($date));
+$monthName = date('F', mktime(0, 0, 0, $month, 1));
+
+
+?>
+
 <!DOCTYPE HTML>
 <html lang="zxx">
 
@@ -7,7 +38,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Moviepoint - Online Movie,Vedio and TV Show HTML Template</title>
     <!-- Favicon Icon -->
-    <link rel="icon" type="image/png" href="assets/img/favcion.png" />
+    <link rel="icon" type="image/png" href="assets/img/logo2.png" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" media="all" />
     <!-- Slick nav CSS -->
@@ -53,26 +84,23 @@
                         <div class="single-news">
                             <div class="news-bg-1"></div>
                             <div class="news-date">
-                                <h2><span>NOV</span> 25</h2>
-                                <h1>2017</h1>
+                                <?php
+                                echo '
+                                <h2><span>' . $monthName . '</span>' . $day . '</h2>
+                                <h1>' . $year . '</h1>';
+                                ?>
                             </div>
                         </div>
-                        <h2>Transformers: The Last Knight</h2>
-                        <a href="#"><i class="icofont icofont-users"></i>Animation, Movie, Action, Sci-Fi</a>
+                        <h2><?php echo $title; ?></h2>
                         <a href="#"><i class="icofont icofont-comment"></i>1k Comments</a>
-                        <p>Humans are at war with the Transformers, and Optimus Prime is gone. The key to saving the
-                            future lies buried in the secrets of the past and the hidden history of Transformers on
-                            Earth. Now it's up to the unlikely alliance of inventor Cade Yeager, Bumblebee, an English
-                            lord and an Oxford professor to save the world. Transformers: The Last Knight has a deeper
-                            mythos and bigger spectacle than its predecessors, yet still ends up being mostly hollow and
-                            cacophonous. The first "Transformers" movie that could actually be characterized as badass.
-                            Which isn't a bad thing. It may, in fact, be better.</p>
+                        <p><?php echo $content; ?></p>
                         <div class="detail-author">
                             <div class="row flexbox-center">
                                 <div class="col-lg-6 text-lg-left text-center">
                                     <div class="details-author">
                                         <h4>By Admin:</h4>
-                                        <img src="assets/img/author.png" alt="" />
+                                        <img src="<?php echo $profilePic ?>" alt="" class="rounded-circle" style="width: 50px; height: 50px;">
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 text-lg-right text-center">
@@ -167,25 +195,10 @@
                             <li><a href="#">admin on The Man</a></li>
                             <li><a href="#">admin on WP Devil</a></li>
                         </ul>
-                        <h4>Categories</h4>
-                        <ul>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Feature</a></li>
-                            <li><a href="#">Media</a></li>
-                            <li><a href="#">Movie</a></li>
-                            <li><a href="#">Trailers_video</a></li>
-                            <li><a href="#">Uncategorized</a></li>
-                        </ul>
-                        <h4>Archives</h4>
-                        <ul>
-                            <li><a href="#">February 2018</a></li>
-                            <li><a href="#">January 2018</a></li>
-                            <li><a href="#">March 2018</a></li>
-                            <li><a href="#">April 2018</a></li>
-                        </ul>
-                        <div class="portfolio-sidebar">
+
+                        <!-- <div class="portfolio-sidebar">
                             <img src="assets/img/sidebar/sidebar1.png" alt="sidebar" />
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

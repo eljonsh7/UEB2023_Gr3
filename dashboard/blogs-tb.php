@@ -1,8 +1,8 @@
-<?php 
-    session_start();
-    if(!isset($_SESSION['admin']) || $_SESSION['admin']!= 1){
-        echo '<script>window.location.href = "../index.php";</script>';
-    }
+<?php
+session_start();
+if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
+    echo '<script>window.location.href = "../index.php";</script>';
+}
 ?>
 
 <!DOCTYPE html>
@@ -148,15 +148,31 @@
                                 $start_from = ($page - 1) * $results_per_page;
                                 if (isset($_GET['search'])) {
                                     $search = $_GET['search'];
-                                    $sql = "SELECT * FROM `blogs` WHERE Title like '%{$search}%' LIMIT $start_from, $results_per_page";
-                                    $sql1 = "SELECT * FROM `blogs` WHERE Title like '%{$search}%'";
+                                    $sql = "SELECT b.*, u.firstname AS name, u.lastname AS surname
+                                    FROM blogs b
+                                    INNER JOIN users u ON b.AuthorID = u.ID
+                                    WHERE b.Title like '%{$search}%' 
+                                    LIMIT $start_from, $results_per_page";
+
+                                    $sql1 = "SELECT b.*, u.firstname AS name, u.lastname AS surname
+                                    FROM blogs b
+                                    INNER JOIN users u ON b.AuthorID = u.ID
+                                    WHERE b.Title like '%{$search}%'";
+
                                     $result = mysqli_query($conn, $sql);
                                     $result1 = mysqli_query($conn, $sql1);
                                     $results_num = mysqli_num_rows($result1);
                                     $pages = ceil($results_num / $results_per_page);
                                 } else {
-                                    $sql = "SELECT * FROM `blogs` limit $start_from, $results_per_page";
-                                    $sql1 = "SELECT * FROM `blogs`";
+                                    $sql = "SELECT b.*, u.firstname AS name, u.lastname AS surname
+                                    FROM blogs b
+                                    INNER JOIN users u ON b.AuthorID = u.ID
+                                    limit $start_from, $results_per_page";
+
+                                    $sql1 = "SELECT b.*, u.firstname AS name, u.lastname AS surname
+                                    FROM blogs b
+                                    INNER JOIN users u ON b.AuthorID = u.ID;
+                                    ";
                                     $result = mysqli_query($conn, $sql);
                                     $result1 = mysqli_query($conn, $sql1);
                                     $results_num = mysqli_num_rows($result1);
@@ -189,9 +205,9 @@
 				<tr>
                     <th>Image</th>
 					<th>Title</th>
-					<th>ID</th>
+				
 					<th>Content</th>
-					<th>AuthorID</th>
+					<th>Author</th>
 					<th>CreatedAt</th>
 					<th>UpdatedAt</th>
                 
@@ -202,9 +218,9 @@
 				  			<tr>
                 <td><img src="' . $row['Image'] . '" height="70px" ></td>
 								<td><a href="editDetails.php?detailsID=' . $row['ID'] . '&type=Blogs&mode=info">' . $row['Title'] . '</a></td>
-								<td>' . $row['ID'] . '</td>
+								
 								<td>' . substr($row['Content'], 0, 40) . '</td>
-								<td>' . $row['AuthorID'] . '</td>
+								<td>' . $row['name'] . ' ' . $row['surname'] . '</td>
 								<td>' . $row['CreatedAt'] . '</td>
 								<td>' . $row['UpdatedAt'] . '</td>
 								<td><a href="blogs-tb.php?removeID=' . $row['ID'] . '&mode=remove" class = "btn btn-primary text-white">x</a></td>
