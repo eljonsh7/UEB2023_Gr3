@@ -205,54 +205,23 @@ include('pagination.php');
             <div class="row">
                 <div class="col-md-12">
                     <div class="video-slider mt-20">
-                        <div class="video-area">
-                            <img src="assets/img/video/video2.png" alt="video" />
-                            <a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-                                <i class="icofont icofont-ui-play"></i>
+                        <?php
+                        $sql = "SELECT * from content where type = 'movie'";
+                        $result = mysqli_query($conn, $sql);
+                        while ($row1 = mysqli_fetch_array($result)) {
+                            $youtube_link = $row1['Trailer'];
+
+                            $video_id = substr(parse_url($youtube_link, PHP_URL_QUERY), 2);
+
+                            $thumbnail_url = "https://img.youtube.com/vi/{$video_id}/maxresdefault.jpg";
+                            echo '<div class = "col-md-16"> 
+                            <a href="' . $youtube_link . '" class="popup-youtube">
+                            <img src="' . $thumbnail_url . '" alt="video" />
                             </a>
-                        </div>
-                        <div class="video-area">
-                            <img src="assets/img/video/video3.png" alt="video" />
-                            <a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-                                <i class="icofont icofont-ui-play"></i>
-                            </a>
-                        </div>
-                        <div class="video-area">
-                            <img src="assets/img/video/video4.png" alt="video" />
-                            <a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-                                <i class="icofont icofont-ui-play"></i>
-                            </a>
-                        </div>
-                        <div class="video-area">
-                            <img src="assets/img/video/video5.png" alt="video" />
-                            <a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-                                <i class="icofont icofont-ui-play"></i>
-                            </a>
-                        </div>
-                        <div class="video-area">
-                            <img src="assets/img/video/video2.png" alt="video" />
-                            <a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-                                <i class="icofont icofont-ui-play"></i>
-                            </a>
-                        </div>
-                        <div class="video-area">
-                            <img src="assets/img/video/video3.png" alt="video" />
-                            <a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-                                <i class="icofont icofont-ui-play"></i>
-                            </a>
-                        </div>
-                        <div class="video-area">
-                            <img src="assets/img/video/video4.png" alt="video" />
-                            <a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-                                <i class="icofont icofont-ui-play"></i>
-                            </a>
-                        </div>
-                        <div class="video-area">
-                            <img src="assets/img/video/video5.png" alt="video" />
-                            <a href="https://www.youtube.com/watch?v=RZXnugbhw_4" class="popup-youtube">
-                                <i class="icofont icofont-ui-play"></i>
-                            </a>
-                        </div>
+                        </div>';
+                        }
+                        ?>
+
                     </div>
                 </div>
             </div>

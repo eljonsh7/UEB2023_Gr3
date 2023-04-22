@@ -1,10 +1,10 @@
-<?php 
+<?php
 
-    session_start();
+session_start();
 
-    if(!isset($_SESSION['admin']) || $_SESSION['admin']!= 1){
-        echo '<script>window.location.href = "../index.php";</script>';
-    }
+if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
+    echo '<script>window.location.href = "../index.php";</script>';
+}
 
 
 ?>
@@ -33,7 +33,8 @@
     <link id="pagestyle" href="assets/css2/material-dashboard.css?v=3.0.5" rel="stylesheet" />
     <!-- Nepcha Analytics (nepcha.com) -->
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
-    <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+    <script defer data-site="http://localhost/Projekti/UEB2023_Gr3/index.php"
+        src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         var element = document.getElementById("dashboard");

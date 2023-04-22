@@ -1,8 +1,8 @@
-<?php 
-    session_start();
-    if(!isset($_SESSION['admin']) || $_SESSION['admin']!= 1){
-        echo '<script>window.location.href = "../index.php";</script>';
-    }
+<?php
+session_start();
+if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
+    echo '<script>window.location.href = "../index.php";</script>';
+}
 ?>
 
 <!DOCTYPE html>
@@ -161,7 +161,6 @@
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
 
-    $genreArray = explode(", ", $row['Genre']);
 
     ?>
 
@@ -210,6 +209,7 @@
         }
 
         if ($_GET['type'] == "Movie" && $_GET['mode'] == "info") {
+
             echo '
             <div style = "display:flex;margin-left:3%;margin-top:3%;" >
             <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
@@ -233,6 +233,8 @@
             </div>
         ';
         } else if ($_GET['type'] == "Movie" && $_GET['mode'] == "edit") {
+
+            $genreArray = explode(", ", $row['Genre']);
             echo '
             <div style = "display:flex; margin-left:3%;margin-top:3%;">
                 <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
@@ -358,13 +360,13 @@
                 //     $new_img_name = $_POST['coverHidden'];
                 // }
                 // get the form data
-                $title = new input(mysqli_real_escape_string($conn, $_POST['title']), "title");
+                $title = new input($_POST['title'], "title");
                 $date = new input(mysqli_real_escape_string($conn, $_POST['date']), "date");
                 $rating = new input(mysqli_real_escape_string($conn, $_POST['rating']), "rating");
                 $cover = new input(mysqli_real_escape_string($conn, $_POST['cover']), "cover");
                 $trailer = new input(mysqli_real_escape_string($conn, $_POST['trailer']), "trailer");
                 $director = new input(mysqli_real_escape_string($conn, $_POST['director']), "director");
-                $studio = new input(mysqli_real_escape_string($conn, $_POST['studio']), "studio");
+                $studio = new input($_POST['studio'], "studio");
                 $description = new input(mysqli_real_escape_string($conn, $_POST['description']), "description");
                 $length = new input(mysqli_real_escape_string($conn, $_POST['length']), "length");
                 $genre = new input(isset($_POST['genre']) ? $_POST['genre'] : [], "genre");
@@ -440,6 +442,8 @@
             </div>
         ';
         } else if ($_GET['type'] == "Show" && $_GET['mode'] == "edit") {
+
+            $genreArray = explode(", ", $row['Genre']);
             echo '
             <div style = "display:flex;margin-left:3%;margin-top:3%;" >
                 <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
@@ -719,14 +723,6 @@
                     }
                     if (($i == sizeof($inputsBlog) - 1) && $temp == true) {
                         echo '<script>document.getElementById("detailsWarning").style.display="inline";</script>';
-                    }
-                }
-                if (sizeof($genre->value) == 0) {
-                    echo '<script>document.getElementById("genres").style.border="2px solid red";</script>';
-                    $temp = true;
-                } else {
-                    foreach ($genre->value as $genreValue) {
-                        echo '<script>document.getElementById("' . $genreValue . '").checked=true;</script>';
                     }
                 }
                 if ($temp == false) {

@@ -28,7 +28,7 @@
 <header class="header" id="header" style="background-color: rgba(18,21,30, 0.9)">
     <div class="container">
         <div class="header-area">
-            <div class="logo">
+            <div class="img-fluid logo">
                 <a href="index.php"><img src="assets/img/logo.png" alt="logo" /></a>
             </div>
 

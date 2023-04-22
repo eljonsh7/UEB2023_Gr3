@@ -1,8 +1,8 @@
-<?php 
-    session_start();
-    if(!isset($_SESSION['admin']) || $_SESSION['admin']!= 1){
-        echo '<script>window.location.href = "../index.php";</script>';
-    }
+<?php
+session_start();
+if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
+    echo '<script>window.location.href = "../index.php";</script>';
+}
 ?>
 
 
@@ -140,7 +140,7 @@
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addForm'])) {
             $title = new input($_POST['title'], "title");
             $id = new input($_POST['id'], "id");
-            $content = new input($_POST['content'], "content");
+            $content = new input(mysqli_real_escape_string($conn, $_POST['content']), "content");
             $image = new input($_POST['image'], "image");
             $inputs = [$title, $id, $content, $image];
             $temp = false;
