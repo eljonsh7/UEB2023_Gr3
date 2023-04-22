@@ -1,9 +1,14 @@
+<?php 
+    if(!isset($_GET['mode'])){
+        echo '<script>window.location.href = "user.php?mode=info";</script>';
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="icon" type="image/png" href="assets/img/logo2.png" />
 	<link rel="icon" type="image/png" href="assets/img/logo2.png" />
     <!-- Bootstrap CSS -->
@@ -23,20 +28,46 @@
 
 	<title>Edit Profile</title>
 	<style>
-		input.field, input.field {
-			border: 1px solid gray;
-			border-radius: 5px;
+		img.cover1 {
+			height: 100%;
+		}
+		h2 > a {
+			text-decoration: underline;
+		}
+		h2 > a:hover {
+			color: #007bff;
+			text-decoration: underline;
+		}
+		#edit:hover, #editpic:hover {
+			background-color: #007bff;
 			color: white;
+		}
+		#edit, #editpic {
+			background-color: black;
+			color: white;
+		}
+		.edit {
+			margin: 0 5%;
+			width: = 200%;
+		}
+		.details, .btn {
+			margin: 3%
+		}
+		.modal p {
+			margin-top: 0;
+			margin-bottom: 1em;
+			text-align: center;
+		}
+
+		input.f1  {
+			color: black;
 			margin-bottom: 25px;
+			width: 200%;
+			border-color: white;
 		}
 
 		.home {
 			color: #00d9e1;
-		}
-
-		.img-wrapper {
-			width: 100%;
-			overflow: hidden;
 		}
 
 		div.portfolio-content>h2 {
@@ -166,40 +197,131 @@
 	<div id="preloader"></div>
     <!-- header section start -->
     <?php include("header.php"); ?>
-	<br><br><br><br><br><br>
+	
+	<?php
+		$stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE ID = ?");
+		mysqli_stmt_bind_param($stmt, 'd', $_SESSION['user']);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+		$user = mysqli_fetch_assoc($result);
+		if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true) {
+			if (isset($_GET['mode']) && $_GET['mode'] == 'info') {
+				echo '
+				<div style = "display:flex;margin-left:10%;margin-top:10%;" >
+					<img src="' . $user['Photo'] . '" alt="' . $user['Username'] . '" width="300px" height="350px" class="cover1"/>
+					<div style="width:100%;margin-left:5%;>
+						<div id="viewDetails" style="width:50%;margin-left:5%;">
+							<p id="firstname" class="details"><b>First Name:</b> <br>' . $user['Firstname'] . '</p>
+							<p id="lastname" class="details"><b>Last Name:</b> <br>' . $user['Lastname'] . '</p>
+							<p id="birthdate" class="details"><b>Birthdate:</b> <br>' . $user['Birthdate'] . '</p>
+							<p id="username" class="details"><b>Username:</b> <br>' . $user['Username'] . '</p>
+							<p id="email" class="details"><b>Email: </b><br>' . $user['Email'] . '</p>'.
+							//<a class="btn btn-warning" href="user.php?mode=edit">Edit</a>
+						'</div>
+					</div>
+				</div>';
+			} else if (isset($_GET['mode']) && $_GET['mode'] == 'edit') {
+				echo '<br><br><br>
+				<div style = "display:flex; justify-content:center; margin:8%;">
+					<div class="cover" style="display:block;">
+						<img src="' . $user['Photo'] . '" alt="' . $user['Username'] . '" width="300px" class="cover"/>
+						<form method="post" action="user.php?mode=info" enctype="multipart/form-data">
+							<input type="hidden" name="photo" value="1">
+							<div class="form-group">
+								<br>
+								<label for="file">Change Photo:</label>
+								<input class="form-control f1 text-white bg-dark" type="file" id="image" name="image" required style="width: 82%;">
+							</div>
+							<div class="form-group">
+								<input class="btn btn-primary" type="submit" value="Change Photo" name="photo" id="editpic">
+							</div>
+						</form>
+					</div>
+					<div class="edit" id="movieadd">
+						<div class="col-md-6" style="display: flex; justify-content: center;">
+							<form id="movie-add" method="post" enctype="multipart/form-data">
+								<h2 style="width: 200%;">Edit Profile or <a href="user.php?mode=info">Go Back</a></h2>
+								<input type="hidden" name="edit" value="submitted">
+								<div class="form-group">
+									<label for="firstname">First Name:</label>
+									<input class="form-control f1 text-white bg-dark" value="' . $user['Firstname'] . '" type="text" id="firstname" placeholder="Firstname:" required name="firstname">
+								</div>
+								<div class="form-group">
+									<label for="lastname">Last Name:</label>
+									<input class="form-control f1 text-white bg-dark" value="' . $user['Lastname'] . '" type="text" id="lastname" placeholder="Lastname:" required name="lastname">
+								</div>
+								<div class="form-group">
+									<label for="username">Usrname:</label>
+									<input class="form-control f1 text-white bg-dark" value="' . $user['Username'] . '" type="text" id="username" placeholder="Username:" required name="username">
+								</div>
+								<div class="form-group">
+									<label for="birthdate">Birthdate:</label>
+									<input class="form-control f1 text-white bg-dark" value="' . $user['Birthdate'] . '" type="date" id="birthdate" placeholder="Birthdate:" required name="birthdate">
+								</div>
+								<div class="form-group">
+									<label for="email">Email:</label>
+									<p id="email" class="details">' . $user['Email'] . '</p>
+								</div>
 
-	<div class="container d-flex justify-content-center align-items-center vh-100">
-		<div class="user-box" style="width: 60%;">
-			<h2 style="color: white;">Edit Profile</h2><br><br>
-			<form method="post">
-			<input type="hidden" name="signUpForm" value="1">
-			<div class="form-group">
-				<label for="username-field">USERNAME</label>
-				<input type="text" id="username-field" name="username-field" class="form-control border" required />
-			</div>
-			<div class="form-group">
-				<label for="email-field">EMAIL ADDRESS</label>
-				<input type="email" id="email-field" name="email-field" class="form-control border" required />
-			</div>
-			<div class="form-group">
-				<label for="password-field">NEW PASSWORD</label>
-				<input type="password" id="password-field" name="password-field" class="form-control border" required onkeyup="verifyPassword()" />
-				<p id="all" style="display: none; justify-content: center; color: white;">Password must contain at least one capital letter, one digit and must be at least 8 characters long!</p>
-			</div>
-			<div class="form-group">
-				<label for="password-field2">CONFIRM PASSWORD</label>
-				<input type="password" id="password-field2" name="password-field2" class="form-control border" required onkeyup="verifyPassword()" />
-				<p id="isItSame" style="display: none; justify-content: center;">Passwords don't match</p>
-			</div>
-			<div class="form-group form-check">
-				<input type="checkbox" class="form-check-input" />
-				<label class="form-check-label" for="remember-me">Remember Me</label>
-			</div>
-			<button class="btn btn-primary" id="sign-up" disabled>Update</button>
-			<button class="btn btn-danger" id="sign-up" disabled>Delete Account</button>
-			</form>
-		</div>
-	</div>
+								<div class="form-group">
+									<input class="btn btn-primary" type="submit" value="Edit Profile" name="edit" id="edit">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>';
+			}
+		} else {
+			echo '<a href="#">Profile <i class="icofont icofont-simple-down"></i></a>
+						<ul>
+							<li><a href="" class="signup-popup">Log in</a></li>
+							<li><a href="" class="login-popup">Sign up</a></li>
+						</ul>';
+		}
+	?>
+	<?php
+		if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['photo'])){
+			$image_name = $user['Username'];
+			$tmp_name = $_FILES['image']['tmp_name'];
+			$folder = "assets/img/user_pic/";
+			$path = $folder . $image_name;
+			
+			$check = getimagesize($tmp_name);
+
+			if($check) {
+				move_uploaded_file($tmp_name, $path);
+				$stmt = mysqli_prepare($conn, "UPDATE users SET Photo = ? WHERE ID = ?");
+				mysqli_stmt_bind_param($stmt, 'ss', $path, $_SESSION['user']);
+				mysqli_stmt_execute($stmt);
+			}
+		}
+
+		if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
+			$firstname = $_POST['firstname'];
+			$lastname = $_POST['lastname'];
+			$birthdate = $_POST['birthdate'];
+			$username = $_POST['username'];
+
+			$stmt1 = mysqli_prepare($conn, "SELECT * FROM users WHERE Username = ?");
+			mysqli_stmt_bind_param($stmt1, 's', $username);
+			mysqli_stmt_execute($stmt1);
+			$result1 = mysqli_stmt_get_result($stmt1);
+			$user1 = mysqli_fetch_assoc($result1);
+			
+
+			if (mysqli_num_rows($result1) > 0) {
+				if($user['ID'] == $user1['ID']){
+					$sql = "UPDATE users SET Firstname=?, Lastname=?, Birthdate=?, Username=? WHERE ID=?";
+					$stmt = mysqli_prepare($conn, $sql);
+					mysqli_stmt_bind_param($stmt, "sssss", $firstname, $lastname, $birthdate, $username, $_SESSION['user']);
+					mysqli_stmt_execute($stmt);
+				}
+			}
+
+			echo '<script>window.location.href = "user.php?mode=info";</script>';
+		}
+	?>
+
 
 
 	<?php include("footer.php"); ?>
@@ -226,13 +348,6 @@
 		mysqli_stmt_bind_param($stmt, 's', $_SESSION['user']);
 		mysqli_stmt_execute($stmt);
 		$result = mysqli_stmt_get_result($stmt);
-
-		// if(mysqli_num_rows($result) > 0) {
-		// 	echo "<script>
-		// 		document.getElementByID('username-field').value = " . $result['Username'] . ";
-		// 		document.getElementByID('email-field').value = " . $result['email'] . ";
-		// 	</script>";
-		// }
 
 		if (!$conn) {
 			die("Connection failed: " . mysqli_connect_error());
@@ -274,14 +389,6 @@
 			}
 		}
 	?> 
-
-	<script>
-		document.getElementByID("username-field").value = ;
-		document.getElementByID("email-field").value = ;
-		document.getElementByID("password-field").value = ;
-		document.getElementByID("password-field2").value = ;
-	</script>
-
 </body>
 
 </html>

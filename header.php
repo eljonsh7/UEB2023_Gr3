@@ -43,9 +43,9 @@
                         <li>
                             <?php
                             if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true) {
-                                echo '<a href="#">Profile <i class="icofont icofont-simple-down"></i></a>
+                                echo '<a href="user.php?mode=info">Profile <i class="icofont icofont-simple-down"></i></a>
                                             <ul>
-                                                <li><a href="user.php">Edit</a></li>';
+                                                <li><a href="user.php?mode=edit">Edit</a></li>';
                                 if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                                     echo '<li><a class="dashboard" href="dashboard/dashboard.php" target="_blank">Dashboard</a></li>';
                                 }
@@ -131,6 +131,7 @@
         <h2 style="color: white;">LOG IN</h2>
         <form method="post" style="color: white;">
             <input type="hidden" name="logInForm" value="1">
+            <div role="alert" class="alert alert-danger" id="warn" style="display: none;">Email or password is invalid.</div>
             <h6 style="color: white;">EMAIL ADDRESS</h6>
             <input type="text" id="email-field-login" name="email-field-login" style="color: white;" />
             <h6 style="color: white;">PASSWORD</h6>
@@ -289,47 +290,34 @@ if (isset($_GET['activation_token'])) {
 }
 ?>
 <?php
-if (isset($_POST['logInForm'])) {
-    $email = $_POST['email-field-login'];
-    $password = $_POST['password-field-login'];
+    if (isset($_POST['logInForm'])) {
+        $email = $_POST['email-field-login'];
+        $password = $_POST['password-field-login'];
 
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
-    $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE email = ?");
-    mysqli_stmt_bind_param($stmt, 's', $email);
-    mysqli_stmt_execute($stmt);
-
-    $result = mysqli_stmt_get_result($stmt);
-
-    if (mysqli_num_rows($result) == 1) {
-        $user = mysqli_fetch_assoc($result);
-        if ($password == $user['Password']) {
-            $_SESSION['user_logged_in'] = true;
-            $_SESSION['user'] = $user['ID'];
-            $_SESSION['admin'] = $user['Admin'];
-            echo '<script>window.location.href = "index.php";</script>';
-        } else {
-            echo "<script>alert('Incorrect password');</script>";
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
         }
-    } else {
-        echo "<script>alert('User not found');</script>";
+
+        $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE email = ?");
+        mysqli_stmt_bind_param($stmt, 's', $email);
+        mysqli_stmt_execute($stmt);
+
+        $result = mysqli_stmt_get_result($stmt);
+
+        if (mysqli_num_rows($result) == 1) {
+            $user = mysqli_fetch_assoc($result);
+            if ($password == $user['Password']) {
+                $_SESSION['user_logged_in'] = true;
+                $_SESSION['user'] = $user['ID'];
+                $_SESSION['admin'] = $user['Admin'];
+                echo '<script>window.location.href = "index.php";</script>';
+            } else {
+                echo "<script>document.getElementById('warn').style = 'flex';</script>";
+            }
+        } else {
+            echo "<script>alert('User not found');</script>";
+        }
     }
-}
-?>
-<?php
-// function isAdmin(){
-//     $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE email = ?");
-//     mysqli_stmt_bind_param($stmt, 's', $_SESSION['user']);
-//     mysqli_stmt_execute($stmt);
-//     $result = mysqli_stmt_get_result($stmt);
-//     $user = mysqli_fetch_assoc($result);
-//     if ($user['Admin'] == 1){
-//         return true;
-//     } 
-//     return false;
-// }
 ?>
 <script>
 function verifyPassword() {
