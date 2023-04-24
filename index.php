@@ -59,6 +59,13 @@
         height: 597px !important;
     }
 
+    .soon{
+        margin:5px;
+    }
+
+    .soon img {
+        border-radius: 10px;
+    }
 
     @media screen and (min-width: 450px) {
         .imgScroll {
