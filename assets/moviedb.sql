@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Apr 23, 2023 at 01:56 AM
+-- Generation Time: Apr 24, 2023 at 01:22 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -234,6 +234,32 @@ INSERT INTO `studio` (`ID`, `Studio`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `temporary users`
+--
+
+CREATE TABLE `temporary users` (
+  `ID` int(16) NOT NULL,
+  `FirstName` varchar(20) NOT NULL,
+  `LastName` varchar(20) NOT NULL,
+  `Birthdate` date DEFAULT NULL,
+  `Username` varchar(15) DEFAULT NULL,
+  `Email` varchar(40) DEFAULT NULL,
+  `Password` varchar(255) DEFAULT NULL,
+  `Photo` varchar(50) NOT NULL,
+  `Admin` tinyint(4) NOT NULL DEFAULT 0,
+  `ActToken` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `temporary users`
+--
+
+INSERT INTO `temporary users` (`ID`, `FirstName`, `LastName`, `Birthdate`, `Username`, `Email`, `Password`, `Photo`, `Admin`, `ActToken`) VALUES
+(2147483647, '', '', '2003-11-07', '999BZ', 'blendizeqiri@hotmail.com', 'Milton77', '', 0, '333ea3993d79b824df44f0b3f652bc74353b132298f6bfc8c2b85fab4fc5a36a');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -290,6 +316,12 @@ ALTER TABLE `genre`
 -- Indexes for table `studio`
 --
 ALTER TABLE `studio`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `temporary users`
+--
+ALTER TABLE `temporary users`
   ADD PRIMARY KEY (`ID`);
 
 --

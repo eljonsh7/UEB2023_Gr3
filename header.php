@@ -1,5 +1,6 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <?php session_start(); ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
 <style>
     .header {
         position: fixed;
@@ -162,6 +163,8 @@
             <input style="color: white;" type="text" id="username-field" name="username-field" class="field input" required />
             <h6 style="color: white;">EMAIL ADDRESS</h6>
             <input style="color: white;" type="email" id="email-field" name="email-field" class="field input" required />
+            <h6 style="color: white;">BIRTHDATE</h6>
+            <input style="color: white;" type="date" id="birthdate-field" name="birthdate-field" class="field input" required />
             <h6 style="color: white;">PASSWORD</h6>
             <input style="color: white;" type="password" id="password-field" name="password-field" class="field input" required onkeyup="verifyPassword()" />
             <p id="all" style="display: none; justify-content: center; color: white;">Password must contain at least one
@@ -202,6 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
     $username = $_POST['username-field'];
     $email = $_POST['email-field'];
     $password = $_POST['password-field'];
+    $birthdate = $_POST['birthdate-field'];
 
     $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE email = ?");
     mysqli_stmt_bind_param($stmt, 's', $email);
@@ -214,9 +218,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
     $result1 = mysqli_stmt_get_result($stmt1);
 
     if (mysqli_num_rows($result) == 0 && mysqli_num_rows($result1) == 0) {
-        $message = bin2hex(random_bytes(32));
+        $token = bin2hex(random_bytes(32));
         $salt = bin2hex(random_bytes(16));
-        $hashed_token = hash('sha256', $message . $salt);
+        $hashed_token = hash('sha256', $token . $salt);
+
+        $salt2 = bin2hex(random_bytes(16));
+        $accountID = bin2hex(random_bytes(32));
+        $hashed_accID = hash('sha256', $accountID . $salt2);
+        $hashed_accountID = substr($hashed_accID,0,15);
 
         require_once("Services/config.php");
         require("Services/vendor/autoload.php");
@@ -225,6 +234,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
         $SGemail->setTemplateId("d-b86719bb7e9a4cafbd0ef38bd39bb15c");
         $SGemail->addDynamicTemplateData('username', $username);
         $SGemail->addDynamicTemplateData('actToken', $hashed_token);
+        $SGemail->addDynamicTemplateData('accountID', $hashed_accountID);
         $SGemail->addTo($email, "Example User");
         $sendgrid = new \SendGrid( SENDGRID_API_KEY );
         try {
@@ -232,12 +242,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
         } catch (Exception $e) {
             echo 'Caught exception: ' . $e->getMessage() . "\n";
         }
-        $tempInfo = fopen("tempReg.txt", "w");
-        fwrite($tempInfo, "Username: " . $username);
-        fwrite($tempInfo, "\nPassword: " . $password);
-        fwrite($tempInfo, "\nEmail: " . $email);
-        fwrite($tempInfo, "\nToken: " . $hashed_token);
-        fclose($tempInfo);
+        // $tempInfo = fopen("tempReg.txt", "w");
+        // fwrite($tempInfo, "Username: " . $username);
+        // fwrite($tempInfo, "\nPassword: " . $password);
+        // fwrite($tempInfo, "\nEmail: " . $email);
+        // fwrite($tempInfo, "\nToken: " . $hashed_token);
+        // fclose($tempInfo);
+        $stmt = $conn->prepare("INSERT INTO `temporary users` (ID,Birthdate, Username, Email, Password, ActToken) VALUES (?,?,?,?,?,?)");
+        $stmt->bind_param("ssssss", $hashed_accountID, $birthdate, $username, $email,$password, $hashed_token);
+        $stmt->execute();
+
+            
+        mysqli_query($conn, $sql);
     } else {
         echo '<div class="overlay">
                     <div class="modal">
@@ -247,29 +263,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
     }
 }
 if (isset($_GET['activation_token'])) {
-    $tempInfos = fopen("tempReg.txt", "r");
-    $tempUsername = "";
-    $tempPassword = "";
-    $tempEmail = "";
-    $tempToken = "";
-    while (!feof($tempInfos)) {
-        $line = fgets($tempInfos);
-        if (strpos($line, "Username: ") !== false) {
-            $tempUsername = trim(str_replace("Username: ", "", $line));
-        }
-        if (strpos($line, "Password: ") !== false) {
-            $tempPassword = trim(str_replace("Password: ", "", $line));
-        }
-        if (strpos($line, "Email: ") !== false) {
-            $tempEmail = trim(str_replace("Email: ", "", $line));
-        }
-        if (strpos($line, "Token: ") !== false) {
-            $tempToken = trim(str_replace("Token: ", "", $line));
-        }
-    }
+    $tempAccID = $_GET['accountID'];
+    $sql = "SELECT * FROM `temporary users` WHERE ID = $tempAccID";
+    $result = mysqli_query($conn,$sql);
+    $row = mysqli_fetch_array($result);
+    $tempUsername = $row['Username'];
+    $tempEmail = $row['Email'];
+    $tempPassword = $row['Password'];
+    $tempBirthdate = $row['Birthdate'];
+    $tempToken = $rpw['ActToken'];
+    // while (!feof($tempInfos)) {
+    //     $line = fgets($tempInfos);
+    //     if (strpos($line, "Username: ") !== false) {
+    //         $tempUsername = trim(str_replace("Username: ", "", $line));
+    //     }
+    //     if (strpos($line, "Password: ") !== false) {
+    //         $tempPassword = trim(str_replace("Password: ", "", $line));
+    //     }
+    //     if (strpos($line, "Email: ") !== false) {
+    //         $tempEmail = trim(str_replace("Email: ", "", $line));
+    //     }
+    //     if (strpos($line, "Token: ") !== false) {
+    //         $tempToken = trim(str_replace("Token: ", "", $line));
+    //     }
+    // }
+
+    
+    
     if ($_GET['activation_token'] == $tempToken) {
-        $stmt = $conn->prepare("INSERT INTO users (Username, Email, password) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $tempUsername, $tempEmail, $tempPassword);
+        $stmt = $conn->prepare("INSERT INTO users (Username, Email, Password,Birthdate) VALUES (?, ?, ?,?)");
+        $stmt->bind_param("ssss", $tempUsername, $tempEmail, $tempPassword, $tempBirthdate);
         $stmt->execute();
 
         if (mysqli_stmt_affected_rows($stmt) > 0) {
