@@ -137,6 +137,12 @@ include('pagination.php');
                                                             } ?>>
                                     Drama
                                 </li>
+                                </a><a href="tv-shows.php?genre=action">
+                                <li data-filter=".Action" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'action') {
+                                                                    echo 'class="active"';
+                                                            }  ?>>
+                                    Action
+                                </li>
                             </a><a href="tv-shows.php?genre=documentary">
                                 <li data-filter=".Documentary" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'documentary') {
                                                                     echo 'class="active"';
