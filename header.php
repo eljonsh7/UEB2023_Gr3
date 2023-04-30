@@ -23,6 +23,15 @@
         transition: 0.6s;
         color: #00d9e1;
     }
+    .login-box {
+        position: fixed;
+        /* left: 35.85%; */
+        width: 100%;
+        margin: 20% 35.4%;
+    }
+    .signup-box{
+        margin: 12% 35.4%;
+    }
 </style>
 
 </script>
@@ -137,24 +146,24 @@
             <input type="text" id="email-field-login" name="email-field-login" style="color: white;" />
             <h6 style="color: white;">PASSWORD</h6>
             <input style="color: white;" type="password" id="password-field-login" name="password-field-login" class="field input" required placeholder="Password" />
-            <div class="login-remember">
+            <!-- <div class="login-remember">
                 <input style="color: white;" type="checkbox" />
                 <span style="color: white;">Remember Me</span>
-            </div>
+            </div> -->
             <button class="theme-btn" name="logInForm">LOG IN</button>
-            <span>Or Via Social</span>
+            <!-- <span>Or Via Social</span>
             <div class="login-social">
                 <a href="#"><i class="icofont icofont-social-facebook"></i></a>
                 <a href="#"><i class="icofont icofont-social-twitter"></i></a>
                 <a href="#"><i class="icofont icofont-social-linkedin"></i></a>
                 <a href="#"><i class="icofont icofont-social-google-plus"></i></a>
                 <a href="#"><i class="icofont icofont-camera"></i></a>
-            </div>
+            </div> -->
         </form>
     </div>
 </div>
 <div class="login-area" style="z-index: 10000;">
-    <div class="login-box" style="background-color: #13151f; color: white;">
+    <div class="login-box signup-box" style="background-color: #13151f; color: white;">
         <a href="#"><i class="icofont icofont-close"></i></a>
         <h2 style="color: white;">SIGN UP</h2>
         <form method="post">
@@ -164,29 +173,29 @@
             <h6 style="color: white;">EMAIL ADDRESS</h6>
             <input style="color: white;" type="email" id="email-field" name="email-field" class="field input" required />
             <h6 style="color: white;">BIRTHDATE</h6>
-            <input style="color: white;" type="date" id="birthdate-field" name="birthdate-field" class="field input" required />
+            <input style="color: white; width:100%;" type="date" id="birthdate-field" name="birthdate-field" class="field input" required />
             <h6 style="color: white;">PASSWORD</h6>
             <input style="color: white;" type="password" id="password-field" name="password-field" class="field input" required onkeyup="verifyPassword()" />
-            <p id="all" style="display: none; justify-content: center; color: white;">Password must contain at least one
+            <p id="all" style="display: none; justify-content: center; color: white; font-size:small;">Password must contain at least one
                 capital
                 letter, one digit and must be at least 8 characters long!</p>
             <h6 style="color: white;">CONFIRM PASSWORD</h6>
             <input style="color: white;" type="password" id="password-field2" name="password-field2" class="field input" required onkeyup="verifyPassword()" />
-            <p id="isItSame" style="display: none; justify-content: center;" style="color: white;">Passwords don't match
+            <p id="isItSame" style="display: none; justify-content: center; font-size:small;" style="color: white;">Passwords don't match
             </p>
-            <div style="color: white;" class="login-remember">
+            <!-- <div style="color: white;" class="login-remember">
                 <input type="checkbox" />
                 <span style="color: white;">Remember Me</span>
-            </div>
+            </div> -->
             <button class="theme-btn" id="sign-up" disabled style="color: white;">SIGN UP</button>
-            <span style="color: white;">Or Via Social</span>
+            <!-- <span style="color: white;">Or Via Social</span>
             <div class="login-social">
                 <a href="#"><i class="icofont icofont-social-facebook"></i></a>
                 <a href="#"><i class="icofont icofont-social-twitter"></i></a>
                 <a href="#"><i class="icofont icofont-social-linkedin"></i></a>
                 <a href="#"><i class="icofont icofont-social-google-plus"></i></a>
                 <a href="#"><i class="icofont icofont-camera"></i></a>
-            </div>
+            </div> -->
         </form>
     </div>
 </div>
@@ -291,7 +300,8 @@ if (isset($_GET['activation_token'])) {
     
     
     if ($_GET['activation_token'] == $tempToken) {
-        $stmt = $conn->prepare("INSERT INTO users (Username, Email, Password,Birthdate) VALUES (?, ?, ?,?)");
+        // $hashed_password = password_hash($tempPassword);
+        $stmt = $conn->prepare("INSERT INTO users (Username, Email, Password, Birthdate) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $tempUsername, $tempEmail, $tempPassword, $tempBirthdate);
         $stmt->execute();
 
@@ -350,9 +360,13 @@ if (isset($_POST['logInForm'])) {
         const isPasswordValid =
             password1 === password2 && passwordRegex.test(password1);
 
-        if (!passwordRegex.test(password1)) {
-            allMessage.style.display = "flex";
-            allMessage.style.color = "red";
+        if (password1.length != 0) {
+            if (!passwordRegex.test(password1)) {
+                allMessage.style.display = "flex";
+                allMessage.style.color = "red";
+            } else {
+                allMessage.style.display = "none";
+            }
         } else {
             allMessage.style.display = "none";
         }
@@ -364,6 +378,8 @@ if (isset($_POST['logInForm'])) {
             } else {
                 errorMessage.style.display = "none";
             }
+        } else {
+            errorMessage.style.display = "none";
         }
 
         signUpButton.disabled = !isPasswordValid;

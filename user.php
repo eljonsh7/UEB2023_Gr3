@@ -31,6 +31,15 @@
 		img.cover1 {
 			height: 100%;
 		}
+		img.profile {
+			border-radius: 50%; 
+			align-content: center;
+			margin: 7%;
+		}
+		p.details > b, p.details {
+			font-size: large;
+			margin: 7% 0%;
+		}
 		h2 > a {
 			text-decoration: underline;
 		}
@@ -38,11 +47,11 @@
 			color: #007bff;
 			text-decoration: underline;
 		}
-		#edit:hover, #editpic:hover {
+		#edit:hover, #editpic:hover, #passEdit:hover {
 			background-color: #007bff;
 			color: white;
 		}
-		#edit, #editpic {
+		#edit, #editpic, #passEdit {
 			background-color: black;
 			color: white;
 		}
@@ -63,6 +72,12 @@
 			color: black;
 			margin-bottom: 25px;
 			width: 200%;
+			border-color: white;
+		}
+
+		input.f2  {
+			color: black;
+			margin-bottom: 25px;
 			border-color: white;
 		}
 
@@ -207,9 +222,9 @@
 		if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true) {
 			if (isset($_GET['mode']) && $_GET['mode'] == 'info') {
 				echo '
-				<div style = "display:flex;margin-left:10%;margin-top:10%;" >
-					<img src="' . $user['Photo'] . '" alt="' . $user['Username'] . '" width="300px" height="350px" class="cover1"/>
-					<div style="width:100%;margin-left:5%;>
+				<div style = "display:flex;margin:10%;justify-content:center;" >
+					<img src="' . $user['Photo'] . '" alt="' . $user['Username'] . '" width="300px" height="350px" class="cover1 profile"/>
+					<div style="margin:7%;>
 						<div id="viewDetails" style="width:50%;margin-left:5%;">
 							<p id="firstname" class="details"><b>First Name:</b> <br>' . $user['Firstname'] . '</p>
 							<p id="lastname" class="details"><b>Last Name:</b> <br>' . $user['Lastname'] . '</p>
@@ -224,7 +239,7 @@
 				echo '<br><br><br>
 				<div style = "display:flex; justify-content:center; margin:8%;">
 					<div class="cover" style="display:block;">
-						<img src="' . $user['Photo'] . '" alt="' . $user['Username'] . '" width="300px" class="cover"/>
+						<img src="' . $user['Photo'] . '" alt="' . $user['Username'] . '" width="300px" class="cover profile"/>
 						<form method="post" action="user.php?mode=info" enctype="multipart/form-data">
 							<input type="hidden" name="photo" value="1">
 							<div class="form-group">
@@ -265,6 +280,37 @@
 
 								<div class="form-group">
 									<input class="btn btn-primary" type="submit" value="Edit Profile" name="edit" id="edit">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div style = "display:flex; justify-content:center;">
+					<div>
+						<div class="pass" style="justify-content: center; display: flex;">
+							<form id="pass" method="post" enctype="multipart/form-data" style="width: 400px">
+								<h2 style="width: 200%;">Edit Password</h2><br>
+								<input type="hidden" name="pass" value="submitted">
+								<div class="form-group">
+									<label for="oldpassword">Old Password:</label>
+									<input class="form-control f2 text-white bg-dark" type="password" id="oldpassword" 
+									placeholder="Old Password:" required name="oldpassword">
+								</div>
+								<div class="form-group">
+									<label for="password">New Password:</label>
+									<input class="form-control f2 text-white bg-dark" type="password" id="password" 
+									placeholder="New Password:" required name="password" onkeyup="verifyPassword()">
+									<p id="error1" style="display: none; flex-wrap: wrap;color: white; font-size:small;">
+										Password must contain one capital letter, one digit and must be longer!</p>
+								</div>
+								<div class="form-group">
+									<label for="password2">Confirm New Password:</label>
+									<input class="form-control f2 text-white bg-dark" type="password" id="password2" 
+									placeholder="Confirm New Password:" required name="password2" onkeyup="verifyPassword()">
+									<p id="isItEqual" style="display: none; font-size:small;" style="color: white;">Passwords do not match</p>
+								</div>
+								<div class="form-group">
+									<input class="btn btn-dark" type="submit" value="Change Password" name="passEdit" id="passEdit">
 								</div>
 							</form>
 						</div>
@@ -320,11 +366,66 @@
 
 			echo '<script>window.location.href = "user.php?mode=info";</script>';
 		}
+
+		if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pass'])){
+			$pass1 = $_POST['password'];
+			$pass2 = $_POST['password2'];
+			$oldpass = $_POST['oldpassword'];
+			
+			if ($user['Password'] == $oldpass) {
+				$sql = "UPDATE users SET Password=? WHERE ID=?";
+				$stmt = mysqli_prepare($conn, $sql);
+				mysqli_stmt_bind_param($stmt, "si", $pass1, $_SESSION['user']);
+				mysqli_stmt_execute($stmt);
+			} else {
+				echo '<script>alert("Old password incorrect.")</script>';
+			}
+
+			echo '<script>window.location.href = "user.php?mode=info";</script>';
+		}
 	?>
 
 
 
 	<?php include("footer.php"); ?>
+
+	<script>
+		function verifyPassword() {
+			const pass1 = document.getElementById("password").value;
+			const pass2 = document.getElementById("password2").value;
+			const signUpButton = document.getElementById("passEdit");
+			const errorMessage = document.getElementById("isItEqual");
+			const allMessage = document.getElementById("error1");
+
+			const passwordRegex = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
+			const isPasswordValid =
+				pass1 === pass2 && passwordRegex.test(pass1);
+
+			if(pass1.length != 0) {
+				if (!passwordRegex.test(pass1)) {
+					allMessage.style.display = "block";
+					allMessage.style.color = "red";
+				} else {
+					allMessage.style.display = "none";
+				}
+			} else {
+				allMessage.style.display = "none";
+			}
+
+			if (pass2.length != 0) {
+				if (pass1 !== pass2) {
+					errorMessage.style.display = "flex";
+					errorMessage.style.color = "red";
+				} else {
+					errorMessage.style.display = "none";
+				}
+			} else {
+				errorMessage.style.display = "none";
+			}
+
+			signUpButton.disabled = !isPasswordValid;
+		}
+	</script>
     <!-- footer section end -->
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>
@@ -356,7 +457,7 @@
 		if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
 			$username = $_POST['username-field'];
 			$email = $_POST['email-field'];
-			$password = $_POST['password-field'];
+			$password = $_POST['password'];
 
 			$stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE email = ?");
 			mysqli_stmt_bind_param($stmt, 's', $email);
