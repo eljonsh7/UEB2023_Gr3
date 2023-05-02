@@ -66,9 +66,23 @@ $row = mysqli_fetch_array($result);
             margin-top: -30%;
         }
     }
+    
+    .comment_img {
+      border-radius: 50%;
+    }
+    table > tr > td > p {
+      margin-left: 5%;
+    }
 
-
-
+    #com:hover {
+			background-color: #007bff;
+			color: white;
+		}
+		#com {
+			background-color: black;
+			color: white;
+      margin-top: 2%;
+		}
     </style>
 
 
@@ -211,56 +225,72 @@ $row = mysqli_fetch_array($result);
     <!-- details area start -->
     <section class="details-area">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-9">
+            <div>
+                <div>
                     <div class="details-content">
                         <div class="details-overview">
-                            <h2>Overview</h2>
-                            <p>
-                                <?php echo stripslashes($row['Description']); ?>
-                            </p>
+                          <h2>Comments</h2>
+                          <?php
+                            include("connection.php");
+
+                            if ($conn->connect_error) {
+                              die("Connection failed: " . $conn->connect_error);
+                            }
+
+                            $stmt = mysqli_prepare($conn, "SELECT c.ID AS CID, c.Comment, u.ID, u.Firstname, u.Lastname, u.Photo FROM Comments c JOIN Users u ON c.User_id = u.ID WHERE c.Content_ID = ?");
+                            mysqli_stmt_bind_param($stmt, 's', $_GET['id']);
+                            mysqli_stmt_execute($stmt);
+                            $result = mysqli_stmt_get_result($stmt);
+
+                            while($row2 = $result->fetch_assoc()) {
+                              echo "<table style='table-layout: auto; margin-bottom: 3%;'>";
+                              echo "<tr>";
+                              echo "<td width='50'><img src='" . $row2["Photo"] . "' width='40' height='40' class='comment_img'></td>";
+                              echo "<td><p><b>" . $row2["Firstname"] . " " . $row2["Lastname"] . ": <b></p></td>";
+                              echo "</tr>";
+                              echo "<tr><td>";
+                              if($_SESSION['user'] == $row2['ID']) {
+                                echo "<a href='movie-details.php?id=".$row['ID']."&type=".$row['Type']."&delete=".$row2['CID']."' id='delete' style='color:red;'>Delete</a>";
+                              }
+                              echo "</td><td><p>" . $row2["Comment"] . "</p></td>";
+                              echo "</tr>";
+                              echo "</table>";
+                            }
+
+                            if (isset($_GET['delete'])){
+                              $stmt3 = mysqli_prepare($conn, "DELETE FROM Comments WHERE ID = ?");
+                              mysqli_stmt_bind_param($stmt3, 's', $_GET['delete']);
+                              mysqli_stmt_execute($stmt3);
+                              unset($_GET['delete']);
+                            }
+                          ?>
                         </div>
                         <div class="details-reply">
-                            <h2>Leave a Reply</h2>
-                            <form action="#">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="select-container">
-                                            <input type="text" placeholder="Name" />
-                                            <i class="icofont icofont-ui-user"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="select-container">
-                                            <input type="text" placeholder="Email" />
-                                            <i class="icofont icofont-envelope"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="select-container">
-                                            <input type="text" placeholder="Phone" />
-                                            <i class="icofont icofont-phone"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="textarea-container">
-                                            <textarea placeholder="Type Here Message"></textarea>
-                                            <button>
-                                                <i class="icofont icofont-send-mail"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                          <h2>Leave a Comment</h2>
+                          <form method="post">
+                              <div class="row">
+                                  <div class="col-lg-12">
+                                      <div class="textarea-container">
+                                      <textarea style="background: #13151f; color: white;" placeholder="Comment Here ..." class="form-control" id="message" name="message"></textarea>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="details-comment">
+                                <input type="submit" class="btn btn-primary" id="com" name="com" value="Post Comment">
+                            </div>
+                          </form>
                         </div>
-                        <div class="details-comment">
-                            <a class="theme-btn theme-btn2" href="#">Post Comment</a>
-                            <p>
-                                You may use these HTML tags and attributes: You may use these
-                                HTML tags and attributes: You may use these HTML tags and
-                                attributes:
-                            </p>
-                        </div>
+                        <?php
+                          if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                            if ( isset($_SESSION['user'])){
+                              $stmt2 = mysqli_prepare($conn, "INSERT INTO Comments (Content_ID, User_ID, Comment) VALUES (?, ?, ?)");
+                              mysqli_stmt_bind_param($stmt2, 'sss', $_GET['id'], $_SESSION['user'], $_POST['message']);
+                              mysqli_stmt_execute($stmt2);
+                            } else {
+                              echo "<script>alert('You are not logged in!')</script>;";
+                            }
+                          } 
+                        ?>
                         <div class="details-thumb">
                             <div class="details-thumb-prev">
                                 <div class="thumb-icon">
@@ -281,13 +311,6 @@ $row = mysqli_fetch_array($result);
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 text-center text-lg-left">
-                    <div class="portfolio-sidebar">
-                        <img src="assets/img/sidebar/sidebar1.png" alt="sidebar" />
-                        <img src="assets/img/sidebar/sidebar2.png" alt="sidebar" />
-                        <img src="assets/img/sidebar/sidebar4.png" alt="sidebar" />
                     </div>
                 </div>
             </div>

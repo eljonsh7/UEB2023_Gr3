@@ -469,7 +469,7 @@
                 <div class="single-news">
                     <div class="news-bg-1" style =" background: url("' . $image . '");"></div>
                     <div class="news-date">
-                        <h2><span>' . $monthName . '</span> ' . $month . '</h2>
+                        <h2><span>' . $monthName . '</span> ' . $day . '</h2>
                         <h1>' . $year . '</h1>
                     </div>
                     <div class="news-content">
@@ -487,7 +487,7 @@
                 <div class="single-news">
                 <div class="news-bg-1" style =" background: url("' . $image2 . '");"></div>
                 <div class="news-date">
-                    <h2><span>' . $monthName2 . '</span> ' . $month2 . '</h2>
+                    <h2><span>' . $monthName2 . '</span> ' . $day2 . '</h2>
                     <h1>' . $year2 . '</h1>
                 </div>
                 <div class="news-content">
@@ -502,7 +502,7 @@
                 <div class="single-news">
                 <div class="news-bg-1" style =" background: url("' . $image . '");"></div>
                 <div class="news-date">
-                    <h2><span>' . $monthName . '</span> ' . $month . '</h2>
+                    <h2><span>' . $monthName . '</span> ' . $day . '</h2>
                     <h1>' . $year . '</h1>
                 </div>
                 <div class="news-content">
