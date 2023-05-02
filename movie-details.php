@@ -249,7 +249,7 @@ $row = mysqli_fetch_array($result);
                               echo "<td><p><b>" . $row2["Firstname"] . " " . $row2["Lastname"] . ": <b></p></td>";
                               echo "</tr>";
                               echo "<tr><td>";
-                              if($_SESSION['user'] == $row2['ID']) {
+                              if(isset($_SESSION['user']) && $_SESSION['user'] == $row2['ID']) {
                                 echo "<a href='movie-details.php?id=".$row['ID']."&type=".$row['Type']."&delete=".$row2['CID']."' id='delete' style='color:red;'>Delete</a>";
                               }
                               echo "</td><td><p>" . $row2["Comment"] . "</p></td>";
@@ -287,7 +287,7 @@ $row = mysqli_fetch_array($result);
                               mysqli_stmt_bind_param($stmt2, 'sss', $_GET['id'], $_SESSION['user'], $_POST['message']);
                               mysqli_stmt_execute($stmt2);
                             } else {
-                              echo "<script>alert('You are not logged in!')</script>;";
+                              echo "<script>alert('You are not logged in!')</script>";
                             }
                           } 
                         ?>

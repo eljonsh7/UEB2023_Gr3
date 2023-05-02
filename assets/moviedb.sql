@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: May 02, 2023 at 10:30 PM
+-- Generation Time: May 02, 2023 at 11:08 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -66,7 +66,7 @@ CREATE TABLE `comments` (
 INSERT INTO `comments` (`ID`, `Content_ID`, `User_ID`, `Comment`) VALUES
 (1, 1, 1, 'This is the best movie ever.'),
 (2, 1, 2, 'This is not as good as you think it is.'),
-(21, 2, 1, 'This movie is the best movie of 2022.');
+(3, 2, 1, 'This movie is the best movie of 2022.');
 
 -- --------------------------------------------------------
 
