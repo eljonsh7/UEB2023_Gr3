@@ -168,6 +168,10 @@
         <h2 style="color: white;">SIGN UP</h2>
         <form method="post">
             <input type="hidden" name="signUpForm" value="1">
+            <h6 style="color: white;">FIRST NAME</h6>
+            <input style="color: white;" type="text" id="firstname-field" name="firstname-field" class="field input" required />
+            <h6 style="color: white;">LAST NAME</h6>
+            <input style="color: white;" type="text" id="lastname-field" name="lastname-field" class="field input" required />
             <h6 style="color: white;">USERNAME</h6>
             <input style="color: white;" type="text" id="username-field" name="username-field" class="field input" required />
             <h6 style="color: white;">EMAIL ADDRESS</h6>
@@ -215,18 +219,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
     $email = $_POST['email-field'];
     $password = $_POST['password-field'];
     $birthdate = $_POST['birthdate-field'];
+    $firstname = $_POST['firstname-field'];
+    $lastname = $_POST['lastname-field'];
 
-    $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE email = ?");
-    mysqli_stmt_bind_param($stmt, 's', $email);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
+    $stmt = $conn->prepare("SELECT * FROM users WHERE Email = ? OR Username = ?");
+    $stmt->bind_param("ss", $email, $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    $stmt1 = mysqli_prepare($conn, "SELECT * FROM users WHERE username = ?");
-    mysqli_stmt_bind_param($stmt1, 's', $username);
-    mysqli_stmt_execute($stmt1);
-    $result1 = mysqli_stmt_get_result($stmt1);
+    // $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE Email = ? OR Username = ?");
+    // mysqli_stmt_bind_param($stmt, 'ss', $email, $username);
+    // mysqli_stmt_execute($stmt);
+    // $result = mysqli_stmt_get_result($stmt);
 
-    if (mysqli_num_rows($result) == 0 && mysqli_num_rows($result1) == 0) {
+    // $stmt1 = mysqli_prepare($conn, "SELECT * FROM users WHERE Username = ?");
+    // mysqli_stmt_bind_param($stmt1, 's', $username);
+    // mysqli_stmt_execute($stmt1);
+    // $result1 = mysqli_stmt_get_result($stmt1);
+
+    if (mysqli_num_rows($result) == 0) {
         $token = bin2hex(random_bytes(32));
         $salt = bin2hex(random_bytes(16));
         $hashed_token = hash('sha256', $token . $salt);
@@ -234,75 +245,83 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
         $salt2 = bin2hex(random_bytes(16));
         $accountID = bin2hex(random_bytes(32));
         $hashed_accID = hash('sha256', $accountID . $salt2);
-        $hashed_accountID = substr($hashed_accID,0,15);
+        $hashed_accountID = substr($hashed_accID,0,16);
 
-        require_once("Services/config.php");
-        require("Services/vendor/autoload.php");
-        $SGemail = new \SendGrid\Mail\Mail();
-        $SGemail->setFrom("flixfeastt@gmail.com", "FlixFeast");
-        $SGemail->setTemplateId("d-b86719bb7e9a4cafbd0ef38bd39bb15c");
-        $SGemail->addDynamicTemplateData('username', $username);
-        $SGemail->addDynamicTemplateData('actToken', $hashed_token);
-        $SGemail->addDynamicTemplateData('accountID', $hashed_accountID);
-        $SGemail->addTo($email, "Example User");
-        $sendgrid = new \SendGrid( SENDGRID_API_KEY );
-        try {
-            $response = $sendgrid->send($SGemail);
-        } catch (Exception $e) {
-            echo 'Caught exception: ' . $e->getMessage() . "\n";
+        $hashed_password = hash('sha256', $password);
+
+        $stmt = mysqli_prepare($conn, "SELECT * FROM `temporary users` WHERE Email = ?");
+        mysqli_stmt_bind_param($stmt, 's', $email);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        if(mysqli_num_rows($result) == 0){
+            require_once("Services/config.php");
+            require("Services/vendor/autoload.php");
+            $SGemail = new \SendGrid\Mail\Mail();
+            $SGemail->setFrom("flixfeastt@gmail.com", "FlixFeast");
+            $SGemail->setTemplateId("d-b86719bb7e9a4cafbd0ef38bd39bb15c");
+            $SGemail->addDynamicTemplateData('username', $username);
+            $SGemail->addDynamicTemplateData('actToken', $hashed_token);
+            $SGemail->addDynamicTemplateData('accID', $hashed_accountID);
+            $SGemail->addTo($email, "Example User");
+            $sendgrid = new \SendGrid( SENDGRID_API_KEY );
+            try {
+                $response = $sendgrid->send($SGemail);
+            } catch (Exception $e) {
+                echo 'Caught exception: ' . $e->getMessage() . "\n";
+            }
+            $stmt = $conn->prepare("INSERT INTO `temporary users` (ID,Birthdate, Username, Email, `Password`, ActToken, FirstName, LastName) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssssss", $hashed_accountID, $birthdate, $username, $email,$hashed_password, $hashed_token, $firstname,$lastname);
+            $stmt->execute();
+        }else{
+            echo '<script>$(".login-area").show();
+            document.getElementById("firstname-field").value="' . $firstname. '";
+            document.getElementById("lastname-field").value="' . $lastname. '";
+            document.getElementById("username-field").value="' . $username. '";
+            document.getElementById("email-field").value="' . $email. '";
+            document.getElementById("birthdate-field").value="' . $birthdate. '";
+            document.getElementById("password-field").value="' . $password. '";
+            document.getElementById("password-field2").value="' . $password. '";
+            </script>';
+            $_POST['message']="Please check your email for verification, cannot continue to register again!";
+            include('notify.php');
         }
-        // $tempInfo = fopen("tempReg.txt", "w");
-        // fwrite($tempInfo, "Username: " . $username);
-        // fwrite($tempInfo, "\nPassword: " . $password);
-        // fwrite($tempInfo, "\nEmail: " . $email);
-        // fwrite($tempInfo, "\nToken: " . $hashed_token);
-        // fclose($tempInfo);
-        $stmt = $conn->prepare("INSERT INTO `temporary users` (ID,Birthdate, Username, Email, Password, ActToken) VALUES (?,?,?,?,?,?)");
-        $stmt->bind_param("ssssss", $hashed_accountID, $birthdate, $username, $email,$password, $hashed_token);
-        $stmt->execute();
-
-            
-        mysqli_query($conn, $sql);
+        
+        
     } else {
-        echo '<div class="overlay">
-                    <div class="modal">
-                        <p>Username or E-mail already in use</p>
-                    </div>
-                </div>';
+        echo '<script>$(".login-area").show();
+        document.getElementById("firstname-field").value="' . $firstname. '";
+        document.getElementById("lastname-field").value="' . $lastname. '";
+        document.getElementById("username-field").value="' . $username. '";
+        document.getElementById("email-field").value="' . $email. '";
+        document.getElementById("birthdate-field").value="' . $birthdate. '";
+        document.getElementById("password-field").value="' . $password. '";
+        document.getElementById("password-field2").value="' . $password. '";
+        </script>';
+        $_POST['message']="Username or E-mail already in use";
+        include('notify.php');
     }
 }
 if (isset($_GET['activation_token'])) {
     $tempAccID = $_GET['accountID'];
-    $sql = "SELECT * FROM `temporary users` WHERE ID = $tempAccID";
-    $result = mysqli_query($conn,$sql);
+
+    $stmt = $conn->prepare("SELECT * FROM `temporary users` WHERE ID = ?");
+    $stmt->bind_param('s', $tempAccID);
+    $stmt->execute();
+    $result = $stmt->get_result();
     $row = mysqli_fetch_array($result);
     $tempUsername = $row['Username'];
     $tempEmail = $row['Email'];
     $tempPassword = $row['Password'];
     $tempBirthdate = $row['Birthdate'];
-    $tempToken = $rpw['ActToken'];
-    // while (!feof($tempInfos)) {
-    //     $line = fgets($tempInfos);
-    //     if (strpos($line, "Username: ") !== false) {
-    //         $tempUsername = trim(str_replace("Username: ", "", $line));
-    //     }
-    //     if (strpos($line, "Password: ") !== false) {
-    //         $tempPassword = trim(str_replace("Password: ", "", $line));
-    //     }
-    //     if (strpos($line, "Email: ") !== false) {
-    //         $tempEmail = trim(str_replace("Email: ", "", $line));
-    //     }
-    //     if (strpos($line, "Token: ") !== false) {
-    //         $tempToken = trim(str_replace("Token: ", "", $line));
-    //     }
-    // }
+    $tempToken = $row['ActToken'];
+    $tempFirstname = $row['FirstName'];
+    $tempLastname = $row['LastName'];
 
-    
-    
     if ($_GET['activation_token'] == $tempToken) {
         // $hashed_password = password_hash($tempPassword);
-        $stmt = $conn->prepare("INSERT INTO users (Username, Email, Password, Birthdate) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $tempUsername, $tempEmail, $tempPassword, $tempBirthdate);
+        $stmt = $conn->prepare("INSERT INTO users (Birthdate,Username, Email,`Password`, FirstName, LastName) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssss",$tempBirthdate, $tempUsername, $tempEmail, $tempPassword, $tempFirstname, $tempLastname);
         $stmt->execute();
 
         if (mysqli_stmt_affected_rows($stmt) > 0) {
@@ -312,9 +331,13 @@ if (isset($_GET['activation_token'])) {
             unlink("tempReg.txt");
             echo '<script>window.location.href = "index.php";</script>';
             $tempToken = "";
+            $stmt = $conn->prepare("DELETE FROM `temporary users` WHERE ID = ?");
+            $stmt->bind_param('s', $tempAccID);
+            $stmt->execute();
         } else {
             echo "<script>console.log('Error inserting data')</script>";
         }
+        
     }
 }
 ?>
@@ -327,15 +350,16 @@ if (isset($_POST['logInForm'])) {
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE email = ?");
-    mysqli_stmt_bind_param($stmt, 's', $email);
-    mysqli_stmt_execute($stmt);
-
-    $result = mysqli_stmt_get_result($stmt);
+    $stmt = $conn->prepare("SELECT * FROM `users` WHERE Email = ?");
+    $stmt->bind_param('s', $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if (mysqli_num_rows($result) == 1) {
         $user = mysqli_fetch_assoc($result);
-        if ($password == $user['Password']) {
+        $PW_Hashed = hash('sha256', $password);
+        $PW_Database = $user['Password'];
+        if ($PW_Hashed === $PW_Database) {
             $_SESSION['user_logged_in'] = true;
             $_SESSION['user'] = $user['ID'];
             $_SESSION['admin'] = $user['Admin'];
