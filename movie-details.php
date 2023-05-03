@@ -51,6 +51,21 @@ $row = mysqli_fetch_array($result);
     <![endif]-->
 
     <style>
+      #watchlist-button {
+        display: inline-block;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      #watchlist-button.watchlisted {
+        background-color: white;
+      }
+
+      #watchlist-button.watchlisted:hover {
+        background-color: wheat;
+      }
       @media screen and (min-width: 992px) {
         .contentInformation{
             padding-left: 3%;
@@ -148,10 +163,23 @@ $row = mysqli_fetch_array($result);
                   <li>
                     <div class="transformers-left">Release:</div>
                     <div class="transformers-right">' . $row['Date'] . '</div>
-                  </li>
-                  
-                  
-                  
+                  </li>';
+                  if(isset($_SESSION['user'])){
+                    $stmt1 = mysqli_prepare($conn, "SELECT * FROM Watchlist WHERE User_ID = ? AND Content_ID = ?");
+                    mysqli_stmt_bind_param($stmt1, 'ii', $_SESSION['user'], $_GET['id']);
+                    mysqli_stmt_execute($stmt1);
+                    $result1 = mysqli_stmt_get_result($stmt1);
+
+                    echo '<li>
+                        <div class="transformers-left" style="margin-right:2%;">Add to watchlist:</div>
+                        <div class="transformers-right ';
+                        if (mysqli_num_rows($result1) > 0) {
+                          echo 'watchlisted';
+                        }
+                        echo '" id="watchlist-button"></div>
+                      </li>';
+                  }
+                  echo '
                 </ul>
               </div>
             </div>
@@ -200,10 +228,23 @@ $row = mysqli_fetch_array($result);
                   <li>
                     <div class="transformers-left">Start Date:</div>
                     <div class="transformers-right">' . $row['Date'] . '</div>
-                  </li>
-              
-                  
-                  
+                  </li>';
+                  if(isset($_SESSION['user'])){
+                    $stmt1 = mysqli_prepare($conn, "SELECT * FROM Watchlist WHERE User_ID = ? AND Content_ID = ?");
+                    mysqli_stmt_bind_param($stmt1, 'ii', $_SESSION['user'], $_GET['id']);
+                    mysqli_stmt_execute($stmt1);
+                    $result1 = mysqli_stmt_get_result($stmt1);
+
+                    echo '<li>
+                        <div class="transformers-left" style="margin-right:2%;">Add to watchlist:</div>
+                        <div class="transformers-right ';
+                        if (mysqli_num_rows($result1) > 0) {
+                          echo 'watchlisted';
+                        }
+                        echo '" id="watchlist-button"></div>
+                      </li>';
+                  }
+                  echo '
                 </ul>
               </div>
             </div>
@@ -320,6 +361,36 @@ $row = mysqli_fetch_array($result);
     <!-- footer section start -->
     <?php include("footer.php"); ?>
     <!-- footer section end -->
+    <script>
+      var watchlistButton = document.getElementById("watchlist-button");
+
+      watchlistButton.addEventListener("click", function() {
+        if (watchlistButton.classList.contains("watchlisted")) {
+          watchlistButton.classList.remove("watchlisted");
+          removeFromWatchlist(<?php echo $_GET['id']; ?>);
+        } else {
+          watchlistButton.classList.add("watchlisted");
+          addToWatchlist(<?php echo $_GET['id']; ?>);
+        }
+
+        updateWatchlistButton();
+      });
+
+      function addToWatchlist(content_id) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "watchlist-add.php");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("content_id=" + content_id);
+      }
+
+      function removeFromWatchlist(content_id) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "watchlist-remove.php");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("content_id=" + content_id);
+      }
+    </script>
+
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>
     <!-- Bootstrap JS -->
