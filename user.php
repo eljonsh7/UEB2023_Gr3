@@ -260,7 +260,7 @@ if (!isset($_GET['mode'])) {
 							<div class="form-group">
 								<br>
 								<label for="file">Change Photo:</label>
-								<input class="form-control f1 text-white bg-dark" type="file" id="image" name="image" required style="width: 82%;">
+								<input class="form-control f1 text-white bg-dark" type="file" id="image" name="image" required style="width: 100%;">
 							</div>
 							<div class="form-group">
 								<input class="btn btn-primary" type="submit" value="Change Photo" name="photo" id="editpic">
@@ -271,7 +271,7 @@ if (!isset($_GET['mode'])) {
 						<div class="col-md-6" style="display: flex; justify-content: center;">
 							<form id="movie-add" method="post" enctype="multipart/form-data">
 								<h2 style="width: 200%;">Edit Profile or <a href="user.php?mode=info">Go Back</a></h2>
-								<input type="hidden" name="edit" value="submitted">
+								<input type="hidden" name="edit" value="1">
 								<div class="form-group">
 									<label for="firstname">First Name:</label>
 									<input class="form-control f1 text-white bg-dark" value="' . $user['Firstname'] . '" type="text" id="firstname" placeholder="Firstname:" required name="firstname">
@@ -281,7 +281,7 @@ if (!isset($_GET['mode'])) {
 									<input class="form-control f1 text-white bg-dark" value="' . $user['Lastname'] . '" type="text" id="lastname" placeholder="Lastname:" required name="lastname">
 								</div>
 								<div class="form-group">
-									<label for="username">Usrname:</label>
+									<label for="username">Username:</label>
 									<input class="form-control f1 text-white bg-dark" value="' . $user['Username'] . '" type="text" id="username" placeholder="Username:" required name="username">
 								</div>
 								<div class="form-group">
@@ -341,63 +341,59 @@ if (!isset($_GET['mode'])) {
 	}
 	?>
 	<?php
-	if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['photo'])) {
-		$image_name = $user['Username'];
-		$tmp_name = $_FILES['image']['tmp_name'];
-		$folder = "assets/img/user_pic/";
-		$path = $folder . $image_name;
+		if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['photo'])) {
+			$image_name = $user['Username'];
+			$tmp_name = $_FILES['image']['tmp_name'];
+			$folder = "assets/img/user_pic/";
+			$path = $folder . $image_name . ".png";
 
-		$check = getimagesize($tmp_name);
+			$check = getimagesize($tmp_name);
 
-		if ($check) {
-			move_uploaded_file($tmp_name, $path);
-			$stmt = mysqli_prepare($conn, "UPDATE users SET Photo = ? WHERE ID = ?");
-			mysqli_stmt_bind_param($stmt, 'ss', $path, $_SESSION['user']);
-			mysqli_stmt_execute($stmt);
-		}
-	}
-
-	if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])) {
-		$firstname = $_POST['firstname'];
-		$lastname = $_POST['lastname'];
-		$birthdate = $_POST['birthdate'];
-		$username = $_POST['username'];
-
-		$stmt1 = mysqli_prepare($conn, "SELECT * FROM users WHERE Username = ?");
-		mysqli_stmt_bind_param($stmt1, 's', $username);
-		mysqli_stmt_execute($stmt1);
-		$result1 = mysqli_stmt_get_result($stmt1);
-		$user1 = mysqli_fetch_assoc($result1);
-
-
-		if (mysqli_num_rows($result1) > 0) {
-			if ($user['ID'] == $user1['ID']) {
-				$sql = "UPDATE users SET Firstname=?, Lastname=?, Birthdate=?, Username=? WHERE ID=?";
-				$stmt = mysqli_prepare($conn, $sql);
-				mysqli_stmt_bind_param($stmt, "sssss", $firstname, $lastname, $birthdate, $username, $_SESSION['user']);
+			if ($check) {
+				move_uploaded_file($tmp_name, $path);
+				$stmt = mysqli_prepare($conn, "UPDATE users SET Photo = ? WHERE ID = ?");
+				mysqli_stmt_bind_param($stmt, 'ss', $path, $_SESSION['user']);
 				mysqli_stmt_execute($stmt);
 			}
 		}
 
-		echo '<script>window.location.href = "user.php?mode=info";</script>';
-	}
+		if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])) {
+			$firstname = $_POST['firstname'];
+			$lastname = $_POST['lastname'];
+			$birthdate = $_POST['birthdate'];
+			$username = $_POST['username'];
 
-	if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pass'])) {
-		$pass1 = $_POST['password'];
-		$pass2 = $_POST['password2'];
-		$oldpass = $_POST['oldpassword'];
+			$stmt1 = mysqli_prepare($conn, "SELECT * FROM users WHERE Username = ?");
+			mysqli_stmt_bind_param($stmt1, 's', $username);
+			mysqli_stmt_execute($stmt1);
+			$result1 = mysqli_stmt_get_result($stmt1);
+			$user1 = mysqli_fetch_assoc($result1);
 
-		if ($user['Password'] == $oldpass) {
-			$sql = "UPDATE users SET Password=? WHERE ID=?";
-			$stmt = mysqli_prepare($conn, $sql);
-			mysqli_stmt_bind_param($stmt, "si", $pass1, $_SESSION['user']);
-			mysqli_stmt_execute($stmt);
-		} else {
-			echo '<script>alert("Old password incorrect.")</script>';
+			if (mysqli_num_rows($result1) == 0) {
+				$stmt = $conn->prepare("UPDATE users SET Firstname=?, Lastname=?, Birthdate=?, Username=? WHERE ID=?");
+				$stmt->bind_param("sssss", $firstname, $lastname, $birthdate, $username, $_SESSION['user']);
+				$stmt->execute();
+			}
+
+			echo '<script>window.location.href = "user.php?mode=info";</script>';
 		}
 
-		echo '<script>window.location.href = "user.php?mode=info";</script>';
-	}
+		if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pass'])) {
+			$pass1 = $_POST['password'];
+			$pass2 = $_POST['password2'];
+			$oldpass = $_POST['oldpassword'];
+
+			if ($user['Password'] == $oldpass) {
+				$sql = "UPDATE users SET Password=? WHERE ID=?";
+				$stmt = mysqli_prepare($conn, $sql);
+				mysqli_stmt_bind_param($stmt, "si", $pass1, $_SESSION['user']);
+				mysqli_stmt_execute($stmt);
+			} else {
+				echo '<script>alert("Old password incorrect.")</script>';
+			}
+
+			echo '<script>window.location.href = "user.php?mode=info";</script>';
+		}
 	?>
 
 

@@ -325,8 +325,9 @@ if (isset($_GET['activation_token']) && isset($_GET['accountID'])) {
 
     if ($_GET['activation_token'] == $tempToken) {
         // $hashed_password = password_hash($tempPassword);
-        $stmt = $conn->prepare("INSERT INTO users (Birthdate,Username, Email,`Password`, FirstName, LastName) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssss", $tempBirthdate, $tempUsername, $tempEmail, $tempPassword, $tempFirstname, $tempLastname);
+        $photo = "assets/img/user_pic/default.png";
+        $stmt = $conn->prepare("INSERT INTO users (Birthdate,Username, Email,`Password`, FirstName, LastName, Photo) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssss", $tempBirthdate, $tempUsername, $tempEmail, $tempPassword, $tempFirstname, $tempLastname, $photo);
         $stmt->execute();
 
         if (mysqli_stmt_affected_rows($stmt) > 0) {
