@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    include("connection.php");
+    include("Services/connection.php");
 
     if ($mysqli->connect_errno) {
         echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -17,4 +17,3 @@
 
     $stmt->close();
     $mysqli->close();
-?>

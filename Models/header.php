@@ -2,36 +2,38 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
 <style>
-    .header {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 9999;
-        transition: top 0.3s;
-    }
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+    transition: top 0.3s;
+}
 
-    .header.hide {
-        top: -100px;
-    }
+.header.hide {
+    top: -100px;
+}
 
-    #searchresult a:hover h6 {
-        transition: 0.6s;
-        color: #00d9e1;
-    }
+#searchresult a:hover h6 {
+    transition: 0.6s;
+    color: #00d9e1;
+}
 
-    #searchresult a:hover~a h6 {
-        transition: 0.6s;
-        color: #00d9e1;
-    }
-    .login-box {
-        position: fixed;
-        /* left: 35.85%; */
-        width: 100%;
-        margin: 20% 35.4%;
-    }
-    .signup-box{
-        margin: 12% 35.4%;
-    }
+#searchresult a:hover~a h6 {
+    transition: 0.6s;
+    color: #00d9e1;
+}
+
+.login-box {
+    position: fixed;
+    /* left: 35.85%; */
+    width: 100%;
+    margin: 20% 35.4%;
+}
+
+.signup-box {
+    margin: 12% 35.4%;
+}
 </style>
 
 </script>
@@ -74,7 +76,8 @@
                         </li>
                         <li>
                             <form style="display: flex;" method="get" action="results.php" id="myForm">
-                                <input type="text" name="search" placeholder="Search..." class="form-control" id="live_search" autocomplete="off">
+                                <input type="text" name="search" placeholder="Search..." class="form-control"
+                                    id="live_search" autocomplete="off">
                                 <input type="submit" name="" value="Go" id="submit" style="visibility: hidden;">
 
                             </form>
@@ -88,41 +91,41 @@
         </div>
     </div>
     <script type="text/javascript">
-        function liveSearch() {
-            var input = $('#live_search').val();
-            if (input.length >= 2) {
-                document.getElementById("submit").style.visibility = "visible";
-                $.ajax({
-                    url: "livesearch.php",
-                    method: "POST",
-                    data: {
-                        input: input
-                    },
-                    success: function(data) {
-                        $("#searchresult").html(data);
-                    }
-                });
-            } else {
-                document.getElementById("submit").style.visibility = "hidden";
-                $("#searchresult").html("");
-            }
+    function liveSearch() {
+        var input = $('#live_search').val();
+        if (input.length >= 2) {
+            document.getElementById("submit").style.visibility = "visible";
+            $.ajax({
+                url: "Services/livesearch.php",
+                method: "POST",
+                data: {
+                    input: input
+                },
+                success: function(data) {
+                    $("#searchresult").html(data);
+                }
+            });
+        } else {
+            document.getElementById("submit").style.visibility = "hidden";
+            $("#searchresult").html("");
         }
+    }
 
-        document.getElementById('live_search').addEventListener('input', function() {
-            liveSearch();
-            if (document.getElementById('live_search').value.length >= 2) {
-                document.getElementById('submit').disabled = false;
+    document.getElementById('live_search').addEventListener('input', function() {
+        liveSearch();
+        if (document.getElementById('live_search').value.length >= 2) {
+            document.getElementById('submit').disabled = false;
 
-            } else {
-                document.getElementById('submit').disabled = true;
-            }
-        });
-
-        function submitForm() {
-            var form = document.getElementById('myForm');
-
-            form.submit();
+        } else {
+            document.getElementById('submit').disabled = true;
         }
+    });
+
+    function submitForm() {
+        var form = document.getElementById('myForm');
+
+        form.submit();
+    }
     </script>
     <!-- <script>
         var anchorTag = document.getElementById('myAnchorTag');
@@ -146,7 +149,8 @@
             <h6 style="color: white;">EMAIL ADDRESS</h6>
             <input type="text" id="email-field-login" name="email-field-login" style="color: white;" />
             <h6 style="color: white;">PASSWORD</h6>
-            <input style="color: white;" type="password" id="password-field-login" name="password-field-login" class="field input" required placeholder="Password" />
+            <input style="color: white;" type="password" id="password-field-login" name="password-field-login"
+                class="field input" required placeholder="Password" />
             <!-- <div class="login-remember">
                 <input style="color: white;" type="checkbox" />
                 <span style="color: white;">Remember Me</span>
@@ -170,23 +174,32 @@
         <form method="post">
             <input type="hidden" name="signUpForm" value="1">
             <h6 style="color: white;">FIRST NAME</h6>
-            <input style="color: white;" type="text" id="firstname-field" name="firstname-field" class="field input" required />
+            <input style="color: white;" type="text" id="firstname-field" name="firstname-field" class="field input"
+                required />
             <h6 style="color: white;">LAST NAME</h6>
-            <input style="color: white;" type="text" id="lastname-field" name="lastname-field" class="field input" required />
+            <input style="color: white;" type="text" id="lastname-field" name="lastname-field" class="field input"
+                required />
             <h6 style="color: white;">USERNAME</h6>
-            <input style="color: white;" type="text" id="username-field" name="username-field" class="field input" required />
+            <input style="color: white;" type="text" id="username-field" name="username-field" class="field input"
+                required />
             <h6 style="color: white;">EMAIL ADDRESS</h6>
-            <input style="color: white;" type="email" id="email-field" name="email-field" class="field input" required />
+            <input style="color: white;" type="email" id="email-field" name="email-field" class="field input"
+                required />
             <h6 style="color: white;">BIRTHDATE</h6>
-            <input style="color: white; width:100%;" type="date" id="birthdate-field" name="birthdate-field" class="field input" required />
+            <input style="color: white; width:100%;" type="date" id="birthdate-field" name="birthdate-field"
+                class="field input" required />
             <h6 style="color: white;">PASSWORD</h6>
-            <input style="color: white;" type="password" id="password-field" name="password-field" class="field input" required onkeyup="verifyPassword()" />
-            <p id="all" style="display: none; justify-content: center; color: white; font-size:small;">Password must contain at least one
+            <input style="color: white;" type="password" id="password-field" name="password-field" class="field input"
+                required onkeyup="verifyPassword()" />
+            <p id="all" style="display: none; justify-content: center; color: white; font-size:small;">Password must
+                contain at least one
                 capital
                 letter, one digit and must be at least 8 characters long!</p>
             <h6 style="color: white;">CONFIRM PASSWORD</h6>
-            <input style="color: white;" type="password" id="password-field2" name="password-field2" class="field input" required onkeyup="verifyPassword()" />
-            <p id="isItSame" style="display: none; justify-content: center; font-size:small;" style="color: white;">Passwords don't match
+            <input style="color: white;" type="password" id="password-field2" name="password-field2" class="field input"
+                required onkeyup="verifyPassword()" />
+            <p id="isItSame" style="display: none; justify-content: center; font-size:small;" style="color: white;">
+                Passwords don't match
             </p>
             <!-- <div style="color: white;" class="login-remember">
                 <input type="checkbox" />
@@ -246,7 +259,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
         $salt2 = bin2hex(random_bytes(16));
         $accountID = bin2hex(random_bytes(32));
         $hashed_accID = hash('sha256', $accountID . $salt2);
-        $hashed_accountID = substr($hashed_accID,0,16);
+        $hashed_accountID = substr($hashed_accID, 0, 16);
 
         $hashed_password = hash('sha256', $password);
 
@@ -255,7 +268,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
 
-        if(mysqli_num_rows($result) == 0){
+        if (mysqli_num_rows($result) == 0) {
             require_once("Services/config.php");
             require("Services/vendor/autoload.php");
             $SGemail = new \SendGrid\Mail\Mail();
@@ -265,41 +278,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
             $SGemail->addDynamicTemplateData('actToken', $hashed_token);
             $SGemail->addDynamicTemplateData('accID', $hashed_accountID);
             $SGemail->addTo($email, "Example User");
-            $sendgrid = new \SendGrid( SENDGRID_API_KEY );
+            $sendgrid = new \SendGrid(SENDGRID_API_KEY);
             try {
                 $response = $sendgrid->send($SGemail);
             } catch (Exception $e) {
                 echo 'Caught exception: ' . $e->getMessage() . "\n";
             }
             $stmt = $conn->prepare("INSERT INTO `temporary users` (ID,Birthdate, Username, Email, `Password`, ActToken, FirstName, LastName) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssssss", $hashed_accountID, $birthdate, $username, $email,$hashed_password, $hashed_token, $firstname,$lastname);
+            $stmt->bind_param("ssssssss", $hashed_accountID, $birthdate, $username, $email, $hashed_password, $hashed_token, $firstname, $lastname);
             $stmt->execute();
-        }else{
+        } else {
             echo '<script>$(".login-area").show();
-            document.getElementById("firstname-field").value="' . $firstname. '";
-            document.getElementById("lastname-field").value="' . $lastname. '";
-            document.getElementById("username-field").value="' . $username. '";
-            document.getElementById("email-field").value="' . $email. '";
-            document.getElementById("birthdate-field").value="' . $birthdate. '";
-            document.getElementById("password-field").value="' . $password. '";
-            document.getElementById("password-field2").value="' . $password. '";
+            document.getElementById("firstname-field").value="' . $firstname . '";
+            document.getElementById("lastname-field").value="' . $lastname . '";
+            document.getElementById("username-field").value="' . $username . '";
+            document.getElementById("email-field").value="' . $email . '";
+            document.getElementById("birthdate-field").value="' . $birthdate . '";
+            document.getElementById("password-field").value="' . $password . '";
+            document.getElementById("password-field2").value="' . $password . '";
             </script>';
-            $_POST['message']="Please check your email for verification, cannot continue to register again!";
+            $_POST['message'] = "Please check your email for verification, cannot continue to register again!";
             include('notify.php');
         }
-        
-        
     } else {
         echo '<script>$(".login-area").show();
-        document.getElementById("firstname-field").value="' . $firstname. '";
-        document.getElementById("lastname-field").value="' . $lastname. '";
-        document.getElementById("username-field").value="' . $username. '";
-        document.getElementById("email-field").value="' . $email. '";
-        document.getElementById("birthdate-field").value="' . $birthdate. '";
-        document.getElementById("password-field").value="' . $password. '";
-        document.getElementById("password-field2").value="' . $password. '";
+        document.getElementById("firstname-field").value="' . $firstname . '";
+        document.getElementById("lastname-field").value="' . $lastname . '";
+        document.getElementById("username-field").value="' . $username . '";
+        document.getElementById("email-field").value="' . $email . '";
+        document.getElementById("birthdate-field").value="' . $birthdate . '";
+        document.getElementById("password-field").value="' . $password . '";
+        document.getElementById("password-field2").value="' . $password . '";
         </script>';
-        $_POST['message']="Username or E-mail already in use";
+        $_POST['message'] = "Username or E-mail already in use";
         include('notify.php');
     }
 }
@@ -322,7 +333,7 @@ if (isset($_GET['activation_token'])) {
     if ($_GET['activation_token'] == $tempToken) {
         // $hashed_password = password_hash($tempPassword);
         $stmt = $conn->prepare("INSERT INTO users (Birthdate,Username, Email,`Password`, FirstName, LastName) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssss",$tempBirthdate, $tempUsername, $tempEmail, $tempPassword, $tempFirstname, $tempLastname);
+        $stmt->bind_param("ssssss", $tempBirthdate, $tempUsername, $tempEmail, $tempPassword, $tempFirstname, $tempLastname);
         $stmt->execute();
 
         if (mysqli_stmt_affected_rows($stmt) > 0) {
@@ -338,7 +349,6 @@ if (isset($_GET['activation_token'])) {
         } else {
             echo "<script>console.log('Error inserting data')</script>";
         }
-        
     }
 }
 ?>
@@ -374,62 +384,62 @@ if (isset($_POST['logInForm'])) {
 }
 ?>
 <script>
-    function verifyPassword() {
-        const password1 = document.getElementById("password-field").value;
-        const password2 = document.getElementById("password-field2").value;
-        const signUpButton = document.getElementById("sign-up");
-        const errorMessage = document.getElementById("isItSame");
-        const allMessage = document.getElementById("all");
+function verifyPassword() {
+    const password1 = document.getElementById("password-field").value;
+    const password2 = document.getElementById("password-field2").value;
+    const signUpButton = document.getElementById("sign-up");
+    const errorMessage = document.getElementById("isItSame");
+    const allMessage = document.getElementById("all");
 
-        const passwordRegex = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
-        const isPasswordValid =
-            password1 === password2 && passwordRegex.test(password1);
+    const passwordRegex = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
+    const isPasswordValid =
+        password1 === password2 && passwordRegex.test(password1);
 
-        if (password1.length != 0) {
-            if (!passwordRegex.test(password1)) {
-                allMessage.style.display = "flex";
-                allMessage.style.color = "red";
-            } else {
-                allMessage.style.display = "none";
-            }
+    if (password1.length != 0) {
+        if (!passwordRegex.test(password1)) {
+            allMessage.style.display = "flex";
+            allMessage.style.color = "red";
         } else {
             allMessage.style.display = "none";
         }
+    } else {
+        allMessage.style.display = "none";
+    }
 
-        if (password2.length != 0) {
-            if (password1 !== password2) {
-                errorMessage.style.display = "flex";
-                errorMessage.style.color = "red";
-            } else {
-                errorMessage.style.display = "none";
-            }
+    if (password2.length != 0) {
+        if (password1 !== password2) {
+            errorMessage.style.display = "flex";
+            errorMessage.style.color = "red";
         } else {
             errorMessage.style.display = "none";
         }
-
-        signUpButton.disabled = !isPasswordValid;
+    } else {
+        errorMessage.style.display = "none";
     }
+
+    signUpButton.disabled = !isPasswordValid;
+}
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const header = document.querySelector('.header');
+document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.header');
+    header.classList.remove('hide');
+});
+
+let prevScrollPos = window.pageYOffset;
+
+window.addEventListener('scroll', () => {
+    const currentScrollPos = window.pageYOffset;
+    const header = document.querySelector('.header');
+
+    if (prevScrollPos > currentScrollPos) {
+        // scrolling up
         header.classList.remove('hide');
-    });
+    } else {
+        // scrolling down
+        header.classList.add('hide');
+    }
 
-    let prevScrollPos = window.pageYOffset;
-
-    window.addEventListener('scroll', () => {
-        const currentScrollPos = window.pageYOffset;
-        const header = document.querySelector('.header');
-
-        if (prevScrollPos > currentScrollPos) {
-            // scrolling up
-            header.classList.remove('hide');
-        } else {
-            // scrolling down
-            header.classList.add('hide');
-        }
-
-        prevScrollPos = currentScrollPos;
-    });
+    prevScrollPos = currentScrollPos;
+});
 </script>

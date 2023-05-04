@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="icon" type="image/png" href="assets/img/logo2.png" />
-	<link rel="icon" type="image/png" href="assets/img/logo2.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/img/logo2.png" />
+    <link rel="icon" type="image/png" href="assets/img/logo2.png" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" media="all" />
     <!-- Slick nav CSS -->
@@ -20,11 +20,12 @@
     <!-- Responsive CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/responsive.css" media="all" />
 
-	<title>Watchlist</title>
-	<style>
+    <title>Watchlist</title>
+    <style>
         .portfolio-content h5 {
             margin-top: -20px;
         }
+
         .transformers-right {
             display: inline-block;
             padding: 6px 12px;
@@ -39,7 +40,8 @@
             border: 1px;
         }
 
-        .transformers-right.watchlisted:hover, .transformers-right:hover {
+        .transformers-right.watchlisted:hover,
+        .transformers-right:hover {
             background-color: gray;
             border: 1px;
         }
@@ -111,10 +113,10 @@
 </head>
 
 <body style="background-color: #212529;">
-	<!-- Page loader -->
-	<div id="preloader"></div>
+    <!-- Page loader -->
+    <div id="preloader"></div>
     <!-- header section start -->
-    <?php include("header.php");?>
+    <?php include("Models/header.php"); ?>
     <section class="breadcrumb-area">
         <div class="container">
             <div class="row">
@@ -132,17 +134,17 @@
             <hr />
             <div class="grid-container" id="contentContainer">
                 <?php
-                    $stmt1 = $conn->prepare("SELECT * FROM Watchlist w JOIN Content c ON c.ID = w.Content_ID WHERE w.User_ID = ?");
-                    $stmt1->bind_param("d", $_SESSION['user']);
-                    $stmt1->execute();
-                    $result1 = $stmt1->get_result();
+                $stmt1 = $conn->prepare("SELECT * FROM Watchlist w JOIN Content c ON c.ID = w.Content_ID WHERE w.User_ID = ?");
+                $stmt1->bind_param("d", $_SESSION['user']);
+                $stmt1->execute();
+                $result1 = $stmt1->get_result();
 
-                    while ($row = mysqli_fetch_array($result1)) {
-                        $title = $row['Title'];
-                        $poster = $row['Cover'];
-                        $id = $row['ID'];
-                        $type = $row['Type'];
-                        echo '<div class="contentDiv" style="margin-top:15%;">
+                while ($row = mysqli_fetch_array($result1)) {
+                    $title = $row['Title'];
+                    $poster = $row['Cover'];
+                    $id = $row['ID'];
+                    $type = $row['Type'];
+                    echo '<div class="contentDiv" style="margin-top:15%;">
                                 <div>
                                     <div  class = "filmi">
                                         <center>
@@ -151,7 +153,7 @@
                                             </a>
                                         </center>
                                     </div>
-                                    <div class="transformers-right watchlisted" id="watchlist-button'.$id.'" onclick="list('.$id.')">
+                                    <div class="transformers-right watchlisted" id="watchlist-button' . $id . '" onclick="list(' . $id . ')">
                                     </div>
                                     <div class="portfolio-content">
                                         <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
@@ -160,13 +162,13 @@
                                     </div>
                                 </div>
                             </div>';
-                    }
+                }
                 ?>
             </div>
         </div>
     </section>
 
-	<?php include("footer.php"); ?>
+    <?php include("Models/footer.php"); ?>
 
     <!-- footer section end -->
     <script>
@@ -176,14 +178,14 @@
                 watchlistButton.classList.remove("watchlisted");
                 removeFromWatchlist(id);
                 var xhr = new XMLHttpRequest();
-                xhr.open("POST", "array-remove.php");
+                xhr.open("POST", "Services/array-remove.php");
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.send("id=" + id);
             } else {
                 watchlistButton.classList.add("watchlisted");
                 addToWatchlist(id);
                 var xhr = new XMLHttpRequest();
-                xhr.open("POST", "array-add.php");
+                xhr.open("POST", "Services/array-add.php");
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.send("id=" + id);
             }

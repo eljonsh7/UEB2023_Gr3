@@ -1,9 +1,9 @@
 <?php
 
-include('connection.php');
+include('Services/connection.php');
 $searchCondition = "";
 $type = "'tv show'";
-include('pagination.php');
+include('Services/pagination.php');
 session_start();
 $stmt1 = $conn->prepare("SELECT * FROM watchlist WHERE User_ID = ?");
 $stmt1->bind_param("d", $_SESSION['user']);
@@ -45,97 +45,99 @@ session_abort();
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
     <style>
-        .portfolio-content h5 {
-            margin-top: -20px;
-        }
-        .transformers-right {
-            display: inline-block;
-            padding: 6px 12px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            cursor: pointer;
-            background-color: transparent;
-        }
+    .portfolio-content h5 {
+        margin-top: -20px;
+    }
 
-        .transformers-right.watchlisted {
-            background-color: white;
-            border: 1px;
-        }
+    .transformers-right {
+        display: inline-block;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        cursor: pointer;
+        background-color: transparent;
+    }
 
-        .transformers-right.watchlisted:hover, .transformers-right:hover {
-            background-color: gray;
-            border: 1px;
-        }
+    .transformers-right.watchlisted {
+        background-color: white;
+        border: 1px;
+    }
 
-        .transformers-right {
-            color: wheat;
-            background-color: transparent;
-            width: 30px;
-            height: 30px;
-            border-radius: 10%;
-            position: relative;
-            left: 76%;
-            top: -320px;
-        }
+    .transformers-right.watchlisted:hover,
+    .transformers-right:hover {
+        background-color: gray;
+        border: 1px;
+    }
 
-        .tv {
-            color: #00d9e1;
-        }
+    .transformers-right {
+        color: wheat;
+        background-color: transparent;
+        width: 30px;
+        height: 30px;
+        border-radius: 10%;
+        position: relative;
+        left: 76%;
+        top: -320px;
+    }
 
-        .filmi {
-            align-items: center;
-            width: 221px;
-            height: 330px;
-            border-radius: 15px;
-            margin: 0 auto;
-            overflow: hidden;
-        }
+    .tv {
+        color: #00d9e1;
+    }
 
-        .imgContentPortfolio {
-            transition: 0.9s;
-            position: relative;
-        }
+    .filmi {
+        align-items: center;
+        width: 221px;
+        height: 330px;
+        border-radius: 15px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
 
-        .imgContentPortfolio:hover {
-            transform: scale(1.2);
-        }
+    .imgContentPortfolio {
+        transition: 0.9s;
+        position: relative;
+    }
 
+    .imgContentPortfolio:hover {
+        transform: scale(1.2);
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-gap: 20px;
+    }
+
+    #imgContent {
+        width: 221px;
+        height: 330px;
+    }
+
+    @media screen and (min-width: 576px) {
         .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            grid-gap: 20px;
+            grid-template-columns: repeat(2, minmax(250px, 1fr));
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        .grid-container {
+            grid-template-columns: repeat(2, minmax(250px, 1fr));
+        }
+    }
+
+    @media screen and (min-width: 992px) {
+        .grid-container {
+            grid-template-columns: repeat(3, minmax(250px, 1fr));
         }
 
-        #imgContent {
-            width: 221px;
-            height: 330px;
+    }
+
+    @media screen and (min-width: 1200px) {
+        .grid-container {
+            grid-template-columns: repeat(4, minmax(250px, 1fr));
         }
 
-        @media screen and (min-width: 576px) {
-            .grid-container {
-                grid-template-columns: repeat(2, minmax(250px, 1fr));
-            }
-        }
-
-        @media screen and (min-width: 768px) {
-            .grid-container {
-                grid-template-columns: repeat(2, minmax(250px, 1fr));
-            }
-        }
-
-        @media screen and (min-width: 992px) {
-            .grid-container {
-                grid-template-columns: repeat(3, minmax(250px, 1fr));
-            }
-
-        }
-
-        @media screen and (min-width: 1200px) {
-            .grid-container {
-                grid-template-columns: repeat(4, minmax(250px, 1fr));
-            }
-
-        }
+    }
     </style>
 </head>
 
@@ -143,7 +145,7 @@ session_abort();
     <!-- Page loader -->
     <div id="preloader"></div>
     <!-- header section start -->
-    <?php include("header.php"); ?>
+    <?php include("Models/header.php"); ?>
 
     <!-- breadcrumb area start -->
     <section class="breadcrumb-area">
@@ -181,9 +183,9 @@ session_abort();
                                                             } ?>>
                                     Drama
                                 </li>
-                                </a><a href="tv-shows.php?genre=action">
+                            </a><a href="tv-shows.php?genre=action">
                                 <li data-filter=".Action" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'action') {
-                                                                    echo 'class="active"';
+                                                                echo 'class="active"';
                                                             }  ?>>
                                     Action
                                 </li>
@@ -207,7 +209,7 @@ session_abort();
                     $id = $row['ID'];
                     $type = $row['Type'];
                     $genre = $row['Genre'];
-                    include('card.php');
+                    include('Models/card.php');
                 }
                 ?>
             </div>
@@ -215,7 +217,7 @@ session_abort();
     </section><!-- portfolio section end -->
     <?php
     $site = 'tv-shows';
-    include('paginationNumbers.php');
+    include('Services/paginationNumbers.php');
     ?>
     <!-- video section start -->
     <section class="video ptb-90">
@@ -255,41 +257,41 @@ session_abort();
     </section>
     <!-- video section end -->
     <!-- footer section start -->
-    <?php include("footer.php"); ?>
+    <?php include("Models/footer.php"); ?>
     <!-- footer section end -->
     <script>
-        function list(id) {
-            var watchlistButton = document.getElementById("watchlist-button" + id);
-            if (watchlistButton.classList.contains("watchlisted")) {
-                watchlistButton.classList.remove("watchlisted");
-                removeFromWatchlist(id);
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "array-remove.php");
-                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhr.send("id=" + id);
-            } else {
-                watchlistButton.classList.add("watchlisted");
-                addToWatchlist(id);
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "array-add.php");
-                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhr.send("id=" + id);
-            }
-        }
-
-        function addToWatchlist(content_id) {
+    function list(id) {
+        var watchlistButton = document.getElementById("watchlist-button" + id);
+        if (watchlistButton.classList.contains("watchlisted")) {
+            watchlistButton.classList.remove("watchlisted");
+            removeFromWatchlist(id);
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "watchlist-add.php");
+            xhr.open("POST", "Services/array-remove.php");
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.send("content_id=" + content_id);
-        }
-
-        function removeFromWatchlist(content_id) {
+            xhr.send("id=" + id);
+        } else {
+            watchlistButton.classList.add("watchlisted");
+            addToWatchlist(id);
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "watchlist-remove.php");
+            xhr.open("POST", "Services/array-add.php");
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.send("content_id=" + content_id);
+            xhr.send("id=" + id);
         }
+    }
+
+    function addToWatchlist(content_id) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "Services/watchlist-add.php");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("content_id=" + content_id);
+    }
+
+    function removeFromWatchlist(content_id) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "Services/watchlist-remove.php");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("content_id=" + content_id);
+    }
     </script>
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>

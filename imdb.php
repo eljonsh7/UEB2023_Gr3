@@ -1,5 +1,5 @@
 <?php
-include('connection.php');
+include('Services/connection.php');
 
 $sql = "SELECT content.Trailer, content.Type, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
 FROM content
@@ -76,7 +76,7 @@ $result = mysqli_query($conn, $sql);
     <!-- Page loader -->
     <div id="preloader"></div>
     <!-- header section start -->
-    <?php include("header.php"); ?>
+    <?php include("Models/header.php"); ?>
     <!-- breadcrumb area start -->
     <section class="breadcrumb-area">
         <div class="container">
@@ -147,7 +147,7 @@ $result = mysqli_query($conn, $sql);
     <!-- video section start -->
 
     <!-- footer section start -->
-    <?php include("footer.php"); ?>
+    <?php include("Models/footer.php"); ?>
     <!-- footer section end -->
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>

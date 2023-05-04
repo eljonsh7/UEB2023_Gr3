@@ -51,53 +51,59 @@ $row = mysqli_fetch_array($result);
     <![endif]-->
 
     <style>
-      #watchlist-button {
+    #watchlist-button {
         display: inline-block;
         padding: 6px 12px;
         border: 1px solid #ccc;
         border-radius: 3px;
         cursor: pointer;
-      }
+    }
 
-      #watchlist-button.watchlisted {
+    #watchlist-button.watchlisted {
         background-color: white;
-      }
+    }
 
-      #watchlist-button.watchlisted:hover, #watchlist-button:hover {
+    #watchlist-button.watchlisted:hover,
+    #watchlist-button:hover {
         background-color: gray;
-      }
-      @media screen and (min-width: 992px) {
-        .contentInformation{
+    }
+
+    @media screen and (min-width: 992px) {
+        .contentInformation {
             padding-left: 3%;
         }
     }
+
     @media screen and (max-width: 991px) {
-        .contentInformation{
+        .contentInformation {
             padding-top: 3%;
         }
     }
+
     @media screen and (max-width: 767px) {
-        .transformers-area{
+        .transformers-area {
             margin-top: -30%;
         }
     }
-    
+
     .comment_img {
-      border-radius: 50%;
+        border-radius: 50%;
     }
-    table > tr > td > p {
-      margin-left: 5%;
+
+    table>tr>td>p {
+        margin-left: 5%;
     }
 
     #com:hover {
-			background-color: #007bff;
-			color: white;
-		}
-		#com {
-			background-color: black;
-			color: white;
-      margin-top: 2%;
-		}
+        background-color: #007bff;
+        color: white;
+    }
+
+    #com {
+        background-color: black;
+        color: white;
+        margin-top: 2%;
+    }
     </style>
 
 
@@ -107,7 +113,7 @@ $row = mysqli_fetch_array($result);
     <!-- Page loader -->
     <div id="preloader"></div>
     <!-- header section start -->
-    <?php include("header.php"); ?>
+    <?php include("Models/header.php"); ?>
 
     <!-- header section end -->
     <!-- breadcrumb area start -->
@@ -164,22 +170,22 @@ $row = mysqli_fetch_array($result);
                     <div class="transformers-left">Release:</div>
                     <div class="transformers-right">' . $row['Date'] . '</div>
                   </li>';
-                  if(isset($_SESSION['user'])){
-                    $stmt1 = mysqli_prepare($conn, "SELECT * FROM Watchlist WHERE User_ID = ? AND Content_ID = ?");
-                    mysqli_stmt_bind_param($stmt1, 'ii', $_SESSION['user'], $_GET['id']);
-                    mysqli_stmt_execute($stmt1);
-                    $result1 = mysqli_stmt_get_result($stmt1);
+    if (isset($_SESSION['user'])) {
+      $stmt1 = mysqli_prepare($conn, "SELECT * FROM Watchlist WHERE User_ID = ? AND Content_ID = ?");
+      mysqli_stmt_bind_param($stmt1, 'ii', $_SESSION['user'], $_GET['id']);
+      mysqli_stmt_execute($stmt1);
+      $result1 = mysqli_stmt_get_result($stmt1);
 
-                    echo '<li>
+      echo '<li>
                         <div class="transformers-left" style="margin-right:2%;">Add to watchlist:</div>
                         <div class="transformers-right ';
-                        if (mysqli_num_rows($result1) > 0) {
-                          echo 'watchlisted';
-                        }
-                        echo '" id="watchlist-button"></div>
+      if (mysqli_num_rows($result1) > 0) {
+        echo 'watchlisted';
+      }
+      echo '" id="watchlist-button"></div>
                       </li>';
-                  }
-                  echo '
+    }
+    echo '
                 </ul>
               </div>
             </div>
@@ -229,22 +235,22 @@ $row = mysqli_fetch_array($result);
                     <div class="transformers-left">Start Date:</div>
                     <div class="transformers-right">' . $row['Date'] . '</div>
                   </li>';
-                  if(isset($_SESSION['user'])){
-                    $stmt1 = mysqli_prepare($conn, "SELECT * FROM Watchlist WHERE User_ID = ? AND Content_ID = ?");
-                    mysqli_stmt_bind_param($stmt1, 'ii', $_SESSION['user'], $_GET['id']);
-                    mysqli_stmt_execute($stmt1);
-                    $result1 = mysqli_stmt_get_result($stmt1);
+    if (isset($_SESSION['user'])) {
+      $stmt1 = mysqli_prepare($conn, "SELECT * FROM Watchlist WHERE User_ID = ? AND Content_ID = ?");
+      mysqli_stmt_bind_param($stmt1, 'ii', $_SESSION['user'], $_GET['id']);
+      mysqli_stmt_execute($stmt1);
+      $result1 = mysqli_stmt_get_result($stmt1);
 
-                    echo '<li>
+      echo '<li>
                         <div class="transformers-left" style="margin-right:2%;">Add to watchlist:</div>
                         <div class="transformers-right ';
-                        if (mysqli_num_rows($result1) > 0) {
-                          echo 'watchlisted';
-                        }
-                        echo '" id="watchlist-button"></div>
+      if (mysqli_num_rows($result1) > 0) {
+        echo 'watchlisted';
+      }
+      echo '" id="watchlist-button"></div>
                       </li>';
-                  }
-                  echo '
+    }
+    echo '
                 </ul>
               </div>
             </div>
@@ -270,68 +276,71 @@ $row = mysqli_fetch_array($result);
                 <div>
                     <div class="details-content">
                         <div class="details-overview">
-                          <h2>Comments</h2>
-                          <?php
-                            include("connection.php");
+                            <h2>Comments</h2>
+                            <?php
+              include("Services/connection.php");
 
-                            if ($conn->connect_error) {
-                              die("Connection failed: " . $conn->connect_error);
-                            }
+              if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+              }
 
-                            $stmt = mysqli_prepare($conn, "SELECT c.ID AS CID, c.Comment, u.ID, u.Firstname, u.Lastname, u.Photo FROM Comments c JOIN Users u ON c.User_id = u.ID WHERE c.Content_ID = ?");
-                            mysqli_stmt_bind_param($stmt, 's', $_GET['id']);
-                            mysqli_stmt_execute($stmt);
-                            $result = mysqli_stmt_get_result($stmt);
+              $stmt = mysqli_prepare($conn, "SELECT c.ID AS CID, c.Comment, u.ID, u.Firstname, u.Lastname, u.Photo FROM Comments c JOIN Users u ON c.User_id = u.ID WHERE c.Content_ID = ?");
+              mysqli_stmt_bind_param($stmt, 's', $_GET['id']);
+              mysqli_stmt_execute($stmt);
+              $result = mysqli_stmt_get_result($stmt);
 
-                            while($row2 = $result->fetch_assoc()) {
-                              echo "<table style='table-layout: auto; margin-bottom: 3%;'>";
-                              echo "<tr>";
-                              echo "<td width='50'><img src='" . $row2["Photo"] . "' width='40' height='40' class='comment_img'></td>";
-                              echo "<td><p><b>" . $row2["Firstname"] . " " . $row2["Lastname"] . ": <b></p></td>";
-                              echo "</tr>";
-                              echo "<tr><td>";
-                              if(isset($_SESSION['user']) && $_SESSION['user'] == $row2['ID']) {
-                                echo "<a href='movie-details.php?id=".$row['ID']."&type=".$row['Type']."&delete=".$row2['CID']."' id='delete' style='color:red;'>Delete</a>";
-                              }
-                              echo "</td><td><p>" . $row2["Comment"] . "</p></td>";
-                              echo "</tr>";
-                              echo "</table>";
-                            }
+              while ($row2 = $result->fetch_assoc()) {
+                echo "<table style='table-layout: auto; margin-bottom: 3%;'>";
+                echo "<tr>";
+                echo "<td width='50'><img src='" . $row2["Photo"] . "' width='40' height='40' class='comment_img'></td>";
+                echo "<td><p><b>" . $row2["Firstname"] . " " . $row2["Lastname"] . ": <b></p></td>";
+                echo "</tr>";
+                echo "<tr><td>";
+                if (isset($_SESSION['user']) && $_SESSION['user'] == $row2['ID']) {
+                  echo "<a href='movie-details.php?id=" . $row['ID'] . "&type=" . $row['Type'] . "&delete=" . $row2['CID'] . "' id='delete' style='color:red;'>Delete</a>";
+                }
+                echo "</td><td><p>" . $row2["Comment"] . "</p></td>";
+                echo "</tr>";
+                echo "</table>";
+              }
 
-                            if (isset($_GET['delete'])){
-                              $stmt3 = mysqli_prepare($conn, "DELETE FROM Comments WHERE ID = ?");
-                              mysqli_stmt_bind_param($stmt3, 's', $_GET['delete']);
-                              mysqli_stmt_execute($stmt3);
-                              unset($_GET['delete']);
-                            }
-                          ?>
+              if (isset($_GET['delete'])) {
+                $stmt3 = mysqli_prepare($conn, "DELETE FROM Comments WHERE ID = ?");
+                mysqli_stmt_bind_param($stmt3, 's', $_GET['delete']);
+                mysqli_stmt_execute($stmt3);
+                unset($_GET['delete']);
+              }
+              ?>
                         </div>
                         <div class="details-reply">
-                          <h2>Leave a Comment</h2>
-                          <form method="post">
-                              <div class="row">
-                                  <div class="col-lg-12">
-                                      <div class="textarea-container">
-                                      <textarea style="background: #13151f; color: white;" placeholder="Comment Here ..." class="form-control" id="message" name="message"></textarea>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="details-comment">
-                                <input type="submit" class="btn btn-primary" id="com" name="com" value="Post Comment">
-                            </div>
-                          </form>
+                            <h2>Leave a Comment</h2>
+                            <form method="post">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="textarea-container">
+                                            <textarea style="background: #13151f; color: white;"
+                                                placeholder="Comment Here ..." class="form-control" id="message"
+                                                name="message"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="details-comment">
+                                    <input type="submit" class="btn btn-primary" id="com" name="com"
+                                        value="Post Comment">
+                                </div>
+                            </form>
                         </div>
                         <?php
-                          if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                            if ( isset($_SESSION['user'])){
-                              $stmt2 = mysqli_prepare($conn, "INSERT INTO Comments (Content_ID, User_ID, Comment) VALUES (?, ?, ?)");
-                              mysqli_stmt_bind_param($stmt2, 'sss', $_GET['id'], $_SESSION['user'], $_POST['message']);
-                              mysqli_stmt_execute($stmt2);
-                            } else {
-                              echo "<script>alert('You are not logged in!')</script>";
-                            }
-                          } 
-                        ?>
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+              if (isset($_SESSION['user'])) {
+                $stmt2 = mysqli_prepare($conn, "INSERT INTO Comments (Content_ID, User_ID, Comment) VALUES (?, ?, ?)");
+                mysqli_stmt_bind_param($stmt2, 'sss', $_GET['id'], $_SESSION['user'], $_POST['message']);
+                mysqli_stmt_execute($stmt2);
+              } else {
+                echo "<script>alert('You are not logged in!')</script>";
+              }
+            }
+            ?>
                         <div class="details-thumb">
                             <div class="details-thumb-prev">
                                 <div class="thumb-icon">
@@ -359,36 +368,36 @@ $row = mysqli_fetch_array($result);
     </section>
     <!-- details area end -->
     <!-- footer section start -->
-    <?php include("footer.php"); ?>
+    <?php include("Models/footer.php"); ?>
     <!-- footer section end -->
     <script>
-      var watchlistButton = document.getElementById("watchlist-button");
+    var watchlistButton = document.getElementById("watchlist-button");
 
-      watchlistButton.addEventListener("click", function() {
+    watchlistButton.addEventListener("click", function() {
         if (watchlistButton.classList.contains("watchlisted")) {
-          watchlistButton.classList.remove("watchlisted");
-          removeFromWatchlist(<?php echo $_GET['id']; ?>);
+            watchlistButton.classList.remove("watchlisted");
+            removeFromWatchlist(<?php echo $_GET['id']; ?>);
         } else {
-          watchlistButton.classList.add("watchlisted");
-          addToWatchlist(<?php echo $_GET['id']; ?>);
+            watchlistButton.classList.add("watchlisted");
+            addToWatchlist(<?php echo $_GET['id']; ?>);
         }
 
         updateWatchlistButton();
-      });
+    });
 
-      function addToWatchlist(content_id) {
+    function addToWatchlist(content_id) {
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "watchlist-add.php");
+        xhr.open("POST", "Services/watchlist-add.php");
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.send("content_id=" + content_id);
-      }
+    }
 
-      function removeFromWatchlist(content_id) {
+    function removeFromWatchlist(content_id) {
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "watchlist-remove.php");
+        xhr.open("POST", "Services/watchlist-remove.php");
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.send("content_id=" + content_id);
-      }
+    }
     </script>
 
     <!-- jquery main JS -->

@@ -59,8 +59,8 @@
         height: 597px !important;
     }
 
-    .soon{
-        margin:5px;
+    .soon {
+        margin: 5px;
     }
 
     .soon img {
@@ -169,10 +169,10 @@
     <!-- Page loader -->
     <div id="preloader"></div>
     <!-- header section start -->
-    <?php include("header.php"); ?>
+    <?php include("Models/header.php"); ?>
     <?php
 
-    include('connection.php');
+    include('Services/connection.php');
 
 
     $sql = "SELECT * FROM `content`";
@@ -517,7 +517,7 @@
         </div>
     </section><!-- news section end -->
     <!-- footer section start -->
-    <?php include("footer.php"); ?>
+    <?php include("Models/footer.php"); ?>
     <!-- footer section end -->
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>

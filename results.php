@@ -1,5 +1,5 @@
 <?php
-include('connection.php');
+include('Services/connection.php');
 session_start();
 $search = $_GET['search'];
 if (isset($_GET['type'])) {
@@ -9,7 +9,7 @@ if (isset($_GET['type'])) {
     $type = "'movie','tv show'";
     $searchCondition = "and content.Title like '%{$search}%'";
 }
-include('pagination.php');
+include('Services/.php');
 
 $stmt1 = $conn->prepare("SELECT * FROM watchlist WHERE User_ID = ?");
 $stmt1->bind_param("d", $_SESSION['user']);
@@ -53,93 +53,95 @@ session_abort();
 		<![endif]-->
 
     <style>
-    .portfolio-content h5 {
-        margin-top: -20px;
-    }
-    .transformers-right {
-        display: inline-block;
-        padding: 6px 12px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        cursor: pointer;
-        background-color: transparent;
-    }
+        .portfolio-content h5 {
+            margin-top: -20px;
+        }
 
-    .transformers-right.watchlisted {
-        background-color: white;
-        border: 1px;
-    }
+        .transformers-right {
+            display: inline-block;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            cursor: pointer;
+            background-color: transparent;
+        }
 
-    .transformers-right.watchlisted:hover, .transformers-right:hover {
+        .transformers-right.watchlisted {
+            background-color: white;
+            border: 1px;
+        }
+
+        .transformers-right.watchlisted:hover,
+        .transformers-right:hover {
             background-color: gray;
             border: 1px;
         }
 
-    .transformers-right {
-        color: wheat;
-        background-color: transparent;
-        width: 30px;
-        height: 30px;
-        border-radius: 10%;
-        position: relative;
-        left: 76%;
-        top: -320px;
-    }
-
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        grid-gap: 20px;
-    }
-
-    .filmi {
-        align-items: center;
-        width: 221px;
-        height: 330px;
-        border-radius: 15px;
-        margin: 0 auto;
-        overflow: hidden;
-    }
-
-    .imgContentPortfolio {
-        transition: 0.9s;
-        position: relative;
-    }
-
-    .imgContentPortfolio:hover {
-        transform: scale(1.2);
-    }
-
-    #imgContent {
-        width: 221px;
-        height: 330px;
-    }
-
-    @media screen and (min-width: 576px) {
-        .grid-container {
-            grid-template-columns: repeat(2, minmax(250px, 1fr));
-        }
-    }
-
-    @media screen and (min-width: 768px) {
-        .grid-container {
-            grid-template-columns: repeat(2, minmax(250px, 1fr));
-        }
-    }
-
-    @media screen and (min-width: 992px) {
-        .grid-container {
-            grid-template-columns: repeat(3, minmax(250px, 1fr));
+        .transformers-right {
+            color: wheat;
+            background-color: transparent;
+            width: 30px;
+            height: 30px;
+            border-radius: 10%;
+            position: relative;
+            left: 76%;
+            top: -320px;
         }
 
-    }
-
-    @media screen and (min-width: 1200px) {
         .grid-container {
-            grid-template-columns: repeat(4, minmax(250px, 1fr));
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 20px;
         }
 
-    }
+        .filmi {
+            align-items: center;
+            width: 221px;
+            height: 330px;
+            border-radius: 15px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .imgContentPortfolio {
+            transition: 0.9s;
+            position: relative;
+        }
+
+        .imgContentPortfolio:hover {
+            transform: scale(1.2);
+        }
+
+        #imgContent {
+            width: 221px;
+            height: 330px;
+        }
+
+        @media screen and (min-width: 576px) {
+            .grid-container {
+                grid-template-columns: repeat(2, minmax(250px, 1fr));
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(2, minmax(250px, 1fr));
+            }
+        }
+
+        @media screen and (min-width: 992px) {
+            .grid-container {
+                grid-template-columns: repeat(3, minmax(250px, 1fr));
+            }
+
+        }
+
+        @media screen and (min-width: 1200px) {
+            .grid-container {
+                grid-template-columns: repeat(4, minmax(250px, 1fr));
+            }
+
+        }
     </style>
 </head>
 
@@ -147,7 +149,7 @@ session_abort();
     <!-- Page loader -->
     <div id="preloader"></div>
     <!-- header section start -->
-    <?php include("header.php"); ?>
+    <?php include("Models/header.php"); ?>
 
 
     <?php
@@ -201,7 +203,7 @@ session_abort();
                         $id = $row['ID'];
                         $type = $row['Type'];
                         $genre = $row['Genre'];
-                        include('card.php');
+                        include('Models/card.php');
                     }
                     echo '</div>';
                 } else {
@@ -210,17 +212,17 @@ session_abort();
                 echo '</div></section>';
                 ?>
                 <style>
-                .btn {
-                    background-color: #3a444f;
-                    border-width: 0;
-                }
+                    .btn {
+                        background-color: #3a444f;
+                        border-width: 0;
+                    }
 
-                .btn:hover,
-                .btn:active {
-                    background-color: transparent;
-                    border-width: 3px;
-                    border-color: white;
-                }
+                    .btn:hover,
+                    .btn:active {
+                        background-color: transparent;
+                        border-width: 3px;
+                        border-color: white;
+                    }
                 </style>
 
                 <?php
@@ -256,7 +258,7 @@ session_abort();
                 } ?>
 
                 <!-- footer section start -->
-                <?php include("footer.php"); ?>
+                <?php include("Models/footer.php"); ?>
                 <!-- footer section end -->
                 <script>
                     function list(id) {
@@ -265,14 +267,14 @@ session_abort();
                             watchlistButton.classList.remove("watchlisted");
                             removeFromWatchlist(id);
                             var xhr = new XMLHttpRequest();
-                            xhr.open("POST", "array-remove.php");
+                            xhr.open("POST", "Services/array-remove.php");
                             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                             xhr.send("id=" + id);
                         } else {
                             watchlistButton.classList.add("watchlisted");
                             addToWatchlist(id);
                             var xhr = new XMLHttpRequest();
-                            xhr.open("POST", "array-add.php");
+                            xhr.open("POST", "Services/array-add.php");
                             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                             xhr.send("id=" + id);
                         }
@@ -280,14 +282,14 @@ session_abort();
 
                     function addToWatchlist(content_id) {
                         var xhr = new XMLHttpRequest();
-                        xhr.open("POST", "watchlist-add.php");
+                        xhr.open("POST", "Services/watchlist-add.php");
                         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                         xhr.send("content_id=" + content_id);
                     }
 
                     function removeFromWatchlist(content_id) {
                         var xhr = new XMLHttpRequest();
-                        xhr.open("POST", "watchlist-remove.php");
+                        xhr.open("POST", "Services/watchlist-remove.php");
                         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                         xhr.send("content_id=" + content_id);
                     }
