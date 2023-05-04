@@ -241,16 +241,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE Email = ? OR Username = ?");
-    // mysqli_stmt_bind_param($stmt, 'ss', $email, $username);
-    // mysqli_stmt_execute($stmt);
-    // $result = mysqli_stmt_get_result($stmt);
-
-    // $stmt1 = mysqli_prepare($conn, "SELECT * FROM users WHERE Username = ?");
-    // mysqli_stmt_bind_param($stmt1, 's', $username);
-    // mysqli_stmt_execute($stmt1);
-    // $result1 = mysqli_stmt_get_result($stmt1);
-
     if (mysqli_num_rows($result) == 0) {
         $token = bin2hex(random_bytes(32));
         $salt = bin2hex(random_bytes(16));
@@ -284,10 +274,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
             } catch (Exception $e) {
                 echo 'Caught exception: ' . $e->getMessage() . "\n";
             }
-            $stmt = $conn->prepare("INSERT INTO `temporary users` (ID,Birthdate, Username, Email, `Password`, ActToken, FirstName, LastName) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssssss", $hashed_accountID, $birthdate, $username, $email, $hashed_password, $hashed_token, $firstname, $lastname);
+            $stmt = $conn->prepare("INSERT INTO `temporary users` (ID,Birthdate, Username, Email, `Password`, ActToken, FirstName, LastName, Created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)");
+            $stmt->bind_param("ssssssss", $hashed_accountID, $birthdate, $username, $email,$hashed_password, $hashed_token, $firstname,$lastname);
             $stmt->execute();
-        } else {
+
+        }else{
             echo '<script>$(".login-area").show();
             document.getElementById("firstname-field").value="' . $firstname . '";
             document.getElementById("lastname-field").value="' . $lastname . '";
@@ -314,21 +305,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
         include('notify.php');
     }
 }
-if (isset($_GET['activation_token'])) {
+if (isset($_GET['activation_token']) && isset($_GET['accountID'])) {
     $tempAccID = $_GET['accountID'];
-
+    $tempToken = 0;
     $stmt = $conn->prepare("SELECT * FROM `temporary users` WHERE ID = ?");
     $stmt->bind_param('s', $tempAccID);
     $stmt->execute();
     $result = $stmt->get_result();
-    $row = mysqli_fetch_array($result);
-    $tempUsername = $row['Username'];
-    $tempEmail = $row['Email'];
-    $tempPassword = $row['Password'];
-    $tempBirthdate = $row['Birthdate'];
-    $tempToken = $row['ActToken'];
-    $tempFirstname = $row['FirstName'];
-    $tempLastname = $row['LastName'];
+    if(mysqli_num_rows($result) == 1){
+        $row = mysqli_fetch_array($result);
+        $tempUsername = $row['Username'];
+        $tempEmail = $row['Email'];
+        $tempPassword = $row['Password'];
+        $tempBirthdate = $row['Birthdate'];
+        $tempToken = $row['ActToken'];
+        $tempFirstname = $row['FirstName'];
+        $tempLastname = $row['LastName'];
+    }
+    
 
     if ($_GET['activation_token'] == $tempToken) {
         // $hashed_password = password_hash($tempPassword);
@@ -349,6 +343,9 @@ if (isset($_GET['activation_token'])) {
         } else {
             echo "<script>console.log('Error inserting data')</script>";
         }
+    }else{
+        $_POST['message']="The activation token is invalid!";
+        include('notify.php');
     }
 }
 ?>

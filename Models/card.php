@@ -1,6 +1,6 @@
 <?php echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
                 <div>
-                    <div  class = "filmi">
+                    <div  class = "filmi" id="content'.$id.'">
                         <center>
                             <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
                                 <img id="imgContent" src="' . $poster . '" alt="portfolio" class="imgContentPortfolio" style="border-radius:15px;"/>
