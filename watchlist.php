@@ -1,33 +1,10 @@
-<?php
-
-include('connection.php');
-$searchCondition = "";
-$type = "'movie'";
-include('pagination.php');
-
-session_start();
-$stmt1 = $conn->prepare("SELECT * FROM watchlist WHERE User_ID = ?");
-$stmt1->bind_param("d", $_SESSION['user']);
-$stmt1->execute();
-$result1 = $stmt1->get_result();
-
-$content_ids = array();
-while ($row = mysqli_fetch_array($result1)) {
-    $content_ids[] = $row['Content_ID'];
-}
-session_abort();
-?>
-
-<!DOCTYPE HTML>
-<html lang="zxx">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>FlixFeast</title>
-    <!-- Favicon Icon -->
-    <link rel="icon" type="image/png" href="assets/img/logo2.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/png" href="assets/img/logo2.png" />
+	<link rel="icon" type="image/png" href="assets/img/logo2.png" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" media="all" />
     <!-- Slick nav CSS -->
@@ -42,11 +19,9 @@ session_abort();
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" media="all" />
     <!-- Responsive CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/responsive.css" media="all" />
-    <!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
-    <style>
+
+	<title>Watchlist</title>
+	<style>
         .portfolio-content h5 {
             margin-top: -20px;
         }
@@ -78,10 +53,6 @@ session_abort();
             position: relative;
             left: 76%;
             top: -320px;
-        }
-        .movies {
-
-            color: #00d9e1;
         }
 
         .filmi {
@@ -129,32 +100,27 @@ session_abort();
             .grid-container {
                 grid-template-columns: repeat(3, minmax(250px, 1fr));
             }
-
         }
 
         @media screen and (min-width: 1200px) {
             .grid-container {
                 grid-template-columns: repeat(4, minmax(250px, 1fr));
             }
-
         }
     </style>
 </head>
 
-<body>
-    <!-- Page loader -->
-    <div id="preloader"></div>
+<body style="background-color: #212529;">
+	<!-- Page loader -->
+	<div id="preloader"></div>
     <!-- header section start -->
-    <?php include("header.php");
-
-    ?>
-
+    <?php include("header.php");?>
     <section class="breadcrumb-area">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-area-content">
-                        <h1>Movies Page</h1>
+                        <h1>Watchlist Page</h1>
                     </div>
                 </div>
             </div>
@@ -163,98 +129,45 @@ session_abort();
     <!-- portfolio section start -->
     <section class="portfolio-area pt-60">
         <div class="container">
-
-            <div class="row">
-                <div class="col-lg-6 text-center text-lg-left">
-                    <div class="portfolio-menu">
-                        <ul><a href="movies.php">
-                                <li <?php if (!isset($_GET['genre']) || $_GET['genre'] === '') {
-                                        echo 'class="active"';
-                                    } ?>>
-                                    All
-                                </li>
-                            </a><a href="movies.php?genre=action">
-                                <li <?php if (isset($_GET['genre']) && $_GET['genre'] === 'action') {
-                                        echo 'class="active"';
-                                    } ?>>
-                                    Action
-                                </li>
-                            </a><a href="movies.php?genre=drama">
-                                <li <?php if (isset($_GET['genre']) && $_GET['genre'] === 'drama') {
-                                        echo 'class="active"';
-                                    } ?>>
-                                    Drama
-                                </li>
-                            </a> <a href="movies.php?genre=crime">
-                                <li <?php if (isset($_GET['genre']) && $_GET['genre'] === 'crime') {
-                                        echo 'class="active"';
-                                    } ?>>
-                                    Crime
-                                </li>
-                            </a>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
             <hr />
             <div class="grid-container" id="contentContainer">
-
                 <?php
-                while ($row = mysqli_fetch_array($result)) {
-                    $title = $row['Title'];
-                    $poster = $row['Cover'];
-                    $id = $row['ID'];
-                    $type = $row['Type'];
-                    $genre = $row['Genre'];
-                    include('card.php');
-                }
+                    $stmt1 = $conn->prepare("SELECT * FROM Watchlist w JOIN Content c ON c.ID = w.Content_ID WHERE w.User_ID = ?");
+                    $stmt1->bind_param("d", $_SESSION['user']);
+                    $stmt1->execute();
+                    $result1 = $stmt1->get_result();
+
+                    while ($row = mysqli_fetch_array($result1)) {
+                        $title = $row['Title'];
+                        $poster = $row['Cover'];
+                        $id = $row['ID'];
+                        $type = $row['Type'];
+                        echo '<div class="contentDiv" style="margin-top:15%;">
+                                <div>
+                                    <div  class = "filmi">
+                                        <center>
+                                            <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
+                                                <img id="imgContent" src="' . $poster . '" alt="portfolio" class="imgContentPortfolio" style="border-radius:15px;"/>
+                                            </a>
+                                        </center>
+                                    </div>
+                                    <div class="transformers-right watchlisted" id="watchlist-button'.$id.'" onclick="list('.$id.')">
+                                    </div>
+                                    <div class="portfolio-content">
+                                        <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
+                                            <h5 style = "text-align:center;">' . $title . '</h5>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>';
+                    }
                 ?>
             </div>
         </div>
-    </section><!-- portfolio section end -->
-    <?php
-    $site = 'movies';
-    include('paginationNumbers.php');
-    ?>
-    <!-- video section start -->
-    <section class="video ptb-90">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title pb-20">
-                        <h1><i class="icofont icofont-film"></i> Trailers & Videos</h1>
-                    </div>
-                </div>
-            </div>
-            <hr />
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="video-slider mt-20">
-                        <?php
-                        $sql = "SELECT * from content where type = 'movie'";
-                        $result = mysqli_query($conn, $sql);
-                        while ($row1 = mysqli_fetch_array($result)) {
-                            $youtube_link = $row1['Trailer'];
+    </section>
 
-                            $video_id = substr(parse_url($youtube_link, PHP_URL_QUERY), 2);
+	<?php include("footer.php"); ?>
 
-                            $thumbnail_url = "https://img.youtube.com/vi/{$video_id}/maxresdefault.jpg";
-                            echo '<div class = "col-md-16"> 
-                            <a href="' . $youtube_link . '" class="popup-youtube">
-                            <img src="' . $thumbnail_url . '" alt="video" />
-                            </a>
-                        </div>';
-                        }
-                        ?>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section><!-- video section end -->
-    <!-- footer section start -->
-    <?php include("footer.php"); ?>
     <!-- footer section end -->
     <script>
         function list(id) {
@@ -289,7 +202,7 @@ session_abort();
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.send("content_id=" + content_id);
         }
-    </script>   
+    </script>
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>
     <!-- Bootstrap JS -->

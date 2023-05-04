@@ -12,7 +12,7 @@
                                 if (in_array($id, $content_ids)) {
                                     echo 'watchlisted';
                                 }
-                                echo '" id="watchlist-button" onclick="list('.$id.')"></div>';
+                                echo '" id="watchlist-button'.$id.'" onclick="list('.$id.')"></div>';
                             }
                             echo '
                     <div class="portfolio-content">

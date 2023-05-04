@@ -1,5 +1,6 @@
 <?php
 include('connection.php');
+session_start();
 $search = $_GET['search'];
 if (isset($_GET['type'])) {
     $type = "'" . $_GET['type'] . "'";
@@ -9,16 +10,17 @@ if (isset($_GET['type'])) {
     $searchCondition = "and content.Title like '%{$search}%'";
 }
 include('pagination.php');
-// echo $sql;
 
-$stmt1 = mysqli_prepare($conn, "SELECT * FROM Watchlist WHERE User_ID = ? AND Content_ID = ?");
-mysqli_stmt_bind_param($stmt1, 'ii', $_SESSION['user'], $id);
-mysqli_stmt_execute($stmt1);
-$result1 = mysqli_stmt_get_result($stmt1);
+$stmt1 = $conn->prepare("SELECT * FROM watchlist WHERE User_ID = ?");
+$stmt1->bind_param("d", $_SESSION['user']);
+$stmt1->execute();
+$result1 = $stmt1->get_result();
+
 $content_ids = array();
-while($row = mysqli_fetch_assoc($result1)) {
+while ($row = mysqli_fetch_array($result1)) {
     $content_ids[] = $row['Content_ID'];
 }
+session_abort();
 ?>
 
 <!DOCTYPE HTML>
@@ -54,7 +56,7 @@ while($row = mysqli_fetch_assoc($result1)) {
     .portfolio-content h5 {
         margin-top: -20px;
     }
-    #watchlist-button {
+    .transformers-right {
         display: inline-block;
         padding: 6px 12px;
         border: 1px solid #ccc;
@@ -63,13 +65,15 @@ while($row = mysqli_fetch_assoc($result1)) {
         background-color: transparent;
     }
 
-    #watchlist-button.watchlisted {
+    .transformers-right.watchlisted {
         background-color: white;
+        border: 1px;
     }
 
-    #watchlist-button.watchlisted:hover {
-        background-color: white;
-    }
+    .transformers-right.watchlisted:hover, .transformers-right:hover {
+            background-color: gray;
+            border: 1px;
+        }
 
     .transformers-right {
         color: wheat;
@@ -255,9 +259,8 @@ while($row = mysqli_fetch_assoc($result1)) {
                 <?php include("footer.php"); ?>
                 <!-- footer section end -->
                 <script>
-                    var watchlistButton = document.getElementById("watchlist-button");
-
                     function list(id) {
+                        var watchlistButton = document.getElementById("watchlist-button" + id);
                         if (watchlistButton.classList.contains("watchlisted")) {
                             watchlistButton.classList.remove("watchlisted");
                             removeFromWatchlist(id);
@@ -273,7 +276,6 @@ while($row = mysqli_fetch_assoc($result1)) {
                             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                             xhr.send("id=" + id);
                         }
-                        updateWatchlistButton();
                     }
 
                     function addToWatchlist(content_id) {

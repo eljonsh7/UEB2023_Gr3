@@ -63,8 +63,8 @@ $row = mysqli_fetch_array($result);
         background-color: white;
       }
 
-      #watchlist-button.watchlisted:hover {
-        background-color: wheat;
+      #watchlist-button.watchlisted:hover, #watchlist-button:hover {
+        background-color: gray;
       }
       @media screen and (min-width: 992px) {
         .contentInformation{

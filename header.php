@@ -55,7 +55,8 @@
                             if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true) {
                                 echo '<a href="user.php?mode=info">Profile <i class="icofont icofont-simple-down"></i></a>
                                             <ul>
-                                                <li><a href="user.php?mode=edit">Edit</a></li>';
+                                                <li><a href="user.php?mode=edit">Edit</a></li>
+                                                <li><a href="watchlist.php">Watchlist</a></li>';
                                 if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                                     echo '<li><a class="dashboard" href="dashboard/dashboard.php" target="_blank">Dashboard</a></li>';
                                 }

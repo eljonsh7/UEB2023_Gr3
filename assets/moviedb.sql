@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: May 04, 2023 at 12:32 AM
+-- Generation Time: May 04, 2023 at 02:12 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -318,6 +318,16 @@ CREATE TABLE `watchlist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `watchlist`
+--
+
+INSERT INTO `watchlist` (`User_ID`, `Content_ID`) VALUES
+(1, 9),
+(1, 10),
+(1, 8),
+(1, 2);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -396,7 +406,7 @@ ALTER TABLE `content`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

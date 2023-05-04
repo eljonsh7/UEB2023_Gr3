@@ -4,6 +4,17 @@ include('connection.php');
 $searchCondition = "";
 $type = "'tv show'";
 include('pagination.php');
+session_start();
+$stmt1 = $conn->prepare("SELECT * FROM watchlist WHERE User_ID = ?");
+$stmt1->bind_param("d", $_SESSION['user']);
+$stmt1->execute();
+$result1 = $stmt1->get_result();
+
+$content_ids = array();
+while ($row = mysqli_fetch_array($result1)) {
+    $content_ids[] = $row['Content_ID'];
+}
+session_abort();
 ?>
 <!DOCTYPE HTML>
 <html lang="zxx">
@@ -34,6 +45,39 @@ include('pagination.php');
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
     <style>
+        .portfolio-content h5 {
+            margin-top: -20px;
+        }
+        .transformers-right {
+            display: inline-block;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            cursor: pointer;
+            background-color: transparent;
+        }
+
+        .transformers-right.watchlisted {
+            background-color: white;
+            border: 1px;
+        }
+
+        .transformers-right.watchlisted:hover, .transformers-right:hover {
+            background-color: gray;
+            border: 1px;
+        }
+
+        .transformers-right {
+            color: wheat;
+            background-color: transparent;
+            width: 30px;
+            height: 30px;
+            border-radius: 10%;
+            position: relative;
+            left: 76%;
+            top: -320px;
+        }
+
         .tv {
             color: #00d9e1;
         }
@@ -163,22 +207,7 @@ include('pagination.php');
                     $id = $row['ID'];
                     $type = $row['Type'];
                     $genre = $row['Genre'];
-                    echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
-                    <div>
-                        <div  class = "filmi">
-                            <center>
-                                <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
-                                    <img id="imgContent" src="' . $poster . '" alt="portfolio" class="imgContentPortfolio" style="border-radius:15px;"/>
-                                </a>
-                            </center>
-                        </div>
-                        <div class="portfolio-content">
-                            <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
-                                <h5 style = "text-align:center;">' . $title . '</h5>
-                            </a>
-                        </div>
-                    </div>
-                </div>';
+                    include('card.php');
                 }
                 ?>
             </div>
@@ -228,6 +257,40 @@ include('pagination.php');
     <!-- footer section start -->
     <?php include("footer.php"); ?>
     <!-- footer section end -->
+    <script>
+        function list(id) {
+            var watchlistButton = document.getElementById("watchlist-button" + id);
+            if (watchlistButton.classList.contains("watchlisted")) {
+                watchlistButton.classList.remove("watchlisted");
+                removeFromWatchlist(id);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "array-remove.php");
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send("id=" + id);
+            } else {
+                watchlistButton.classList.add("watchlisted");
+                addToWatchlist(id);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "array-add.php");
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send("id=" + id);
+            }
+        }
+
+        function addToWatchlist(content_id) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "watchlist-add.php");
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("content_id=" + content_id);
+        }
+
+        function removeFromWatchlist(content_id) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "watchlist-remove.php");
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("content_id=" + content_id);
+        }
+    </script>
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>
     <!-- Bootstrap JS -->
