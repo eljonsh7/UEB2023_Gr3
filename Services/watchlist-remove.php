@@ -17,4 +17,3 @@
 
     $stmt->close();
     $mysqli->close();
-?>

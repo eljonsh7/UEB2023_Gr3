@@ -99,7 +99,8 @@ $monthName = date('F', mktime(0, 0, 0, $month, 1));
                                 <div class="col-lg-6 text-lg-left text-center">
                                     <div class="details-author">
                                         <h4>By Admin:</h4>
-                                        <img src="<?php echo $profilePic ?>" alt="" class="rounded-circle" style="width: 50px; height: 50px;">
+                                        <img src="<?php echo $profilePic ?>" alt="" class="rounded-circle"
+                                            style="width: 50px; height: 50px;">
 
                                     </div>
                                 </div>

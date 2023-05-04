@@ -296,34 +296,33 @@ session_abort();
 
     const movies = document.querySelectorAll('.filmi');
 
-movies.forEach((movie) => {
-  const checkmark = movie.nextElementSibling;
+    movies.forEach((movie) => {
+        const checkmark = movie.nextElementSibling;
 
-  movie.addEventListener('mouseenter', (event) => {
-    checkmark.style.visibility = 'visible';
-    console.log("ENTERED");
-  });
+        movie.addEventListener('mouseenter', (event) => {
+            checkmark.style.visibility = 'visible';
+            console.log("ENTERED");
+        });
 
-  movie.addEventListener('mouseleave', (event) => {
-    if (event.relatedTarget !== checkmark) {
-      checkmark.style.visibility = 'hidden';
-      console.log("LEFT");
-    }
-  });
+        movie.addEventListener('mouseleave', (event) => {
+            if (event.relatedTarget !== checkmark) {
+                checkmark.style.visibility = 'hidden';
+                console.log("LEFT");
+            }
+        });
 
-  checkmark.addEventListener('mouseenter', (event) => {
-    checkmark.style.visibility = 'visible';
-    console.log("ENTERED CHECKMARK");
-  });
+        checkmark.addEventListener('mouseenter', (event) => {
+            checkmark.style.visibility = 'visible';
+            console.log("ENTERED CHECKMARK");
+        });
 
-  checkmark.addEventListener('mouseleave', (event) => {
-    if (event.relatedTarget !== movie) {
-      checkmark.style.visibility = 'hidden';
-      console.log("LEFT CHECKMARK");
-    }
-  });
-});
-
+        checkmark.addEventListener('mouseleave', (event) => {
+            if (event.relatedTarget !== movie) {
+                checkmark.style.visibility = 'hidden';
+                console.log("LEFT CHECKMARK");
+            }
+        });
+    });
     </script>
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>

@@ -62,7 +62,7 @@
                                 if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                                     echo '<li><a class="dashboard" href="dashboard/dashboard.php" target="_blank">Dashboard</a></li>';
                                 }
-                                echo '<li><a href="logout.php">Sign out</a></li>';
+                                echo '<li><a href="Services/logout.php">Sign out</a></li>';
 
                                 echo '</ul>';
                             } else {
@@ -275,10 +275,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
                 echo 'Caught exception: ' . $e->getMessage() . "\n";
             }
             $stmt = $conn->prepare("INSERT INTO `temporary users` (ID,Birthdate, Username, Email, `Password`, ActToken, FirstName, LastName, Created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)");
-            $stmt->bind_param("ssssssss", $hashed_accountID, $birthdate, $username, $email,$hashed_password, $hashed_token, $firstname,$lastname);
+            $stmt->bind_param("ssssssss", $hashed_accountID, $birthdate, $username, $email, $hashed_password, $hashed_token, $firstname, $lastname);
             $stmt->execute();
-
-        }else{
+        } else {
             echo '<script>$(".login-area").show();
             document.getElementById("firstname-field").value="' . $firstname . '";
             document.getElementById("lastname-field").value="' . $lastname . '";
@@ -289,7 +288,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
             document.getElementById("password-field2").value="' . $password . '";
             </script>';
             $_POST['message'] = "Please check your email for verification, cannot continue to register again!";
-            include('notify.php');
+            include('Services/notify.php');
         }
     } else {
         echo '<script>$(".login-area").show();
@@ -312,7 +311,7 @@ if (isset($_GET['activation_token']) && isset($_GET['accountID'])) {
     $stmt->bind_param('s', $tempAccID);
     $stmt->execute();
     $result = $stmt->get_result();
-    if(mysqli_num_rows($result) == 1){
+    if (mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_array($result);
         $tempUsername = $row['Username'];
         $tempEmail = $row['Email'];
@@ -322,7 +321,7 @@ if (isset($_GET['activation_token']) && isset($_GET['accountID'])) {
         $tempFirstname = $row['FirstName'];
         $tempLastname = $row['LastName'];
     }
-    
+
 
     if ($_GET['activation_token'] == $tempToken) {
         // $hashed_password = password_hash($tempPassword);
@@ -343,8 +342,8 @@ if (isset($_GET['activation_token']) && isset($_GET['accountID'])) {
         } else {
             echo "<script>console.log('Error inserting data')</script>";
         }
-    }else{
-        $_POST['message']="The activation token is invalid!";
+    } else {
+        $_POST['message'] = "The activation token is invalid!";
         include('notify.php');
     }
 }

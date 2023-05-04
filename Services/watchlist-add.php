@@ -1,19 +1,19 @@
 <?php
-    session_start();
+session_start();
 
-    include("Services/connection.php");
+include("connection.php");
 
-    if ($mysqli->connect_errno) {
-        echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-        exit();
-    }
+if ($mysqli->connect_errno) {
+    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+    exit();
+}
 
-    $user_id = $_SESSION['user'];
-    $content_id = $_POST['content_id'];
-    
-    $stmt = mysqli_prepare($conn, "INSERT INTO Watchlist (User_ID, Content_ID) VALUES (?, ?)");
-    mysqli_stmt_bind_param($stmt, "ii", $user_id, $content_id);
-    mysqli_stmt_execute($stmt);
+$user_id = $_SESSION['user'];
+$content_id = $_POST['content_id'];
 
-    $stmt->close();
-    $mysqli->close();
+$stmt = mysqli_prepare($conn, "INSERT INTO Watchlist (User_ID, Content_ID) VALUES (?, ?)");
+mysqli_stmt_bind_param($stmt, "ii", $user_id, $content_id);
+mysqli_stmt_execute($stmt);
+
+$stmt->close();
+$mysqli->close();
