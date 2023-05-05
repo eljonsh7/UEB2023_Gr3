@@ -52,12 +52,14 @@ $result = mysqli_query($conn, $sql);
 
         .filmi {
             width: 25%;
-
-        }
-
-        div div {
             float: left;
+            
         }
+
+        /* div div {
+            float: left;
+        } */
+
 
         .portfolio-content {
             width: 500px;
@@ -67,7 +69,8 @@ $result = mysqli_query($conn, $sql);
 
 
         .main-div {
-            margin-top: 50px;
+            margin-top: 100px;
+            margin-bottom: 100px;
         }
     </style>
 </head>
@@ -121,11 +124,11 @@ $result = mysqli_query($conn, $sql);
                 echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
                     <div class="main-div">
                         <div  class = "filmi"  >
-                            <center>
+                            
                                 <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
                                     <img id="imgContent" src="' . $poster . '" alt="portfolio" class="imgContentPortfolio" style="border-radius:15px; " />
                                 </a>
-                            </center>
+                            
                         </div>
                         <div class="portfolio-content">
 						<h5 class="title" style = "text-align:center;" >' . $title . '</h5>
