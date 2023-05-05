@@ -173,12 +173,18 @@
         <h2 style="color: white;">SIGN UP</h2>
         <form method="post">
             <input type="hidden" name="signUpForm" value="1">
-            <h6 style="color: white;">FIRST NAME</h6>
-            <input style="color: white;" type="text" id="firstname-field" name="firstname-field" class="field input"
-                required />
-            <h6 style="color: white;">LAST NAME</h6>
-            <input style="color: white;" type="text" id="lastname-field" name="lastname-field" class="field input"
-                required />
+            <div style="display: flex;">
+                <div>
+                    <h6 style="color: white;">FIRST NAME</h6>
+                    <input style="color: white;" type="text" id="firstname-field" name="firstname-field" class="field input"
+                        required />
+                </div>
+                <div>
+                    <h6 style="color: white;">LAST NAME</h6>
+                    <input style="color: white;" type="text" id="lastname-field" name="lastname-field" class="field input"
+                    required />
+                </div>
+             </div>
             <h6 style="color: white;">USERNAME</h6>
             <input style="color: white;" type="text" id="username-field" name="username-field" class="field input"
                 required />
@@ -333,7 +339,13 @@ if (isset($_GET['activation_token']) && isset($_GET['accountID'])) {
         if (mysqli_stmt_affected_rows($stmt) > 0) {
             echo "<script>console.log('Data inserted successfully!')</script>";
             $_SESSION['user_logged_in'] = true;
-            $_SESSION['user'] = false;
+            $stmt = $conn->prepare("SELECT * FROM `users` WHERE Email = ?");
+            $stmt->bind_param('s', $tempEmail);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $user = mysqli_fetch_assoc($result);
+            $_SESSION['user'] = $user['ID'];
+            $_SESSION['admin'] = $user['Admin'];
             unlink("tempReg.txt");
             echo '<script>window.location.href = "index.php";</script>';
             $tempToken = "";
