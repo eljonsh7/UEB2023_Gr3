@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: May 04, 2023 at 02:12 PM
+-- Generation Time: May 05, 2023 at 03:37 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -269,15 +269,9 @@ CREATE TABLE `temporary users` (
   `Password` varchar(255) DEFAULT NULL,
   `Photo` varchar(50) NOT NULL,
   `Admin` tinyint(4) NOT NULL DEFAULT 0,
-  `ActToken` varchar(255) NOT NULL
+  `ActToken` varchar(255) NOT NULL,
+  `Created_at` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `temporary users`
---
-
-INSERT INTO `temporary users` (`ID`, `FirstName`, `LastName`, `Birthdate`, `Username`, `Email`, `Password`, `Photo`, `Admin`, `ActToken`) VALUES
-(2147483647, '', '', '2003-11-07', '999BZ', 'blendizeqiri@hotmail.com', 'Milton77', '', 0, '333ea3993d79b824df44f0b3f652bc74353b132298f6bfc8c2b85fab4fc5a36a');
 
 -- --------------------------------------------------------
 
@@ -325,7 +319,9 @@ INSERT INTO `watchlist` (`User_ID`, `Content_ID`) VALUES
 (1, 9),
 (1, 10),
 (1, 8),
-(1, 2);
+(1, 2),
+(30, 1),
+(30, 2);
 
 --
 -- Indexes for dumped tables
@@ -406,7 +402,7 @@ ALTER TABLE `content`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- Constraints for dumped tables
@@ -435,6 +431,14 @@ ALTER TABLE `genre`
 --
 ALTER TABLE `studio`
   ADD CONSTRAINT `studio_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `content` (`ID`);
+
+DELIMITER $$
+--
+-- Events
+--
+CREATE DEFINER=`root`@`localhost` EVENT `delete_expired_temp_users` ON SCHEDULE EVERY 7 MINUTE STARTS '2023-05-04 21:22:18' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM temporary_users WHERE TIMESTAMPDIFF(MINUTE, created_at, NOW()) > 10$$
+
+DELIMITER ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
