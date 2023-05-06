@@ -64,14 +64,17 @@ $result = mysqli_query($conn, $sql);
         .portfolio-content {
             width: 500px;
             height: fit-content;
-            padding-left: 40px;
+            padding-left: 200px;
+            margin-left: 200px;
         }
 
 
         .main-div {
-            margin-top: 100px;
-            margin-bottom: 100px;
+            margin-top: 300px;
+            margin-bottom: 300px;
+
         }
+        
     </style>
 </head>
 
