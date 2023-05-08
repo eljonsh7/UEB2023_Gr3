@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+    include('Services/connection.php');
+    session_start();
 
+    $stmt1 = $conn->prepare("SELECT * FROM watchlist WHERE User_ID = ?");
+    $stmt1->bind_param("d", $_SESSION['user']);
+    $stmt1->execute();
+    $result1 = $stmt1->get_result();
+
+    $content_ids = array();
+    while ($row = mysqli_fetch_array($result1)) {
+        $content_ids[] = $row['Content_ID'];
+    }
+?>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="assets/img/logo2.png" />
@@ -23,13 +36,13 @@
     <title>Watchlist</title>
     <style>
     .portfolio-content h5 {
-        margin-top: -20px;
+        margin-top: 5%;
     }
 
     .transformers-right {
         display: inline-block;
         padding: 6px 12px;
-        border: 1px solid #ccc;
+        border: 1px solid gray;
         border-radius: 3px;
         cursor: pointer;
         background-color: transparent;
@@ -37,7 +50,6 @@
 
     .transformers-right.watchlisted {
         background-color: white;
-        border: 1px;
     }
 
     .transformers-right.watchlisted:hover,
@@ -147,24 +159,8 @@
                     $poster = $row['Cover'];
                     $id = $row['ID'];
                     $type = $row['Type'];
-                    echo '<div class="contentDiv" style="margin-top:15%;">
-                                <div>
-                                    <div  class = "filmi">
-                                        <center>
-                                            <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
-                                                <img id="imgContent" src="' . $poster . '" alt="portfolio" class="imgContentPortfolio" style="border-radius:15px;"/>
-                                            </a>
-                                        </center>
-                                    </div>
-                                    <div class="transformers-right watchlisted" id="watchlist-button' . $id . '" onclick="list(' . $id . ')">
-                                    </div>
-                                    <div class="portfolio-content">
-                                        <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
-                                            <h5 style = "text-align:center;">' . $title . '</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>';
+                    $genre = "";
+                    include('Models/card.php');
                 }
                 ?>
             </div>
@@ -184,24 +180,8 @@
                     $poster = $row['Cover'];
                     $id = $row['ID'];
                     $type = $row['Type'];
-                    echo '<div class="contentDiv" style="margin-top:15%;">
-                                <div>
-                                    <div  class = "filmi">
-                                        <center>
-                                            <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
-                                                <img id="imgContent" src="' . $poster . '" alt="portfolio" class="imgContentPortfolio" style="border-radius:15px;"/>
-                                            </a>
-                                        </center>
-                                    </div>
-                                    <div class="transformers-right watchlisted" id="watchlist-button' . $id . '" onclick="list(' . $id . ')">
-                                    </div>
-                                    <div class="portfolio-content">
-                                        <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
-                                            <h5 style = "text-align:center;">' . $title . '</h5>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>';
+                    $genre = "";
+                    include('Models/card.php');
                 }
                 ?>
             </div>

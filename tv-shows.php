@@ -1,20 +1,18 @@
 <?php
+    include('Services/connection.php');
+    $searchCondition = "";
+    $type = "'tv show'";
+    include('Services/pagination.php');
+    session_start();
+    $stmt1 = $conn->prepare("SELECT * FROM watchlist WHERE User_ID = ?");
+    $stmt1->bind_param("d", $_SESSION['user']);
+    $stmt1->execute();
+    $result1 = $stmt1->get_result();
 
-include('Services/connection.php');
-$searchCondition = "";
-$type = "'tv show'";
-include('Services/pagination.php');
-session_start();
-$stmt1 = $conn->prepare("SELECT * FROM watchlist WHERE User_ID = ?");
-$stmt1->bind_param("d", $_SESSION['user']);
-$stmt1->execute();
-$result1 = $stmt1->get_result();
-
-$content_ids = array();
-while ($row = mysqli_fetch_array($result1)) {
-    $content_ids[] = $row['Content_ID'];
-}
-session_abort();
+    $content_ids = array();
+    while ($row = mysqli_fetch_array($result1)) {
+        $content_ids[] = $row['Content_ID'];
+    }
 ?>
 <!DOCTYPE HTML>
 <html lang="zxx">
@@ -45,16 +43,14 @@ session_abort();
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
     <style>
-    <?php if(isset($_SESSION['user'])) {
-            echo '.portfolio-content h5 {
-                margin-top: -20px;
-            }';
-        } ?>
-
+    .portfolio-content h5 {
+        margin-top: 5%;
+    }
+    
     .transformers-right {
         display: inline-block;
         padding: 6px 12px;
-        border: 1px solid #ccc;
+        border: 1px solid gray;
         border-radius: 3px;
         cursor: pointer;
         background-color: transparent;
@@ -62,7 +58,6 @@ session_abort();
 
     .transformers-right.watchlisted {
         background-color: white;
-        border: 1px;
     }
 
     .transformers-right.watchlisted:hover,
@@ -78,7 +73,7 @@ session_abort();
         height: 30px;
         border-radius: 10%;
         position: relative;
-        left: 76%;
+        left: 81.5%;
         top: -320px;
     }
 

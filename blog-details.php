@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('Services/connection.php');
 $id = $_GET['id'];
 $sql = "SELECT * FROM blogs where id ='$id' ";
