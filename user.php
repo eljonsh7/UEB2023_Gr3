@@ -382,11 +382,13 @@ if (!isset($_GET['mode'])) {
 			$pass1 = $_POST['password'];
 			$pass2 = $_POST['password2'];
 			$oldpass = $_POST['oldpassword'];
+			$hashed_oldpass = hash('sha256', $oldpass);
 
-			if ($user['Password'] == $oldpass) {
+			if ($user['Password'] == $hashed_oldpass) {
+				$hashed_pass = hash('sha256', $pass1);
 				$sql = "UPDATE users SET Password=? WHERE ID=?";
 				$stmt = mysqli_prepare($conn, $sql);
-				mysqli_stmt_bind_param($stmt, "si", $pass1, $_SESSION['user']);
+				mysqli_stmt_bind_param($stmt, "si", $hashed_pass, $_SESSION['user']);
 				mysqli_stmt_execute($stmt);
 			} else {
 				echo '<script>alert("Old password incorrect.")</script>';

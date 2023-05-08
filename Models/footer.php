@@ -15,6 +15,7 @@
 						<li><a href="#">Terms of Use</a></li>
 						<li><a href="#">Privacy Policy</a></li>
 						<li><a href="#">Security</a></li>
+						<li><a href="faq.php">Ask Questions</a></li>
 					</ul>
 				</div>
 			</div>

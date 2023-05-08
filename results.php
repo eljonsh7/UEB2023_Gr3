@@ -53,9 +53,11 @@ session_abort();
 		<![endif]-->
 
     <style>
-    .portfolio-content h5 {
-        margin-top: -20px;
-    }
+    <?php if(isset($_SESSION['user'])) {
+            echo '.portfolio-content h5 {
+                margin-top: -20px;
+            }';
+        } ?>
 
     .transformers-right {
         display: inline-block;
@@ -261,39 +263,41 @@ session_abort();
                 <?php include("Models/footer.php"); ?>
                 <!-- footer section end -->
                 <script>
-                function list(id) {
-                    var watchlistButton = document.getElementById("watchlist-button" + id);
-                    if (watchlistButton.classList.contains("watchlisted")) {
-                        watchlistButton.classList.remove("watchlisted");
-                        removeFromWatchlist(id);
-                        var xhr = new XMLHttpRequest();
-                        xhr.open("POST", "Services/array-remove.php");
-                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                        xhr.send("id=" + id);
-                    } else {
-                        watchlistButton.classList.add("watchlisted");
-                        addToWatchlist(id);
-                        var xhr = new XMLHttpRequest();
-                        xhr.open("POST", "Services/array-add.php");
-                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                        xhr.send("id=" + id);
-                    }
-                }
-
-                function addToWatchlist(content_id) {
+        <?php if(isset($_SESSION['user'])) {
+            echo 'function list(id) {
+                var watchlistButton = document.getElementById("watchlist-button" + id);
+                if (watchlistButton.classList.contains("watchlisted")) {
+                    watchlistButton.classList.remove("watchlisted");
+                    removeFromWatchlist(id);
                     var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "Services/watchlist-add.php");
+                    xhr.open("POST", "Services/array-remove.php");
                     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xhr.send("content_id=" + content_id);
-                }
-
-                function removeFromWatchlist(content_id) {
+                    xhr.send("id=" + id);
+                } else {
+                    watchlistButton.classList.add("watchlisted");
+                    addToWatchlist(id);
                     var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "Services/watchlist-remove.php");
+                    xhr.open("POST", "Services/array-add.php");
                     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xhr.send("content_id=" + content_id);
+                    xhr.send("id=" + id);
                 }
-                </script>
+            }
+        
+            function addToWatchlist(content_id) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "Services/watchlist-add.php");
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send("content_id=" + content_id);
+            }
+        
+            function removeFromWatchlist(content_id) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "Services/watchlist-remove.php");
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send("content_id=" + content_id);
+            }';
+        } ?>
+    </script>
                 <!-- jquery main JS -->
                 <script src="assets/js/jquery.min.js"></script>
                 <!-- Bootstrap JS -->

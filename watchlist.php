@@ -112,7 +112,7 @@
     </style>
 </head>
 
-<body style="background-color: #212529;">
+<body>
     <!-- Page loader -->
     <div id="preloader"></div>
     <!-- header section start -->
@@ -131,15 +131,55 @@
     <!-- portfolio section start -->
     <section class="portfolio-area pt-60">
         <div class="container">
-            <hr />
+            <div>
+                <h2>Movies</h2>
+            </div>
+            <hr>
             <div class="grid-container" id="contentContainer">
                 <?php
-                $stmt1 = $conn->prepare("SELECT * FROM Watchlist w JOIN Content c ON c.ID = w.Content_ID WHERE w.User_ID = ?");
+                $stmt1 = $conn->prepare("SELECT * FROM Watchlist w JOIN Content c ON c.ID = w.Content_ID WHERE w.User_ID = ? AND Type = 'Movie'");
                 $stmt1->bind_param("d", $_SESSION['user']);
                 $stmt1->execute();
                 $result1 = $stmt1->get_result();
 
                 while ($row = mysqli_fetch_array($result1)) {
+                    $title = $row['Title'];
+                    $poster = $row['Cover'];
+                    $id = $row['ID'];
+                    $type = $row['Type'];
+                    echo '<div class="contentDiv" style="margin-top:15%;">
+                                <div>
+                                    <div  class = "filmi">
+                                        <center>
+                                            <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
+                                                <img id="imgContent" src="' . $poster . '" alt="portfolio" class="imgContentPortfolio" style="border-radius:15px;"/>
+                                            </a>
+                                        </center>
+                                    </div>
+                                    <div class="transformers-right watchlisted" id="watchlist-button' . $id . '" onclick="list(' . $id . ')">
+                                    </div>
+                                    <div class="portfolio-content">
+                                        <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
+                                            <h5 style = "text-align:center;">' . $title . '</h5>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>';
+                }
+                ?>
+            </div>
+            <div style="margin-top: 7%;">
+                <h2>TV Shows</h2>
+            </div>
+            <hr>
+            <div class="grid-container" id="contentContainer">
+                <?php
+                $stmt2 = $conn->prepare("SELECT * FROM Watchlist w JOIN Content c ON c.ID = w.Content_ID WHERE w.User_ID = ? AND Type = 'TV Show'");
+                $stmt2->bind_param("d", $_SESSION['user']);
+                $stmt2->execute();
+                $result2 = $stmt2->get_result();
+
+                while ($row = mysqli_fetch_array($result2)) {
                     $title = $row['Title'];
                     $poster = $row['Cover'];
                     $id = $row['ID'];
@@ -172,38 +212,38 @@
 
     <!-- footer section end -->
     <script>
-    function list(id) {
-        var watchlistButton = document.getElementById("watchlist-button" + id);
-        if (watchlistButton.classList.contains("watchlisted")) {
-            watchlistButton.classList.remove("watchlisted");
-            removeFromWatchlist(id);
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "Services/array-remove.php");
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.send("id=" + id);
-        } else {
-            watchlistButton.classList.add("watchlisted");
-            addToWatchlist(id);
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "Services/array-add.php");
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.send("id=" + id);
+        function list(id) {
+            var watchlistButton = document.getElementById("watchlist-button" + id);
+            if (watchlistButton.classList.contains("watchlisted")) {
+                watchlistButton.classList.remove("watchlisted");
+                removeFromWatchlist(id);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "Services/array-remove.php");
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send("id=" + id);
+            } else {
+                watchlistButton.classList.add("watchlisted");
+                addToWatchlist(id);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "Services/array-add.php");
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send("id=" + id);
+            }
         }
-    }
 
-    function addToWatchlist(content_id) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "Services/watchlist-add.php");
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.send("content_id=" + content_id);
-    }
+        function addToWatchlist(content_id) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "Services/watchlist-add.php");
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("content_id=" + content_id);
+        }
 
-    function removeFromWatchlist(content_id) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "Service/watchlist-remove.php");
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.send("content_id=" + content_id);
-    }
+        function removeFromWatchlist(content_id) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "Services/watchlist-remove.php");
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("content_id=" + content_id);
+        }
     </script>
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>
