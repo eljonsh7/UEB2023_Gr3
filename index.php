@@ -1,6 +1,19 @@
+<?php
+    include('Services/connection.php');
+    session_start();
+
+    $stmt1 = $conn->prepare("SELECT * FROM watchlist WHERE User_ID = ?");
+    $stmt1->bind_param("d", $_SESSION['user']);
+    $stmt1->execute();
+    $result1 = $stmt1->get_result();
+
+    $content_ids = array();
+    while ($row = mysqli_fetch_array($result1)) {
+        $content_ids[] = $row['Content_ID'];
+    }
+?>
 <!DOCTYPE HTML>
 <html lang="zxx">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,6 +40,10 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
     <style>
+    .portfolio-content h5 {
+        margin-top: 5%;
+    }
+    
     .home {
         color: #00d9e1;
     }
@@ -59,8 +76,8 @@
         height: 597px !important;
     }
 
-    .soon{
-        margin:5px;
+    .soon {
+        margin: 5px;
     }
 
     .soon img {
@@ -162,6 +179,76 @@
             display: block;
         }
     }
+
+    .portfolio-content h5 {
+        margin-top: 5%;
+    }
+    
+    .transformers-right {
+        display: inline-block;
+        padding: 6px 12px;
+        border: 1px solid gray;
+        border-radius: 3px;
+        cursor: pointer;
+        background-color: transparent;
+    }
+
+    .transformers-right.watchlisted {
+        background-color: white;
+    }
+
+    .transformers-right.watchlisted:hover,
+    .transformers-right:hover {
+        background-color: gray;
+        border: 1px;
+    }
+
+    .transformers-right {
+        color: wheat;
+        background-color: transparent;
+        width: 30px;
+        height: 30px;
+        border-radius: 10%;
+        position: relative;
+        left: 81.5%;
+        top: -320px;
+    }
+
+    .filmi {
+        align-items: center;
+        width: 221px;
+        height: 330px;
+        border-radius: 5%;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .imgContentPortfolio {
+        transition: 0.9s;
+        position: relative;
+    }
+
+    .imgContentPortfolio:hover {
+        transform: scale(1.2);
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-gap: 20px;
+    }
+
+    #imgContent {
+        width: 221px;
+        height: 330px;
+    }
+
+    a.btn {
+        display: flex;
+        margin: 2%;
+        justify-content: center;
+        background: rgb(0, 0, 0, 0.6);
+    }
     </style>
 </head>
 
@@ -169,20 +256,14 @@
     <!-- Page loader -->
     <div id="preloader"></div>
     <!-- header section start -->
-    <?php include("header.php"); ?>
-    <?php
-
-    include('connection.php');
-
-
-    $sql = "SELECT * FROM `content`";
-
-    $result = mysqli_query($conn, $sql);
-    ?>
+    <?php include("Models/header.php"); ?>
     <section class="hero-area" id="home">
         <div class="container">
             <div class="hero-area-slider activeDiv">
                 <?php
+                include('Services/connection.php');
+                $sql = "SELECT * FROM `content`";
+                $result = mysqli_query($conn, $sql);
                 $count = 0;
                 $result = mysqli_query($conn, $sql);
                 while ($row = mysqli_fetch_array($result)) {
@@ -294,56 +375,66 @@
         </div>
     </section>
     <!-- portfolio section start -->
-    <section class="portfolio-area pt-60">
+    
+    <section class="breadcrumb-area">
         <div class="container">
-            <div class="row flexbox-center">
-                <div class="col-lg-6 text-center text-lg-left">
-                    <div class="section-title">
-                        <h1><i class="icofont icofont-movie"></i> Spotlight This Month</h1>
-                    </div>
-                </div>
-                <div class="col-lg-6 text-center text-lg-right">
-                    <div class="portfolio-menu">
-                        <ul>
-                            <li class="active">Latest</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <hr />
             <div class="row">
-                <div class="col-lg-9 portfolio-container">
-                    <div class="row portfolio-items" id="latest">
-                        <?php
-                        // Connect to the database
-                        $db = new mysqli('localhost', 'root', 'root', 'moviedb', 3307);
-
-                        $query = "SELECT * FROM content ORDER BY Date DESC LIMIT 6";
-                        $result = $db->query($query);
-
-                        while ($row = $result->fetch_assoc()) {
-                            $title = $row['Title'];
-                            $cover = $row['Cover'];
-                            echo '<div class="col-md-4 col-sm-6 soon released">
-                                        <div class="single-portfolio">
-                                            <div class="single-portfolio-img">';
-                            echo '<img src="' . $cover . '" alt="portfolio"/>';
-                            echo '</div>';
-                            echo '<div class="portfolio-content">';
-                            echo '<h2>' . $title . '</h2>';
-                            echo '</div>
-                                    </div>
-                                </div>';
-                        }
-
-                        // Close the database connection
-                        $db->close();
-                        ?>
+                <div class="col-lg-12">
+                    <div class="breadcrumb-area-content">
+                        <h1>Latest Content</h1>
                     </div>
                 </div>
             </div>
         </div>
-    </section><!-- portfolio section end -->
+    </section><!-- breadcrumb area end -->
+    <!-- portfolio section start -->
+    <section class="portfolio-area pt-60">
+        <div class="container">
+            <div>
+                <h2>Movies</h2>
+            </div>
+            <hr>
+            <div class="grid-container" id="contentContainer">
+                <?php
+                    $stmt1 = $conn->prepare("SELECT * FROM Content c WHERE c.Type = 'Movie' ORDER BY c.Date DESC LIMIT 4");
+                    $stmt1->execute();
+                    $result1 = $stmt1->get_result();
+
+                    while ($row = $result1->fetch_assoc()) {
+                        $title = $row['Title'];
+                        $poster = $row['Cover'];
+                        $id = $row['ID'];
+                        $type = $row['Type'];
+                        $genre = "";
+                        include('Models/card.php');
+                    }
+                ?>
+            </div>
+            <a href="movies.php" class="btn">Show more &rarr;</a>
+            <div style="margin-top: 7%;">
+                <h2>TV Shows</h2>
+            </div>
+            <hr>
+            <div class="grid-container" id="contentContainer">
+                <?php
+                    $stmt2 = $conn->prepare("SELECT * FROM Content c WHERE c.Type = 'TV Show' ORDER BY c.Date DESC LIMIT 4");
+                    $stmt2->execute();
+                    $result2 = $stmt2->get_result();
+
+                    while ($row = mysqli_fetch_array($result2)) {
+                        $title = $row['Title'];
+                        $poster = $row['Cover'];
+                        $id = $row['ID'];
+                        $type = $row['Type'];
+                        $genre = "";
+                        include('Models/card.php');
+                    }
+                ?>
+            </div>
+            <a href="tv-shows.php" class="btn">Show more &rarr;</a>
+        </div>
+    </section>
+
     <!-- video section start -->
     <section class="video ptb-90">
         <div class="container">
@@ -470,7 +561,7 @@
                 <div class="single-news">
                     <div class="news-bg-1" style =" background: url("' . $image . '");"></div>
                     <div class="news-date">
-                        <h2><span>' . $monthName . '</span> ' . $month . '</h2>
+                        <h2><span>' . $monthName . '</span> ' . $day . '</h2>
                         <h1>' . $year . '</h1>
                     </div>
                     <div class="news-content">
@@ -488,7 +579,7 @@
                 <div class="single-news">
                 <div class="news-bg-1" style =" background: url("' . $image2 . '");"></div>
                 <div class="news-date">
-                    <h2><span>' . $monthName2 . '</span> ' . $month2 . '</h2>
+                    <h2><span>' . $monthName2 . '</span> ' . $day2 . '</h2>
                     <h1>' . $year2 . '</h1>
                 </div>
                 <div class="news-content">
@@ -503,7 +594,7 @@
                 <div class="single-news">
                 <div class="news-bg-1" style =" background: url("' . $image . '");"></div>
                 <div class="news-date">
-                    <h2><span>' . $monthName . '</span> ' . $month . '</h2>
+                    <h2><span>' . $monthName . '</span> ' . $day . '</h2>
                     <h1>' . $year . '</h1>
                 </div>
                 <div class="news-content">
@@ -518,8 +609,44 @@
         </div>
     </section><!-- news section end -->
     <!-- footer section start -->
-    <?php include("footer.php"); ?>
+    <?php include("Models/footer.php"); ?>
     <!-- footer section end -->
+    <script>
+        <?php if(isset($_SESSION['user'])) {
+            echo 'function list(id) {
+                var watchlistButton = document.getElementById("watchlist-button" + id);
+                if (watchlistButton.classList.contains("watchlisted")) {
+                    watchlistButton.classList.remove("watchlisted");
+                    removeFromWatchlist(id);
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "Services/array-remove.php");
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.send("id=" + id);
+                } else {
+                    watchlistButton.classList.add("watchlisted");
+                    addToWatchlist(id);
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "Services/array-add.php");
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.send("id=" + id);
+                }
+            }
+        
+            function addToWatchlist(content_id) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "Services/watchlist-add.php");
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send("content_id=" + content_id);
+            }
+        
+            function removeFromWatchlist(content_id) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "Services/watchlist-remove.php");
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send("content_id=" + content_id);
+            }';
+        } ?>
+    </script>
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>
     <!-- Bootstrap JS -->

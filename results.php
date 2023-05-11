@@ -1,15 +1,25 @@
 <?php
-include('connection.php');
-$search = $_GET['search'];
-if (isset($_GET['type'])) {
-    $type = "'" . $_GET['type'] . "'";
-    $searchCondition = "and content.Title like '%{$search}%'";
-} else {
-    $type = "'movie','tv show'";
-    $searchCondition = "and content.Title like '%{$search}%'";
-}
-include('pagination.php');
-// echo $sql;
+    include('Services/connection.php');
+    session_start();
+    $search = $_GET['search'];
+    if (isset($_GET['type'])) {
+        $type = "'" . $_GET['type'] . "'";
+        $searchCondition = "and content.Title like '%{$search}%'";
+    } else {
+        $type = "'movie','tv show'";
+        $searchCondition = "and content.Title like '%{$search}%'";
+    }
+    include('Services/pagination.php');
+
+    $stmt1 = $conn->prepare("SELECT * FROM watchlist WHERE User_ID = ?");
+    $stmt1->bind_param("d", $_SESSION['user']);
+    $stmt1->execute();
+    $result1 = $stmt1->get_result();
+
+    $content_ids = array();
+    while ($row = mysqli_fetch_array($result1)) {
+        $content_ids[] = $row['Content_ID'];
+    }
 ?>
 
 <!DOCTYPE HTML>
@@ -42,6 +52,40 @@ include('pagination.php');
 		<![endif]-->
 
     <style>
+    .portfolio-content h5 {
+        margin-top: 5%;
+    }
+    
+    .transformers-right {
+        display: inline-block;
+        padding: 6px 12px;
+        border: 1px solid gray;
+        border-radius: 3px;
+        cursor: pointer;
+        background-color: transparent;
+    }
+
+    .transformers-right.watchlisted {
+        background-color: white;
+    }
+
+    .transformers-right.watchlisted:hover,
+    .transformers-right:hover {
+        background-color: gray;
+        border: 1px;
+    }
+
+    .transformers-right {
+        color: wheat;
+        background-color: transparent;
+        width: 30px;
+        height: 30px;
+        border-radius: 10%;
+        position: relative;
+        left: 81.5%;
+        top: -320px;
+    }
+
     .grid-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -103,7 +147,7 @@ include('pagination.php');
     <!-- Page loader -->
     <div id="preloader"></div>
     <!-- header section start -->
-    <?php include("header.php"); ?>
+    <?php include("Models/header.php"); ?>
 
 
     <?php
@@ -151,31 +195,14 @@ include('pagination.php');
             <div class="grid-container" id="contentContainer">
                 <?php
                 if (mysqli_num_rows($result) > 0) {
-
                     while ($row = mysqli_fetch_array($result)) {
                         $title = $row['Title'];
                         $poster = $row['Cover'];
                         $id = $row['ID'];
                         $type = $row['Type'];
                         $genre = $row['Genre'];
-                        echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
-                    <div>
-                        <div  class = "filmi">
-                            <center>
-                                <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
-                                    <img id="imgContent" src="' . $poster . '" alt="portfolio" class="imgContentPortfolio" style="border-radius:15px;"/>
-                                </a>
-                            </center>
-                        </div>
-                        <div class="portfolio-content">
-                            <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
-                                <h5 style = "text-align:center;">' . $title . '</h5>
-                            </a>
-                        </div>
-                    </div>
-                </div>';
+                        include('Models/card.php');
                     }
-
                     echo '</div>';
                 } else {
                     echo '<h6 class=":text-danger text-center mt-3">No Movies or TV Shows found!</h6>';
@@ -201,7 +228,6 @@ include('pagination.php');
                     echo '<section>
     <center>
          <div class="container">';
-
                     if (isset($_GET['type'])) {
                         $type = $_GET['type'];
                         for ($i = 1; $i <= $pages; $i++) {
@@ -230,8 +256,44 @@ include('pagination.php');
                 } ?>
 
                 <!-- footer section start -->
-                <?php include("footer.php"); ?>
+                <?php include("Models/footer.php"); ?>
                 <!-- footer section end -->
+                <script>
+        <?php if(isset($_SESSION['user'])) {
+            echo 'function list(id) {
+                var watchlistButton = document.getElementById("watchlist-button" + id);
+                if (watchlistButton.classList.contains("watchlisted")) {
+                    watchlistButton.classList.remove("watchlisted");
+                    removeFromWatchlist(id);
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "Services/array-remove.php");
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.send("id=" + id);
+                } else {
+                    watchlistButton.classList.add("watchlisted");
+                    addToWatchlist(id);
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "Services/array-add.php");
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.send("id=" + id);
+                }
+            }
+        
+            function addToWatchlist(content_id) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "Services/watchlist-add.php");
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send("content_id=" + content_id);
+            }
+        
+            function removeFromWatchlist(content_id) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "Services/watchlist-remove.php");
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send("content_id=" + content_id);
+            }';
+        } ?>
+    </script>
                 <!-- jquery main JS -->
                 <script src="assets/js/jquery.min.js"></script>
                 <!-- Bootstrap JS -->

@@ -9,6 +9,5 @@ unset($_SESSION['user_logged_in']);
 session_destroy();
 
 // redirect the user to the home page or login page
-header('Location: index.php');
+header('Location: ../index.php');
 exit;
-?>

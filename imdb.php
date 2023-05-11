@@ -1,5 +1,6 @@
+<?php session_start();?>
 <?php
-include('connection.php');
+include('Services/connection.php');
 
 $sql = "SELECT content.Trailer, content.Type, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
 FROM content
@@ -52,23 +53,29 @@ $result = mysqli_query($conn, $sql);
 
         .filmi {
             width: 25%;
-
-        }
-
-        div div {
             float: left;
+            
         }
+
+        /* div div {
+            float: left;
+        } */
+
 
         .portfolio-content {
             width: 500px;
             height: fit-content;
-            padding-left: 40px;
+            padding-left: 200px;
+            margin-left: 200px;
         }
 
 
         .main-div {
-            margin-top: 50px;
+            margin-top: 300px;
+            margin-bottom: 300px;
+
         }
+        
     </style>
 </head>
 
@@ -76,7 +83,7 @@ $result = mysqli_query($conn, $sql);
     <!-- Page loader -->
     <div id="preloader"></div>
     <!-- header section start -->
-    <?php include("header.php"); ?>
+    <?php include("Models/header.php"); ?>
     <!-- breadcrumb area start -->
     <section class="breadcrumb-area">
         <div class="container">
@@ -121,11 +128,11 @@ $result = mysqli_query($conn, $sql);
                 echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
                     <div class="main-div">
                         <div  class = "filmi"  >
-                            <center>
+                            
                                 <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
                                     <img id="imgContent" src="' . $poster . '" alt="portfolio" class="imgContentPortfolio" style="border-radius:15px; " />
                                 </a>
-                            </center>
+                            
                         </div>
                         <div class="portfolio-content">
 						<h5 class="title" style = "text-align:center;" >' . $title . '</h5>
@@ -147,7 +154,7 @@ $result = mysqli_query($conn, $sql);
     <!-- video section start -->
 
     <!-- footer section start -->
-    <?php include("footer.php"); ?>
+    <?php include("Models/footer.php"); ?>
     <!-- footer section end -->
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>

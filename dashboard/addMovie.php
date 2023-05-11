@@ -193,7 +193,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
             //     echo "Wrong format";
             // }
             // get the form data
-            $title = new input($_POST['title'], "title");
+            $title = new input(mysqli_real_escape_string($conn,$_POST['title']), "title");
             $date = new input(mysqli_real_escape_string($conn, $_POST['date']), "date");
             $rating = new input(mysqli_real_escape_string($conn, $_POST['rating']), "rating");
             $cover = new input(mysqli_real_escape_string($conn, $_POST['cover']), "cover");

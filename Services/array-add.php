@@ -1,0 +1,1 @@
+<?php $content_ids[] = $_POST['content_id'];?>

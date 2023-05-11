@@ -1,10 +1,19 @@
 <?php
+    include('Services/connection.php');
+    $searchCondition = "";
+    $type = "'movie'";
+    include('Services/pagination.php');
 
-include('connection.php');
-$searchCondition = "";
-$type = "'movie'";
-include('pagination.php');
+    session_start();
+    $stmt1 = $conn->prepare("SELECT * FROM watchlist WHERE User_ID = ?");
+    $stmt1->bind_param("d", $_SESSION['user']);
+    $stmt1->execute();
+    $result1 = $stmt1->get_result();
 
+    $content_ids = array();
+    while ($row = mysqli_fetch_array($result1)) {
+        $content_ids[] = $row['Content_ID'];
+    }
 ?>
 
 <!DOCTYPE HTML>
@@ -36,65 +45,100 @@ include('pagination.php');
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
     <style>
-        .movies {
+    .portfolio-content h5 {
+        margin-top: 5%;
+    }
+    
+    .transformers-right {
+        display: inline-block;
+        padding: 6px 12px;
+        border: 1px solid gray;
+        border-radius: 3px;
+        cursor: pointer;
+        background-color: transparent;
+    }
 
-            color: #00d9e1;
-        }
+    .transformers-right.watchlisted {
+        background-color: white;
+    }
 
-        .filmi {
-            align-items: center;
-            width: 221px;
-            height: 330px;
-            border-radius: 5%;
-            margin: 0 auto;
-            overflow: hidden;
-        }
+    .transformers-right.watchlisted:hover,
+    .transformers-right:hover {
+        background-color: gray;
+        border: 1px;
+    }
 
-        .imgContentPortfolio {
-            transition: 0.9s;
-            position: relative;
-        }
+    .transformers-right {
+        color: wheat;
+        background-color: transparent;
+        width: 30px;
+        height: 30px;
+        border-radius: 10%;
+        position: relative;
+        left: 81.5%;
+        top: -320px;
+        /* visibility: hidden; */
+    }
 
-        .imgContentPortfolio:hover {
-            transform: scale(1.2);
-        }
+    .movies {
 
+        color: #00d9e1;
+    }
+
+    .filmi {
+        align-items: center;
+        width: 221px;
+        height: 330px;
+        border-radius: 5%;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .imgContentPortfolio {
+        transition: 0.9s;
+        position: relative;
+    }
+
+    .imgContentPortfolio:hover {
+        transform: scale(1.2);
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-gap: 20px;
+    }
+
+    #imgContent {
+        width: 221px;
+        height: 330px;
+    }
+
+    @media screen and (min-width: 576px) {
         .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            grid-gap: 20px;
+            grid-template-columns: repeat(2, minmax(250px, 1fr));
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        .grid-container {
+            grid-template-columns: repeat(2, minmax(250px, 1fr));
+        }
+    }
+
+    @media screen and (min-width: 992px) {
+        .grid-container {
+            grid-template-columns: repeat(3, minmax(250px, 1fr));
         }
 
-        #imgContent {
-            width: 221px;
-            height: 330px;
+    }
+
+    @media screen and (min-width: 1200px) {
+        .grid-container {
+            grid-template-columns: repeat(4, minmax(250px, 1fr));
         }
 
-        @media screen and (min-width: 576px) {
-            .grid-container {
-                grid-template-columns: repeat(2, minmax(250px, 1fr));
-            }
-        }
-
-        @media screen and (min-width: 768px) {
-            .grid-container {
-                grid-template-columns: repeat(2, minmax(250px, 1fr));
-            }
-        }
-
-        @media screen and (min-width: 992px) {
-            .grid-container {
-                grid-template-columns: repeat(3, minmax(250px, 1fr));
-            }
-
-        }
-
-        @media screen and (min-width: 1200px) {
-            .grid-container {
-                grid-template-columns: repeat(4, minmax(250px, 1fr));
-            }
-
-        }
+    }
     </style>
 </head>
 
@@ -102,9 +146,7 @@ include('pagination.php');
     <!-- Page loader -->
     <div id="preloader"></div>
     <!-- header section start -->
-    <?php include("header.php");
-
-    ?>
+    <?php include("Models/header.php");?>
 
     <section class="breadcrumb-area">
         <div class="container">
@@ -164,32 +206,15 @@ include('pagination.php');
                     $id = $row['ID'];
                     $type = $row['Type'];
                     $genre = $row['Genre'];
-                    echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
-                    <div>
-                        <div  class = "filmi">
-                            <center>
-                                <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
-                                    <img id="imgContent" src="' . $poster . '" alt="portfolio" class="imgContentPortfolio" style="border-radius:15px;"/>
-                                </a>
-                            </center>
-                        </div>
-                        <div class="portfolio-content">
-                            <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
-                                <h5 style = "text-align:center;">' . $title . '</h5>
-                            </a>
-                        </div>
-                    </div>
-                </div>';
+                    include('Models/card.php');
                 }
-
-
                 ?>
             </div>
         </div>
     </section><!-- portfolio section end -->
     <?php
     $site = 'movies';
-    include('paginationNumbers.php');
+    include('Services/paginationNumbers.php');
     ?>
     <!-- video section start -->
     <section class="video ptb-90">
@@ -228,8 +253,77 @@ include('pagination.php');
         </div>
     </section><!-- video section end -->
     <!-- footer section start -->
-    <?php include("footer.php"); ?>
+    <?php include("Models/footer.php"); ?>
     <!-- footer section end -->
+    <script>
+        <?php if(isset($_SESSION['user'])) {
+            echo 'function list(id) {
+                var watchlistButton = document.getElementById("watchlist-button" + id);
+                if (watchlistButton.classList.contains("watchlisted")) {
+                    watchlistButton.classList.remove("watchlisted");
+                    removeFromWatchlist(id);
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "Services/array-remove.php");
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.send("id=" + id);
+                } else {
+                    watchlistButton.classList.add("watchlisted");
+                    addToWatchlist(id);
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "Services/array-add.php");
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.send("id=" + id);
+                }
+            }
+        
+            function addToWatchlist(content_id) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "Services/watchlist-add.php");
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send("content_id=" + content_id);
+            }
+        
+            function removeFromWatchlist(content_id) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "Services/watchlist-remove.php");
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send("content_id=" + content_id);
+            }';
+        } ?>
+    </script>
+
+    <script>
+
+    // const movies = document.querySelectorAll('.filmi');
+
+    // movies.forEach((movie) => {
+    //     const checkmark = movie.nextElementSibling;
+
+    //     movie.addEventListener('mouseenter', (event) => {
+    //         checkmark.style.visibility = 'visible';
+    //         console.log("ENTERED");
+    //     });
+
+    //     movie.addEventListener('mouseleave', (event) => {
+    //         if (event.relatedTarget !== checkmark) {
+    //             checkmark.style.visibility = 'hidden';
+    //             console.log("LEFT");
+    //         }
+    //     });
+
+    //     checkmark.addEventListener('mouseenter', (event) => {
+    //         checkmark.style.visibility = 'visible';
+    //         console.log("ENTERED CHECKMARK");
+    //     });
+
+    //     checkmark.addEventListener('mouseleave', (event) => {
+    //         if (event.relatedTarget !== movie) {
+    //             checkmark.style.visibility = 'hidden';
+    //             console.log("LEFT CHECKMARK");
+    //         }
+    //     });
+    // });
+    </script>
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>
     <!-- Bootstrap JS -->

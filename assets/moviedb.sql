@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Apr 24, 2023 at 01:22 PM
+-- Generation Time: May 09, 2023 at 12:12 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -42,9 +42,31 @@ CREATE TABLE `blogs` (
 --
 
 INSERT INTO `blogs` (`ID`, `Title`, `Content`, `AuthorID`, `CreatedAt`, `UpdatedAt`, `Image`) VALUES
-(3, 'The Evolution of Movie Soundtracks', 'Movie soundtracks are an integral part of the film industry. They can set the tone for a scene, evoke emotions, and even become iconic in their own right. Over the years, movie soundtracks have evolved and changed, adapting to new technologies and trends in the music industry.\r\n\r\nIn the early days of cinema, silent films relied on live music to accompany the action on screen. Pianists and small orchestras would play along to the film, providing sound effects and musical accompaniment. As technology advanced, so did the way that soundtracks were created.\r\n\r\nThe introduction of synchronized sound in the late 1920s allowed for more complex soundtracks to be created. Suddenly, films could feature dialogue, sound effects, and music all mixed together. The early soundtracks were often orchestral in nature, with classical music or original scores accompanying the action on screen.', 2, '2023-04-04 15:58:37', '2023-04-22 22:18:59', 'https://www.macmillandictionaryblog.com/wp-content/uploads/2018/04/soundtrack-1024x644.jpg'),
-(4, 'Top 10 Must-Watch Movies of All Time', ' Looking for something to watch? Check out our list of the top 10 must-watch movies of all time. From action-packed thrillers to heartwarming dramas, we\'ve got you covered. Grab some popcorn and get ready for a movie marathon you won\'t forget!', 2, '2023-04-22 20:25:38', '2023-04-22 22:19:02', 'https://variety.com/wp-content/uploads/2022/12/100-Greatest-Movies-Variety.jpg?w=1360&h=765&crop=1'),
-(8, 'Avatar', 'Amazing.', 2, '2023-04-22 23:15:33', '2023-04-22 23:15:33', 'https://variety.com/wp-content/uploads/2022/12/100-Greatest-Movies-Variety.jpg?w=1360&h=765&crop=1');
+(1, 'The Evolution of Movie Soundtracks', 'Movie soundtracks are an integral part of the film industry. They can set the tone for a scene, evoke emotions, and even become iconic in their own right. Over the years, movie soundtracks have evolved and changed, adapting to new technologies and trends in the music industry.\r\n\r\nIn the early days of cinema, silent films relied on live music to accompany the action on screen. Pianists and small orchestras would play along to the film, providing sound effects and musical accompaniment. As technology advanced, so did the way that soundtracks were created.\r\n\r\nThe introduction of synchronized sound in the late 1920s allowed for more complex soundtracks to be created. Suddenly, films could feature dialogue, sound effects, and music all mixed together. The early soundtracks were often orchestral in nature, with classical music or original scores accompanying the action on screen.', 2, '2023-04-04 15:58:37', '2023-04-22 22:18:59', 'https://www.macmillandictionaryblog.com/wp-content/uploads/2018/04/soundtrack-1024x644.jpg'),
+(2, 'Top 10 Must-Watch Movies of All Time', ' Looking for something to watch? Check out our list of the top 10 must-watch movies of all time. From action-packed thrillers to heartwarming dramas, we\'ve got you covered. Grab some popcorn and get ready for a movie marathon you won\'t forget!', 2, '2023-04-22 20:25:38', '2023-04-22 22:19:02', 'https://variety.com/wp-content/uploads/2022/12/100-Greatest-Movies-Variety.jpg?w=1360&h=765&crop=1'),
+(3, 'Avatar', 'Amazing.', 2, '2023-04-22 23:15:33', '2023-04-22 23:15:33', 'https://variety.com/wp-content/uploads/2022/12/100-Greatest-Movies-Variety.jpg?w=1360&h=765&crop=1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comments`
+--
+
+CREATE TABLE `comments` (
+  `ID` int(11) NOT NULL,
+  `Content_ID` int(11) NOT NULL,
+  `User_ID` int(11) NOT NULL,
+  `Comment` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`ID`, `Content_ID`, `User_ID`, `Comment`) VALUES
+(1, 1, 1, 'This is the best movie ever.'),
+(2, 1, 2, 'This is not as good as you think it is.'),
+(3, 2, 1, 'This movie is the best movie of 2022.');
 
 -- --------------------------------------------------------
 
@@ -78,16 +100,28 @@ INSERT INTO `content` (`ID`, `Title`, `Date`, `Status`, `Rating`, `Cover`, `Trai
 (6, 'The Shawshank Redemption', '1995-02-09', NULL, '9.3', 'https://m.media-amazon.com/images/M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZDViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=NmzuHjWmXOc', 'Synopsis. In 1947, Andy Dufresne (Tim Robbins), a banker in Maine, is convicted of murdering his wife and her lover, a golf pro. Since the state of Maine has no death penalty, he is given two consecutive life sentences and sent to the notoriously harsh Shawshank Prison.', 'Movie', 142),
 (7, 'Balto', '1995-12-22', NULL, '7.1', 'https://m.media-amazon.com/images/M/MV5BMjBhNmFlZjMtMzhlYy00NDBlLWFiMjctMmE0ZjgwOGM2MTNmXkEyXkFqcGdeQXVyNjExODE1MDc@._V1_.jpg', 'https://www.youtube.com/watch?v=HJwvbmRXym4', 'Balto (Kevin Bacon) -- a half-wolf dog ignored by all except a goose, Boris (Bob Hoskins), and two polar bears -- is chosen to run but is disqualified by lead dog Steele (Jim Cummings). When the other dogs get lost in the snow, Balto risks his life to rescue them and deliver the medicine.', 'Movie', 78),
 (8, 'Zack Snyder\'s Justice League', '2021-03-18', NULL, '8.0', 'https://m.media-amazon.com/images/M/MV5BYjI3NDg0ZTEtMDEwYS00YWMyLThjYjktMTNlM2NmYjc1OGRiXkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_FMjpg_UX1000_.jpg id=', 'https://www.youtube.com/watch?v=oTXrl8H6luI', 'The movie follows the story of the Justice League as they come together to stop Steppenwolf, an exiled lieutenant of Darkseid, from collecting three Mother Boxes on Earth that can be used to transform the planet into a copy of Apokolips. After Superman is killed, his dying scream reawakens the Mother Boxes, alerting Steppenwolf. Bruce Wayne and Diana Prince recruit other superheroes, including Barry Allen, Arthur Curry, and Victor Stone, to stop Steppenwolf. ', 'Movie', 242),
-(36, 'Shazam! Fury of the Gods', '2023-03-17', NULL, '6.1', 'https://m.media-amazon.com/images/M/MV5BNzJlM2NmZTItOGQyYS00MmE2LTkwZGUtNDFkNmJmZjRjZjcxXkEyXkFqcGdeQXVyMTA3MDk2NDg2._V1_.jpg', 'https://www.youtube.com/watch?v=Zi88i4CpHe4', 'Fury of the Gods is a 2023 American superhero film based on the DC Comics character Shazam. Produced by New Line Cinema, DC Studios, and the Safran Company, and distributed by Warner Bros. Pictures, it is the sequel to Shazam! (2019) and the 12th installment in the DC Extended Universe (DCEU).', 'Movie', 130),
-(37, 'Ant-Man and the Wasp: Quantumania', '2023-12-02', NULL, '6.3', 'https://m.media-amazon.com/images/M/MV5BODZhNzlmOGItMWUyYS00Y2Q5LWFlNzMtM2I2NDFkM2ZkYmE1XkEyXkFqcGdeQXVyMTU5OTA4NTIz._V1_FMjpg_UX1000_.jpg id=', 'https://www.youtube.com/watch?v=5WfTEZJnv_8&ab_channel=MarvelEntertainment', 'Super Hero partners Scott Lang and Hope Van Dyne, together with Hope’s parents Hank Pym and Janet Van Dyne, find themselves exploring the Quantum Realm, interacting with strange new creatures and embarking on an adventure that will push them beyond the limits of what they thought was possible.', 'Movie', 125),
-(38, 'The Good Place', '2016-09-19', 'Ended', '7.4', 'https://m.media-amazon.com/images/M/MV5BYmMxNjM0NmItNGU1Mi00OGMwLTkzMzctZmE3YjU1ZDE4NmFjXkEyXkFqcGdeQXVyODUxOTU0OTg@._V1_FMjpg_UX1000_.jpg type= type=', 'https://www.youtube.com/watch?v=brZtP21eLrs&ab_channel=NBC', 'Eleanor Shellstrop is an ordinary woman who, through an extraordinary string of events, enters the afterlife where she comes to realize that she hasn\'t been a very good person. With the help of her wise afterlife mentor, she\'s determined to shed her old way of living and discover the awesome (or at least the pretty good) person within.', 'TV Show', NULL),
-(39, 'The Mandalorian', '2019-11-12', 'Airing', '8.7', 'https://m.media-amazon.com/images/M/MV5BN2M5YWFjN2YtYzU2YS00NzBlLTgwZWUtYWQzNWFhNDkyYjg3XkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg', 'https://www.youtube.com/watch?v=Znsa4Deavgg', 'The travels of a lone bounty hunter in the outer reaches of the galaxy, far from the authority of the New Republic.', 'TV Show', NULL),
-(40, 'Chicken Run', '2000-06-21', NULL, '9.9', 'https://m.media-amazon.com/images/M/MV5BNDgxNjZlZDYtZGJmZC00Mjg0LWEwYzctYWQ0MWFjNTM3ZmM4XkEyXkFqcGdeQXVyNTM5NzI0NDY@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=AEOfT7hUcDs', 'When a cockerel apparently flies into a chicken farm, the chickens see him as an opportunity to escape their evil owners.', 'Movie', 84),
-(41, 'Deck the Halls', '2006-11-22', NULL, '8.7', 'https://m.media-amazon.com/images/M/MV5BMTIzNjA4OTM0OV5BMl5BanBnXkFtZTcwMDgwODkzMQ@@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=', 'Two neighbors have it out after one of them decorates his house for the holidays so brightly that it can be seen from space.', 'Movie', 93),
-(42, 'Barbie as the Island Princess', '2007-09-18', NULL, '7.2', 'https://m.media-amazon.com/images/I/510Z90rEuHL._AC_.jpg', 'https://www.youtube.com/watch?v=0z_WwoRHHUc', 'After a violent storm, Sagi, a wise red panda and Azul, a flamboyant peacock discover that a six-year-old girl has been shipwrecked on their island. They and a baby elephant named Tika, decide to help her. Over time, she learns to talk to animals, but fails to remember anything about her past before the shipwreck, including her name after Ro. Her only clues are a battered trunk with a broken nameplate \"Ro\" and a shredded flag with a white rose.', 'Movie', 86),
-(43, 'Dr. Dolittle', '1998-06-22', NULL, '7.5', 'https://m.media-amazon.com/images/M/MV5BNGVmYjI4ZjktMjVkNi00ZTRlLWJlYTMtNzMxYjQ0ZDIyZWNmXkEyXkFqcGdeQXVyNTUyMzE4Mzg@._V1_.jpg', 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DLWbtxG-jXMY&psig=AOvVaw2m_O2uc7vN-_81JamMuvYj&ust=1682293302794000&source=images&cd=vfe&ved=0CBMQjhxqFwoTCNDl74fVvv4CFQAAAAAdAAAAABAE', 'In early Victorian period, Matthew Mugg (Anthony Newley) takes his young friend Tommy Stubbins (William Dix) to visit eccentric Doctor John Dolittle (Rex Harrison) for an injured duck that Matthew had acquired from a local fisherman. Dolittle, a former medical doctor, lives with an extended menagerie, including a Common chimpanzee named Chee-Chee, a dog named Jip, and a talking parrot named Polynesia (the uncredited voice of Ginny Tyler). Dolittle claims that he can talk to animals.', 'Movie', 85),
-(44, 'Game Shakers', '2019-09-12', 'Ended', '7.7', 'https://m.media-amazon.com/images/M/MV5BMzY0Nzg5ODAtMDliNC00OTlhLWFlNDItODAxMmFkY2FiZmVhXkEyXkFqcGdeQXVyODk4Nzg5NjE@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=rCVLzNCF534', 'A live-action sitcom about two 12-year-old girls who start a multi-million-dollar gaming company and take on rap superstar Double G as a business partner.', 'TV Show', NULL),
-(45, ' Zig & Sharko', '2010-02-11', 'Ended', '8.2', 'https://m.media-amazon.com/images/M/MV5BYmRhN2I1YTItMTQ0Yi00ZmUzLThkZWItZGY1NzljMGNiZGY5XkEyXkFqcGdeQXVyMTMxODU3NzM@._V1_.jpg', 'https://www.youtube.com/watch?v=YizT9yU194s', 'Marina, a pretty little mermaid perched on a rock in the deep blue sea. Zig, a starving hyena on the island next door. With the help of his side-kick crab buddy, Bernie, they try to do anything to get his paws on Marina. But in the lagoon between them, lies Sharko: a shark who is in love with Marina, always ready to ruin the hyena’s crazy schemes to reach his prey.\r\n\r\n', 'TV Show', NULL);
+(9, 'Shazam! Fury of the Gods', '2023-03-17', NULL, '6.1', 'https://m.media-amazon.com/images/M/MV5BNzJlM2NmZTItOGQyYS00MmE2LTkwZGUtNDFkNmJmZjRjZjcxXkEyXkFqcGdeQXVyMTA3MDk2NDg2._V1_.jpg', 'https://www.youtube.com/watch?v=Zi88i4CpHe4', 'Fury of the Gods is a 2023 American superhero film based on the DC Comics character Shazam. Produced by New Line Cinema, DC Studios, and the Safran Company, and distributed by Warner Bros. Pictures, it is the sequel to Shazam! (2019) and the 12th installment in the DC Extended Universe (DCEU).', 'Movie', 130),
+(10, 'Ant-Man and the Wasp: Quantumania', '2023-12-02', NULL, '6.3', 'https://m.media-amazon.com/images/M/MV5BODZhNzlmOGItMWUyYS00Y2Q5LWFlNzMtM2I2NDFkM2ZkYmE1XkEyXkFqcGdeQXVyMTU5OTA4NTIz._V1_FMjpg_UX1000_.jpg id=', 'https://www.youtube.com/watch?v=ZlNFpri-Y40', 'Super Hero partners Scott Lang and Hope Van Dyne, together with Hope’s parents Hank Pym and Janet Van Dyne, find themselves exploring the Quantum Realm, interacting with strange new creatures and embarking on an adventure that will push them beyond the limits of what they thought was possible.', 'Movie', 125),
+(11, 'The Good Place', '2016-09-19', 'Ended', '7.4', 'https://m.media-amazon.com/images/M/MV5BYmMxNjM0NmItNGU1Mi00OGMwLTkzMzctZmE3YjU1ZDE4NmFjXkEyXkFqcGdeQXVyODUxOTU0OTg@._V1_FMjpg_UX1000_.jpg type= type=', 'https://www.youtube.com/watch?v=jDi3fki9IRM', 'Eleanor Shellstrop is an ordinary woman who, through an extraordinary string of events, enters the afterlife where she comes to realize that she hasn\'t been a very good person. With the help of her wise afterlife mentor, she\'s determined to shed her old way of living and discover the awesome (or at least the pretty good) person within.', 'TV Show', NULL),
+(12, 'The Mandalorian', '2019-11-12', 'Airing', '8.7', 'https://m.media-amazon.com/images/M/MV5BN2M5YWFjN2YtYzU2YS00NzBlLTgwZWUtYWQzNWFhNDkyYjg3XkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg', 'https://www.youtube.com/watch?v=Znsa4Deavgg', 'The travels of a lone bounty hunter in the outer reaches of the galaxy, far from the authority of the New Republic.', 'TV Show', NULL),
+(13, 'Chicken Run', '2000-06-21', NULL, '9.9', 'https://m.media-amazon.com/images/M/MV5BNDgxNjZlZDYtZGJmZC00Mjg0LWEwYzctYWQ0MWFjNTM3ZmM4XkEyXkFqcGdeQXVyNTM5NzI0NDY@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=AEOfT7hUcDs', 'When a cockerel apparently flies into a chicken farm, the chickens see him as an opportunity to escape their evil owners.', 'Movie', 84),
+(14, 'Deck the Halls', '2006-11-22', NULL, '8.7', 'https://m.media-amazon.com/images/M/MV5BMTIzNjA4OTM0OV5BMl5BanBnXkFtZTcwMDgwODkzMQ@@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=g1A2uWWF1ZU', 'Two neighbors have it out after one of them decorates his house for the holidays so brightly that it can be seen from space.', 'Movie', 93),
+(15, 'Barbie as the Island Princess', '2007-09-18', NULL, '7.2', 'https://m.media-amazon.com/images/I/510Z90rEuHL._AC_.jpg', 'https://www.youtube.com/watch?v=0z_WwoRHHUc', 'After a violent storm, Sagi, a wise red panda and Azul, a flamboyant peacock discover that a six-year-old girl has been shipwrecked on their island. They and a baby elephant named Tika, decide to help her. Over time, she learns to talk to animals, but fails to remember anything about her past before the shipwreck, including her name after Ro. Her only clues are a battered trunk with a broken nameplate \"Ro\" and a shredded flag with a white rose.', 'Movie', 86),
+(16, 'Dr. Dolittle', '1998-06-22', NULL, '7.5', 'https://m.media-amazon.com/images/M/MV5BNGVmYjI4ZjktMjVkNi00ZTRlLWJlYTMtNzMxYjQ0ZDIyZWNmXkEyXkFqcGdeQXVyNTUyMzE4Mzg@._V1_.jpg', 'https://www.youtube.com/watch?v=LWbtxG-jXMY', 'In early Victorian period, Matthew Mugg (Anthony Newley) takes his young friend Tommy Stubbins (William Dix) to visit eccentric Doctor John Dolittle (Rex Harrison) for an injured duck that Matthew had acquired from a local fisherman. Dolittle, a former medical doctor, lives with an extended menagerie, including a Common chimpanzee named Chee-Chee, a dog named Jip, and a talking parrot named Polynesia (the uncredited voice of Ginny Tyler). Dolittle claims that he can talk to animals.', 'Movie', 85),
+(17, 'Game Shakers', '2019-09-12', 'Ended', '7.7', 'https://m.media-amazon.com/images/M/MV5BMzY0Nzg5ODAtMDliNC00OTlhLWFlNDItODAxMmFkY2FiZmVhXkEyXkFqcGdeQXVyODk4Nzg5NjE@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=rCVLzNCF534', 'A live-action sitcom about two 12-year-old girls who start a multi-million-dollar gaming company and take on rap superstar Double G as a business partner.', 'TV Show', NULL),
+(18, 'Zig & Sharko', '2010-02-11', 'Ended', '8.2', 'https://m.media-amazon.com/images/M/MV5BYmRhN2I1YTItMTQ0Yi00ZmUzLThkZWItZGY1NzljMGNiZGY5XkEyXkFqcGdeQXVyMTMxODU3NzM@._V1_.jpg', 'https://www.youtube.com/watch?v=YizT9yU194s', 'Marina, a pretty little mermaid perched on a rock in the deep blue sea. Zig, a starving hyena on the island next door. With the help of his side-kick crab buddy, Bernie, they try to do anything to get his paws on Marina. But in the lagoon between them, lies Sharko: a shark who is in love with Marina, always ready to ruin the hyena’s crazy schemes to reach his prey.\r\n\r\n', 'TV Show', NULL),
+(19, 'Avengers: Infinity War', '2018-04-27', NULL, '8.4', 'https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_.jpg', 'https://www.youtube.com/watch?v=6ZfuNTqbHE8', 'The Avengers and their allies must be willing to sacrifice all in an attempt to defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe.', 'Movie', 149),
+(20, 'Avengers: Endgame', '2019-04-26', NULL, '8.4', 'https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg', 'https://www.youtube.com/watch?v=TcMBFSGVi1c', 'The remaining Avengers must gather once more to reverse the damage caused by Thanos and restore order to the universe.', 'Movie', 181),
+(21, 'The Dark Knight', '2008-07-18', NULL, '9.0', 'https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=EXeTwQWrcwY', 'Batman, along with the help of Lieutenant Jim Gordon and District Attorney Harvey Dent, sets out to dismantle the remaining criminal organizations that plague the city of Gotham.', 'Movie', 152),
+(22, 'Money Heist', '2017-05-02', 'Ended', '8.2', 'https://m.media-amazon.com/images/M/MV5BMDQ2YjVmYTktMWM2ZS00MzM5LWE4MDgtNWE0ZTJjNmU5NjJlXkEyXkFqcGdeQXVyMTA3MzQ4MTc0._V1_.jpg', 'https://www.youtube.com/watch?v=_InqQJRqGW4', 'A criminal mastermind known as \"The Professor\" recruits a group of eight criminals to carry out an ambitious plan to rob the Royal Mint of Spain, resulting in a tense hostage situation.', 'TV Show', NULL),
+(23, 'Prison Break', '2005-08-29', 'Ended', '8.3', 'https://m.media-amazon.com/images/M/MV5BMjE0ODQxNjI2MV5BMl5BanBnXkFtZTYwNTgzMzg3._V1_.jpg', 'https://www.youtube.com/watch?v=AL9zLctDJaU', 'A structural engineer, Michael Scofield, devises an elaborate plan to help his brother, Lincoln Burrows, escape death row and prove his innocence.', 'TV Show', NULL),
+(24, 'Lucifer', '2016-01-25', 'Ongoing', '8.1', 'https://m.media-amazon.com/images/M/MV5BNDJjMzc4NGYtZmFmNS00YWY3LThjMzQtYzJlNGFkZGRiOWI1XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=X4bF_quwNtw', 'Lucifer Morningstar, a former angel is bored and unhappy as the Lord of Hell. He abdicates his throne and becomes a consultant for the Los Angeles Police Department, using his supernatural abilities to help solve crimes.', 'TV Show', NULL),
+(25, 'Arrow', '2012-10-10', 'Ended', '7.5', 'https://m.media-amazon.com/images/M/MV5BMTI0NTMwMDgtYTMzZC00YmJhLTg4NzMtMTc1NjI4MWY4NmQ4XkEyXkFqcGdeQXVyNTY3MTYzOTA@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=_a3dNB2riKE', 'Billionaire playboy Oliver Queen, becomes the vigilante archer known as Green Arrow to fight crime and corruption in Starling City.', 'TV Show', NULL),
+(26, 'Young Justice', '2010-11-26', 'Ended', '8.6', 'https://m.media-amazon.com/images/M/MV5BMTAwYzE4NzItY2Q3Zi00NjRmLWE5ZTAtMDM5OWIyMmQ3MTFlXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=5lqHdKV8lBc', 'The lives of teenage superheroes as they deal with personal and professional relationships and face off against various villains and threats.', 'TV Show', NULL),
+(27, 'Cruella', '2021-05-28', NULL, '7.3', 'https://m.media-amazon.com/images/M/MV5BZWQ1YjNiMTItZjkwZS00NDMyLThiOWEtNzBkMzAzMWU2ZDUwXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg', 'https://www.youtube.com/watch?v=gmRKv7n2If8', 'The film serves as a prequel to the 1961 animated film \"One Hundred and One Dalmatians\" and focuses on the young Cruella de Vil and her transformation into the iconic Disney villain.', 'Movie', 134),
+(28, 'Batman Ninja', '2018-04-24', NULL, '5.6', 'https://m.media-amazon.com/images/M/MV5BMjJlMmI5YzAtNzY4YS00YzMzLTk0ZDAtMjUwMWU0OTdhYTkzXkEyXkFqcGdeQXVyMDEyMDU1Mw@@._V1_.jpg', 'https://www.youtube.com/watch?v=CwPFxcefpdU', 'The film follows Batman as he is transported to feudal Japan and must rely on his intelligence and martial arts skills to stop the Joker and other villains who have taken over the country.', 'Movie', 85),
+(29, 'Batman: Hush', '2019-07-19', NULL, '6.9', 'https://m.media-amazon.com/images/M/MV5BNmNmMWM4MGItZmFjMy00YTMxLTg1MzMtODM1OWZiNTYzMDRkXkEyXkFqcGdeQXVyMTEyNzgwMDUw._V1_.jpg', 'https://www.youtube.com/watch?v=cQFFnUg0u70', 'Batman must uncover the identity of a mysterious villain known as Hush, who is determined to destroy both Batman and Bruce Wayne.', 'Movie', 82),
+(30, 'Vikings', '2013-03-03', 'Ended', '8.5', 'https://m.media-amazon.com/images/M/MV5BODk4ZjU0NDUtYjdlOS00OTljLTgwZTUtYjkyZjk1NzExZGIzXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=9GgxinPwAGc', 'Vikings follows the adventures of Ragnar Lothbrok, the greatest hero of his age. The series tells the tales of Ragnar\'s band of Viking brothers and his family, as he rises to become King of the Viking tribes.', 'TV Show', NULL);
 
 -- --------------------------------------------------------
 
@@ -113,16 +147,28 @@ INSERT INTO `director` (`ID`, `Director`) VALUES
 (6, 'Frank Darabont'),
 (7, 'Simon Wells'),
 (8, 'Zack Snyder'),
-(36, 'David F. Sandberg'),
-(37, 'Peyton Reed'),
-(38, 'Michael Schur'),
-(39, 'Jon Favreau'),
-(40, 'Peter Lord'),
-(41, 'John Whitesell'),
-(42, 'Greg Richardson'),
-(43, 'Craig Shapiro'),
-(44, 'Daniel James \"Dan\" Schneider '),
-(45, 'Olivier Jean-Marie');
+(9, 'David F. Sandberg'),
+(10, 'Peyton Reed'),
+(11, 'Michael Schur'),
+(12, 'Jon Favreau'),
+(13, 'Peter Lord'),
+(14, 'John Whitesell'),
+(15, 'Greg Richardson'),
+(16, 'Craig Shapiro'),
+(17, 'Daniel James \"Dan\" Schneider '),
+(18, 'Olivier Jean-Marie'),
+(19, 'Joe Russo, Anthony Russo'),
+(20, 'Joe Russo, Anthony Russo'),
+(21, 'Christopher Nolan'),
+(22, 'Álex Pina'),
+(23, 'Paul Scheuring'),
+(24, 'Tom Kapinos'),
+(25, 'Greg Berlanti, Marc Guggenheim'),
+(26, 'Greg Weisman, Brandon Vietti'),
+(27, 'Craig Gillespie'),
+(28, 'Junpei Mizusaki'),
+(29, 'Justin Copeland'),
+(30, 'Michael Hirst');
 
 -- --------------------------------------------------------
 
@@ -164,37 +210,89 @@ INSERT INTO `genre` (`ID`, `Genre`) VALUES
 (8, 'Action'),
 (8, 'Adventure'),
 (8, 'Fantasy'),
-(36, 'Action'),
-(36, 'Adventure'),
-(36, 'Fantasy'),
-(36, 'Science Fiction'),
-(36, 'Thriller'),
-(37, 'Action'),
-(37, 'Adventure'),
-(37, 'Comedy'),
-(38, 'Comedy'),
-(38, 'Drama'),
-(38, 'Fantasy'),
-(38, 'Romance'),
-(39, 'Action'),
-(39, 'Adventure'),
-(39, 'Fantasy'),
-(39, 'Science Fiction'),
-(40, 'Comedy'),
-(40, 'Drama'),
-(41, 'Comedy'),
-(41, 'Family'),
-(42, 'Family'),
-(43, 'Comedy'),
-(43, 'Family'),
-(43, 'Fantasy'),
-(44, 'Comedy'),
-(44, 'Family'),
-(45, 'Adventure'),
-(45, 'Comedy'),
-(45, 'Family'),
-(45, 'Fantasy'),
-(45, 'Romance');
+(9, 'Action'),
+(9, 'Adventure'),
+(9, 'Fantasy'),
+(9, 'Science Fiction'),
+(9, 'Thriller'),
+(10, 'Action'),
+(10, 'Adventure'),
+(10, 'Comedy'),
+(11, 'Comedy'),
+(11, 'Drama'),
+(11, 'Fantasy'),
+(11, 'Romance'),
+(12, 'Action'),
+(12, 'Adventure'),
+(12, 'Fantasy'),
+(12, 'Science Fiction'),
+(13, 'Comedy'),
+(13, 'Drama'),
+(14, 'Comedy'),
+(14, 'Family'),
+(15, 'Family'),
+(16, 'Comedy'),
+(16, 'Family'),
+(16, 'Fantasy'),
+(17, 'Comedy'),
+(17, 'Family'),
+(18, 'Adventure'),
+(18, 'Comedy'),
+(18, 'Family'),
+(18, 'Fantasy'),
+(18, 'Romance'),
+(19, 'Action'),
+(19, 'Adventure'),
+(19, 'Fantasy'),
+(19, 'Science Fiction'),
+(20, 'Action'),
+(20, 'Adventure'),
+(20, 'Drama'),
+(20, 'Science Fiction'),
+(21, 'Action'),
+(21, 'Crime'),
+(21, 'Drama'),
+(22, 'Action'),
+(22, 'Crime'),
+(22, 'Drama'),
+(22, 'Mystery'),
+(22, 'Thriller'),
+(23, 'Action'),
+(23, 'Crime'),
+(23, 'Drama'),
+(23, 'Mystery'),
+(23, 'Suspense'),
+(23, 'Thriller'),
+(24, 'Comedy'),
+(24, 'Crime'),
+(24, 'Drama'),
+(24, 'Fantasy'),
+(25, 'Action'),
+(25, 'Adventure'),
+(25, 'Crime'),
+(25, 'Drama'),
+(25, 'Mystery'),
+(25, 'Science Fiction'),
+(26, 'Action'),
+(26, 'Adventure'),
+(26, 'Animation'),
+(26, 'Children'),
+(26, 'Crime'),
+(26, 'Drama'),
+(26, 'Romance'),
+(26, 'Science Fiction'),
+(27, 'Comedy'),
+(27, 'Crime'),
+(28, 'Action'),
+(28, 'Animation'),
+(29, 'Animation'),
+(29, 'Crime'),
+(30, 'Action'),
+(30, 'Adventure'),
+(30, 'Drama'),
+(30, 'History'),
+(30, 'Romance'),
+(30, 'War');
 
 -- --------------------------------------------------------
 
@@ -220,16 +318,28 @@ INSERT INTO `studio` (`ID`, `Studio`) VALUES
 (6, 'Warner Bros.'),
 (7, 'Universal Pictures'),
 (8, 'Warner Bros. Pictures'),
-(36, 'Warner Bros. Pictures'),
-(37, 'Marvel Studios'),
-(38, 'NBC'),
-(39, 'Lucasfilm'),
-(40, 'DreamWorks'),
-(41, 'New Regency Pictures'),
-(42, 'Mattel Entertainment'),
-(43, '20th Century Fox'),
-(44, 'Nickelodeon'),
-(45, 'Canal+ Family ');
+(9, 'Warner Bros. Pictures'),
+(10, 'Marvel Studios'),
+(11, 'NBC'),
+(12, 'Lucasfilm'),
+(13, 'DreamWorks'),
+(14, 'New Regency Pictures'),
+(15, 'Mattel Entertainment'),
+(16, '20th Century Fox'),
+(17, 'Nickelodeon'),
+(18, 'Canal+ Family '),
+(19, 'Marvel Studios'),
+(20, 'Marvel Studios'),
+(21, 'Warner Bros. Pictures'),
+(22, 'Netflix'),
+(23, 'Fox'),
+(24, 'Warner Bros. Television'),
+(25, 'Warner Bros. Television'),
+(26, 'DC Comics'),
+(27, 'Walt Disney Pictures'),
+(28, 'Warner Bros. Animation'),
+(29, 'Warner Bros. Animation'),
+(30, 'MGM Television');
 
 -- --------------------------------------------------------
 
@@ -270,7 +380,7 @@ CREATE TABLE `users` (
   `Birthdate` date DEFAULT NULL,
   `Username` varchar(15) DEFAULT NULL,
   `Email` varchar(30) DEFAULT NULL,
-  `Password` varchar(30) DEFAULT NULL,
+  `Password` varchar(255) DEFAULT NULL,
   `Photo` varchar(50) NOT NULL,
   `Admin` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -280,8 +390,39 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`ID`, `Firstname`, `Lastname`, `Birthdate`, `Username`, `Email`, `Password`, `Photo`, `Admin`) VALUES
-(1, 'Eljon', 'Shala', '2003-06-08', 'eljohn7', 'eljon.sh@gmail.com', 'Milton77', 'assets/img/user_pic/eljohn7', 1),
-(2, 'Bleron', 'Morina', '2004-02-12', 'bleronmorina', 'bleronmorina54@gmail.com', 'Milton77', 'assets/img/user_pic/bleronmorina', 1);
+(1, 'Eljon', 'Shala', '2003-06-08', 'eljohn7', 'eljon.sh@gmail.com', '50d53937402ef9f8730d53f1089ad8bea2f5ffdebb20b8ca672689dbdaee0acc', 'assets/img/user_pic/eljohn7.png', 1),
+(2, 'Bleron', 'Morina', '2004-02-12', 'bleronmorina', 'bleronmorina54@gmail.com', '50d53937402ef9f8730d53f1089ad8bea2f5ffdebb20b8ca672689dbdaee0acc', 'assets/img/user_pic/bleronmorina', 1),
+(3, 'Blendi', 'Zeqiri', '2003-11-07', '999BZ', 'blendizeqiri@hotmail.com', '50d53937402ef9f8730d53f1089ad8bea2f5ffdebb20b8ca672689dbdaee0acc', 'assets/img/user_pic/default.png', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `watchlist`
+--
+
+CREATE TABLE `watchlist` (
+  `User_ID` int(11) NOT NULL,
+  `Content_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `watchlist`
+--
+
+INSERT INTO `watchlist` (`User_ID`, `Content_ID`) VALUES
+(1, 9),
+(1, 8),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 10),
+(1, 12),
+(1, 19),
+(1, 20),
+(1, 21),
+(1, 27),
+(1, 28),
+(1, 29);
 
 --
 -- Indexes for dumped tables
@@ -293,6 +434,12 @@ INSERT INTO `users` (`ID`, `Firstname`, `Lastname`, `Birthdate`, `Username`, `Em
 ALTER TABLE `blogs`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `AuthorID` (`AuthorID`);
+
+--
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Indexes for table `content`
@@ -338,29 +485,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `blogs`
 --
 ALTER TABLE `blogs`
-  MODIFY `ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `content`
 --
 ALTER TABLE `content`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `blogs`
---
-ALTER TABLE `blogs`
-  ADD CONSTRAINT `blogs_ibfk_1` FOREIGN KEY (`AuthorID`) REFERENCES `users` (`ID`);
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for table `director`
@@ -379,8 +522,12 @@ ALTER TABLE `genre`
 --
 ALTER TABLE `studio`
   ADD CONSTRAINT `studio_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `content` (`ID`);
-COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+DELIMITER $$
+--
+-- Events
+--
+CREATE DEFINER=`root`@`localhost` EVENT `delete_expired_temp_users` ON SCHEDULE EVERY 7 MINUTE STARTS '2023-05-04 21:22:18' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM temporary_users WHERE TIMESTAMPDIFF(MINUTE, created_at, NOW()) > 10$$
+
+DELIMITER ;
+COMMIT;
