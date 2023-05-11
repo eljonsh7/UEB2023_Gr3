@@ -437,6 +437,7 @@
                 </div>
             </div>
             <hr />
+            
         </div>
         <div class="news-slide-area">
             <div class="news-slider">
