@@ -780,16 +780,22 @@ hr {
   margin-bottom: 40px;
 }
 
+
+
 .widget ul li {
-  margin-top: 15px;
+  margin-top: 18px;
+  
 }
 
 .widget h6 {
-  margin-top: 18px;
+  margin-top: 20px;
+
 }
 
+
 .widget {
-  margin-bottom: 40px;
+  margin-bottom: 45px;
+
 }
 
 .widget button {
