@@ -1,17 +1,30 @@
 <?php session_start();?>
 <?php
 include('Services/connection.php');
-
-$sql = "SELECT content.Trailer, content.Type, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
-FROM content
-JOIN director ON content.ID = director.ID
-JOIN studio ON content.ID = studio.ID
-JOIN genre ON content.ID = genre.ID
-WHERE content.Type = 'movie'
-GROUP BY content.ID
-ORDER BY Rating DESC LIMIT 10";
+$type = "'movie'";
+if (isset($_GET['genre']) && $_GET['genre'] !== '') {
+    $genre = mysqli_real_escape_string($conn, $_GET['genre']);
+    $sql = "SELECT content.Trailer, content.Type, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
+    FROM content
+    JOIN director ON content.ID = director.ID
+    JOIN studio ON content.ID = studio.ID
+    JOIN genre ON content.ID = genre.ID
+    WHERE content.Type = 'movie' AND genre.Genre = '$genre'
+    GROUP BY content.ID
+    ORDER BY Rating DESC LIMIT 10";
+} else {
+    $sql = "SELECT content.Trailer, content.Type, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
+    FROM content
+    JOIN director ON content.ID = director.ID
+    JOIN studio ON content.ID = studio.ID
+    JOIN genre ON content.ID = genre.ID
+    WHERE content.Type = 'movie'
+    GROUP BY content.ID
+    ORDER BY Rating DESC LIMIT 10";
+}
 
 $result = mysqli_query($conn, $sql);
+
 
 
 
@@ -107,11 +120,31 @@ $result = mysqli_query($conn, $sql);
                 </div>
                 <div class="col-lg-6 text-center text-lg-right">
                     <div class="portfolio-menu">
-                        <ul>
-                            <li data-filter="*" class="active">Latest</li>
-                            <li data-filter=".soon">Comming Soon</li>
-                            <li data-filter=".top">Top Rated</li>
-                            <li data-filter=".released">Recently Released</li>
+                    <ul><a href="imdb.php">
+                                <li <?php if (!isset($_GET['genre']) || $_GET['genre'] === '') {
+                                        echo 'class="active"';
+                                    } ?>>
+                                    All
+                                </li>
+                            </a><a href="imdb.php?genre=action">
+                                <li <?php if (isset($_GET['genre']) && $_GET['genre'] === 'action') {
+                                        echo 'class="active"';
+                                    } ?>>
+                                    Action
+                                </li>
+                            </a><a href="imdb.php?genre=drama">
+                                <li <?php if (isset($_GET['genre']) && $_GET['genre'] === 'drama') {
+                                        echo 'class="active"';
+                                    } ?>>
+                                    Drama
+                                </li>
+                            </a> <a href="imdb.php?genre=crime">
+                                <li <?php if (isset($_GET['genre']) && $_GET['genre'] === 'crime') {
+                                        echo 'class="active"';
+                                    } ?>>
+                                    Crime
+                                </li>
+                            </a>
                         </ul>
                     </div>
                 </div>

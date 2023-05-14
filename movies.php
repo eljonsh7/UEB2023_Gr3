@@ -13,6 +13,7 @@
     $content_ids = array();
     while ($row = mysqli_fetch_array($result1)) {
         $content_ids[] = $row['Content_ID'];
+        
     }
 ?>
 
