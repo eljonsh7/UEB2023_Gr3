@@ -85,7 +85,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
         </nav>
         <div class="row justify-content-center mt-5" id="blogadd">
             <div class="col-md-6" style="display: flex; justify-content: center;">
-                <form id="blog-add" method="post">
+                <form id="blog-add" method="post" enctype="multipart/form-data">
                     <h2>Blog</h2>
                     <input type="hidden" name="addForm" value="submitted">
 
@@ -100,8 +100,8 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                     </div>
 
                     <div class="form-group">
-                        <label for="director">Image URL:</label>
-                        <input class="form-control" type="text" id="image" placeholder="Image URL:" name="image">
+                        <label for="director">Image:</label>
+                        <input class="form-control" type="file" id="image" name="image">
                     </div>
                     <br>
                     <div class="form-group">
@@ -132,32 +132,49 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
         }
         // check if the form has been submitted
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addForm'])) {
+
+            // check which form was submitted
+            $image_name = $_FILES['image']['name'];
+            $image_temp_name = $_FILES['image']['tmp_name'];
+            $img_ex = pathinfo($image_name, PATHINFO_EXTENSION);
+            $img_lc = strtolower($img_ex);
+            $allowed_array = array("jpg", "jpeg", "png");
+            $new_img_name = "";
+            if (in_array($img_lc, $allowed_array)) {
+                $new_img_name = "assets/img/blog_images/" . $_POST['title'] . "." . $img_lc;
+                $upload_path = '../' . $new_img_name;
+                move_uploaded_file($image_temp_name, $upload_path);
+            } else {
+                echo "Wrong format";
+            }
+
+            // get the form data
+            $image = new input($new_img_name, "image");
             $title = new input($_POST['title'], "title");
             $content = new input(mysqli_real_escape_string($conn, $_POST['content']), "content");
-            $image = new input($_POST['image'], "image");
             $inputs = [$title, $content, $image];
             $temp = false;
-            for ($i = 0; $i < sizeof($inputs); $i++) {
-                if (empty($inputs[$i]->value)) {
-                    echo '<script>document.getElementById("' . $inputs[$i]->id . '").style.border="2px solid red";</script>';
+            foreach ($inputs as $input) {
+                if (empty($input->value)) {
+                    echo '<script>document.getElementById("' . $input->id . '").style.border="2px solid red";</script>';
                     $temp = true;
                 } else {
-                    echo '<script>document.getElementById("' . $inputs[$i]->id . '").value="' . $inputs[$i]->value . '";</script>';
-                }
-                if (($i == sizeof($inputs) - 1) && $temp == true) {
-                    echo "<h6 style = 'text-align: center;'>Please fill out every information about the blog!</h6>";
+                    echo '<script>document.getElementById("' . $input->id . '").value="' . $input->value . '";</script>';
                 }
             }
-            if ($temp == false) {
+            if ($temp == true) {
+                echo "<h6 style='text-align: center;'>Please fill out every information about the blog!</h6>";
+            } else {
                 // insert the data into the blogs table
                 $sql = "INSERT INTO blogs (Title, AuthorID, Content, Image) VALUES ('$title->value', '{$_SESSION['user']}', '$content->value', '$image->value')";
 
                 mysqli_query($conn, $sql);
-                for ($i = 0; $i < sizeof($inputs); $i++) {
-                    echo '<script>document.getElementById("' . $inputs[$i]->id . '").value="' . "" . '";</script>';
+                foreach ($inputs as $input) {
+                    echo '<script>document.getElementById("' . $input->id . '").value="' . "" . '";</script>';
                 }
             }
         }
+
         ?>
 
     </main>

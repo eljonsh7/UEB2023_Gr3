@@ -653,7 +653,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
         } else if ($_GET['type'] == "Blogs" && $_GET['mode'] == "info") {
             echo '
             <div style = "display:flex;margin-left:3%;margin-top:3%;" >
-            <img src="' . $row['Image'] . '" alt="' . $row['Title'] . '" width="300px"/>
+            <img src="../' . $row['Image'] . '" alt="' . $row['Title'] . '" width="300px"/>
             <div>
                 <div id="viewDetails" style="width:50%;margin-left:5%;">
                     <p id="title" class="details"><b>Title: </b><br>' . $row['Title'] . '</p>
@@ -667,46 +667,62 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
         ';
         } else if ($_GET['type'] == "Blogs" && $_GET['mode'] == "edit") {
             echo '
-            <div style = "display:flex;margin-left:3%;margin-top:3%;" >
-                <img src="' . $row['Image'] . '" alt="' . $row['Title'] . '" width="300px" />
-                <div class="row justify-content-center mt-5" id="movieadd" style="margin-left:3%;">
-                    <div class="col-md-6" style="display: flex; justify-content: center;">
-                        <form id="show-add" method="post">
-                            <h2>TV Show</h2>
-                            <input type="hidden" name="addForm" value="submitted">
+    <div style="display:flex;margin-left:3%;margin-top:3%;">
+        <img src="../' . $row['Image'] . '" alt="' . $row['Title'] . '" width="300px" />
+        <div class="row justify-content-center mt-5" id="movieadd" style="margin-left:3%;">
+            <div class="col-md-6" style="display: flex; justify-content: center;">
+                <form id="show-add" method="post" enctype="multipart/form-data">
+                    <h2>TV Show</h2>
+                    <input type="hidden" name="addForm" value="submitted">
 
-                            <label for="title">Title:</label>
-                            <input class="form-control" value="' . $row['Title'] . '" type="text" id="title" placeholder="Title" name="title"><br>
+                    <label for="title">Title:</label>
+                    <input class="form-control" value="' . $row['Title'] . '" type="text" id="title" placeholder="Title" name="title"><br>
 
+                    <label for="content">Content:</label>
+                    <textarea class="form-control" id="content" placeholder="Content" name="content" style="color:black;" maxlength="1000">' . $row['Content'] . '</textarea><br>
 
-                            <label for="content">Content:</label>
-                            <textarea class="form-control" id="content" placeholder="Content" name="content" style="color:black;" maxlength="1000">' . $row['Content'] . '</textarea><br>
+                    <label for="image">Image:</label>
+                    <input class="form-control" type="file" id="image" name="image"><br>
+                    <input type="hidden" name="current_image" value="' . $row['Image'] . '">
 
-                            <label for="image">Image URL:</label>
-                            <input class="form-control" value="' . $row['Image'] . '" type="text" id="image" placeholder="Image URL" name="image"><br>
+                    <br>
 
-                            
-                            <br>
-
-                            <div class="form-group">
-                                <input class="btn btn-primary" type="submit" value="Submit" name="blog_submit">
-                            </div>
-
-                            <center>
-                                <h6 style="text-align:center;display:none;width:70%;" id="detailsWarning">Please fill out every information about the show!</h6>
-                            </center>
-                        </form>
-                        
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" value="Submit" name="blog_submit">
                     </div>
-                    
-                </div>
-            ';
+
+                    <center>
+                        <h6 style="text-align:center;display:none;width:70%;" id="detailsWarning">Please fill out every information about the show!</h6>
+                    </center>
+                </form>
+
+            </div>
+
+        </div>
+    ';
+
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $image_name = $_FILES['image']['name'];
+                $image_temp_name = $_FILES['image']['tmp_name'];
+                $img_ex = pathinfo($image_name, PATHINFO_EXTENSION);
+                $img_lc = strtolower($img_ex);
+                $allowed_array = array("jpg", "jpeg", "png");
+                $new_img_name = "";
+                if (in_array($img_lc, $allowed_array)) {
+                    $new_img_name = "assets/img/blog_images/" . $_POST['title'] . "." . $img_lc;
+                    $upload_path = '../' . $new_img_name;
+                    move_uploaded_file($image_temp_name, $upload_path);
+                } else {
+                    echo "Wrong format";
+                }
+
+
+
                 // check which form was submitted
                 // get the form data
                 $title = new input($_POST['title'], "title");
                 $content = new input($_POST['content'], "content");
-                $image = new input($_POST['image'], "image");
+                $image = new input($new_img_name, "image");
 
                 $inputsBlog = [$title, $content, $image];
                 $temp = false;

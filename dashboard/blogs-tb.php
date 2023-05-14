@@ -144,7 +144,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                                 } else {
                                     $page = 1;
                                 }
-                                $results_per_page = 2;
+                                $results_per_page = 8;
                                 $start_from = ($page - 1) * $results_per_page;
                                 if (isset($_GET['search'])) {
                                     $search = $_GET['search'];
@@ -216,7 +216,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                                 while ($row = mysqli_fetch_array($result)) {
                                     echo '
 				  			<tr>
-                <td><img src="' . $row['Image'] . '" height="70px" ></td>
+                <td><img src="../' . $row['Image'] . '" height="70px" ></td>
 								<td><a href="editDetails.php?detailsID=' . $row['ID'] . '&type=Blogs&mode=info">' . $row['Title'] . '</a></td>
 								
 								<td>' . substr($row['Content'], 0, 40) . '</td>
