@@ -175,15 +175,15 @@
             <div style="display: flex;">
                 <div>
                     <h6 style="color: white;">FIRST NAME</h6>
-                    <input style="color: white;" type="text" id="firstname-field" name="firstname-field" class="field input"
-                        required />
+                    <input style="color: white;" type="text" id="firstname-field" name="firstname-field"
+                        class="field input" required />
                 </div>
                 <div>
                     <h6 style="color: white;">LAST NAME</h6>
-                    <input style="color: white;" type="text" id="lastname-field" name="lastname-field" class="field input"
-                    required />
+                    <input style="color: white;" type="text" id="lastname-field" name="lastname-field"
+                        class="field input" required />
                 </div>
-             </div>
+            </div>
             <h6 style="color: white;">USERNAME</h6>
             <input style="color: white;" type="text" id="username-field" name="username-field" class="field input"
                 required />

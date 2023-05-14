@@ -14,7 +14,8 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>FlixFeast</title>
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
     <link href="assets/css2/nucleo-icons.css" rel="stylesheet" />
     <link href="assets/css2/nucleo-svg.css" rel="stylesheet" />
@@ -28,37 +29,37 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
     <style>
-        .table td,
-        .table th {
-            white-space: normal;
+    .table td,
+    .table th {
+        white-space: normal;
+    }
+
+    .form-control {
+        background-color: #2e3757;
+        padding: 5px;
+    }
+
+    .form-group {
+        width: 600px;
+    }
+
+
+
+
+    @media (min-width: 768px) {
+        .col-md-6 {
+            flex: 0 0 auto;
+            width: 100%;
         }
+    }
 
-        .form-control {
-            background-color: #2e3757;
-            padding: 5px;
-        }
+    body {
+        overflow-x: hidden;
+    }
 
-        .form-group {
-            width: 600px;
-        }
-
-
-
-
-        @media (min-width: 768px) {
-            .col-md-6 {
-                flex: 0 0 auto;
-                width: 100%;
-            }
-        }
-
-        body {
-            overflow-x: hidden;
-        }
-
-        p {
-            overflow: auto;
-        }
+    p {
+        overflow: auto;
+    }
     </style>
 </head>
 
@@ -164,7 +165,8 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     ?>
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+            data-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -651,7 +653,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
         } else if ($_GET['type'] == "Blogs" && $_GET['mode'] == "info") {
             echo '
             <div style = "display:flex;margin-left:3%;margin-top:3%;" >
-            <img src="' . $row['Image'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
+            <img src="' . $row['Image'] . '" alt="' . $row['Title'] . '" width="300px"/>
             <div>
                 <div id="viewDetails" style="width:50%;margin-left:5%;">
                     <p id="title" class="details"><b>Title: </b><br>' . $row['Title'] . '</p>
@@ -666,7 +668,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
         } else if ($_GET['type'] == "Blogs" && $_GET['mode'] == "edit") {
             echo '
             <div style = "display:flex;margin-left:3%;margin-top:3%;" >
-                <img src="' . $row['Image'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
+                <img src="' . $row['Image'] . '" alt="' . $row['Title'] . '" width="300px" />
                 <div class="row justify-content-center mt-5" id="movieadd" style="margin-left:3%;">
                     <div class="col-md-6" style="display: flex; justify-content: center;">
                         <form id="show-add" method="post">

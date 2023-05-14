@@ -16,7 +16,7 @@ $row = mysqli_fetch_array($result);
 $row1 = mysqli_fetch_array($result1);
 
 $profilePic = $row1['Photo'];
-$authorName = $row1['Name'] . $row1['Surname'];
+$authorName = $row1['Name'] . " " . $row1['Surname'];
 
 $title = $row['Title'];
 $date = $row['UpdatedAt'];
@@ -80,10 +80,10 @@ $monthName = date('F', mktime(0, 0, 0, $month, 1));
     <section class="blog-details">
         <div class="container">
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-12">
                     <div class="news-details">
                         <div class="single-news">
-                            <div class="news-bg-1"></div>
+                            <div class="news-bg-1" style="background-image: url('<?php echo $image ?>')"></div>
                             <div class="news-date">
                                 <?php
                                 echo '
@@ -93,19 +93,18 @@ $monthName = date('F', mktime(0, 0, 0, $month, 1));
                             </div>
                         </div>
                         <h2><?php echo $title; ?></h2>
-                        <a href="#"><i class="icofont icofont-comment"></i>1k Comments</a>
+                        <!-- <a href="#"><i class="icofont icofont-comment"></i>1k Comments</a> -->
                         <p><?php echo $content; ?></p>
                         <div class="detail-author">
                             <div class="row flexbox-center">
                                 <div class="col-lg-6 text-lg-left text-center">
                                     <div class="details-author">
                                         <h4>By Admin:</h4>
-                                        <img src="<?php echo $profilePic ?>" alt="" class="rounded-circle"
-                                            style="width: 50px; height: 50px;">
-
+                                        <img src="<?php echo $profilePic ?>" alt="" class="rounded-circle" style="width: 50px; height: 50px;">
+                                        <a href="#"><?php echo $authorName ?></a>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 text-lg-right text-center">
+                                <!-- <div class="col-lg-6 text-lg-right text-center">
                                     <div class="details-author">
                                         <h4>Share:</h4>
                                         <a href="#"><i class="icofont icofont-social-facebook"></i></a>
@@ -114,13 +113,10 @@ $monthName = date('F', mktime(0, 0, 0, $month, 1));
                                         <a href="#"><i class="icofont icofont-social-linkedin"></i></a>
                                         <a href="#"><i class="icofont icofont-social-google-plus"></i></a>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
-                        <div class="text-center">
-                            <img src="assets/img/blog-detail.png" alt="" />
-                        </div>
-                        <div class="details-reply">
+                        <!-- <div class="details-reply">
                             <h2>Leave a Reply</h2>
                             <form action="#">
                                 <div class="row">
@@ -150,8 +146,8 @@ $monthName = date('F', mktime(0, 0, 0, $month, 1));
                                     </div>
                                 </div>
                             </form>
-                        </div>
-                        <div class="details-comment">
+                        </div> -->
+                        <!-- <div class="details-comment">
                             <a class="theme-btn theme-btn2" href="#">Post Comment</a>
                             <p>You may use these HTML tags and attributes: You may use these HTML tags and attributes:
                                 You may use these HTML tags and attributes: </p>
@@ -175,10 +171,10 @@ $monthName = date('F', mktime(0, 0, 0, $month, 1));
                                     <i class="icofont icofont-simple-right"></i>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <!-- <div class="col-lg-3">
                     <div class="blog-sidebar">
                         <h4>Recent Posts</h4>
                         <ul>
@@ -198,11 +194,11 @@ $monthName = date('F', mktime(0, 0, 0, $month, 1));
                             <li><a href="#">admin on WP Devil</a></li>
                         </ul>
 
-                        <!-- <div class="portfolio-sidebar">
+                        <div class="portfolio-sidebar">
                             <img src="assets/img/sidebar/sidebar1.png" alt="sidebar" />
-                        </div> -->
+                        </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section><!-- blog area end -->

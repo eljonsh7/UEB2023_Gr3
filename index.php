@@ -1,19 +1,20 @@
 <?php
-    include('Services/connection.php');
-    session_start();
+include('Services/connection.php');
+session_start();
 
-    $stmt1 = $conn->prepare("SELECT * FROM watchlist WHERE User_ID = ?");
-    $stmt1->bind_param("d", $_SESSION['user']);
-    $stmt1->execute();
-    $result1 = $stmt1->get_result();
+$stmt1 = $conn->prepare("SELECT * FROM watchlist WHERE User_ID = ?");
+$stmt1->bind_param("d", $_SESSION['user']);
+$stmt1->execute();
+$result1 = $stmt1->get_result();
 
-    $content_ids = array();
-    while ($row = mysqli_fetch_array($result1)) {
-        $content_ids[] = $row['Content_ID'];
-    }
+$content_ids = array();
+while ($row = mysqli_fetch_array($result1)) {
+    $content_ids[] = $row['Content_ID'];
+}
 ?>
 <!DOCTYPE HTML>
 <html lang="zxx">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,7 +44,7 @@
     .portfolio-content h5 {
         margin-top: 5%;
     }
-    
+
     .home {
         color: #00d9e1;
     }
@@ -183,7 +184,7 @@
     .portfolio-content h5 {
         margin-top: 5%;
     }
-    
+
     .transformers-right {
         display: inline-block;
         padding: 6px 12px;
@@ -375,7 +376,7 @@
         </div>
     </section>
     <!-- portfolio section start -->
-    
+
     <section class="breadcrumb-area">
         <div class="container">
             <div class="row">
@@ -396,18 +397,18 @@
             <hr>
             <div class="grid-container" id="contentContainer">
                 <?php
-                    $stmt1 = $conn->prepare("SELECT * FROM Content c WHERE c.Type = 'Movie' ORDER BY c.Date DESC LIMIT 4");
-                    $stmt1->execute();
-                    $result1 = $stmt1->get_result();
+                $stmt1 = $conn->prepare("SELECT * FROM Content c WHERE c.Type = 'Movie' ORDER BY c.Date DESC LIMIT 4");
+                $stmt1->execute();
+                $result1 = $stmt1->get_result();
 
-                    while ($row = $result1->fetch_assoc()) {
-                        $title = $row['Title'];
-                        $poster = $row['Cover'];
-                        $id = $row['ID'];
-                        $type = $row['Type'];
-                        $genre = "";
-                        include('Models/card.php');
-                    }
+                while ($row = $result1->fetch_assoc()) {
+                    $title = $row['Title'];
+                    $poster = $row['Cover'];
+                    $id = $row['ID'];
+                    $type = $row['Type'];
+                    $genre = "";
+                    include('Models/card.php');
+                }
                 ?>
             </div>
             <a href="movies.php" class="btn">Show more &rarr;</a>
@@ -417,18 +418,18 @@
             <hr>
             <div class="grid-container" id="contentContainer">
                 <?php
-                    $stmt2 = $conn->prepare("SELECT * FROM Content c WHERE c.Type = 'TV Show' ORDER BY c.Date DESC LIMIT 4");
-                    $stmt2->execute();
-                    $result2 = $stmt2->get_result();
+                $stmt2 = $conn->prepare("SELECT * FROM Content c WHERE c.Type = 'TV Show' ORDER BY c.Date DESC LIMIT 4");
+                $stmt2->execute();
+                $result2 = $stmt2->get_result();
 
-                    while ($row = mysqli_fetch_array($result2)) {
-                        $title = $row['Title'];
-                        $poster = $row['Cover'];
-                        $id = $row['ID'];
-                        $type = $row['Type'];
-                        $genre = "";
-                        include('Models/card.php');
-                    }
+                while ($row = mysqli_fetch_array($result2)) {
+                    $title = $row['Title'];
+                    $poster = $row['Cover'];
+                    $id = $row['ID'];
+                    $type = $row['Type'];
+                    $genre = "";
+                    include('Models/card.php');
+                }
                 ?>
             </div>
             <a href="tv-shows.php" class="btn">Show more &rarr;</a>
@@ -517,7 +518,32 @@
         </div>
     </section><!-- video section end -->
     <!-- news section start -->
+    <?php
+    $sql = "SELECT * FROM blogs ORDER BY UpdatedAt DESC";
 
+    $count = 0;
+    $result = mysqli_query($conn, $sql);
+    while ($row1 = mysqli_fetch_array($result)) {
+        $count++;
+        if ($count == 1) {
+            $title2 = $row1['Title'];
+            $date2 = $row1['UpdatedAt'];
+            $content2 = $row1['Content'];
+            $image2 = $row1['Image'];
+            $year2 = date("Y", strtotime($date2));
+            $month2 = date("m", strtotime($date2));
+            $day2 = date("d", strtotime($date2));
+            $monthName2 = date('F', mktime(0, 0, 0, $month2, 1));
+        }
+        $title = $row1['Title'];
+        $date = $row1['UpdatedAt'];
+        $content = $row1['Content'];
+        $image = $row1['Image'];
+        $year = date("Y", strtotime($date));
+        $month = date("m", strtotime($date));
+        $day = date("d", strtotime($date));
+        $monthName = date('F', mktime(0, 0, 0, $month, 1));
+    } ?>
     <section class="news">
         <div class="container">
             <div class="row">
@@ -528,18 +554,18 @@
                 </div>
             </div>
             <hr />
-            
         </div>
         <div class="news-slide-area">
             <div class="news-slider">
                 <?php
-                $sql = "SELECT * FROM blogs ORDER BY UpdatedAt DESC";
+                $sql3 = "SELECT * FROM blogs ORDER BY UpdatedAt DESC";
 
                 $count = 0;
-                $result = mysqli_query($conn, $sql);
-                while ($row1 = mysqli_fetch_array($result)) {
+                $result3 = mysqli_query($conn, $sql3);
+                while ($row1 = mysqli_fetch_array($result3)) {
                     $count++;
-                    if ($count == 2) {
+                    if ($count == 0) {
+                        $id2 = $row1['ID'];
                         $title2 = $row1['Title'];
                         $date2 = $row1['UpdatedAt'];
                         $content2 = $row1['Content'];
@@ -549,6 +575,7 @@
                         $day2 = date("d", strtotime($date2));
                         $monthName2 = date('F', mktime(0, 0, 0, $month2, 1));
                     }
+                    $id = $row1['ID'];
                     $title = $row1['Title'];
                     $date = $row1['UpdatedAt'];
                     $content = $row1['Content'];
@@ -557,54 +584,52 @@
                     $month = date("m", strtotime($date));
                     $day = date("d", strtotime($date));
                     $monthName = date('F', mktime(0, 0, 0, $month, 1));
-                    echo '
-                <div class="single-news">
-                    <div class="news-bg-1" style =" background: url("' . $image . '");"></div>
+                    echo '<div class="single-news">
+  <div class="news-bg-1" style="background-image: url(\'' . $image . '\');"></div>
+  <div class="news-date">
+    <h2><span>' . $monthName . '</span>' . $day . '</h2>
+    <h1>' . $year . '</h1>
+  </div>
+  <div class="news-content">
+    <h2>' . $title . '</h2>
+    <p>' . substr($content, 0, 100) . '...</p>
+  </div>
+  <a href="blog-details.php?id=' . $id . '">Read More</a>
+</div>';
+                } ?>
+            </div>
+            <div class="news-thumb">
+                <div class="news-prev">
+                    <?php
+
+                    echo '<div class="single-news">
+                    <div class="news-bg-1" style="background-image: url("' . $image2 . '");"></div>
                     <div class="news-date">
-                        <h2><span>' . $monthName . '</span> ' . $day . '</h2>
+                        <h2><span>' . $monthName2 . '</span>' . $day2 . '</h2>
+                        <h1>' . $year2 . '</h1>
+                    </div>
+                    <div class="news-content">
+                        <h2>' . $title2 . '</h2>
+                        <p>' . substr($content2, 0, 100) . '...</p>
+                    </div>
+                    <a href="blog-details.php?id=' . $id2 . '">Read More</a>
+                </div>'; ?>
+                </div>
+                <div class="news-next">
+                    <?php
+                    echo '<div class="single-news">
+                    <div class="news-bg-1" style="background-image: url("' . $image . '");></div>
+                    <div class="news-date">
+                        <h2><span>' . $monthName . '</span>' . $day . '</h2>
                         <h1>' . $year . '</h1>
                     </div>
                     <div class="news-content">
                         <h2>' . $title . '</h2>
-                        <p>' . substr($content, 0, 50) . '</p>
+                        <p>' . substr($content, 0, 100) . '...</p>
                     </div>
-                    <a href="blog-details.php?id=' . $row1['ID'] . '">Read More</a>
-                </div>';
-                }
-                ?>
-            </div>
-            <div class="news-thumb">
-                <?php
-                echo '<div class="news-next">
-                <div class="single-news">
-                <div class="news-bg-1" style =" background: url("' . $image2 . '");"></div>
-                <div class="news-date">
-                    <h2><span>' . $monthName2 . '</span> ' . $day2 . '</h2>
-                    <h1>' . $year2 . '</h1>
+                    <a href="blog-details.php?id=' . $id . '">Read More</a>
+                    </div>'; ?>
                 </div>
-                <div class="news-content">
-                    <h2>' . $title2 . '</h2>
-                    <p>' . substr($content2, 0, 50) . '</p>
-                </div>
-                <a href="#">Read More</a>
-            </div>
-                </div>';
-
-                echo '<div class="news-prev">
-                <div class="single-news">
-                <div class="news-bg-1" style =" background: url("' . $image . '");"></div>
-                <div class="news-date">
-                    <h2><span>' . $monthName . '</span> ' . $day . '</h2>
-                    <h1>' . $year . '</h1>
-                </div>
-                <div class="news-content">
-                    <h2>' . $title . '</h2>
-                    <p>' . substr($content, 0, 50) . '</p>
-                </div>
-                <a href="#">Read More</a>
-            </div>
-                </div>';
-                ?>
             </div>
         </div>
     </section><!-- news section end -->
@@ -612,7 +637,7 @@
     <?php include("Models/footer.php"); ?>
     <!-- footer section end -->
     <script>
-        <?php if(isset($_SESSION['user'])) {
+    <?php if (isset($_SESSION['user'])) {
             echo 'function list(id) {
                 var watchlistButton = document.getElementById("watchlist-button" + id);
                 if (watchlistButton.classList.contains("watchlisted")) {
