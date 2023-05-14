@@ -68,6 +68,11 @@
             border-radius: 20px;
             padding: 1.5%;
         }
+        textarea {
+            height: 250px; /* set the height to 200 pixels */
+            overflow-y: auto; /* add a vertical scrollbar when the content overflows */
+            resize:none;
+        }
 	</style>
 </head>
 
@@ -121,8 +126,47 @@
             <h3>Are there any subscription fees or charges for using FlixFeast?</h3>
             <p>No. FlixFeast is and always will be free.</p>
         </div>
+
+        <?php
+            if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true) {
+            echo '<div class="container">
+            <div class="details-reply">
+                <form method="post">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="select-container">
+                                <input type="text" placeholder="Subject" name="title"/>
+                                <i class="icofont icofont-question"></i>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="textarea-container">
+                                <textarea placeholder="Type Here Message" name="question"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <button type="submit" style="color:white">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>';
+            }
+        
+
+
+
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $title = $_POST['title'];
+                $question = $_POST['question'];
+                echo '<script>console.log("'.$title.'")</script>';
+                echo '<script>console.log("'.$question.'")</script>';
+            }
+        ?>
+        
         
     </div>
+    
     <div class="container mt-5" id="container">
         <h1>Contact FlixFeast</h1>
         <hr style="margin: 1% 0% 2% 0%;"/>
