@@ -273,6 +273,11 @@ $row = mysqli_fetch_array($result);
                 <div>
                     <div class="details-content">
                         <div class="details-overview">
+                            <h2>Overview</h2>
+                            <p>
+                                <?php echo stripslashes($row['Description']); ?>
+                            </p>
+                            <br><br>
                             <h2>Comments</h2>
                             <?php
               include("Services/connection.php");

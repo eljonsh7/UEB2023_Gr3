@@ -65,7 +65,7 @@
         height: 30px;
         border-radius: 10%;
         position: relative;
-        left: 76%;
+        left: 81%;
         top: -320px;
     }
 
