@@ -80,48 +80,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
         white-space: normal;
     }
 
-    .overlay {
-        position: fixed;
-        z-index: 9999;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    .modal {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 30%;
-        height: 25%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 7px;
-    }
-
-    .modal p {
-        margin-top: 0;
-        margin-bottom: 1em;
-        text-align: center;
-    }
-
-    .modal-buttons {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 5%;
-        width: 60%;
-    }
-
-    .modal-buttons a {
-        width: 30%;
-    }
+    
 </style>
 <script>
     document.addEventListener(\'DOMContentLoaded\', function() {
@@ -152,6 +111,18 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
 
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
+    $titleUser = $row['title'];
+    $questionUser = $row['question'];
+    $emailUser = $row['email']; 
+
+    $sql1 = "SELECT *
+    FROM users
+    WHERE Email = '$emailUser'";
+
+    $result1 = mysqli_query($conn, $sql1);
+    $row1 = mysqli_fetch_array($result1);
+
+    $usernameUser = $row1['Username'];
 
 
     ?>
@@ -193,6 +164,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                 <div id="viewDetails" style="width:50%;margin-left:5%;">
                     <p id="titleInfo" class="details"><b>Title:</b> <br>' . $row['title'] . '</p>
                     <p id="questionInfo" class="details"><b>Question:</b> <br>' . $row['question'] . '</p>
+                    <p id="usernameInfo" class="details"><b>User:</b> <br>' . $usernameUser . '</p>
                 </div>
                 <div class="container" style="padding:3%;">
                     <div class="details-reply">
@@ -200,7 +172,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="select-container">
-                                        <input type="text" placeholder="Subject" name="title" id="subject"/>
+                                        <input type="text" placeholder="Subject" name="title" id="subject" value="Re:'.$row['title'].'"/>
                                         <i class="icofont icofont-question"></i>
                                     </div>
                                 </div>
@@ -222,8 +194,6 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $title = $_POST['title'];
                 $question = $_POST['question'];
-                echo '<script>console.log("'.$title.'")</script>';
-                echo '<script>console.log("'.$question.'")</script>';
                 if(empty($title)){
                     echo '<script>document.getElementById("subject").style.border="2px solid red";</script>';
                     echo '<script>document.getElementById("subject").scrollIntoView({behavior:"smooth"});</script>';
@@ -243,6 +213,19 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                     include('../Services/notify.php');
                 }
                 if(!empty($question)&& !empty($title)){
+                    require_once("../Services/config.php");
+                    require("../Services/vendor/autoload.php");
+                    $SGemail = new \SendGrid\Mail\Mail();
+                    $SGemail->setFrom("flixfeastt@gmail.com", "FlixFeast");
+                    $SGemail->setSubject($title);
+                    $SGemail->addContent("text/plain",$question);
+                    $SGemail->addTo($emailUser, "Example User");
+                    $sendgrid = new \SendGrid(SENDGRID_API_KEY);
+                    try {
+                        $response = $sendgrid->send($SGemail);
+                    } catch (Exception $e) {
+                        echo 'Caught exception: ' . $e->getMessage() . "\n";
+                    }
                     $stmt = $conn->prepare("DELETE FROM faq WHERE ID=?");
                     $stmt->bind_param('d', $ID);
                     $stmt->execute();

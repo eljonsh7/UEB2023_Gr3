@@ -162,8 +162,6 @@
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $title = $_POST['title'];
                 $question = $_POST['question'];
-                echo '<script>console.log("'.$title.'")</script>';
-                echo '<script>console.log("'.$question.'")</script>';
                 if(empty($title)){
                     echo '<script>document.getElementById("subject").style.border="2px solid red";</script>';
                     echo '<script>document.getElementById("subject").scrollIntoView({behavior:"smooth"});</script>';

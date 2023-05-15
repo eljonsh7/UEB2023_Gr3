@@ -223,7 +223,7 @@ if (!isset($_GET['mode'])) {
 	</style>
 </head>
 
-<body style="background-color: #212529;">
+<body>
 	<!-- Page loader -->
 	<div id="preloader"></div>
 	<!-- header section start -->
