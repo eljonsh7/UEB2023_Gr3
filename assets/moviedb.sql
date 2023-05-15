@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: May 09, 2023 at 12:12 AM
+-- Generation Time: May 15, 2023 at 09:55 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -169,6 +169,26 @@ INSERT INTO `director` (`ID`, `Director`) VALUES
 (28, 'Junpei Mizusaki'),
 (29, 'Justin Copeland'),
 (30, 'Michael Hirst');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faq`
+--
+
+CREATE TABLE `faq` (
+  `ID` int(12) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `question` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `faq`
+--
+
+INSERT INTO `faq` (`ID`, `email`, `title`, `question`) VALUES
+(4, 'blendizeqiri@hotmail.com', 'COOL', 'how cool is it');
 
 -- --------------------------------------------------------
 
@@ -454,6 +474,12 @@ ALTER TABLE `director`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `faq`
+--
+ALTER TABLE `faq`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `genre`
 --
 ALTER TABLE `genre`
@@ -500,10 +526,20 @@ ALTER TABLE `content`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
+-- AUTO_INCREMENT for table `faq`
+--
+ALTER TABLE `faq`
+  MODIFY `ID` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
 
 --
 -- Constraints for table `director`
@@ -531,3 +567,7 @@ CREATE DEFINER=`root`@`localhost` EVENT `delete_expired_temp_users` ON SCHEDULE 
 
 DELIMITER ;
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

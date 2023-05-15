@@ -1,5 +1,8 @@
 
-<?php session_start();?>
+<?php session_start();
+    include('Services/connection.php')
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -131,17 +134,17 @@
             if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true) {
             echo '<div class="container">
             <div class="details-reply">
-                <form method="post">
+                <form method="post" id="faqForm">
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="select-container">
-                                <input type="text" placeholder="Subject" name="title"/>
+                                <input type="text" placeholder="Subject" name="title" id="subject"/>
                                 <i class="icofont icofont-question"></i>
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="textarea-container">
-                                <textarea placeholder="Type Here Message" name="question"></textarea>
+                                <textarea placeholder="Type Here Message" name="question" id="question"></textarea>
                             </div>
                         </div>
                         <div class="col-lg-2">
@@ -161,6 +164,37 @@
                 $question = $_POST['question'];
                 echo '<script>console.log("'.$title.'")</script>';
                 echo '<script>console.log("'.$question.'")</script>';
+                if(empty($title)){
+                    echo '<script>document.getElementById("subject").style.border="2px solid red";</script>';
+                    echo '<script>document.getElementById("subject").scrollIntoView({behavior:"smooth"});</script>';
+                    if(!empty($question)){
+                        echo '<script>document.getElementById("question").value="'.$question.'"</script>';
+                    }
+                }
+                if(empty($question)){
+                    echo '<script>document.getElementById("question").style.border="2px solid red";</script>';
+                    echo '<script>document.getElementById("question").scrollIntoView({behavior:"smooth"});</script>';
+                    if(!empty($title)){
+                        echo '<script>document.getElementById("subject  ").value="'.$title.'"</script>';
+                    }
+                }
+                if(empty($question)||empty($title)){
+                    $_POST['message'] = "Please fill the entire form!";
+                    include('Services/notify.php');
+                }
+                if(!empty($question)&& !empty($title)){
+                    $stmt = $conn->prepare("SELECT Email FROM users WHERE ID=?");
+                    $stmt->bind_param('d', $_SESSION['user']);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    $row = $result->fetch_assoc();
+                    $email = $row['Email'];
+                    $stmt = $conn->prepare("INSERT INTO `faq` (email,title,question) VALUES (?,?,?)");
+                    $stmt->bind_param("sss", $email,$title,$question);
+                    $stmt->execute();
+                    $_POST['message'] = "Your question was submited, our support team will get back to you!";
+                    include('Services/notify.php');
+                }
             }
         ?>
         
