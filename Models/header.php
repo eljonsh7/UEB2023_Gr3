@@ -1,3 +1,14 @@
+<?php
+    if (isset($_COOKIE['ID'])) {
+        echo "<script>console.log(" . $_COOKIE['ID'] . ")</script>";
+        session_start();
+        $_SESSION['user'] = $_COOKIE['ID'];
+        session_abort();
+    } else {
+        echo "<script>console.log('Not here')</script>";
+    }
+?>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
 <style>
@@ -27,11 +38,11 @@
     position: fixed;
     /* left: 35.85%; */
     width: 100%;
-    margin: 20% 35.4%;
+    margin: 19% 35.4%;
 }
 
 .signup-box {
-    margin: 12% 35.4%;
+    margin: 10% 35.4%;
 }
 </style>
 
@@ -59,7 +70,7 @@
                                                 <li><a href="user.php?mode=edit">Edit</a></li>
                                                 <li><a href="watchlist.php">Watchlist</a></li>';
                                 if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
-                                    echo '<li><a class="dashboard" href="dashboard/dashboard.php" target="_blank">Dashboard</a></li>';
+                                    echo '<li><a class="dashboard" href="dashboard/dashboard.php">Dashboard</a></li>';
                                 }
                                 echo '<li><a href="Services/logout.php">Sign out</a></li>';
 
@@ -150,19 +161,11 @@
             <h6 style="color: white;">PASSWORD</h6>
             <input style="color: white;" type="password" id="password-field-login" name="password-field-login"
                 class="field input" required placeholder="Password" />
-            <!-- <div class="login-remember">
-                <input style="color: white;" type="checkbox" />
+            <div class="login-remember">
+                <input id="remember-checkbox" style="color: white;" type="checkbox" name="remember-checkbox" />
                 <span style="color: white;">Remember Me</span>
-            </div> -->
+            </div>
             <button class="theme-btn" name="logInForm">LOG IN</button>
-            <!-- <span>Or Via Social</span>
-            <div class="login-social">
-                <a href="#"><i class="icofont icofont-social-facebook"></i></a>
-                <a href="#"><i class="icofont icofont-social-twitter"></i></a>
-                <a href="#"><i class="icofont icofont-social-linkedin"></i></a>
-                <a href="#"><i class="icofont icofont-social-google-plus"></i></a>
-                <a href="#"><i class="icofont icofont-camera"></i></a>
-            </div> -->
         </form>
     </div>
 </div>
@@ -184,15 +187,21 @@
                         class="field input" required />
                 </div>
             </div>
-            <h6 style="color: white;">USERNAME</h6>
-            <input style="color: white;" type="text" id="username-field" name="username-field" class="field input"
-                required />
+            <div style="display: flex;">
+                <div>
+                    <h6 style="color: white;">USERNAME</h6>
+                    <input style="color: white;" type="text" id="username-field" name="username-field" class="field input"
+                        required />
+                </div>
+                <div>
+                    <h6 style="color: white;">BIRTHDATE</h6>
+                    <input style="color: white; height:46%;" type="date" id="birthdate-field" name="birthdate-field"
+                        class="field input" required />
+                </div>
+            </div>
             <h6 style="color: white;">EMAIL ADDRESS</h6>
             <input style="color: white;" type="email" id="email-field" name="email-field" class="field input"
-                required />
-            <h6 style="color: white;">BIRTHDATE</h6>
-            <input style="color: white; width:100%;" type="date" id="birthdate-field" name="birthdate-field"
-                class="field input" required />
+                required /> 
             <h6 style="color: white;">PASSWORD</h6>
             <input style="color: white;" type="password" id="password-field" name="password-field" class="field input"
                 required onkeyup="verifyPassword()" />
@@ -206,19 +215,7 @@
             <p id="isItSame" style="display: none; justify-content: center; font-size:small;" style="color: white;">
                 Passwords don't match
             </p>
-            <!-- <div style="color: white;" class="login-remember">
-                <input type="checkbox" />
-                <span style="color: white;">Remember Me</span>
-            </div> -->
             <button class="theme-btn" id="sign-up" disabled style="color: white;">SIGN UP</button>
-            <!-- <span style="color: white;">Or Via Social</span>
-            <div class="login-social">
-                <a href="#"><i class="icofont icofont-social-facebook"></i></a>
-                <a href="#"><i class="icofont icofont-social-twitter"></i></a>
-                <a href="#"><i class="icofont icofont-social-linkedin"></i></a>
-                <a href="#"><i class="icofont icofont-social-google-plus"></i></a>
-                <a href="#"><i class="icofont icofont-camera"></i></a>
-            </div> -->
         </form>
     </div>
 </div>
@@ -361,35 +358,39 @@ if (isset($_GET['activation_token']) && isset($_GET['accountID'])) {
 }
 ?>
 <?php
-if (isset($_POST['logInForm'])) {
-    $email = $_POST['email-field-login'];
-    $password = $_POST['password-field-login'];
+    if (isset($_POST['logInForm'])) {
+        $email = $_POST['email-field-login'];
+        $password = $_POST['password-field-login'];
 
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
-    $stmt = $conn->prepare("SELECT * FROM `users` WHERE Email = ?");
-    $stmt->bind_param('s', $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if (mysqli_num_rows($result) == 1) {
-        $user = mysqli_fetch_assoc($result);
-        $PW_Hashed = hash('sha256', $password);
-        $PW_Database = $user['Password'];
-        if ($PW_Hashed === $PW_Database) {
-            $_SESSION['user_logged_in'] = true;
-            $_SESSION['user'] = $user['ID'];
-            $_SESSION['admin'] = $user['Admin'];
-            echo '<script>window.location.href = "index.php";</script>';
-        } else {
-            echo "<script>document.getElementById('warn').style = 'flex';</script>";
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
         }
-    } else {
-        echo "<script>alert('User not found');</script>";
+
+        $stmt = $conn->prepare("SELECT * FROM `users` WHERE Email = ?");
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if (mysqli_num_rows($result) == 1) {
+            $user = mysqli_fetch_assoc($result);
+            $PW_Hashed = hash('sha256', $password);
+            $PW_Database = $user['Password'];
+            if ($PW_Hashed === $PW_Database) {
+                $_SESSION['user_logged_in'] = true;
+                $_SESSION['user'] = $user['ID'];
+                $_SESSION['admin'] = $user['Admin'];
+                if (isset($_POST['remember-checkbox'])) {
+                    setcookie('ID', $_SESSION['user'], time() + (14 * 24 * 60 * 60), "/");
+                }
+                echo '<script>window.location.href = "index.php";</script>';
+
+            } else {
+                echo "<script>document.getElementById('warn').style = 'flex';</script>";
+            }
+        } else {
+            echo "<script>alert('User not found');</script>";
+        }
     }
-}
 ?>
 <script>
 function verifyPassword() {

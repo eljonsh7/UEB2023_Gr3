@@ -30,13 +30,13 @@
         .faq {
             max-width: 800px;
             margin: 0 auto;
-            margin-top: 10%;
             padding: 20px;
         }
 
         .faq h2 {
             font-size: 24px;
             margin-bottom: 20px;
+            margin-top: 20%;
         }
 
         .faq h3 {
@@ -85,7 +85,7 @@
 	<!-- header section start -->
 	<?php include("Models/header.php"); ?>
 
-    <div class="faq">
+    <div class="faq" id="faq">
         <h2>Frequently Asked Questions</h2>
         <hr />
         <br><br>
