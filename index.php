@@ -248,7 +248,10 @@ while ($row = mysqli_fetch_array($result1)) {
         display: flex;
         margin: 2%;
         justify-content: center;
-        background: rgb(0, 0, 0, 0.6);
+        background: #3a444f;
+    }
+    a.btn:hover {
+        border: 2px solid white;
     }
     </style>
 </head>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: May 15, 2023 at 09:55 AM
+-- Generation Time: May 16, 2023 at 04:05 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -121,7 +121,25 @@ INSERT INTO `content` (`ID`, `Title`, `Date`, `Status`, `Rating`, `Cover`, `Trai
 (27, 'Cruella', '2021-05-28', NULL, '7.3', 'https://m.media-amazon.com/images/M/MV5BZWQ1YjNiMTItZjkwZS00NDMyLThiOWEtNzBkMzAzMWU2ZDUwXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg', 'https://www.youtube.com/watch?v=gmRKv7n2If8', 'The film serves as a prequel to the 1961 animated film \"One Hundred and One Dalmatians\" and focuses on the young Cruella de Vil and her transformation into the iconic Disney villain.', 'Movie', 134),
 (28, 'Batman Ninja', '2018-04-24', NULL, '5.6', 'https://m.media-amazon.com/images/M/MV5BMjJlMmI5YzAtNzY4YS00YzMzLTk0ZDAtMjUwMWU0OTdhYTkzXkEyXkFqcGdeQXVyMDEyMDU1Mw@@._V1_.jpg', 'https://www.youtube.com/watch?v=CwPFxcefpdU', 'The film follows Batman as he is transported to feudal Japan and must rely on his intelligence and martial arts skills to stop the Joker and other villains who have taken over the country.', 'Movie', 85),
 (29, 'Batman: Hush', '2019-07-19', NULL, '6.9', 'https://m.media-amazon.com/images/M/MV5BNmNmMWM4MGItZmFjMy00YTMxLTg1MzMtODM1OWZiNTYzMDRkXkEyXkFqcGdeQXVyMTEyNzgwMDUw._V1_.jpg', 'https://www.youtube.com/watch?v=cQFFnUg0u70', 'Batman must uncover the identity of a mysterious villain known as Hush, who is determined to destroy both Batman and Bruce Wayne.', 'Movie', 82),
-(30, 'Vikings', '2013-03-03', 'Ended', '8.5', 'https://m.media-amazon.com/images/M/MV5BODk4ZjU0NDUtYjdlOS00OTljLTgwZTUtYjkyZjk1NzExZGIzXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=9GgxinPwAGc', 'Vikings follows the adventures of Ragnar Lothbrok, the greatest hero of his age. The series tells the tales of Ragnar\'s band of Viking brothers and his family, as he rises to become King of the Viking tribes.', 'TV Show', NULL);
+(30, 'Vikings', '2013-03-03', 'Ended', '8.5', 'https://m.media-amazon.com/images/M/MV5BODk4ZjU0NDUtYjdlOS00OTljLTgwZTUtYjkyZjk1NzExZGIzXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=9GgxinPwAGc', 'Vikings follows the adventures of Ragnar Lothbrok, the greatest hero of his age. The series tells the tales of Ragnar\'s band of Viking brothers and his family, as he rises to become King of the Viking tribes.', 'TV Show', NULL),
+(31, 'The Boys', '2019-07-26', 'Ongoing', '8.7', 'https://m.media-amazon.com/images/M/MV5BOTEyNDJhMDAtY2U5ZS00OTMzLTkwODktMjU3MjFkZWVlMGYyXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_.jpg', 'https://www.youtube.com/watch?v=M1bhOaLV4FU', 'A group of vigilantes are determined to expose the corrupt superheroes who abuse their superpowers.', 'TV Show', NULL),
+(32, 'The Flash', '2014-10-07', 'Ended', '7.6', 'https://m.media-amazon.com/images/M/MV5BZjlkM2RjODgtNjRlYS00MDNjLTkxMzYtOWM4NjAwZTY2MjZiXkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=IgVyroQjZbE', 'A forensic scientist gains superhuman speed after being struck by lightning. He uses his newfound abilities to protect Central City from various threats.', 'TV Show', NULL),
+(33, 'Titans', '2018-10-12', 'Ended', '7.7', 'https://m.media-amazon.com/images/M/MV5BNjY4MTE3MWYtYzU3YS00Y2UxLTk2NDMtMjJlODk2MzBmOTdiXkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=iH44Z0QwrWQ', 'A group of young superheroes led by Dick Grayson (Robin), join forces to combat evil and protect their city. The series features characters from the DC Comics universe.', 'TV Show', NULL),
+(34, 'Fantastic Four: World\'s Greatest Heroes', '2006-09-02', 'Ended', '6.5', 'https://m.media-amazon.com/images/M/MV5BNTAwZjI1ZWUtZjEyOS00ZTAwLWEzYmItMjQ3OWYyYmI2ZTI4XkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_.jpg', 'https://www.youtube.com/watch?v=OUzeXnZ78VY', 'The adventures of Marvel\'s superhero team, The Fantastic Four, who use their powers to protect Earth from various threats.', 'TV Show', NULL),
+(35, 'The Walking Dead', '2010-10-31', 'Ended', '8.2', 'https://m.media-amazon.com/images/M/MV5BOTUwODI0ODE3OF5BMl5BanBnXkFtZTcwNjQ3NTM0OA@@._V1_.jpg', 'https://www.youtube.com/watch?v=sfAc2U20uyg', 'A group of survivors must navigate a world overrun by zombies, known as \"walkers,\" and the challenges they face in their quest for safety.', 'TV Show', NULL),
+(36, 'Dune', '2021-10-22', NULL, '8.4', 'https://m.media-amazon.com/images/M/MV5BZjgxNWNiMGItMDQzYi00MGU4LTgyN2YtNzU3ODMwNWNlMmRjXkEyXkFqcGdeQXVyNzU3Nzk4MDQ@._V1_.jpg', 'https://www.youtube.com/watch?v=n9xhJrPXop4', 'The story of Paul Atreides, a young nobleman, as he navigates political intrigue and battles for control of a desert planet called Arrakis.', 'Movie', 155),
+(37, 'Joker', '2019-10-04', NULL, '8.4', 'https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=zAGVQLHvwOY', 'Joker is a psychological thriller film that delves into the origins of the iconic Batman villain, the Joker. It explores the transformation of Arthur Fleck, a failed stand-up comedian, into the criminal mastermind known as the Joker.', 'Movie', 122),
+(38, 'It', '2017-09-08', NULL, '7.3', 'https://m.media-amazon.com/images/M/MV5BZDVkZmI0YzAtNzdjYi00ZjhhLWE1ODEtMWMzMWMzNDA0NmQ4XkEyXkFqcGdeQXVyNzYzODM3Mzg@._V1_.jpg', 'https://www.youtube.com/watch?v=7no56Zw1e20', 'A group of children in a small town must confront an ancient evil entity that takes the form of a clown called Pennywise.', 'Movie', 135),
+(39, 'It Chapter Two', '2019-09-06', NULL, '6.5', 'https://m.media-amazon.com/images/M/MV5BYTJlNjlkZTktNjEwOS00NzI5LTlkNDAtZmEwZDFmYmM2MjU2XkEyXkFqcGdeQXVyNjg2NjQwMDQ@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=zqUopiAYdRg', 'It Chapter Two is the sequel to the film It. Set 27 years after the events of the first film, it follows the adult versions of the characters as they return to their hometown to confront Pennywise once again.', 'Movie', 169),
+(40, 'Puss in Boots: The Last Wish', '2022-12-21', NULL, '7.2', 'https://m.media-amazon.com/images/M/MV5BNjMyMDBjMGUtNDUzZi00N2MwLTg1MjItZTk2MDE1OTZmNTYxXkEyXkFqcGdeQXVyMTQ5NjA0NDM0._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=RqrXhwS33yc', 'Puss in Boots: The Last Wish is an animated adventure film featuring the popular character from the Shrek franchise. Puss in Boots embarks on a perilous journey to find the Last Wish and save his hometown from disaster.', 'Movie', 99),
+(41, 'Top Gun: Maverick', '2022-05-27', NULL, '8.3', 'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=qSqVVswa420', 'The story of Pete \\\"Maverick\\\" Mitchell, a daring fighter pilot, as he navigates the challenges of a rapidly evolving world of aerial combat.', 'Movie', 130),
+(42, 'Friends', '1994-09-22', 'Ended', '8.9', 'https://flxt.tmsimg.com/assets/p7892602_b_v7_aq.jpg', 'https://www.youtube.com/watch?v=LTpmw0Ac6Zs', 'Rachel Green, Ross Geller, Monica Geller, Joey Tribbiani, Chandler Bing and Phoebe Buffay are six 20 something year-olds, living off one another in the heart of New York City. Over the course of ten years, this average group of buddies goes through massive mayhem, family trouble, past and future romances, fights, laughs, tears and surprises as they learn what it really means to be a friend.', 'TV Show', NULL),
+(43, 'How I Met Your Mother', '2005-02-19', 'Ended', '8.3', 'https://w0.peakpx.com/wallpaper/232/450/HD-wallpaper-himym-how-i-met-your-mother-show.jpg', 'https://www.youtube.com/watch?v=cjJLEYMzpjc', 'A father tells his children, through a series of flashbacks, the journey that he and his four best friends undertook, which would lead him to meet their mother.', 'TV Show', NULL),
+(44, 'The Office', '2005-03-24', 'Ended', '9.0', 'https://www.dmarge.com/wp-content/uploads/streaming/393318780dg9e5fPRRId8PoBE0F6jl5y85Eu.jpg', 'https://www.youtube.com/watch?v=tNcDHWpselE', 'A mockumentary on a group of typical office workers, where the workday consists of ego clashes, inappropriate behavior, and tedium.', 'TV Show', NULL),
+(45, 'The Big Bang Theory', '2007-09-24', 'Ended', '8.2', 'https://m.media-amazon.com/images/M/MV5BY2FmZTY5YTktOWRlYy00NmIyLWE0ZmQtZDg2YjlmMzczZDZiXkEyXkFqcGdeQXVyNjg4NzAyOTA@._V1_.jpg', 'https://www.youtube.com/watch?v=rCj-Fb1OmXg', 'A woman who moves into an apartment across the hall from two brilliant but socially awkward physicists shows them how little they know about life outside of the laboratory.', 'TV Show', NULL),
+(46, 'Wandavision', '2021-01-15', 'Ended', '7.9', 'https://m.media-amazon.com/images/M/MV5BZGEwYmMwZmMtMTQ3MS00YWNhLWEwMmQtZTU5YTIwZmJjZGQ0XkEyXkFqcGdeQXVyMTI5MzA5MjA1._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=sj9J2ecsSpo', 'Wanda Maximoff and Vision—two super-powered beings living idealized suburban lives—begin to suspect that everything is not as it seems.', 'TV Show', NULL),
+(47, 'Loki', '2021-09-06', 'Airing', '8.2', 'https://m.media-amazon.com/images/M/MV5BNTkwOTE1ZDYtODQ3Yy00YTYwLTg0YWQtYmVkNmFjNGZlYmRiXkEyXkFqcGdeQXVyNTc4MjczMTM@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=nW948Va-l10', 'The mercurial villain Loki resumes his role as the God of Mischief.', 'TV Show', NULL),
+(48, 'Stranger Things', '2017-07-15', 'Airing', '8.7', 'https://m.media-amazon.com/images/M/MV5BN2EyZWIwYjItZWM2Mi00YzM1LWFhYzQtZGZmYzlhNWZkYWQyXkEyXkFqcGdeQXVyNDI0MTA5NTE@._V1_.jpg', 'https://www.youtube.com/watch?v=b9EkMc79ZSU', 'In 1980s Indiana, a group of young friends witness supernatural forces and secret government exploits. As they search for answers, the children unravel a series of extraordinary mysteries.', 'TV Show', NULL);
 
 -- --------------------------------------------------------
 
@@ -168,7 +186,25 @@ INSERT INTO `director` (`ID`, `Director`) VALUES
 (27, 'Craig Gillespie'),
 (28, 'Junpei Mizusaki'),
 (29, 'Justin Copeland'),
-(30, 'Michael Hirst');
+(30, 'Michael Hirst'),
+(31, 'Eric Kripke'),
+(32, 'Eric Wallace'),
+(33, 'Carol Banker'),
+(34, 'Franck Michel'),
+(35, 'Greg Nicotero'),
+(36, 'Denis Villeneuve'),
+(37, 'Todd Phillips'),
+(38, 'Andy Muschietti'),
+(39, 'Andy Muschietti'),
+(40, 'Joel Crawford'),
+(41, 'Joseph Kosinski'),
+(42, 'Kevin S. Bright'),
+(43, 'Pamela Fryman'),
+(44, 'Paul Lieberstein'),
+(45, 'Mark Cendrowski'),
+(46, 'Matt Shakman'),
+(47, 'Kate Herron'),
+(48, 'Matt and Ross Duffer');
 
 -- --------------------------------------------------------
 
@@ -312,7 +348,70 @@ INSERT INTO `genre` (`ID`, `Genre`) VALUES
 (30, 'Drama'),
 (30, 'History'),
 (30, 'Romance'),
-(30, 'War');
+(30, 'War'),
+(31, 'Action'),
+(31, 'Comedy'),
+(31, 'Crime'),
+(31, 'Drama'),
+(31, 'Science Fiction'),
+(32, 'Action'),
+(32, 'Adventure'),
+(32, 'Drama'),
+(32, 'Science Fiction'),
+(33, 'Action'),
+(33, 'Adventure'),
+(33, 'Drama'),
+(33, 'Fantasy'),
+(33, 'Science Fiction'),
+(34, 'Action'),
+(34, 'Adventure'),
+(34, 'Animation'),
+(34, 'Family'),
+(34, 'Science Fiction'),
+(35, 'Adventure'),
+(35, 'Drama'),
+(35, 'Horror'),
+(35, 'Thriller'),
+(36, 'Action'),
+(36, 'Drama'),
+(36, 'Science Fiction'),
+(37, 'Crime'),
+(37, 'Drama'),
+(37, 'Thriller'),
+(38, 'Horror'),
+(39, 'Drama'),
+(39, 'Fantasy'),
+(39, 'Horror'),
+(40, 'Adventure'),
+(40, 'Animation'),
+(40, 'Comedy'),
+(40, 'Family'),
+(41, 'Action'),
+(41, 'Drama'),
+(42, 'Comedy'),
+(43, 'Comedy'),
+(43, 'Romance'),
+(44, 'Comedy'),
+(45, 'Comedy'),
+(45, 'Romance'),
+(46, 'Action'),
+(46, 'Adventure'),
+(46, 'Comedy'),
+(46, 'Drama'),
+(46, 'Fantasy'),
+(46, 'Science Fiction'),
+(47, 'Action'),
+(47, 'Adventure'),
+(47, 'Drama'),
+(47, 'Fantasy'),
+(47, 'Mystery'),
+(47, 'Science Fiction'),
+(48, 'Adventure'),
+(48, 'Drama'),
+(48, 'Fantasy'),
+(48, 'Horror'),
+(48, 'Science Fiction'),
+(48, 'Thriller');
 
 -- --------------------------------------------------------
 
@@ -359,7 +458,25 @@ INSERT INTO `studio` (`ID`, `Studio`) VALUES
 (27, 'Walt Disney Pictures'),
 (28, 'Warner Bros. Animation'),
 (29, 'Warner Bros. Animation'),
-(30, 'MGM Television');
+(30, 'MGM Television'),
+(31, 'Amazon Studios'),
+(32, 'The CW'),
+(33, 'Warner Bros. Television'),
+(34, 'Marvel Studios'),
+(35, 'AMC Studios'),
+(36, 'Legendary Pictures'),
+(37, 'Warner Bros. Pictures'),
+(38, 'New Line Cinema'),
+(39, 'New Line Cinema'),
+(40, 'DreamWorks Animation'),
+(41, 'Paramount Pictures'),
+(42, 'Warner Bros. Studios'),
+(43, 'Soundstage Studio 22'),
+(44, 'Universal Television'),
+(45, 'Warner Bros. Studios'),
+(46, 'Marvel Studios'),
+(47, 'Marvel Studios'),
+(48, 'Netflix');
 
 -- --------------------------------------------------------
 
@@ -523,7 +640,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `content`
 --
 ALTER TABLE `content`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `faq`

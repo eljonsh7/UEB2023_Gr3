@@ -97,9 +97,18 @@ if (!isset($_GET['mode'])) {
 			border-color: white;
 		}
 
-		.home {
-			color: #00d9e1;
-		}
+		<?php
+			if($_GET['mode'] == 'edit') {
+				echo '.profileo, .edito {
+					color: #00d9e1;
+				}';
+			} else {
+				echo '.profileo {
+					color: #00d9e1;
+				}';
+			}
+		?>
+		
 
 		div.portfolio-content>h2 {
 			font-size: 20px;

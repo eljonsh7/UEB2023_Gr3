@@ -35,6 +35,10 @@
 
     <title>Watchlist</title>
     <style>
+    .profileo, .watchlisto {
+        color: #00d9e1;
+    }
+
     .portfolio-content h5 {
         margin-top: 5%;
     }

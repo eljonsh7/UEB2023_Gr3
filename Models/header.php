@@ -1,4 +1,6 @@
 <?php
+    echo "<script>console.log('There are " . count($_COOKIE) . " cookies.')</script>";
+    echo "<script>console.log(document.cookie)</script>";
     if (isset($_COOKIE['ID'])) {
         echo "<script>console.log(" . $_COOKIE['ID'] . ")</script>";
         session_start();
@@ -65,10 +67,10 @@
                         <li>
                             <?php
                             if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true) {
-                                echo '<a href="user.php?mode=info">Profile <i class="icofont icofont-simple-down"></i></a>
+                                echo '<a href="user.php?mode=info" class="profileo">Profile <i class="icofont icofont-simple-down"></i></a>
                                             <ul>
-                                                <li><a href="user.php?mode=edit">Edit</a></li>
-                                                <li><a href="watchlist.php">Watchlist</a></li>';
+                                                <li><a href="user.php?mode=edit" class="edito">Edit</a></li>
+                                                <li><a href="watchlist.php" class="watchlisto">Watchlist</a></li>';
                                 if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                                     echo '<li><a class="dashboard" href="dashboard/dashboard.php">Dashboard</a></li>';
                                 }
@@ -379,9 +381,7 @@ if (isset($_GET['activation_token']) && isset($_GET['accountID'])) {
                 $_SESSION['user_logged_in'] = true;
                 $_SESSION['user'] = $user['ID'];
                 $_SESSION['admin'] = $user['Admin'];
-                if (isset($_POST['remember-checkbox'])) {
-                    setcookie('ID', $_SESSION['user'], time() + (14 * 24 * 60 * 60), "/");
-                }
+                setcookie('ID', $_SESSION['user'], time() + (14 * 24 * 60 * 60), "/");
                 echo '<script>window.location.href = "index.php";</script>';
 
             } else {
