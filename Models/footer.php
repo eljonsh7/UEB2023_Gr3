@@ -35,7 +35,8 @@
                     <h4>Newsletter</h4>
                     <p>Subscribe to our newsletter system now to get latest news from us.</p>
                     <form action="#">
-                        <input type="text" placeholder="Enter your email.." />
+
+                        <input type="text" placeholder="Enter your email..."/>
                         <button>SUBSCRIBE NOW</button>
                     </form>
                 </div>

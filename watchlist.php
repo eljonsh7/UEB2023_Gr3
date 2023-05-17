@@ -39,39 +39,45 @@
         color: #00d9e1;
     }
 
+
     .portfolio-content h5 {
         margin-top: 5%;
     }
+
 
     .transformers-right {
         display: inline-block;
         padding: 6px 12px;
         border: 1px solid gray;
-        border-radius: 3px;
+        border-radius: 5px;
         cursor: pointer;
         background-color: transparent;
     }
 
+
     .transformers-right.watchlisted {
         background-color: white;
     }
+
 
     .transformers-right.watchlisted:hover,
     .transformers-right:hover {
         background-color: gray;
         border: 1px;
     }
+    
 
     .transformers-right {
         color: wheat;
         background-color: transparent;
-        width: 30px;
-        height: 30px;
+        width: 33px;
+        height: 33px;
         border-radius: 10%;
         position: relative;
         left: 81%;
         top: -320px;
     }
+
 
     .filmi {
         align-items: center;
@@ -148,7 +154,7 @@
     <section class="portfolio-area pt-60">
         <div class="container">
             <div>
-                <h2>Movies</h2>
+                <h3>Movies</h3>
             </div>
             <hr>
             <div class="grid-container" id="contentContainer">
@@ -169,7 +175,7 @@
                 ?>
             </div>
             <div style="margin-top: 7%;">
-                <h2>TV Shows</h2>
+                <h3>TV Shows</h3>
             </div>
             <hr>
             <div class="grid-container" id="contentContainer">

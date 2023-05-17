@@ -68,21 +68,25 @@ if (!isset($_GET['mode'])) {
 			color: white;
 		}
 
+		
 		.edit {
 			margin: 0 5%;
 			width: =200%;
 		}
+
 
 		.details,
 		.btn {
 			margin: 3%
 		}
 
+
 		.modal p {
 			margin-top: 0;
 			margin-bottom: 1em;
 			text-align: center;
 		}
+
 
 		input.f1 {
 			color: black;
@@ -91,11 +95,13 @@ if (!isset($_GET['mode'])) {
 			border-color: white;
 		}
 
+
 		input.f2 {
 			color: black;
 			margin-bottom: 25px;
 			border-color: white;
 		}
+		
 
 		<?php
 			if($_GET['mode'] == 'edit') {
@@ -116,22 +122,27 @@ if (!isset($_GET['mode'])) {
 			display: flex;
 		}
 
+
 		.row {
 			justify-content: center;
 		}
+
 
 		.sideFeatured {
 			display: none;
 		}
 
+
 		.importantDiv {
 			margin-bottom: 50px !important;
 		}
+
 
 		.imgScroll {
 			width: 400px !important;
 			height: 597px !important;
 		}
+		
 
 
 		@media screen and (min-width: 450px) {

@@ -55,7 +55,7 @@ while ($row = mysqli_fetch_array($result1)) {
     }
 
     div.portfolio-content>h2 {
-        font-size: 20px;
+        font-size: 22px;
         justify-content: center;
         display: flex;
     }
@@ -74,15 +74,18 @@ while ($row = mysqli_fetch_array($result1)) {
 
     .imgScroll {
         width: 400px !important;
-        height: 597px !important;
+        height: 596px !important;
     }
+
 
     .soon {
         margin: 5px;
     }
 
     .soon img {
-        border-radius: 10px;
+
+        border-radius: 14px;
+
     }
 
     @media screen and (min-width: 450px) {
@@ -217,11 +220,12 @@ while ($row = mysqli_fetch_array($result1)) {
 
     .filmi {
         align-items: center;
-        width: 221px;
+        width: 220px;
         height: 330px;
         border-radius: 5%;
         margin: 0 auto;
         overflow: hidden;
+
     }
 
     .imgContentPortfolio {
@@ -240,9 +244,11 @@ while ($row = mysqli_fetch_array($result1)) {
     }
 
     #imgContent {
-        width: 221px;
+
+        width: 220px;
         height: 330px;
     }
+
 
     a.btn {
         display: flex;
@@ -689,6 +695,7 @@ while ($row = mysqli_fetch_array($result1)) {
     <script src="assets/js/isotope.pkgd.min.js"></script>
     <!-- main JS -->
     <script src="assets/js/main.js"></script>
+    
 
 </body>
 

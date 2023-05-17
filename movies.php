@@ -88,7 +88,7 @@
 
     .filmi {
         align-items: center;
-        width: 221px;
+        width: 220px;
         height: 330px;
         border-radius: 5%;
         margin: 0 auto;
