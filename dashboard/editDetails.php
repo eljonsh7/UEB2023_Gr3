@@ -652,26 +652,26 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
             }
         } else if ($_GET['type'] == "Blogs" && $_GET['mode'] == "info") {
             echo '
-            <div style = "display:flex;margin-left:3%;margin-top:3%;" >
-            <img src="../' . $row['Image'] . '" alt="' . $row['Title'] . '" width="300px"/>
-            <div>
-                <div id="viewDetails" style="width:50%;margin-left:5%;">
+            <div style = "margin-left:3%;margin-top:3%;" >
+            <img src="../' . $row['Image'] . '" alt="' . $row['Title'] . '" width="100%" style="padding:0 10%;"/>
+            <div style="margin-top:10%;">
+                <div id="viewDetails" style="width:80%;margin-left:10%;">
                     <p id="title" class="details"><b>Title: </b><br>' . $row['Title'] . '</p>
                     <p id="content" class="details"><b>Content: </b><br>' . $row['Content'] . '</p>
                     <p id="image" class="details"><b>Image URL: </b><br>' . $row['Image'] . '</p>
                 </div>
-                <a class="btn btn-warning" href="editDetails.php?detailsID=' . $ID . '&type=Blogs&mode=edit" style = "margin-left:5%;">Edit</a>
+                <a class="btn btn-warning" href="editDetails.php?detailsID=' . $ID . '&type=Blogs&mode=edit" style = "margin-left:10%;">Edit</a>
             </div>
             
             </div>
         ';
         } else if ($_GET['type'] == "Blogs" && $_GET['mode'] == "edit") {
             echo '
-    <div style="display:flex;margin-left:3%;margin-top:3%;">
-        <img src="../' . $row['Image'] . '" alt="' . $row['Title'] . '" width="300px" />
-        <div class="row justify-content-center mt-5" id="movieadd" style="margin-left:3%;">
-            <div class="col-md-6" style="display: flex; justify-content: center;">
-                <form id="show-add" method="post" enctype="multipart/form-data">
+    <div style="margin-left:3%;margin-top:3%;">
+        <img src="../' . $row['Image'] . '" alt="' . $row['Title'] . '" width="100%" style="padding:0 10%;" />
+        <div class="row justify-content-center mt-5" id="movieadd" >
+            <div class="col-md-6" style="display: flex;justify-content:center;">
+                <form id="show-add" method="post" enctype="multipart/form-data" style="width:70%;">
                     <h2>TV Show</h2>
                     <input type="hidden" name="addForm" value="submitted">
 
@@ -679,7 +679,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                     <input class="form-control" value="' . $row['Title'] . '" type="text" id="title" placeholder="Title" name="title"><br>
 
                     <label for="content">Content:</label>
-                    <textarea class="form-control" id="content" placeholder="Content" name="content" style="color:black;" maxlength="1000">' . $row['Content'] . '</textarea><br>
+                    <textarea class="form-control" id="content" placeholder="Content" name="content" style="color:black;height:50%;overflow-y: auto;resize:none;" maxlength="1000">' . $row['Content'] . '</textarea><br>
 
                     <label for="image">Image:</label>
                     <input class="form-control" type="file" id="image" name="image"><br>

@@ -291,7 +291,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
             document.getElementById("password-field").value="' . $password . '";
             document.getElementById("password-field2").value="' . $password . '";
             </script>';
-            $_POST['message'] = "Please check your email for verification, cannot continue to register again!";
+            $message = "Please check your email for verification, cannot continue to register again!";
             include('Services/notify.php');
         }
     } else {
@@ -304,8 +304,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
         document.getElementById("password-field").value="' . $password . '";
         document.getElementById("password-field2").value="' . $password . '";
         </script>';
-        $_POST['message'] = "Username or E-mail already in use";
-        include('notify.php');
+        $message = "Username or E-mail already in use";
+        include('Services/notify.php');
     }
 }
 if (isset($_GET['activation_token']) && isset($_GET['accountID'])) {
@@ -354,8 +354,8 @@ if (isset($_GET['activation_token']) && isset($_GET['accountID'])) {
             echo "<script>console.log('Error inserting data')</script>";
         }
     } else {
-        $_POST['message'] = "The activation token is invalid!";
-        include('notify.php');
+        $message = "The activation token is invalid!";
+        include('Services/notify.php');
     }
 }
 ?>
@@ -381,11 +381,18 @@ if (isset($_GET['activation_token']) && isset($_GET['accountID'])) {
                 $_SESSION['user_logged_in'] = true;
                 $_SESSION['user'] = $user['ID'];
                 $_SESSION['admin'] = $user['Admin'];
-                setcookie('ID', $_SESSION['user'], time() + (14 * 24 * 60 * 60), "/");
-                echo '<script>window.location.href = "index.php";</script>';
-
+                setcookie('ID', $user['ID'], time() + (14 * 24 * 60 * 60), "/");
+                // echo '<script>window.location.href = "index.php";</script>';
+                
             } else {
-                echo "<script>document.getElementById('warn').style = 'flex';</script>";
+                echo '<script>$(".login-area").show();
+                document.getElementById("email-field-login").value="' . $email . '";
+                document.getElementById("password-field-login").value="' . $password . '";
+                <script>';
+                
+                $message = "Password is incorrect!";
+                include("Services/notify.php");
+                // echo "<script>document.getElementById('warn').style = 'flex';</script>";
             }
         } else {
             echo "<script>alert('User not found');</script>";

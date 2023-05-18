@@ -1,6 +1,3 @@
-<?php
-    $Message = $_POST['message'];
-?>
 
 <style>
         .modal {
@@ -38,7 +35,7 @@
 
 
 <div class="modal">
-    <span><?php echo $Message;?></span>
+    <span><?php echo $message;?></span>
     <a id="removeMessage" class="icofont icofont-close"></a>
 </div>
 

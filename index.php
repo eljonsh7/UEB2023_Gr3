@@ -259,6 +259,47 @@ while ($row = mysqli_fetch_array($result1)) {
     a.btn:hover {
         border: 2px solid white;
     }
+
+    .arrow-button {
+        border-radius: 30px;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+  width: 50px;
+  height: 50px;
+  border: none;
+  background-color: #f7f7f7;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  background-color: #3a444f;
+}
+
+.arrow-button:hover {
+  border:2px white solid;
+  color: white;
+}
+
+.arrow-left::before {
+  content: '';
+  display: inline-block;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  padding: 4px;
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.arrow-right::before {
+  content: '';
+  display: inline-block;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  padding: 4px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
     </style>
 </head>
 
@@ -564,83 +605,73 @@ while ($row = mysqli_fetch_array($result1)) {
             </div>
             <hr />
         </div>
-        <div class="news-slide-area">
-            <div class="news-slider">
+        <div class="blog-container" style="display:flex;justify-content:center;align-items:center;margin-top:5%">
+                <button  class="arrow-button arrow-left" id="leftArrow"></button>
+                <div id="currentBlog" style="display:inline-block;width:90%;">Loading blogs...</div>
+                <button class="arrow-button arrow-right" id="rightArrow"></button>
+        </div>
+        <script>
+            var currentBlogIndex = 0;
+            var currentBlogElement = document.getElementById("currentBlog");
+            var blogsArray = [];
+
+            function switchToNextMovie() {
+            currentBlogIndex = (currentBlogIndex + 1) % blogsArray.length;
+            updateCurrentMovie();
+            }
+
+            function switchToPreviousMovie() {
+            currentBlogIndex = (currentBlogIndex - 1 + blogsArray.length) % blogsArray.length;
+            updateCurrentMovie();
+            }
+
+            function updateCurrentMovie() {
+            currentBlogElement.innerHTML = blogsArray[currentBlogIndex];
+            }
+
+            var leftArrowButton = document.getElementById("leftArrow");
+            leftArrowButton.addEventListener("click", switchToPreviousMovie);
+
+            var rightArrowButton = document.getElementById("rightArrow");
+            rightArrowButton.addEventListener("click", switchToNextMovie);
                 <?php
                 $sql3 = "SELECT * FROM blogs ORDER BY UpdatedAt DESC";
 
                 $count = 0;
                 $result3 = mysqli_query($conn, $sql3);
+                $blogsArray = array();
                 while ($row1 = mysqli_fetch_array($result3)) {
-                    $count++;
-                    if ($count == 0) {
-                        $id2 = $row1['ID'];
-                        $title2 = $row1['Title'];
-                        $date2 = $row1['UpdatedAt'];
-                        $content2 = $row1['Content'];
-                        $image2 = $row1['Image'];
-                        $year2 = date("Y", strtotime($date2));
-                        $month2 = date("m", strtotime($date2));
-                        $day2 = date("d", strtotime($date2));
-                        $monthName2 = date('F', mktime(0, 0, 0, $month2, 1));
-                    }
-                    $id = $row1['ID'];
-                    $title = $row1['Title'];
-                    $date = $row1['UpdatedAt'];
-                    $content = $row1['Content'];
-                    $image = $row1['Image'];
-                    $year = date("Y", strtotime($date));
-                    $month = date("m", strtotime($date));
-                    $day = date("d", strtotime($date));
-                    $monthName = date('F', mktime(0, 0, 0, $month, 1));
-                    echo '<div class="single-news">
-  <div class="news-bg-1" style="background-image: url(\'' . $image . '\');"></div>
-  <div class="news-date">
-    <h2><span>' . $monthName . '</span>' . $day . '</h2>
-    <h1>' . $year . '</h1>
-  </div>
-  <div class="news-content">
-    <h2>' . $title . '</h2>
-    <p>' . substr($content, 0, 100) . '...</p>
-  </div>
-  <a href="blog-details.php?id=' . $id . '">Read More</a>
-</div>';
-                } ?>
+                        $id = $row1['ID'];
+                        $title = $row1['Title'];
+                        $date = $row1['UpdatedAt'];
+                        $content = $row1['Content'];
+                        $image = $row1['Image'];
+                        $year = date("Y", strtotime($date));
+                        $month = date("m", strtotime($date));
+                        $day = date("d", strtotime($date));
+                        $monthName = date('F', mktime(0, 0, 0, $month, 1));
+                        array_push($blogsArray,'<div class="single-news" style="margin:0 15%;">
+                                 <div class="news-bg-1" style="background-image: url(\'' . $image . '\');">
+                                    <div class="news-date">
+                                        <h2><span>' . $monthName . '</span>' . $day . '</h2>
+                                        <h1>' . $year . '</h1>
+                                    </div>
+                                    <div style="background-color:rgba(0,0,0,0.5);height:100%;">
+                                        <div class="news-content">
+                                            <h2>' . $title . '</h2>
+                                            <p>' . substr($content, 0, 100) . '...</p>
+                                        </div>
+                                        <a href="blog-details.php?id=' . $id . '">Read More</a>
+                                    </div>
+                                </div>
+                             </div>');
+                            echo "blogsArray = " . json_encode($blogsArray) . ";"; 
+                        }
+                        ?>
+                // Display the first blog
+            updateCurrentMovie();
+        </script>
             </div>
-            <div class="news-thumb">
-                <div class="news-prev">
-                    <?php
-
-                    echo '<div class="single-news">
-                    <div class="news-bg-1" style="background-image: url("' . $image2 . '");"></div>
-                    <div class="news-date">
-                        <h2><span>' . $monthName2 . '</span>' . $day2 . '</h2>
-                        <h1>' . $year2 . '</h1>
-                    </div>
-                    <div class="news-content">
-                        <h2>' . $title2 . '</h2>
-                        <p>' . substr($content2, 0, 100) . '...</p>
-                    </div>
-                    <a href="blog-details.php?id=' . $id2 . '">Read More</a>
-                </div>'; ?>
-                </div>
-                <div class="news-next">
-                    <?php
-                    echo '<div class="single-news">
-                    <div class="news-bg-1" style="background-image: url("' . $image . '");></div>
-                    <div class="news-date">
-                        <h2><span>' . $monthName . '</span>' . $day . '</h2>
-                        <h1>' . $year . '</h1>
-                    </div>
-                    <div class="news-content">
-                        <h2>' . $title . '</h2>
-                        <p>' . substr($content, 0, 100) . '...</p>
-                    </div>
-                    <a href="blog-details.php?id=' . $id . '">Read More</a>
-                    </div>'; ?>
-                </div>
-            </div>
-        </div>
     </section><!-- news section end -->
     <!-- footer section start -->
     <?php include("Models/footer.php"); ?>
@@ -681,6 +712,8 @@ while ($row = mysqli_fetch_array($result1)) {
             }';
         } ?>
     </script>
+
+
     <!-- jquery main JS -->
     <script src="assets/js/jquery.min.js"></script>
     <!-- Bootstrap JS -->

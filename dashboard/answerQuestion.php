@@ -36,7 +36,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     }
 
     .form-control {
-        background-color: #2e3757;
+        background-color: #2e3757 !important;
         padding: 5px;
     }
 
@@ -65,7 +65,8 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
             height: 250px; /* set the height to 200 pixels */
             overflow-y: auto; /* add a vertical scrollbar when the content overflows */
             resize:none;
-        }
+    }
+    
     </style>
 </head>
 
@@ -172,17 +173,17 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="select-container">
-                                        <input type="text" placeholder="Subject" name="title" id="subject" value="Re:'.$row['title'].'"/>
+                                        <input class="form-control" type="text" placeholder="Subject" name="title" id="subject" value="Re:'.$row['title'].'"/>
                                         <i class="icofont icofont-question"></i>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="textarea-container">
-                                        <textarea placeholder="Type Here Message" name="question" id="question"></textarea>
+                                        <textarea class="form-control" placeholder="Type Here Message" name="question" id="question"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
-                                    <button type="submit" style="color:white">Submit</button>
+                                    <input class="btn-primary" type="submit" style="color:white;margin-top:3%;"/>
                                 </div>
                             </div>
                         </form>
@@ -229,8 +230,31 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                     $stmt = $conn->prepare("DELETE FROM faq WHERE ID=?");
                     $stmt->bind_param('d', $ID);
                     $stmt->execute();
-                    $_POST['message'] = "The question was answered!";
-                    include('../Services/notify.php');
+                    $message = "The question was answered!";
+
+                    // Create cURL resource
+                    $ch = curl_init();
+
+                    // Set the URL of the receiving website
+                    $url = "questions.php";
+                    curl_setopt($ch, CURLOPT_URL, $url);
+
+                    // Set the HTTP method to POST
+                    curl_setopt($ch, CURLOPT_POST, 1);
+
+                    // Set the POST data
+                    $postData = array('message' => $message);
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+
+                    // Execute the POST request
+                    curl_exec($ch);
+
+                    // Close cURL resource
+                    curl_close($ch);
+
+                    echo '<script>
+                        window.location.href = "questions.php";
+                    </script>';
                 }
             }
 

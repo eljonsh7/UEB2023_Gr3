@@ -177,7 +177,7 @@
                     }
                 }
                 if(empty($question)||empty($title)){
-                    $_POST['message'] = "Please fill the entire form!";
+                    $message = "Please fill the entire form!";
                     include('Services/notify.php');
                 }
                 if(!empty($question)&& !empty($title)){
@@ -190,7 +190,7 @@
                     $stmt = $conn->prepare("INSERT INTO `faq` (email,title,question) VALUES (?,?,?)");
                     $stmt->bind_param("sss", $email,$title,$question);
                     $stmt->execute();
-                    $_POST['message'] = "Your question was submited, our support team will get back to you!";
+                    $message = "Your question was submited, our support team will get back to you!";
                     include('Services/notify.php');
                 }
             }
