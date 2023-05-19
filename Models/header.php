@@ -1,15 +1,3 @@
-<?php
-    echo "<script>console.log('There are " . count($_COOKIE) . " cookies.')</script>";
-    echo "<script>console.log(document.cookie)</script>";
-    if (isset($_COOKIE['ID'])) {
-        echo "<script>console.log(" . $_COOKIE['ID'] . ")</script>";
-        session_start();
-        $_SESSION['user'] = $_COOKIE['ID'];
-        session_abort();
-    } else {
-        echo "<script>console.log('Not here')</script>";
-    }
-?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
@@ -51,6 +39,48 @@
 </style>
 
 </script>
+<?php
+if (isset($_POST['logInForm'])) {
+    $email = $_POST['email-field-login'];
+    $password = $_POST['password-field-login'];
+
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    $stmt = $conn->prepare("SELECT * FROM `users` WHERE Email = ?");
+    $stmt->bind_param('s', $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if (mysqli_num_rows($result) == 1) {
+        $user = mysqli_fetch_assoc($result);
+        $PW_Hashed = hash('sha256', $password);
+        $PW_Database = $user['Password'];
+        if ($PW_Hashed === $PW_Database) {
+            setcookie('ID', $user['ID'], time() + (14 * 24 * 60 * 60), "/");
+            $_SESSION['user_logged_in'] = true;
+            $_SESSION['user'] = $user['ID'];
+            $_SESSION['admin'] = $user['Admin'];
+            echo '<script>window.location="index.php";</script>';
+        } else {
+            echo '<script>$(".login-form").show();
+            document.getElementById("email-field-login").value="' . $email . '";
+            </script>';
+            $message = "Password is incorrect!";
+            include("Services/notify.php");
+        }
+    } else {
+        echo '<script>$(".login-form").show();
+            </script>';
+            $message = "There is no registered user with the email you have entered!";
+            include("Services/notify.php");
+    }
+}
+
+
+
+?>
 <header class="header" id="header" style="background-color: rgba(18,21,30, 0.9)">
     <div class="container">
         <div class="header-area">
@@ -152,7 +182,7 @@
         });
     </script> -->
 </header>
-<div class="login-area signup-area" style="z-index: 10000;">
+<div class="login-area signup-area login-form" style="z-index: 10000;">
     <div class="login-box" style="background-color: #13151f; color: white;">
         <a href="#"><i class="icofont icofont-close"></i></a>
         <h2 style="color: white;">LOG IN</h2>
@@ -164,7 +194,7 @@
             <input type="text" id="email-field-login" name="email-field-login" style="color: white;" />
             <h6 style="color: white;">PASSWORD</h6>
             <input style="color: white;" type="password" id="password-field-login" name="password-field-login"
-                class="field input" required placeholder="Password" />
+                class="field input" required />
             <div class="login-remember">
                 <input id="remember-checkbox" style="color: white;" type="checkbox" name="remember-checkbox" />
                 <span style="color: white;">Remember Me</span>
@@ -224,11 +254,7 @@
     </div>
 </div>
 <?php
-$db_host = 'localhost';
-$db_user = 'root';
-$db_pass = 'root';
-$db_name = 'moviedb';
-$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name, 3307);
+include("Services/connection.php");
 
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
@@ -360,46 +386,6 @@ if (isset($_GET['activation_token']) && isset($_GET['accountID'])) {
         include('Services/notify.php');
     }
 }
-?>
-<?php
-    if (isset($_POST['logInForm'])) {
-        $email = $_POST['email-field-login'];
-        $password = $_POST['password-field-login'];
-
-        if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-
-        $stmt = $conn->prepare("SELECT * FROM `users` WHERE Email = ?");
-        $stmt->bind_param('s', $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if (mysqli_num_rows($result) == 1) {
-            $user = mysqli_fetch_assoc($result);
-            $PW_Hashed = hash('sha256', $password);
-            $PW_Database = $user['Password'];
-            if ($PW_Hashed === $PW_Database) {
-                $_SESSION['user_logged_in'] = true;
-                $_SESSION['user'] = $user['ID'];
-                $_SESSION['admin'] = $user['Admin'];
-                setcookie('ID', $user['ID'], time() + (14 * 24 * 60 * 60), "/");
-                // echo '<script>window.location.href = "index.php";</script>';
-                
-            } else {
-                echo '<script>$(".login-area").show();
-                document.getElementById("email-field-login").value="' . $email . '";
-                document.getElementById("password-field-login").value="' . $password . '";
-                <script>';
-                
-                $message = "Password is incorrect!";
-                include("Services/notify.php");
-                // echo "<script>document.getElementById('warn').style = 'flex';</script>";
-            }
-        } else {
-            echo "<script>alert('User not found');</script>";
-        }
-    }
 ?>
 <script>
 function verifyPassword() {

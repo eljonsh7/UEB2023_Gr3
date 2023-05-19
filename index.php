@@ -1,4 +1,9 @@
 <?php
+
+
+if(isset($_COOKIE['ID'])){
+    echo '<script>console.log("'.$_COOKIE['ID'].'");</script>';
+}
 include('Services/connection.php');
 session_start();
 
