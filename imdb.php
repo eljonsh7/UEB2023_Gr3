@@ -88,6 +88,9 @@ $result = mysqli_query($conn, $sql);
             margin-bottom: 300px;
 
         }
+        .genre{
+            text-align: center;
+        }
         
     </style>
 </head>
@@ -171,6 +174,7 @@ $result = mysqli_query($conn, $sql);
 						<h5 class="title" style = "text-align:center;" >' . $title . '</h5>
 						<p>' . $description . '</p>
 						<h5 class="title" style = "text-align:center;" >Rating: ' . $rating . '</h5>
+                        <p class = "genre"><b>Genre: </b>' . $genre . '</p>
                             <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
                                 
                             </a>
