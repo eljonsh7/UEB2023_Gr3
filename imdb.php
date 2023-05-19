@@ -2,7 +2,7 @@
 <?php
 include('Services/connection.php');
 $type = "'movie'";
-if (isset($_GET['genre']) && $_GET['genre'] !== '') {
+if ((isset($_GET['content']) && $_GET['content'] === 'movie' ) && (isset($_GET['genre']) && $_GET['genre'] !== '')) {
     $genre = mysqli_real_escape_string($conn, $_GET['genre']);
     $sql = "SELECT content.Trailer, content.Type, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
     FROM content
@@ -12,7 +12,29 @@ if (isset($_GET['genre']) && $_GET['genre'] !== '') {
     WHERE content.Type = 'movie' AND genre.Genre = '$genre'
     GROUP BY content.ID
     ORDER BY Rating DESC LIMIT 10";
-} else {
+} 
+else if ((isset($_GET['content']) && $_GET['content'] === 'shows' )&& (isset($_GET['genre']) && $_GET['genre'] !== '')) {
+    $genre = mysqli_real_escape_string($conn, $_GET['genre']);
+    $sql = "SELECT content.Trailer, content.Type, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
+    FROM content
+    JOIN director ON content.ID = director.ID
+    JOIN studio ON content.ID = studio.ID
+    JOIN genre ON content.ID = genre.ID
+    WHERE content.Type = 'tv show' AND genre.Genre = '$genre'
+    GROUP BY content.ID
+    ORDER BY Rating DESC LIMIT 10";
+}
+else if (isset($_GET['content']) && $_GET['content'] === 'shows' && (!isset($_GET['genre']) || $_GET['genre'] === '')){
+    $sql = "SELECT content.Trailer, content.Type, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
+    FROM content
+    JOIN director ON content.ID = director.ID
+    JOIN studio ON content.ID = studio.ID
+    JOIN genre ON content.ID = genre.ID
+    WHERE content.Type = 'tv show'
+    GROUP BY content.ID
+    ORDER BY Rating DESC LIMIT 10";
+}
+else {
     $sql = "SELECT content.Trailer, content.Type, content.Description, content.Length, content.ID, content.Title, content.Date, content.Status, content.Rating, content.Cover, director.Director, studio.Studio, GROUP_CONCAT(genre.Genre SEPARATOR ', ') as Genre
     FROM content
     JOIN director ON content.ID = director.ID
@@ -105,8 +127,8 @@ $result = mysqli_query($conn, $sql);
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="breadcrumb-area-content">
-                        <h1>Top IMDb Page</h1>
+                    <div class="breadcrumb-area-content section-title">
+                        <h1><i class="icofont icofont-movie"></i> Top IMDb Page</h1>
                     </div>
                 </div>
             </div>
@@ -117,41 +139,82 @@ $result = mysqli_query($conn, $sql);
         <div class="container">
             <div class="row flexbox-center">
                 <div class="col-lg-6 text-center text-lg-left">
-                    <div class="section-title">
-                        <h1><i class="icofont icofont-movie"></i> Spotlight This Month</h1>
+                <div class="portfolio-menu">
+                    <ul><a href="imdb.php?content=movie">
+                                <li <?php if ((isset($_GET['content']) && $_GET['content'] === 'movie') || (!isset($_GET['content']) || $_GET['content'] === '')) {
+                                        echo 'class="active"';
+                                    } ?>>
+                                    MOVIE
+                                </li>
+                            </a><a href="imdb.php?content=shows">
+                                <li <?php if (isset($_GET['content']) && $_GET['content'] === 'shows' ) {
+                                        echo 'class="active"';
+                                    } ?>>
+                                    TV SHOWS
+                                </li>
+                                </a>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-lg-6 text-center text-lg-right">
                     <div class="portfolio-menu">
-                    <ul><a href="imdb.php">
-                                <li <?php if (!isset($_GET['genre']) || $_GET['genre'] === '') {
+                    <ul><?php if (isset($_GET['content'])){echo '<a href="imdb.php?content='.$_GET['content'].'">
+                                <li '; if (!isset($_GET['genre']) || $_GET['genre'] === '') {
                                         echo 'class="active"';
-                                    } ?>>
+                                    } echo '>
+                                    All
+                                </li>
+                            </a><a href="imdb.php?content='.$_GET['content'].'&genre=action">
+                                <li '; if (isset($_GET['genre']) && $_GET['genre'] === 'action') {
+                                        echo 'class="active"';
+                                    } echo'>
+                                    Action
+                                </li>
+                            </a><a href="imdb.php?content='.$_GET['content'].'&genre=drama">
+                                <li '; if (isset($_GET['genre']) && $_GET['genre'] === 'drama') {
+                                        echo 'class="active"';
+                                    } echo'>
+                                    Drama
+                                </li>
+                            </a> <a href="imdb.php?content='.$_GET['content'].'&genre=crime">
+                                <li '; if (isset($_GET['genre']) && $_GET['genre'] === 'crime') {
+                                        echo 'class="active"';
+                                    } echo'>
+                                    Crime
+                                </li>
+                            </a>';}
+                            else{echo '<a href="imdb.php">
+                                <li '; if (!isset($_GET['genre']) || $_GET['genre'] === '') {
+                                        echo 'class="active"';
+                                    } echo '>
                                     All
                                 </li>
                             </a><a href="imdb.php?genre=action">
-                                <li <?php if (isset($_GET['genre']) && $_GET['genre'] === 'action') {
+                                <li'; if (isset($_GET['genre']) && $_GET['genre'] === 'action') {
                                         echo 'class="active"';
-                                    } ?>>
+                                    } echo'>
                                     Action
                                 </li>
                             </a><a href="imdb.php?genre=drama">
-                                <li <?php if (isset($_GET['genre']) && $_GET['genre'] === 'drama') {
+                                <li '; if (isset($_GET['genre']) && $_GET['genre'] === 'drama') {
                                         echo 'class="active"';
-                                    } ?>>
+                                    } echo'>
                                     Drama
                                 </li>
                             </a> <a href="imdb.php?genre=crime">
-                                <li <?php if (isset($_GET['genre']) && $_GET['genre'] === 'crime') {
+                                <li '; if (isset($_GET['genre']) && $_GET['genre'] === 'crime') {
                                         echo 'class="active"';
-                                    } ?>>
+                                    } echo'>
                                     Crime
                                 </li>
-                            </a>
+                            </a>';}
+                            ?>
                         </ul>
                     </div>
                 </div>
+                
             </div>
+            <hr />
             <?php
             while ($row = mysqli_fetch_array($result)) {
                 $title = $row['Title'];
@@ -183,9 +246,6 @@ $result = mysqli_query($conn, $sql);
                 </div>';
             }
             ?>
-            <hr />
-            <div>
-            </div>
         </div>
     </section><!-- portfolio section end -->
     <!-- video section start -->
