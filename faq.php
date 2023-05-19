@@ -27,32 +27,37 @@
 
 	<title>Edit Profile</title>
 	<style>
+
         .faq {
-            max-width: 800px;
+            max-width: 802px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 22px;
         }
 
         .faq h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            margin-top: 20%;
+            font-size: 25px;
+            margin-bottom: 22px;
+            margin-top: 22%;
         }
+
 
         .faq h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
+            font-size: 22px;
+            margin-bottom: 12px
         }
+
 
         .faq p {
-            font-size: 16px;
+            font-size: 15px;
             line-height: 1.5;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
+
         .question {
-            margin-bottom: 8%;
+            margin-bottom: 9%;
         }
+
 
 		#send:hover {
 			background-color: #007bff;
@@ -67,10 +72,11 @@
 		}
 
         #container {
-            border: 1px solid white;
-            border-radius: 20px;
-            padding: 1.5%;
+            border: 2px solid white;
+            border-radius: 25px;
+            padding: 1.4%;
         }
+
         textarea {
             height: 250px; /* set the height to 200 pixels */
             overflow-y: auto; /* add a vertical scrollbar when the content overflows */

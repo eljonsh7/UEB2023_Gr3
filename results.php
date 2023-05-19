@@ -60,7 +60,7 @@
         display: inline-block;
         padding: 6px 12px;
         border: 1px solid gray;
-        border-radius: 3px;
+        border-radius: 5px;
         cursor: pointer;
         background-color: transparent;
     }
@@ -78,19 +78,21 @@
     .transformers-right {
         color: wheat;
         background-color: transparent;
-        width: 30px;
-        height: 30px;
+        width: 31px;
+        height: 31px;
         border-radius: 10%;
         position: relative;
         left: 81.5%;
         top: -320px;
     }
 
+
     .grid-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         grid-gap: 20px;
     }
+
 
     .filmi {
         align-items: center;
@@ -121,11 +123,13 @@
         }
     }
 
+
     @media screen and (min-width: 768px) {
         .grid-container {
             grid-template-columns: repeat(2, minmax(250px, 1fr));
         }
     }
+
 
     @media screen and (min-width: 992px) {
         .grid-container {
@@ -134,12 +138,14 @@
 
     }
 
+
     @media screen and (min-width: 1200px) {
         .grid-container {
             grid-template-columns: repeat(4, minmax(250px, 1fr));
         }
 
     }
+
     </style>
 </head>
 
@@ -218,7 +224,7 @@
                 .btn:hover,
                 .btn:active {
                     background-color: transparent;
-                    border-width: 3px;
+                    border-width: 4px;
                     border-color: white;
                 }
                 </style>

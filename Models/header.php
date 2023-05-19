@@ -22,6 +22,7 @@
     transition: top 0.3s;
 }
 
+
 .header.hide {
     top: -100px;
 }
@@ -30,6 +31,7 @@
     transition: 0.6s;
     color: #00d9e1;
 }
+
 
 #searchresult a:hover~a h6 {
     transition: 0.6s;
@@ -44,7 +46,7 @@
 }
 
 .signup-box {
-    margin: 10% 35.4%;
+    margin: 10% 35.5%;
 }
 </style>
 
