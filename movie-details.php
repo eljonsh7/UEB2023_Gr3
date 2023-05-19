@@ -1,6 +1,6 @@
 <?php
-  session_start();
-  include('Services/connection.php');
+session_start();
+include('Services/connection.php');
 
 
 $ID = $_GET['id'];
@@ -342,6 +342,26 @@ $row = mysqli_fetch_array($result);
                 echo "<script>alert('You are not logged in!')</script>";
               }
             }
+
+            $sql = "SELECT * FROM content WHERE id > $ID AND type = '{$_GET['type']}' ORDER BY id ASC LIMIT 1";
+            $result = mysqli_query($conn, $sql);
+
+            if ($result && mysqli_num_rows($result) > 0) {
+              $nextRow = mysqli_fetch_assoc($result);
+              $nextID = $nextRow['ID'];
+            } else {
+              echo '<style>.details-thumb-next {visibility: hidden;}</style>';
+            }
+
+            $sql = "SELECT * FROM content WHERE ID < $ID AND type = '{$_GET['type']}' ORDER BY id DESC LIMIT 1";
+            $result = mysqli_query($conn, $sql);
+
+            if ($result && mysqli_num_rows($result) > 0) {
+              $prevRow = mysqli_fetch_assoc($result);
+              $prevID = $prevRow['ID'];
+            } else {
+              echo '<style>.details-thumb-prev {visibility: hidden;}</style>';
+            }
             ?>
                         <div class="details-thumb">
                             <div class="details-thumb-prev">
@@ -349,14 +369,20 @@ $row = mysqli_fetch_array($result);
                                     <i class="icofont icofont-simple-left"></i>
                                 </div>
                                 <div class="thumb-text">
-                                    <h4>Previous Post</h4>
-                                    <p>Standard Post With Gallery</p>
+                                    <a
+                                        href="<?php echo 'movie-details.php?id=' . $prevID . '&type=' . $_GET['type'] ?>">
+                                        <h4>Previous Post</h4>
+                                        <p>Standard Post With Gallery</p>
+                                    </a>
                                 </div>
                             </div>
                             <div class="details-thumb-next">
                                 <div class="thumb-text">
-                                    <h4>Next Post</h4>
-                                    <p>Standard Post With Preview Image</p>
+                                    <a
+                                        href="<?php echo 'movie-details.php?id=' . $nextID . '&type=' . $_GET['type'] ?>">
+                                        <h4>Next Post</h4>
+                                        <p>Standard Post With Preview Image</p>
+                                    </a>
                                 </div>
                                 <div class="thumb-icon">
                                     <i class="icofont icofont-simple-right"></i>

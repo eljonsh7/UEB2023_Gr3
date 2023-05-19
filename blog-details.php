@@ -151,27 +151,55 @@ $monthName = date('F', mktime(0, 0, 0, $month, 1));
                             <a class="theme-btn theme-btn2" href="#">Post Comment</a>
                             <p>You may use these HTML tags and attributes: You may use these HTML tags and attributes:
                                 You may use these HTML tags and attributes: </p>
-                        </div>
+                        </div>-->
+                        <?php
+
+                        $sql = "SELECT * FROM `blogs` WHERE `id` > $id ORDER BY `id` ASC LIMIT 1";
+
+                        $result = mysqli_query($conn, $sql);
+                        if ($result && mysqli_num_rows($result) > 0) {
+                            $nextRow = mysqli_fetch_assoc($result);
+                            $nextID = $nextRow['ID'];
+                        } else {
+                            echo '<style>.details-thumb-next{visibility:hidden;}</style>';
+                        }
+
+                        $sql = "SELECT * FROM `blogs` WHERE `id` < $id ORDER BY `id` DESC LIMIT 1";
+
+                        $result = mysqli_query($conn, $sql);
+                        if ($result && mysqli_num_rows($result) > 0) {
+                            $prevRow = mysqli_fetch_assoc($result);
+                            $prevID = $prevRow['ID'];
+                        } else {
+                            echo '<style>.details-thumb-prev{visibility:hidden;}</style>';
+                        }
+
+                        ?>
+
                         <div class="details-thumb">
                             <div class="details-thumb-prev">
                                 <div class="thumb-icon">
                                     <i class="icofont icofont-simple-left"></i>
                                 </div>
                                 <div class="thumb-text">
-                                    <h4>Previous Post</h4>
-                                    <p>Standard Post With Gallery</p>
+                                    <a href="<?php echo 'blog-details.php?id=' . $prevID ?>">
+                                        <h4>Previous Blog</h4>
+                                        <p>Standard Post With Gallery</p>
+                                    </a>
                                 </div>
                             </div>
                             <div class="details-thumb-next">
                                 <div class="thumb-text">
-                                    <h4>Next Post</h4>
-                                    <p>Standard Post With Preview Image</p>
+                                    <a href="<?php echo 'blog-details.php?id=' . $nextID ?>">
+                                        <h4>Next Blog</h4>
+                                        <p>Standard Post With Preview Image</p>
+                                    </a>
                                 </div>
                                 <div class="thumb-icon">
                                     <i class="icofont icofont-simple-right"></i>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
                 <!-- <div class="col-lg-3">
