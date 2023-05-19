@@ -39,48 +39,7 @@
 </style>
 
 </script>
-<?php
-if (isset($_POST['logInForm'])) {
-    $email = $_POST['email-field-login'];
-    $password = $_POST['password-field-login'];
 
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
-    $stmt = $conn->prepare("SELECT * FROM `users` WHERE Email = ?");
-    $stmt->bind_param('s', $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if (mysqli_num_rows($result) == 1) {
-        $user = mysqli_fetch_assoc($result);
-        $PW_Hashed = hash('sha256', $password);
-        $PW_Database = $user['Password'];
-        if ($PW_Hashed === $PW_Database) {
-            setcookie('ID', $user['ID'], time() + (14 * 24 * 60 * 60), "/");
-            $_SESSION['user_logged_in'] = true;
-            $_SESSION['user'] = $user['ID'];
-            $_SESSION['admin'] = $user['Admin'];
-            echo '<script>window.location="index.php";</script>';
-        } else {
-            echo '<script>$(".login-form").show();
-            document.getElementById("email-field-login").value="' . $email . '";
-            </script>';
-            $message = "Password is incorrect!";
-            include("Services/notify.php");
-        }
-    } else {
-        echo '<script>$(".login-form").show();
-            </script>';
-            $message = "There is no registered user with the email you have entered!";
-            include("Services/notify.php");
-    }
-}
-
-
-
-?>
 <header class="header" id="header" style="background-color: rgba(18,21,30, 0.9)">
     <div class="container">
         <div class="header-area">
@@ -386,6 +345,48 @@ if (isset($_GET['activation_token']) && isset($_GET['accountID'])) {
         include('Services/notify.php');
     }
 }
+if (isset($_POST['logInForm'])) {
+    $email = $_POST['email-field-login'];
+    $password = $_POST['password-field-login'];
+
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    $stmt = $conn->prepare("SELECT * FROM `users` WHERE Email = ?");
+    $stmt->bind_param('s', $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if (mysqli_num_rows($result) == 1) {
+        $user = mysqli_fetch_assoc($result);
+        $PW_Hashed = hash('sha256', $password);
+        $PW_Database = $user['Password'];
+        if ($PW_Hashed === $PW_Database) {
+            $_SESSION['user_logged_in'] = true;
+            $_SESSION['user'] = $user['ID'];
+            $_SESSION['admin'] = $user['Admin'];
+            $cookieID = $user['ID'];
+
+            if (isset($_POST['remember-checkbox'])) {
+                echo '<script>window.location="http://localhost/UEB2023_Gr3/index.php?cookieID='.$cookieID.'";</script>';
+            }
+            echo '<script>window.location="index.php"</script>';       
+        } else {
+            echo '<script>$(".login-form").show();
+            document.getElementById("email-field-login").value="' . $email . '";
+            </script>';
+            $message = "Password is incorrect!";
+            include("Services/notify.php");
+        }
+    } else {
+        echo '<script>$(".login-form").show();
+            </script>';
+            $message = "There is no registered user with the email you have entered!";
+            include("Services/notify.php");
+    }
+}
+
 ?>
 <script>
 function verifyPassword() {
