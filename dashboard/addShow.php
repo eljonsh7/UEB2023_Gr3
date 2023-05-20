@@ -13,7 +13,8 @@
     <!-- <link rel="stylesheet" href="style.css"> -->
     <link rel="icon" type="image/png" href="assets/img/logo2.png" />
     <title>FlixFeast</title>
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
     <link href="assets/css2/nucleo-icons.css" rel="stylesheet" />
     <link href="assets/css2/nucleo-svg.css" rel="stylesheet" />
@@ -27,36 +28,36 @@
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
     <style>
-        .table td,
-        .table th {
-            white-space: normal;
-        }
+    .table td,
+    .table th {
+        white-space: normal;
+    }
 
-        .form-control {
-            background-color: white;
-            padding: 5px;
-        }
+    .form-control {
+        background-color: white;
+        padding: 5px;
+    }
 
-        .form-group {
-            width: 600px;
-        }
+    .form-group {
+        width: 600px;
+    }
 
-        @media (min-width: 768px) {
-            .col-md-6 {
-                flex: 0 0 auto;
-                width: 100%;
-            }
+    @media (min-width: 768px) {
+        .col-md-6 {
+            flex: 0 0 auto;
+            width: 100%;
         }
+    }
 
-        body {
-            overflow-x: hidden;
-        }
+    body {
+        overflow-x: hidden;
+    }
     </style>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var element = document.getElementById("tvshows");
-            element.classList.add("active", "bg-gradient-primary");
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+        var element = document.getElementById("tvshows");
+        element.classList.add("active", "bg-gradient-primary");
+    });
     </script>
 </head>
 
@@ -65,7 +66,8 @@
     <?php include("header.php"); ?>
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+            data-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -92,7 +94,8 @@
 
                     <div class="form-group">
                         <label for="date">Start Date:</label>
-                        <input class="form-control bg-dark" type="date" id="startdate" placeholder="Start Date:" name="startdate">
+                        <input class="form-control bg-dark" type="date" id="startdate" placeholder="Start Date:"
+                            name="startdate">
                     </div>
                     <label>Status:</label><br>
                     <div class="form-group" id="status">
@@ -126,7 +129,8 @@
 
                     <div class="form-group">
                         <label for="director">Director:</label>
-                        <input class="form-control bg-dark" type="text" id="director" placeholder="Director:" name="director">
+                        <input class="form-control bg-dark" type="text" id="director" placeholder="Director:"
+                            name="director">
                     </div>
 
                     <div class="form-group">
@@ -142,35 +146,51 @@
 
                     <div class="form-group">
                         <label for="trailer">Trailer:</label>
-                        <input class="form-control bg-dark" type="text" id="trailer" placeholder="Trailer Link:" name="trailer">
+                        <input class="form-control bg-dark" type="text" id="trailer" placeholder="Trailer Link:"
+                            name="trailer">
                     </div>
 
                     <div class="form-group">
                         <label for="description">Description:</label>
-                        <textarea class="form-control bg-dark" id="description" placeholder="Description:" name="description" style="color:black;" maxlength="1000"></textarea>
+                        <textarea class="form-control bg-dark" id="description" placeholder="Description:"
+                            name="description" style="color:black;" maxlength="1000"></textarea>
                     </div>
 
                     <label>Genres:</label><br>
 
                     <div class="form-group" id="genres" style="border-radius:10px;">
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" id="Action" value="Action"> Action</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" id="Comedy" value="Comedy"> Comedy</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" id="Documentary" value="Documentary"> Documentary</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" id="Drama" value="Drama"> Drama</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" id="Fantasy" value="Fantasy"> Fantasy</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" id="Horror" value="Horror"> Horror</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" id="Animation" value="Animation"> Animation</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" id="Mystery" value="Mystery"> Mystery</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" id="Romance" value="Romance"> Romance</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" id="Science Fiction" value="Science Fiction"> Science Fiction</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" id="Thriller" value="Thriller"> Thriller</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" id="Family" value="Family"> Family</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" id="Crime" value="Crime"> Crime</label>
-                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]" id="Adventure" value="Adventure"> Adventure</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Action" value="Action"> Action</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Comedy" value="Comedy"> Comedy</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Documentary" value="Documentary"> Documentary</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Drama" value="Drama"> Drama</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Fantasy" value="Fantasy"> Fantasy</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Horror" value="Horror"> Horror</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Animation" value="Animation"> Animation</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Mystery" value="Mystery"> Mystery</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Romance" value="Romance"> Romance</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Science Fiction" value="Science Fiction"> Science Fiction</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Thriller" value="Thriller"> Thriller</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Family" value="Family"> Family</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Crime" value="Crime"> Crime</label>
+                        <label style="display:inline-block; margin-right:10px;"><input type="checkbox" name="genre[]"
+                                id="Adventure" value="Adventure"> Adventure</label>
                     </div>
                     <br>
                     <div class="form-group">
-                        <input class="btn btn-primary" type="submit" value="Submit" name="movie_submit">
+                        <input class="btn btn-primary shadow-none" type="submit" value="Submit" name="movie_submit">
                     </div>
                 </form>
 

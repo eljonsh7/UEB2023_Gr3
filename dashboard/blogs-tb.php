@@ -195,7 +195,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                                     <input type="text" class="form-control" id="search" name="search" placeholder="Search for blogs...">
                                     <input type="hidden" name="page" value="' . $page . '">
                             </div>
-                            <button type="submit" class="btn btn-primary mb-2">Go</button>
+                            <button type="submit" class="btn btn-primary shadow-none mb-2">Go</button>
                             </form>';
 
 
@@ -221,7 +221,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
 								<td>' . $row['name'] . ' ' . $row['surname'] . '</td>
 								<td>' . $row['CreatedAt'] . '</td>
 								<td>' . $row['UpdatedAt'] . '</td>
-								<td><a href="blogs-tb.php?removeID=' . $row['ID'] . '&mode=remove" class = "btn btn-primary text-white">x</a></td>
+								<td><a href="blogs-tb.php?removeID=' . $row['ID'] . '&mode=remove" class = "btn btn-primary shadow-none text-white">x</a></td>
 				  			</tr>
 					';
                                 }
@@ -237,7 +237,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     						<input type="hidden" name="popForm" value="submitted">
                 <p>Are you sure you want to remove "' . $row['Title'] . '" from our database?</p>
                 <div class="modal-buttons">
-							    <a href="blogs-tb.php?removeID=' . $_GET['removeID'] . '&mode=remove&confirm=1" class="btn btn-primary text-white" style="margin:2%;color:white;">Yes</a>
+							    <a href="blogs-tb.php?removeID=' . $_GET['removeID'] . '&mode=remove&confirm=1" class="btn btn-primary shadow-none text-white" style="margin:2%;color:white;">Yes</a>
 						      <a href="blogs-tb.php" class="btn btn-success text-white" style="margin:2%;">No</a></button>
                 </div>
   						</div>
@@ -264,7 +264,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
 
                 if (isset($_GET['search'])) {
                     for ($i = 1; $i <= $pages; $i++) {
-                        echo '<a style = "margin-right: 5px;" class = "btn btn-primary btn-lg';
+                        echo '<a style = "margin-right: 5px;" class = "btn btn-primary shadow-none btn-lg';
                         if ($i != $page) {
                             echo 'btn-floating"';
                         } else {
@@ -274,7 +274,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                     }
                 } else {
                     for ($i = 1; $i <= $pages; $i++) {
-                        echo '<a style = "margin-right: 5px;" class = "btn btn-primary btn-lg';
+                        echo '<a style = "margin-right: 5px;" class = "btn btn-primary shadow-none btn-lg';
                         if ($i != $page) {
                             echo 'btn-floating"';
                         } else {

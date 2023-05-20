@@ -16,7 +16,8 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
         Dashboard
     </title>
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
     <link href="assets/css2/nucleo-icons.css" rel="stylesheet" />
     <link href="assets/css2/nucleo-svg.css" rel="stylesheet" />
@@ -31,78 +32,78 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
     <style>
-        .table td,
-        .table th {
-            white-space: normal;
-        }
+    .table td,
+    .table th {
+        white-space: normal;
+    }
 
-        .form-control {
+    .form-control {
 
-            background-color: #2e3757;
-        }
+        background-color: #2e3757;
+    }
 
-        .container {
-            margin: 0;
-        }
-
-
+    .container {
+        margin: 0;
+    }
 
 
-        @media (min-width: 768px) {
-            .col-md-6 {
-                flex: 0 0 auto;
-                width: 100%;
-            }
-        }
 
-        .overlay {
-            position: fixed;
-            z-index: 9999;
-            top: 0;
-            left: 0;
+
+    @media (min-width: 768px) {
+        .col-md-6 {
+            flex: 0 0 auto;
             width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
         }
+    }
 
-        .modal {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 30%;
-            height: 25%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #344767;
-            padding: 20px;
-            border-radius: 7px;
-        }
+    .overlay {
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
 
-        .modal p {
-            margin-top: 0;
-            margin-bottom: 1em;
-            text-align: center;
-        }
+    .modal {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 30%;
+        height: 25%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #344767;
+        padding: 20px;
+        border-radius: 7px;
+    }
 
-        .modal-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 5%;
-            width: 60%;
-        }
+    .modal p {
+        margin-top: 0;
+        margin-bottom: 1em;
+        text-align: center;
+    }
 
-        .modal-buttons a {
-            width: 30%;
-        }
+    .modal-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5%;
+        width: 60%;
+    }
+
+    .modal-buttons a {
+        width: 30%;
+    }
     </style>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var element = document.getElementById("movies");
-            element.classList.add("active", "bg-gradient-primary");
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+        var element = document.getElementById("movies");
+        element.classList.add("active", "bg-gradient-primary");
+    });
     </script>
 </head>
 
@@ -111,7 +112,8 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     <?php include("header.php"); ?>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+            data-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -209,7 +211,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                                     <input type="text" class="form-control" id="search" name="search" placeholder="Search for movies...">
                                     <input type="hidden" name="page" value="' . $page . '">
                             </div>
-                            <button type="submit" class="btn btn-primary mb-2">Go</button>
+                            <button type="submit" class="btn btn-primary shadow-none mb-2">Go</button>
                             </form>';
 
 
@@ -250,7 +252,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                                     <td>' . $row['Genre'] . '</td>
                                     <td>' . $row['Length'] . '</td>
                                     <td><a href="movies-tb.php?removeID=' . $row['ID'] . '&mode=remove"
-                                            class="btn btn-primary text-white">x</a></td>
+                                            class="btn btn-primary shadow-none text-white">x</a></td>
                                 </tr>
                                 ';
                                 }
@@ -269,7 +271,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                                         </p>
                                         <div class="modal-buttons">
                                             <a href="movies-tb.php?removeID=' . $_GET['removeID'] . '&mode=remove&confirm=1"
-                                                class="btn btn-primary text-white"
+                                                class="btn btn-primary shadow-none text-white"
                                                 style="margin:2%;color:white;">Yes</a>
                                             <a href="movies-tb.php" class="btn btn-success text-white"
                                                 style="margin:2%;">No</a></button>
@@ -305,7 +307,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
 
                 if (isset($_GET['search'])) {
                     for ($i = 1; $i <= $pages; $i++) {
-                        echo '<a style = "margin-right: 5px;" class = "btn btn-primary btn-lg';
+                        echo '<a style = "margin-right: 5px;" class = "btn btn-primary shadow-none btn-lg';
                         if ($i != $page) {
                             echo 'btn-floating"';
                         } else {
@@ -315,7 +317,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                     }
                 } else {
                     for ($i = 1; $i <= $pages; $i++) {
-                        echo '<a style = "margin-right: 5px;" class = "btn btn-primary btn-lg';
+                        echo '<a style = "margin-right: 5px;" class = "btn btn-primary  shadow-none btn-lg';
                         if ($i != $page) {
                             echo 'btn-floating"';
                         } else {
@@ -336,7 +338,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                         <div class="col-lg-6 mb-lg-0 mb-4">
                             <div class="copyright text-center text-sm text-muted text-lg-start">
                                 © <script>
-                                    document.write(new Date().getFullYear())
+                                document.write(new Date().getFullYear())
                                 </script>, made with <i class="fa fa-heart"></i> by BBEÇ
                             </div>
                         </div>
@@ -351,33 +353,33 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     <script src="assets/js2/plugins/perfect-scrollbar.min.js"></script>
     <script src="assets/js2/plugins/smooth-scrollbar.min.js"></script>
     <script>
-        var win = navigator.platform.indexOf('Win') > -1;
-        if (win && document.querySelector('#sidenav-scrollbar')) {
-            var options = {
-                damping: '0.5'
-            }
-            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+            damping: '0.5'
         }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
 
-        function add() {
-            window.location.href = "addMovie.php";
+    function add() {
+        window.location.href = "addMovie.php";
+    }
+    const overlay = document.querySelector('.overlay');
+
+    // Disable scrolling on the background content
+    document.body.style.overflow = 'hidden';
+
+    // Add a click event listener to the overlay
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            // Remove the overlay when it's clicked
+            overlay.remove();
+            window.location.href = "movies-tb.php";
+
+            // Enable scrolling on the background content
+            document.body.style.overflow = '';
         }
-        const overlay = document.querySelector('.overlay');
-
-        // Disable scrolling on the background content
-        document.body.style.overflow = 'hidden';
-
-        // Add a click event listener to the overlay
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                // Remove the overlay when it's clicked
-                overlay.remove();
-                window.location.href = "movies-tb.php";
-
-                // Enable scrolling on the background content
-                document.body.style.overflow = '';
-            }
-        });
+    });
     </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

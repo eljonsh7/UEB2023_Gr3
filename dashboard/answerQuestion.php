@@ -61,12 +61,14 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     p {
         overflow: auto;
     }
+
     textarea {
-            height: 250px; /* set the height to 200 pixels */
-            overflow-y: auto; /* add a vertical scrollbar when the content overflows */
-            resize:none;
+        height: 250px;
+        /* set the height to 200 pixels */
+        overflow-y: auto;
+        /* add a vertical scrollbar when the content overflows */
+        resize: none;
     }
-    
     </style>
 </head>
 
@@ -136,7 +138,8 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a>
                         </li>
-                        <li class="breadcrumb-item text-sm text-sm" aria-current="page"><a class="opacity-5 text-dark" href="questions.php">Questions Table</a></li>
+                        <li class="breadcrumb-item text-sm text-sm" aria-current="page"><a class="opacity-5 text-dark"
+                                href="questions.php">Questions Table</a></li>
                         <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Answering Question</li>
                     </ol>
                     <h6 class="font-weight-bolder mb-0">#<?php echo $ID?></h6>
@@ -183,7 +186,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
-                                    <input class="btn-primary" type="submit" style="color:white;margin-top:3%;"/>
+                                    <input class="btn-primary shadow-none"  type="submit" style="color:white;margin-top:3%;"/>
                                 </div>
                             </div>
                         </form>

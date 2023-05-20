@@ -1,13 +1,13 @@
-<?php 
-    session_start();
-    if(!isset($_SESSION['admin']) || $_SESSION['admin']!= 1){
-        echo '<script>window.location.href = "../index.php";</script>';
-    }
+<?php
+session_start();
+if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
+    echo '<script>window.location.href = "../index.php";</script>';
+}
 
-    if(isset($_POST['message'])){
-        $message = $_POST['message'];
-        include('../Services/notify.php');
-    }
+if (isset($_POST['message'])) {
+    $message = $_POST['message'];
+    include('../Services/notify.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,7 +70,7 @@
 
 <body class="g-sidenav-show dark-version bg-gray-200">
 
-    <?php include("header.php");?>
+    <?php include("header.php"); ?>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
@@ -92,7 +92,7 @@
                 <div class="col-12">
                     <div class="card my-4">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <div class="bg-gradient-primary shadow-none border-radius-lg pt-4 pb-3">
                                 <h6 class="text-white text-capitalize ps-3">Questions table</h6>
                             </div>
                         </div>
@@ -109,17 +109,17 @@
                                 }
                                 $results_per_page = 8;
                                 $start_from = ($page - 1) * $results_per_page;
-                                    $sql = "SELECT ID,title,question
+                                $sql = "SELECT ID,title,question
                                     FROM faq
                                     GROUP BY ID
                                     limit $start_from, $results_per_page;";
-                                    $sql1 = "SELECT ID,title,question
+                                $sql1 = "SELECT ID,title,question
                                     FROM faq
                                     GROUP BY ID";
-                                    $result = mysqli_query($conn, $sql);
-                                    $result1 = mysqli_query($conn, $sql1);
-                                    $results_num = mysqli_num_rows($result1);
-                                    $pages = ceil($results_num / $results_per_page);
+                                $result = mysqli_query($conn, $sql);
+                                $result1 = mysqli_query($conn, $sql1);
+                                $results_num = mysqli_num_rows($result1);
+                                $pages = ceil($results_num / $results_per_page);
 
 
 
@@ -145,19 +145,19 @@
 
 
                                 $result = mysqli_query($conn, $sql);
-                                if(mysqli_num_rows($result) > 0){
+                                if (mysqli_num_rows($result) > 0) {
                                     while ($row = mysqli_fetch_array($result)) {
-                                                                        echo '
+                                        echo '
                                                                     <tr>
-                                                                        <td><a href="answerQuestion.php?detailsID=' . $row['ID'] . '">'.$row['ID'].'</a></td>
+                                                                        <td><a href="answerQuestion.php?detailsID=' . $row['ID'] . '">' . $row['ID'] . '</a></td>
                                                                         <td>' . $row['title'] . '</td>
                                                                         <td>' . $row['question'] . '</td>
                                                                     </tr>
                                                                     ';
-                                                                    }
-                                                                    echo '
+                                    }
+                                    echo '
                                                                 </table>';
-                                }else{
+                                } else {
                                     echo '<td colspan="3" style="text-align:center;">There is no questions to be answered!</td></table>';
                                 }
                                 ?>
@@ -170,15 +170,15 @@
             if ($pages > 1) {
                 echo '<section>
              <div class="container">';
-                    for ($i = 1; $i <= $pages; $i++) {
-                        echo '<a style = "margin-right: 5px;" class = "btn btn-primary btn-lg';
-                        if ($i != $page) {
-                            echo 'btn-floating"';
-                        } else {
-                            echo '"';
-                        }
-                        echo 'href="movies-tb.php?page=' . $i . '">' . $i . '</a>';
+                for ($i = 1; $i <= $pages; $i++) {
+                    echo '<a style = "margin-right: 5px;" class = "btn btn-primary shadow-none btn-lg';
+                    if ($i != $page) {
+                        echo 'btn-floating"';
+                    } else {
+                        echo '"';
                     }
+                    echo 'href="movies-tb.php?page=' . $i . '">' . $i . '</a>';
+                }
                 echo '</div>
          </section>';
             }

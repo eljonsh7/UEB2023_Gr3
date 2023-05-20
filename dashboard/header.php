@@ -20,7 +20,7 @@
             <li class="nav-item">
                 <a class="nav-link text-white" href="movies-tb.php" id="movies">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">table_view</i>
+                        <i class="material-icons opacity-10">theaters</i>
                     </div>
                     <span class="nav-link-text ms-1">Manage Movies</span>
                 </a>
@@ -28,7 +28,7 @@
             <li class="nav-item">
                 <a class="nav-link text-white " href="shows-tb.php" id="tvshows">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">table_view</i>
+                        <i class="material-icons opacity-10">tv</i>
                     </div>
                     <span class="nav-link-text ms-1">Manage TV Shows</span>
                 </a>
@@ -36,7 +36,7 @@
             <li class="nav-item">
                 <a class="nav-link text-white " href="blogs-tb.php" id="blogs">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">table_view</i>
+                        <i class="material-icons opacity-10">article</i>
                     </div>
                     <span class="nav-link-text ms-1">Manage Blogs</span>
                 </a>
@@ -44,7 +44,7 @@
             <li class="nav-item">
                 <a class="nav-link text-white " href="questions.php" id="questions">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">table_view</i>
+                        <i class="material-icons opacity-10">help_outline</i>
                     </div>
                     <span class="nav-link-text ms-1">Answer Questions</span>
                 </a>
@@ -61,7 +61,7 @@
                 <div class="idenav-footer position-absolute w-100 bottom-0 ">
                     <a class="nav-link text-white " href="../Services/logout.php">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">assignment</i>
+                            <i class="material-icons opacity-10">exit_to_app</i>
                         </div>
                         <span class="nav-link-text ms-1">Sign Out</span>
                     </a>
