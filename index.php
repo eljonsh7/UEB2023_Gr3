@@ -1,5 +1,6 @@
 <?php
-if(isset($_GET['cookieID'])){
+session_start();
+if(isset($_GET['cookieID']) && isset($_SESSION['settingRememberCookie'])){
     $idCookie = $_GET['cookieID'];  
     try{
     setcookie('ID', $idCookie, time() + (14 * 24 * 60 * 60), "/");
@@ -7,6 +8,7 @@ if(isset($_GET['cookieID'])){
         echo '<script>console.log("'.$e->getMessage().'");</script>';
     }
     echo '<script>window.location.href="index.php"</script>';
+    $_SESSION['settingRememberCookie'] = false;
 }
 if(isset($_GET['signout']) && $_GET['signout']==1){
     setcookie('ID', "", time() + (14 * 24 * 60 * 60), "/");
@@ -16,7 +18,7 @@ if(isset($_COOKIE['ID'])){
     echo '<script>console.log("COOKIE:'.$_COOKIE['ID'].'");</script>';
 }
 include('Services/connection.php');
-session_start();
+
 
 $stmt1 = $conn->prepare("SELECT * FROM watchlist WHERE User_ID = ?");
 $stmt1->bind_param("d", $_SESSION['user']);

@@ -369,6 +369,7 @@ if (isset($_POST['logInForm'])) {
             $cookieID = $user['ID'];
 
             if (isset($_POST['remember-checkbox'])) {
+                $_SESSION['settingRememberCookie'] = true;
                 echo '<script>window.location="http://localhost/UEB2023_Gr3/index.php?cookieID='.$cookieID.'";</script>';
             }
             echo '<script>window.location="index.php"</script>';       
