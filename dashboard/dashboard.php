@@ -72,8 +72,7 @@ if ($num_blogs_last_week == 0) {
     <link rel="icon" type="image/png" href="../assets/img/logo2.png">
     <title>Dashboard</title>
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
     <link href="assets/css2/nucleo-icons.css" rel="stylesheet" />
     <link href="assets/css2/nucleo-svg.css" rel="stylesheet" />
@@ -85,13 +84,12 @@ if ($num_blogs_last_week == 0) {
     <link id="pagestyle" href="assets/css2/material-dashboard.css?v=3.0.5" rel="stylesheet" />
     <!-- Nepcha Analytics (nepcha.com) -->
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
-    <script defer data-site="http://localhost/Projekti/UEB2023_Gr3/index.php"
-        src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+    <script defer data-site="http://localhost/Projekti/UEB2023_Gr3/index.php" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var element = document.getElementById("dashboard");
-        element.classList.add("active", "bg-gradient-primary");
-    });
+        document.addEventListener('DOMContentLoaded', function() {
+            var element = document.getElementById("dashboard");
+            element.classList.add("active", "bg-gradient-primary");
+        });
     </script>
 </head>
 
@@ -101,8 +99,7 @@ if ($num_blogs_last_week == 0) {
     <?php include("header.php"); ?>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
-            data-scroll="true">
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -120,9 +117,8 @@ if ($num_blogs_last_week == 0) {
                 <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                     <div class="card">
                         <div class="card-header p-3 pt-2">
-                            <div
-                                class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
-                                <img src="../assets/img/users.png" class="col-sm-7" alt="">
+                            <div class="icon icon-lg icon-shape d-flex bg-gradient-dark align-items-center shadow-dark justify-content-center  border-radius-xl mt-n4 position-absolute">
+                                <img src="../assets/img/users.png" class="col-sm-7 centered-element" alt="">
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Today's Users</p>
@@ -139,8 +135,7 @@ if ($num_blogs_last_week == 0) {
                 <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                     <div class="card">
                         <div class="card-header p-3 pt-2">
-                            <div
-                                class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
+                            <div class="icon icon-lg icon-shape bg-gradient-primary d-flex align-items-center justify-content-center shadow-dark text-center border-radius-xl mt-n4 position-absolute">
                                 <img src="../assets/img/clapperboard_192px.png" class="col-sm-7" alt="">
                             </div>
                             <div class="text-end pt-1">
@@ -150,8 +145,7 @@ if ($num_blogs_last_week == 0) {
                         </div>
                         <hr class="dark horizontal my-0">
                         <div class="card-footer p-3">
-                            <p class="mb-0"><span
-                                    class="text-success text-sm font-weight-bolder"><?php echo $percentage_movies ?>%</span>
+                            <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $percentage_movies ?>%</span>
                                 of
                                 all content</p>
                         </div>
@@ -160,8 +154,7 @@ if ($num_blogs_last_week == 0) {
                 <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                     <div class="card">
                         <div class="card-header p-3 pt-2">
-                            <div
-                                class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                            <div class="icon icon-lg icon-shape bg-gradient-success d-flex align-items-center justify-content-center shadow-success text-center border-radius-xl mt-n4 position-absolute">
 
                                 <img src="../assets/img/tv show.png" class="col-sm-7" alt="">
                             </div>
@@ -172,8 +165,7 @@ if ($num_blogs_last_week == 0) {
                         </div>
                         <hr class="dark horizontal my-0">
                         <div class="card-footer p-3">
-                            <p class="mb-0"><span
-                                    class="text-success text-sm font-weight-bolder"><?php echo $percentage_series ?>%</span>
+                            <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $percentage_series ?>%</span>
                                 of all content</p>
                         </div>
                     </div>
@@ -181,9 +173,8 @@ if ($num_blogs_last_week == 0) {
                 <div class="col-xl-3 col-sm-6">
                     <div class="card">
                         <div class="card-header p-3 pt-2">
-                            <div
-                                class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                                <img src="../assets/img/blogs.png" class="col-sm-7" alt="">
+                            <div class="icon icon-lg icon-shape bg-gradient-info d-flex align-items-center shadow-info justify-content-center text-center border-radius-xl mt-n4 position-absolute">
+                                <img src="../assets/img/blogs.png" class="col-sm-7 centered-element" alt="">
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Today's Blogs Posted</p>
@@ -192,77 +183,214 @@ if ($num_blogs_last_week == 0) {
                         </div>
                         <hr class="dark horizontal my-0">
                         <div class="card-footer p-3">
-                            <p class="mb-0"><span
-                                    class="text-success text-sm font-weight-bolder">+<?php echo $percentage_blogs ?>%</span>
+                            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+<?php echo $percentage_blogs ?>%</span>
                                 than
                                 last week</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- <div class="row mt-4">
+            <div class="mt-4 row">
                 <div class="col-lg-4 col-md-6 mt-4 mb-4">
-                    <div class="card z-index-2 ">
-                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                            <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
-                                <div class="chart">
-                                    <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="mb-0 ">Website Views</h6>
-                            <p class="text-sm ">Last Campaign Performance</p>
-                            <hr class="dark horizontal">
-                            <div class="d-flex ">
-                                <i class="material-icons text-sm my-auto me-1">schedule</i>
-                                <p class="mb-0 text-sm"> campaign sent 2 days ago </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mt-4 mb-4">
-                    <div class="card z-index-2  ">
-                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                            <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
-                                <div class="chart">
-                                    <canvas id="chart-line" class="chart-canvas" height="170"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="mb-0 "> Daily Sales </h6>
-                            <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today sales.
-                            </p>
-                            <hr class="dark horizontal">
-                            <div class="d-flex ">
-                                <i class="material-icons text-sm my-auto me-1">schedule</i>
-                                <p class="mb-0 text-sm"> updated 4 min ago </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mt-4 mb-3">
-                    <div class="card z-index-2 ">
+                    <div class="card z-index-2">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
                             <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
                                 <div class="chart">
-                                    <canvas id="chart-line-tasks" class="chart-canvas" height="170"></canvas>
+                                    <canvas id="chart-genres" height="170"></canvas>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <h6 class="mb-0 ">Completed Tasks</h6>
-                            <p class="text-sm ">Last Campaign Performance</p>
+                            <h6 class="mb-0">Genre Content Count</h6>
+                            <p class="text-sm">Number of Content per Genre</p>
                             <hr class="dark horizontal">
-                            <div class="d-flex ">
-                                <i class="material-icons text-sm my-auto me-1">schedule</i>
-                                <p class="mb-0 text-sm">just updated</p>
+                            <div class="chart-data">
+                                <?php
+                                // Assuming you have a database connection $conn
+
+                                // Query to fetch genre and content count
+                                $sql = "SELECT g.Genre, COUNT(c.ID) AS content_count
+                            FROM genre g
+                            LEFT JOIN content c ON g.ID = c.ID
+                            GROUP BY g.Genre";
+                                $result = mysqli_query($conn, $sql);
+
+                                // Create arrays to store genre and content count
+                                $genres = [];
+                                $contentCounts = [];
+
+                                // Loop through the query results and populate the arrays
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    $genres[] = $row['Genre'];
+                                    $contentCounts[] = $row['content_count'];
+                                }
+                                ?>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                // krijimi i chart-it te pare mbi numrin e permbajtjeve per nje zhaner
+                var ctx = document.getElementById('chart-genres').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: <?php echo json_encode($genres); ?>,
+                        datasets: [{
+                            label: 'Content Count',
+                            data: <?php echo json_encode($contentCounts); ?>,
+                            backgroundColor: '#caf0f8',
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: "#fff",
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    display: true
+                                },
+                                ticks: {
+                                    color: "#fff",
+                                }
+                            }
+                        }
+                    }
+                });
+            </script>
+
+
+
+            <div class="mt-4 row">
+                <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                    <div class="card z-index-2">
+                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                            <div class="bg-gradient-info shadow-dark border-radius-lg py-3 pe-1">
+                                <div class="chart">
+                                    <canvas id="chart-studios" class="chart-canvas" height="170"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="mb-0">Popular Studios</h6>
+                            <p class="text-sm">Number of Content per Studio</p>
+                            <hr class="dark horizontal">
+                            <?php
+
+                            // Query to fetch studio and content count
+                            $sql = "SELECT s.Studio, COUNT(c.ID) AS content_count
+                        FROM studio s
+                        LEFT JOIN content c ON s.ID = c.ID
+                        GROUP BY s.Studio
+                        ORDER BY COUNT(c.ID) DESC";
+                            $result = mysqli_query($conn, $sql);
+
+                            // Fetch the top 5 popular studios
+                            $chartLabels = [];
+                            $chartData = [];
+                            $counter = 0;
+
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $studio = $row['Studio'];
+                                $contentCount = $row['content_count'];
+                                $chartLabels[] = $studio;
+                                $chartData[] = $contentCount;
+                                $counter++;
+
+                                // Display only the top 5 studios
+                                if ($counter >= 5) {
+                                    break;
+                                }
+                            };
+                            ?>
+                            <script>
+                                // Krijimi i charti-t te deyte per numrin e permbajtjeve per studio
+
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    // Retrieve the chart canvas element
+                                    var ctx = document.getElementById("chart-studios").getContext("2d");
+
+                                    // Define the chart data and options
+                                    var chartData = {
+                                        labels: <?php echo json_encode($chartLabels); ?>,
+                                        datasets: [{
+                                            data: <?php echo json_encode($chartData); ?>,
+                                            backgroundColor: [
+                                                "#8ecae6",
+                                                "#219ebc",
+                                                "#023047",
+                                                "#023047",
+                                                "#ffb703"
+                                            ],
+                                            borderWidth: 0
+                                        }]
+                                    };
+
+                                    var chartOptions = {
+                                        maintainAspectRatio: false,
+                                        plugins: {
+                                            legend: {
+                                                display: false
+                                            }
+                                        },
+                                        scales: {
+                                            x: {
+                                                ticks: {
+                                                    color: "#fff", // Set the label color to white
+                                                },
+                                            },
+                                            y: {
+                                                ticks: {
+                                                    color: "#fff", // Set the label color to white
+                                                },
+                                            },
+                                        },
+                                    };
+
+                                    // Create and render the chart
+                                    new Chart(ctx, {
+                                        type: "bar",
+                                        data: chartData,
+                                        options: chartOptions
+                                    });
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="col-lg-4 mt-4 mb-3">
+                <div class="card z-index-2 ">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                        <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
+                            <div class="chart">
+                                <canvas id="chart-line-tasks" class="chart-canvas" height="170"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="mb-0 ">Completed Tasks</h6>
+                        <p class="text-sm ">Last Campaign Performance</p>
+                        <hr class="dark horizontal">
+                        <div class="d-flex ">
+                            <i class="material-icons text-sm my-auto me-1">schedule</i>
+                            <p class="mb-0 text-sm">just updated</p>
                         </div>
                     </div>
                 </div>
             </div> -->
+        </div>
         </div>
     </main>
     <!--   Core JS Files   -->
@@ -271,265 +399,8 @@ if ($num_blogs_last_week == 0) {
     <script src="assets/js2/plugins/perfect-scrollbar.min.js"></script>
     <script src="assets/js2/plugins/smooth-scrollbar.min.js"></script>
     <script src="assets/js2/plugins/chartjs.min.js"></script>
-    <script>
-    var ctx = document.getElementById("chart-bars").getContext("2d");
-
-    new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: ["M", "T", "W", "T", "F", "S", "S"],
-            datasets: [{
-                label: "Sales",
-                tension: 0.4,
-                borderWidth: 0,
-                borderRadius: 4,
-                borderSkipped: false,
-                backgroundColor: "rgba(255, 255, 255, .8)",
-                data: [50, 20, 10, 22, 50, 10, 40],
-                maxBarThickness: 6
-            }, ],
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false,
-                }
-            },
-            interaction: {
-                intersect: false,
-                mode: 'index',
-            },
-            scales: {
-                y: {
-                    grid: {
-                        drawBorder: false,
-                        display: true,
-                        drawOnChartArea: true,
-                        drawTicks: false,
-                        borderDash: [5, 5],
-                        color: 'rgba(255, 255, 255, .2)'
-                    },
-                    ticks: {
-                        suggestedMin: 0,
-                        suggestedMax: 500,
-                        beginAtZero: true,
-                        padding: 10,
-                        font: {
-                            size: 14,
-                            weight: 300,
-                            family: "Roboto",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                        color: "#fff"
-                    },
-                },
-                x: {
-                    grid: {
-                        drawBorder: false,
-                        display: true,
-                        drawOnChartArea: true,
-                        drawTicks: false,
-                        borderDash: [5, 5],
-                        color: 'rgba(255, 255, 255, .2)'
-                    },
-                    ticks: {
-                        display: true,
-                        color: '#f8f9fa',
-                        padding: 10,
-                        font: {
-                            size: 14,
-                            weight: 300,
-                            family: "Roboto",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                    }
-                },
-            },
-        },
-    });
 
 
-    var ctx2 = document.getElementById("chart-line").getContext("2d");
-
-    new Chart(ctx2, {
-        type: "line",
-        data: {
-            labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [{
-                label: "Mobile apps",
-                tension: 0,
-                borderWidth: 0,
-                pointRadius: 5,
-                pointBackgroundColor: "rgba(255, 255, 255, .8)",
-                pointBorderColor: "transparent",
-                borderColor: "rgba(255, 255, 255, .8)",
-                borderColor: "rgba(255, 255, 255, .8)",
-                borderWidth: 4,
-                backgroundColor: "transparent",
-                fill: true,
-                data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
-                maxBarThickness: 6
-
-            }],
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false,
-                }
-            },
-            interaction: {
-                intersect: false,
-                mode: 'index',
-            },
-            scales: {
-                y: {
-                    grid: {
-                        drawBorder: false,
-                        display: true,
-                        drawOnChartArea: true,
-                        drawTicks: false,
-                        borderDash: [5, 5],
-                        color: 'rgba(255, 255, 255, .2)'
-                    },
-                    ticks: {
-                        display: true,
-                        color: '#f8f9fa',
-                        padding: 10,
-                        font: {
-                            size: 14,
-                            weight: 300,
-                            family: "Roboto",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                    }
-                },
-                x: {
-                    grid: {
-                        drawBorder: false,
-                        display: false,
-                        drawOnChartArea: false,
-                        drawTicks: false,
-                        borderDash: [5, 5]
-                    },
-                    ticks: {
-                        display: true,
-                        color: '#f8f9fa',
-                        padding: 10,
-                        font: {
-                            size: 14,
-                            weight: 300,
-                            family: "Roboto",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                    }
-                },
-            },
-        },
-    });
-
-    var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
-
-    new Chart(ctx3, {
-        type: "line",
-        data: {
-            labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [{
-                label: "Mobile apps",
-                tension: 0,
-                borderWidth: 0,
-                pointRadius: 5,
-                pointBackgroundColor: "rgba(255, 255, 255, .8)",
-                pointBorderColor: "transparent",
-                borderColor: "rgba(255, 255, 255, .8)",
-                borderWidth: 4,
-                backgroundColor: "transparent",
-                fill: true,
-                data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                maxBarThickness: 6
-
-            }],
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false,
-                }
-            },
-            interaction: {
-                intersect: false,
-                mode: 'index',
-            },
-            scales: {
-                y: {
-                    grid: {
-                        drawBorder: false,
-                        display: true,
-                        drawOnChartArea: true,
-                        drawTicks: false,
-                        borderDash: [5, 5],
-                        color: 'rgba(255, 255, 255, .2)'
-                    },
-                    ticks: {
-                        display: true,
-                        padding: 10,
-                        color: '#f8f9fa',
-                        font: {
-                            size: 14,
-                            weight: 300,
-                            family: "Roboto",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                    }
-                },
-                x: {
-                    grid: {
-                        drawBorder: false,
-                        display: false,
-                        drawOnChartArea: false,
-                        drawTicks: false,
-                        borderDash: [5, 5]
-                    },
-                    ticks: {
-                        display: true,
-                        color: '#f8f9fa',
-                        padding: 10,
-                        font: {
-                            size: 14,
-                            weight: 300,
-                            family: "Roboto",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                    }
-                },
-            },
-        },
-    });
-    </script>
-    <script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-        var options = {
-            damping: '0.5'
-        }
-        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
-    </script>
-    <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="assets/js2/material-dashboard.min.js?v=3.0.5"></script>
 </body>
 
