@@ -36,6 +36,16 @@
 .signup-box {
     margin: 10% 35.5%;
 }
+
+::-webkit-scrollbar {
+  background-color: #13151f;
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #3a444f;
+  border-radius: 10px;
+}
 </style>
 
 </script>

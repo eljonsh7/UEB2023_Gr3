@@ -87,10 +87,7 @@ $result = mysqli_query($conn, $sql);
         }
 
         .filmi {
-            width: 20%;
-            float: left;
-            
-            
+            /* float: left;    */
         }
 
         /* div div {
@@ -102,25 +99,35 @@ $result = mysqli_query($conn, $sql);
         }
 
         .portfolio-content {
-            width: 500px;
+            flex:1;
             height: fit-content;
-            padding-left: 100px;
-            margin-left: 100px;
             justify-content: center;
             align-items: center;
-            height: 70vh; /* Adjust the height as needed */
-            
-
+            text-align: center;
+            margin-left:10%;
+            margin-top:-10%;
         }
 
 
         .main-div {
-            margin-top: 100px;
-            margin-bottom: 100px;
+            /* margin-top: 100px;
+            margin-bottom: 100px; */
 
         }
         .genre{
             text-align: center;
+        }
+
+        .contentDiv{
+            margin:0% 15%;
+            padding:3% 0;
+            height:400px;
+            display: flex;
+            align-items: center;
+        }
+
+        .allmovies{
+            background-color: #101219;
         }
 
         
@@ -227,7 +234,6 @@ $result = mysqli_query($conn, $sql);
             </div>
             <hr />
             <div class="allmovies">
-            <center>
             <?php
             while ($row = mysqli_fetch_array($result)) {
                 $title = $row['Title'];
@@ -237,29 +243,27 @@ $result = mysqli_query($conn, $sql);
                 $genre = $row['Genre'];
                 $description = $row['Description'];
                 $rating = $row['Rating'];
-                echo '<div class="contentDiv' . $genre . '" style="margin-top:15%;">
-                    <div class="main-div">
-                        <div  class = "filmi"  >
-                            
-                                <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
-                                    <img id="imgContent" src="' . $poster . '" alt="portfolio" class="imgContentPortfolio" style="border-radius:15px; " />
-                                </a>
-                            
-                        </div>
-                        <div class="portfolio-content">
-						<h5 class="title" style = "text-align:center;" >' . $title . '</h5>
-						<p>' . $description . '</p>
-						<h5 class="title" style = "text-align:center;" >Rating: ' . $rating . '</h5>
-                        <p class = "genre"><b>Genre: </b>' . $genre . '</p>
-                            <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
+                echo '<div class="contentDiv ' . $genre . '"">
+                            <div  class = "filmi"  >
+                                    <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
+                                        <img id="imgContent" src="' . $poster . '" alt="portfolio" class="imgContentPortfolio"/>
+                                    </a>
                                 
-                            </a>
-                        </div>
-                    </div>
-                </div>';
+                            </div>
+                            <div class="portfolio-content">
+                                <h2 class="title" style = "text-align:center;" >
+                                    <a href = "movie-details.php?id=' . $id . '&type=' . $type . '">
+                                        <span>' . $title . '</span>
+                                    </a>
+                                </h2>
+                                <p class="title" style = "text-align:center;" ><b>Rating:</b> ' . $rating . '</p>
+                                <p class = "genre"><b>Genre: </b>' . $genre . '</p>
+                                <p style="margin-top:10%;">' . $description . '</p>
+                                
+                            </div>
+                </div><hr/>';
             }
             ?>
-            </center>
             </div>
         </div>
     </section><!-- portfolio section end -->
