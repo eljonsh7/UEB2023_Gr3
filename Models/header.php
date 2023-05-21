@@ -1,51 +1,50 @@
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
 <style>
-.header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 9999;
-    transition: top 0.3s;
-}
+    .header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 9999;
+        transition: top 0.3s;
+    }
 
 
-.header.hide {
-    top: -100px;
-}
+    .header.hide {
+        top: -100px;
+    }
 
-#searchresult a:hover h6 {
-    transition: 0.6s;
-    color: #00d9e1;
-}
+    #searchresult a:hover h6 {
+        transition: 0.6s;
+        color: #00d9e1;
+    }
 
 
-#searchresult a:hover~a h6 {
-    transition: 0.6s;
-    color: #00d9e1;
-}
+    #searchresult a:hover~a h6 {
+        transition: 0.6s;
+        color: #00d9e1;
+    }
 
-.login-box {
-    position: fixed;
-    /* left: 35.85%; */
-    width: 100%;
-    margin: 19% 35.4%;
-}
+    .login-box {
+        position: fixed;
+        /* left: 35.85%; */
+        width: 100%;
+        margin: 19% 35.4%;
+    }
 
-.signup-box {
-    margin: 10% 35.5%;
-}
+    .signup-box {
+        margin: 10% 35.5%;
+    }
 
-::-webkit-scrollbar {
-  background-color: #13151f;
-  width: 5px;
-}
+    ::-webkit-scrollbar {
+        background-color: #13151f;
+        width: 5px;
+    }
 
-::-webkit-scrollbar-thumb {
-  background-color: #3a444f;
-  border-radius: 10px;
-}
+    ::-webkit-scrollbar-thumb {
+        background-color: #3a444f;
+        border-radius: 10px;
+    }
 </style>
 
 </script>
@@ -67,10 +66,8 @@
                         <li><a class="imdb" href="imdb.php">Top IMDb</a></li>
                         <li>
                             <?php
-
-
                             if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true) {
-                                echo '<a href="user.php?mode=info" class="profileo"><img src="'.$_SESSION["profilePic"].'" width = "30px" style="border-radius:50%;"/></a>
+                                echo '<a href="user.php?mode=info" class="profileo">Profile <i class="icofont icofont-simple-down"></i></a>
                                             <ul>
                                                 <li><a href="user.php?mode=edit" class="edito">Edit</a></li>
                                                 <li><a href="watchlist.php" class="watchlisto">Watchlist</a></li>';
@@ -81,7 +78,7 @@
 
                                 echo '</ul>';
                             } else {
-                                echo '<a href="#"><i class="icofont icofont-login"></i></a>
+                                echo '<a href="#">Profile <i class="icofont icofont-simple-down"></i></a>
                                             <ul>
                                                 <li><a href="" class="signup-popup">Log in</a></li>
                                                 <li><a href="" class="login-popup">Sign up</a></li>
@@ -91,8 +88,7 @@
                         </li>
                         <li>
                             <form style="display: flex;" method="get" action="results.php" id="myForm">
-                                <input type="text" name="search" placeholder="Search..." class="form-control"
-                                    id="live_search" autocomplete="off">
+                                <input type="text" name="search" placeholder="Search..." class="form-control" id="live_search" autocomplete="off">
                                 <input type="submit" name="" value="Go" id="submit" style="visibility: hidden;">
 
                             </form>
@@ -106,41 +102,53 @@
         </div>
     </div>
     <script type="text/javascript">
-    function liveSearch() {
-        var input = $('#live_search').val();
-        if (input.length >= 2) {
-            document.getElementById("submit").style.visibility = "visible";
-            $.ajax({
-                url: "Services/livesearch.php",
-                method: "POST",
-                data: {
-                    input: input
-                },
-                success: function(data) {
-                    $("#searchresult").html(data);
-                }
-            });
-        } else {
-            document.getElementById("submit").style.visibility = "hidden";
-            $("#searchresult").html("");
+        function liveSearch(clear) {
+            var input = $('#live_search').val();
+            if (input.length >= 2) {
+                document.getElementById("submit").style.visibility = "visible";
+                $.ajax({
+                    url: "Services/livesearch.php",
+                    method: "POST",
+                    data: {
+                        input: input,
+                        clear: clear
+                    },
+                    success: function(data) {
+                        $("#searchresult").html(data);
+                    }
+                });
+            } else {
+                document.getElementById("submit").style.visibility = "hidden";
+                $("#searchresult").html("");
+            }
         }
-    }
 
-    document.getElementById('live_search').addEventListener('input', function() {
-        liveSearch();
-        if (document.getElementById('live_search').value.length >= 2) {
-            document.getElementById('submit').disabled = false;
+        document.getElementById('live_search').addEventListener('input', function() {
+            liveSearch(false);
+            if (document.getElementById('live_search').value.length >= 2) {
+                document.getElementById('submit').disabled = false;
 
-        } else {
-            document.getElementById('submit').disabled = true;
+            } else {
+                document.getElementById('submit').disabled = true;
+            }
+        });
+        document.getElementById('live_search').addEventListener('blur', function() {
+            this.removeEventListener('input', liveSearch(false));
+            this.addEventListener('input', liveSearch(true));
+            document.removeEventListener('click', handleClickOutside);
+        });
+
+        function handleClickOutside(event) {
+            if (!event.target.closest('#live_search')) {
+                document.getElementById('searchResults').style.display = 'none';
+            }
         }
-    });
 
-    function submitForm() {
-        var form = document.getElementById('myForm');
+        function submitForm() {
+            var form = document.getElementById('myForm');
 
-        form.submit();
-    }
+            form.submit();
+        }
     </script>
     <!-- <script>
         var anchorTag = document.getElementById('myAnchorTag');
@@ -164,8 +172,7 @@
             <h6 style="color: white;">EMAIL ADDRESS</h6>
             <input type="text" id="email-field-login" name="email-field-login" style="color: white;" />
             <h6 style="color: white;">PASSWORD</h6>
-            <input style="color: white;" type="password" id="password-field-login" name="password-field-login"
-                class="field input" required />
+            <input style="color: white;" type="password" id="password-field-login" name="password-field-login" class="field input" required />
             <div class="login-remember">
                 <input id="remember-checkbox" style="color: white;" type="checkbox" name="remember-checkbox" />
                 <span style="color: white;">Remember Me</span>
@@ -183,40 +190,33 @@
             <div style="display: flex;">
                 <div>
                     <h6 style="color: white;">FIRST NAME</h6>
-                    <input style="color: white;" type="text" id="firstname-field" name="firstname-field"
-                        class="field input" required />
+                    <input style="color: white;" type="text" id="firstname-field" name="firstname-field" class="field input" required />
                 </div>
                 <div>
                     <h6 style="color: white;">LAST NAME</h6>
-                    <input style="color: white;" type="text" id="lastname-field" name="lastname-field"
-                        class="field input" required />
+                    <input style="color: white;" type="text" id="lastname-field" name="lastname-field" class="field input" required />
                 </div>
             </div>
             <div style="display: flex;">
                 <div>
                     <h6 style="color: white;">USERNAME</h6>
-                    <input style="color: white;" type="text" id="username-field" name="username-field" class="field input"
-                        required />
+                    <input style="color: white;" type="text" id="username-field" name="username-field" class="field input" required />
                 </div>
                 <div>
                     <h6 style="color: white;">BIRTHDATE</h6>
-                    <input style="color: white; height:46%;" type="date" id="birthdate-field" name="birthdate-field"
-                        class="field input" required />
+                    <input style="color: white; height:46%;" type="date" id="birthdate-field" name="birthdate-field" class="field input" required />
                 </div>
             </div>
             <h6 style="color: white;">EMAIL ADDRESS</h6>
-            <input style="color: white;" type="email" id="email-field" name="email-field" class="field input"
-                required /> 
+            <input style="color: white;" type="email" id="email-field" name="email-field" class="field input" required />
             <h6 style="color: white;">PASSWORD</h6>
-            <input style="color: white;" type="password" id="password-field" name="password-field" class="field input"
-                required onkeyup="verifyPassword()" />
+            <input style="color: white;" type="password" id="password-field" name="password-field" class="field input" required onkeyup="verifyPassword()" />
             <p id="all" style="display: none; justify-content: center; color: white; font-size:small;">Password must
                 contain at least one
                 capital
                 letter, one digit and must be at least 8 characters long!</p>
             <h6 style="color: white;">CONFIRM PASSWORD</h6>
-            <input style="color: white;" type="password" id="password-field2" name="password-field2" class="field input"
-                required onkeyup="verifyPassword()" />
+            <input style="color: white;" type="password" id="password-field2" name="password-field2" class="field input" required onkeyup="verifyPassword()" />
             <p id="isItSame" style="display: none; justify-content: center; font-size:small;" style="color: white;">
                 Passwords don't match
             </p>
@@ -381,14 +381,13 @@ if (isset($_POST['logInForm'])) {
             $_SESSION['user_logged_in'] = true;
             $_SESSION['user'] = $user['ID'];
             $_SESSION['admin'] = $user['Admin'];
-            $_SESSION['profilePic'] = $user['Photo'];
             $cookieID = $user['ID'];
 
             if (isset($_POST['remember-checkbox'])) {
                 $_SESSION['settingRememberCookie'] = true;
-                echo '<script>window.location="http://localhost/UEB2023_Gr3/index.php?cookieID='.$cookieID.'";</script>';
+                echo '<script>window.location="http://localhost/UEB2023_Gr3/index.php?cookieID=' . $cookieID . '";</script>';
             }
-            echo '<script>window.location="index.php"</script>';       
+            echo '<script>window.location="index.php"</script>';
         } else {
             echo '<script>$(".login-form").show();
             document.getElementById("email-field-login").value="' . $email . '";
@@ -399,69 +398,69 @@ if (isset($_POST['logInForm'])) {
     } else {
         echo '<script>$(".login-form").show();
             </script>';
-            $message = "There is no registered user with the email you have entered!";
-            include("Services/notify.php");
+        $message = "There is no registered user with the email you have entered!";
+        include("Services/notify.php");
     }
 }
 
 ?>
 <script>
-function verifyPassword() {
-    const password1 = document.getElementById("password-field").value;
-    const password2 = document.getElementById("password-field2").value;
-    const signUpButton = document.getElementById("sign-up");
-    const errorMessage = document.getElementById("isItSame");
-    const allMessage = document.getElementById("all");
+    function verifyPassword() {
+        const password1 = document.getElementById("password-field").value;
+        const password2 = document.getElementById("password-field2").value;
+        const signUpButton = document.getElementById("sign-up");
+        const errorMessage = document.getElementById("isItSame");
+        const allMessage = document.getElementById("all");
 
-    const passwordRegex = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
-    const isPasswordValid =
-        password1 === password2 && passwordRegex.test(password1);
+        const passwordRegex = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
+        const isPasswordValid =
+            password1 === password2 && passwordRegex.test(password1);
 
-    if (password1.length != 0) {
-        if (!passwordRegex.test(password1)) {
-            allMessage.style.display = "flex";
-            allMessage.style.color = "red";
+        if (password1.length != 0) {
+            if (!passwordRegex.test(password1)) {
+                allMessage.style.display = "flex";
+                allMessage.style.color = "red";
+            } else {
+                allMessage.style.display = "none";
+            }
         } else {
             allMessage.style.display = "none";
         }
-    } else {
-        allMessage.style.display = "none";
-    }
 
-    if (password2.length != 0) {
-        if (password1 !== password2) {
-            errorMessage.style.display = "flex";
-            errorMessage.style.color = "red";
+        if (password2.length != 0) {
+            if (password1 !== password2) {
+                errorMessage.style.display = "flex";
+                errorMessage.style.color = "red";
+            } else {
+                errorMessage.style.display = "none";
+            }
         } else {
             errorMessage.style.display = "none";
         }
-    } else {
-        errorMessage.style.display = "none";
-    }
 
-    signUpButton.disabled = !isPasswordValid;
-}
+        signUpButton.disabled = !isPasswordValid;
+    }
 </script>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const header = document.querySelector('.header');
-    header.classList.remove('hide');
-});
-
-let prevScrollPos = window.pageYOffset;
-
-window.addEventListener('scroll', () => {
-    const currentScrollPos = window.pageYOffset;
-    const header = document.querySelector('.header');
-
-    if (prevScrollPos > currentScrollPos) {
-        // scrolling up
+    document.addEventListener('DOMContentLoaded', () => {
+        const header = document.querySelector('.header');
         header.classList.remove('hide');
-    } else {
-        // scrolling down
-        header.classList.add('hide');
-    }
+    });
 
-    prevScrollPos = currentScrollPos;
-});
+    let prevScrollPos = window.pageYOffset;
+
+    window.addEventListener('scroll', () => {
+        const currentScrollPos = window.pageYOffset;
+        const header = document.querySelector('.header');
+
+        if (prevScrollPos > currentScrollPos) {
+            // scrolling up
+            header.classList.remove('hide');
+        } else {
+            // scrolling down
+            header.classList.add('hide');
+        }
+
+        prevScrollPos = currentScrollPos;
+    });
 </script>

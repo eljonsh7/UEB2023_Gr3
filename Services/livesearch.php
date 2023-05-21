@@ -1,5 +1,9 @@
 <?php
 if (isset($_POST['input'])) {
+    if ($_POST['clear'] == 'true') {
+        echo '<div style = "diplay: block; position: fixed; background-color: rgb(24,20,28, 0.5);"></div>';
+        exit();
+    }
     $db_host = 'localhost';
     $db_user = 'root';
     $db_pass = 'root';
@@ -23,7 +27,7 @@ if (isset($_POST['input'])) {
         //     <thead>
         //     </thead>
         //     <tbody>';
-        echo '<div style = "diplay: block; position: fixed;">';
+        echo '<div style = "diplay: block; position: fixed; background-color: rgb(24,20,28, 0.5);">';
         $i = 0;
         while ($row = mysqli_fetch_assoc($result)) {
             $i++;
@@ -34,12 +38,11 @@ if (isset($_POST['input'])) {
             if ($i > 3) {
                 echo '<div id = "searchMore" style="display: flex;margin-top:1%;" >
                         <center style="width:100%;">
-                            <a onclick="submitForm()" id="myAnchorTag" style="width:100%;">
-                                <h6 >Show More</h6>
+                            <a href="results.php?search=' . $input . '" id="myAnchorTag" style="width:100%;">
+                                <h6 style="background-color: #3a444f; border-radius: 10px; width: 100px; padding: 5px" >Show More</h6>
                             </a>
                         </center>
-                    </div>
-                    <hr>';
+                    </div>';
                 break;
             } else {
                 echo '<div style="display: flex;align-items: flex-start;margin-top:1%;" >
@@ -47,10 +50,16 @@ if (isset($_POST['input'])) {
                             <img src="' . $poster . '" alt="" style = "width: 50px;float: left;">
                         </a>
                         <a href="movie-details.php?id=' . $id . '&type=' . $type . '">
-                            <h6 style="margin-top: 0;text-align:center;">' . $title . '</h6>
+                            <h6 style="
+                            margin-top: 0;
+                            text-align:left;
+                            max-width: 130px;
+                            min-width: 130px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;">' . $title . '</h6>
                         </a>
                     </div>
-                    <hr>
                         ';
             }
         }

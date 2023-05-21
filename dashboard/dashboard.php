@@ -126,10 +126,6 @@ if ($num_blogs_last_week == 0) {
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
-                        <!-- <div class="card-footer p-3">
-                            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than last
-                                week</p>
-                        </div> -->
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
@@ -190,207 +186,187 @@ if ($num_blogs_last_week == 0) {
                     </div>
                 </div>
             </div>
-            <div class="mt-4 row">
-                <div class="col-lg-4 col-md-6 mt-4 mb-4">
-                    <div class="card z-index-2">
-                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                            <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
-                                <div class="chart">
-                                    <canvas id="chart-genres" height="170"></canvas>
+            <div class="row mt-4">
+                <div class="mt-4 row">
+                    <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                        <div class="card z-index-2">
+                            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                                <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
+                                    <div class="chart">
+                                        <canvas id="chart-genres" height="170"></canvas>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="mb-0">Genre Content Count</h6>
-                            <p class="text-sm">Number of Content per Genre</p>
-                            <hr class="dark horizontal">
-                            <div class="chart-data">
-                                <?php
-                                // Assuming you have a database connection $conn
+                            <div class="card-body">
+                                <h6 class="mb-0">Genre Content Count</h6>
+                                <p class="text-sm">Number of Content per Genre</p>
+                                <hr class="dark horizontal">
+                                <div class="chart-data">
+                                    <?php
+                                    // Assuming you have a database connection $conn
 
-                                // Query to fetch genre and content count
-                                $sql = "SELECT g.Genre, COUNT(c.ID) AS content_count
+                                    // Query to fetch genre and content count
+                                    $sql = "SELECT g.Genre, COUNT(c.ID) AS content_count
                             FROM genre g
                             LEFT JOIN content c ON g.ID = c.ID
                             GROUP BY g.Genre";
-                                $result = mysqli_query($conn, $sql);
+                                    $result = mysqli_query($conn, $sql);
 
-                                // Create arrays to store genre and content count
-                                $genres = [];
-                                $contentCounts = [];
+                                    // Create arrays to store genre and content count
+                                    $genres = [];
+                                    $contentCounts = [];
 
-                                // Loop through the query results and populate the arrays
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    $genres[] = $row['Genre'];
-                                    $contentCounts[] = $row['content_count'];
-                                }
-                                ?>
+                                    // Loop through the query results and populate the arrays
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $genres[] = $row['Genre'];
+                                        $contentCounts[] = $row['content_count'];
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            <script>
-                // krijimi i chart-it te pare mbi numrin e permbajtjeve per nje zhaner
-                var ctx = document.getElementById('chart-genres').getContext('2d');
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: <?php echo json_encode($genres); ?>,
-                        datasets: [{
-                            label: 'Content Count',
-                            data: <?php echo json_encode($contentCounts); ?>,
-                            backgroundColor: '#caf0f8',
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            x: {
-                                grid: {
-                                    display: false
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    // krijimi i chart-it te pare mbi numrin e permbajtjeve per nje zhaner
+                    var ctx = document.getElementById('chart-genres').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: <?php echo json_encode($genres); ?>,
+                            datasets: [{
+                                label: 'Content Count',
+                                data: <?php echo json_encode($contentCounts); ?>,
+                                backgroundColor: '#caf0f8',
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                x: {
+                                    grid: {
+                                        display: false
+                                    },
+                                    ticks: {
+                                        color: "#fff",
+                                    }
                                 },
-                                ticks: {
-                                    color: "#fff",
-                                }
-                            },
-                            y: {
-                                grid: {
-                                    display: true
-                                },
-                                ticks: {
-                                    color: "#fff",
+                                y: {
+                                    grid: {
+                                        display: true
+                                    },
+                                    ticks: {
+                                        color: "#fff",
+                                    }
                                 }
                             }
                         }
-                    }
-                });
-            </script>
+                    });
+                </script>
 
 
 
-            <div class="mt-4 row">
-                <div class="col-lg-4 col-md-6 mt-4 mb-4">
-                    <div class="card z-index-2">
-                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                            <div class="bg-gradient-info shadow-dark border-radius-lg py-3 pe-1">
-                                <div class="chart">
-                                    <canvas id="chart-studios" class="chart-canvas" height="170"></canvas>
+                <div class="mt-4 row">
+                    <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                        <div class="card z-index-2">
+                            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                                <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
+                                    <div class="chart">
+                                        <canvas id="chart-studios" class="chart-canvas" height="170"></canvas>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="mb-0">Popular Studios</h6>
-                            <p class="text-sm">Number of Content per Studio</p>
-                            <hr class="dark horizontal">
-                            <?php
+                            <div class="card-body">
+                                <h6 class="mb-0">Popular Studios</h6>
+                                <p class="text-sm">Number of Content per Studio</p>
+                                <hr class="dark horizontal">
+                                <?php
 
-                            // Query to fetch studio and content count
-                            $sql = "SELECT s.Studio, COUNT(c.ID) AS content_count
+                                // Query to fetch studio and content count
+                                $sql = "SELECT s.Studio, COUNT(c.ID) AS content_count
                         FROM studio s
                         LEFT JOIN content c ON s.ID = c.ID
                         GROUP BY s.Studio
                         ORDER BY COUNT(c.ID) DESC";
-                            $result = mysqli_query($conn, $sql);
+                                $result = mysqli_query($conn, $sql);
 
-                            // Fetch the top 5 popular studios
-                            $chartLabels = [];
-                            $chartData = [];
-                            $counter = 0;
+                                // Fetch the top 5 popular studios
+                                $chartLabels = [];
+                                $chartData = [];
+                                $counter = 0;
 
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                $studio = $row['Studio'];
-                                $contentCount = $row['content_count'];
-                                $chartLabels[] = $studio;
-                                $chartData[] = $contentCount;
-                                $counter++;
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    $studio = $row['Studio'];
+                                    $contentCount = $row['content_count'];
+                                    $chartLabels[] = $studio;
+                                    $chartData[] = $contentCount;
+                                    $counter++;
 
-                                // Display only the top 5 studios
-                                if ($counter >= 5) {
-                                    break;
-                                }
-                            };
-                            ?>
-                            <script>
-                                // Krijimi i charti-t te deyte per numrin e permbajtjeve per studio
+                                    // Display only the top 5 studios
+                                    if ($counter >= 5) {
+                                        break;
+                                    }
+                                };
+                                ?>
+                                <script>
+                                    // Krijimi i charti-t te deyte per numrin e permbajtjeve per studio
 
-                                document.addEventListener("DOMContentLoaded", function() {
-                                    // Retrieve the chart canvas element
-                                    var ctx = document.getElementById("chart-studios").getContext("2d");
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                        // Retrieve the chart canvas element
+                                        var ctx = document.getElementById("chart-studios").getContext("2d");
 
-                                    // Define the chart data and options
-                                    var chartData = {
-                                        labels: <?php echo json_encode($chartLabels); ?>,
-                                        datasets: [{
-                                            data: <?php echo json_encode($chartData); ?>,
-                                            backgroundColor: [
-                                                "#8ecae6",
-                                                "#219ebc",
-                                                "#023047",
-                                                "#023047",
-                                                "#ffb703"
-                                            ],
-                                            borderWidth: 0
-                                        }]
-                                    };
+                                        // Define the chart data and options
+                                        var chartData = {
+                                            labels: <?php echo json_encode($chartLabels); ?>,
+                                            datasets: [{
+                                                data: <?php echo json_encode($chartData); ?>,
+                                                backgroundColor: [
+                                                    "#8ecae6",
+                                                    "#219ebc",
+                                                    "#d0dfeb",
+                                                    "#38b8e9",
+                                                    "#eeeee4"
+                                                ],
+                                                borderWidth: 0
+                                            }]
+                                        };
 
-                                    var chartOptions = {
-                                        maintainAspectRatio: false,
-                                        plugins: {
-                                            legend: {
-                                                display: false
-                                            }
-                                        },
-                                        scales: {
-                                            x: {
-                                                ticks: {
-                                                    color: "#fff", // Set the label color to white
+                                        var chartOptions = {
+                                            maintainAspectRatio: false,
+                                            plugins: {
+                                                legend: {
+                                                    display: false
+                                                }
+                                            },
+                                            scales: {
+                                                x: {
+                                                    ticks: {
+                                                        color: "#fff", // Set the label color to white
+                                                    },
+                                                },
+                                                y: {
+                                                    ticks: {
+                                                        color: "#fff", // Set the label color to white
+                                                    },
                                                 },
                                             },
-                                            y: {
-                                                ticks: {
-                                                    color: "#fff", // Set the label color to white
-                                                },
-                                            },
-                                        },
-                                    };
+                                        };
 
-                                    // Create and render the chart
-                                    new Chart(ctx, {
-                                        type: "bar",
-                                        data: chartData,
-                                        options: chartOptions
+                                        // Create and render the chart
+                                        new Chart(ctx, {
+                                            type: "bar",
+                                            data: chartData,
+                                            options: chartOptions
+                                        });
                                     });
-                                });
-                            </script>
+                                </script>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- <div class="col-lg-4 mt-4 mb-3">
-                <div class="card z-index-2 ">
-                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                        <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
-                            <div class="chart">
-                                <canvas id="chart-line-tasks" class="chart-canvas" height="170"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h6 class="mb-0 ">Completed Tasks</h6>
-                        <p class="text-sm ">Last Campaign Performance</p>
-                        <hr class="dark horizontal">
-                        <div class="d-flex ">
-                            <i class="material-icons text-sm my-auto me-1">schedule</i>
-                            <p class="mb-0 text-sm">just updated</p>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-        </div>
         </div>
     </main>
     <!--   Core JS Files   -->
