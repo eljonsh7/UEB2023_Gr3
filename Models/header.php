@@ -337,8 +337,11 @@ if (isset($_GET['activation_token']) && isset($_GET['accountID'])) {
             $stmt = $conn->prepare("DELETE FROM `temporary users` WHERE ID = ?");
             $stmt->bind_param('s', $tempAccID);
             $stmt->execute();
+            $message = "Registration completed, enjoy our website!";
+            include('Services/notify.php');
         } else {
-            echo "<script>console.log('Error inserting data')</script>";
+            $message = "Something went wrong, please try again!";
+            include('Services/notify.php');
         }
     } else {
         $message = "The activation token is invalid!";
