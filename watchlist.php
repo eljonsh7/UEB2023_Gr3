@@ -157,41 +157,50 @@
                 <h3>Movies</h3>
             </div>
             <hr>
-            <div class="grid-container" id="contentContainer">
                 <?php
                 $stmt1 = $conn->prepare("SELECT * FROM Watchlist w JOIN Content c ON c.ID = w.Content_ID WHERE w.User_ID = ? AND Type = 'Movie'");
                 $stmt1->bind_param("d", $_SESSION['user']);
                 $stmt1->execute();
                 $result1 = $stmt1->get_result();
 
-                while ($row = mysqli_fetch_array($result1)) {
-                    $title = $row['Title'];
-                    $poster = $row['Cover'];
-                    $id = $row['ID'];
-                    $type = $row['Type'];
-                    $genre = "";
-                    include('Models/card.php');
+                if(mysqli_num_rows($result1)>0){
+                    echo '<div class="grid-container" id="contentContainer">';
+                    while ($row = mysqli_fetch_array($result1)) {
+                        $title = $row['Title'];
+                        $poster = $row['Cover'];
+                        $id = $row['ID'];
+                        $type = $row['Type'];
+                        $genre = "";
+                        include('Models/card.php');
+                    }
+                    echo '</div>';
+                }else{
+                    echo '<span>No movies in your wishlist yet, explore for movies <a href="movies.php">here</a></span>';
                 }
                 ?>
-            </div>
             <div style="margin-top: 7%;">
                 <h3>TV Shows</h3>
             </div>
             <hr>
-            <div class="grid-container" id="contentContainer">
                 <?php
                 $stmt2 = $conn->prepare("SELECT * FROM Watchlist w JOIN Content c ON c.ID = w.Content_ID WHERE w.User_ID = ? AND Type = 'TV Show'");
                 $stmt2->bind_param("d", $_SESSION['user']);
                 $stmt2->execute();
                 $result2 = $stmt2->get_result();
-
-                while ($row = mysqli_fetch_array($result2)) {
-                    $title = $row['Title'];
-                    $poster = $row['Cover'];
-                    $id = $row['ID'];
-                    $type = $row['Type'];
-                    $genre = "";
-                    include('Models/card.php');
+                
+                if(mysqli_num_rows($result2)>0){
+                    echo '<div class="grid-container" id="contentContainer">';
+                    while ($row = mysqli_fetch_array($result2)) {
+                        $title = $row['Title'];
+                        $poster = $row['Cover'];
+                        $id = $row['ID'];
+                        $type = $row['Type'];
+                        $genre = "";
+                        include('Models/card.php');
+                    }
+                    echo '</div>';
+                }else{
+                    echo '<span>No TV Shows in your wishlist yet, explore for shows <a href="tv-shows.php">here</a></span>';
                 }
                 ?>
             </div>

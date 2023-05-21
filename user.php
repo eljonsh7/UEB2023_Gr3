@@ -379,6 +379,7 @@ if (!isset($_GET['mode'])) {
 			$tmp_name = $_FILES['image']['tmp_name'];
 			$folder = "assets/img/user_pic/";
 			$path = $folder . $image_name . ".png";
+			$_SESSION['profilePic'] = $path;
 
 			$check = getimagesize($tmp_name);
 

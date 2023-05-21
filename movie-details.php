@@ -318,8 +318,10 @@ $row = mysqli_fetch_array($result);
               ?>
                         </div>
                         <div class="details-reply">
-                            <h2>Leave a Comment</h2>
-                            <form method="post">
+                            
+                            <?php if(isset($_SESSION['user_logged_in'])){
+                              echo '<h2>Leave a Comment</h2>
+                              <form method="post">
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="textarea-container">
@@ -333,7 +335,11 @@ $row = mysqli_fetch_array($result);
                                     <input type="submit" class="btn btn-primary" id="com" name="com"
                                         value="Post Comment">
                                 </div>
-                            </form>
+                            </form>';
+                              
+                              
+                            }?>
+                            
                         </div>
                         <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST") {

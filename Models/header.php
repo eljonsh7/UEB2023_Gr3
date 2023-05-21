@@ -67,8 +67,10 @@
                         <li><a class="imdb" href="imdb.php">Top IMDb</a></li>
                         <li>
                             <?php
+
+
                             if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true) {
-                                echo '<a href="user.php?mode=info" class="profileo">Profile <i class="icofont icofont-simple-down"></i></a>
+                                echo '<a href="user.php?mode=info" class="profileo"><img src="'.$_SESSION["profilePic"].'" width = "30px" style="border-radius:50%;"/></a>
                                             <ul>
                                                 <li><a href="user.php?mode=edit" class="edito">Edit</a></li>
                                                 <li><a href="watchlist.php" class="watchlisto">Watchlist</a></li>';
@@ -79,7 +81,7 @@
 
                                 echo '</ul>';
                             } else {
-                                echo '<a href="#">Profile <i class="icofont icofont-simple-down"></i></a>
+                                echo '<a href="#"><i class="icofont icofont-login"></i></a>
                                             <ul>
                                                 <li><a href="" class="signup-popup">Log in</a></li>
                                                 <li><a href="" class="login-popup">Sign up</a></li>
@@ -379,6 +381,7 @@ if (isset($_POST['logInForm'])) {
             $_SESSION['user_logged_in'] = true;
             $_SESSION['user'] = $user['ID'];
             $_SESSION['admin'] = $user['Admin'];
+            $_SESSION['profilePic'] = $user['Photo'];
             $cookieID = $user['ID'];
 
             if (isset($_POST['remember-checkbox'])) {
