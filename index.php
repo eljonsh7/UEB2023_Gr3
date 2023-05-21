@@ -343,7 +343,7 @@ while ($row = mysqli_fetch_array($result1)) {
             <div class="hero-area-slider activeDiv">
                 <?php
                 include('Services/connection.php');
-                $sql = "SELECT * FROM `content` ORDER BY `Date` DESC LIMIT 10";
+                $sql = "SELECT * FROM `content` ORDER BY `Date` DESC LIMIT 5";
                 $result = mysqli_query($conn, $sql);
                 $count = 0;
                 $result = mysqli_query($conn, $sql);
