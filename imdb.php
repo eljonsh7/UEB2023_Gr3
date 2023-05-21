@@ -87,32 +87,43 @@ $result = mysqli_query($conn, $sql);
         }
 
         .filmi {
-            width: 25%;
+            width: 20%;
             float: left;
+            
             
         }
 
         /* div div {
             float: left;
         } */
-
+        .imgContentPortfolio{
+            width: 220px;
+            height: 330px;
+        }
 
         .portfolio-content {
             width: 500px;
             height: fit-content;
-            padding-left: 200px;
-            margin-left: 200px;
+            padding-left: 100px;
+            margin-left: 100px;
+            justify-content: center;
+            align-items: center;
+            height: 70vh; /* Adjust the height as needed */
+            
+
         }
 
 
         .main-div {
-            margin-top: 300px;
-            margin-bottom: 300px;
+            margin-top: 100px;
+            margin-bottom: 100px;
 
         }
         .genre{
             text-align: center;
         }
+
+        
         
     </style>
 </head>
@@ -215,6 +226,8 @@ $result = mysqli_query($conn, $sql);
                 
             </div>
             <hr />
+            <div class="allmovies">
+            <center>
             <?php
             while ($row = mysqli_fetch_array($result)) {
                 $title = $row['Title'];
@@ -246,6 +259,8 @@ $result = mysqli_query($conn, $sql);
                 </div>';
             }
             ?>
+            </center>
+            </div>
         </div>
     </section><!-- portfolio section end -->
     <!-- video section start -->
