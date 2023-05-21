@@ -301,7 +301,7 @@ $row = mysqli_fetch_array($result);
                 echo "</tr>";
                 echo "<tr><td>";
                 if (isset($_SESSION['user']) && $_SESSION['user'] == $row2['ID']) {
-                  echo "<a href='movie-details.php?id=" . $row['ID'] . "&type=" . $row['Type'] . "&delete=" . $row2['CID'] . "' id='delete' style='color:red;'>Delete</a>";
+                  echo "<a href='movie-details.php?id=" . $row['ID'] . "&type=" . $row['Type'] . "&delete=" . $row2['CID'] . "' id='delete' style='color:#00d9e1;'>Delete</a>";
                 }
                 echo "</td><td><p>" . $row2["Comment"] . "</p></td>";
                 echo "</tr>";

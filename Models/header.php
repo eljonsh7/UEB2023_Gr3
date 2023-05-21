@@ -280,6 +280,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signUpForm'])) {
             $stmt = $conn->prepare("INSERT INTO `temporary users` (ID,Birthdate, Username, Email, `Password`, ActToken, FirstName, LastName, Created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)");
             $stmt->bind_param("ssssssss", $hashed_accountID, $birthdate, $username, $email, $hashed_password, $hashed_token, $firstname, $lastname);
             $stmt->execute();
+            $message = "Please check your email for verification!";
+            include('Services/notify.php');
         } else {
             echo '<script>$(".login-area").show();
             document.getElementById("firstname-field").value="' . $firstname . '";
@@ -343,6 +345,7 @@ if (isset($_GET['activation_token']) && isset($_GET['accountID'])) {
             $user = mysqli_fetch_assoc($result);
             $_SESSION['user'] = $user['ID'];
             $_SESSION['admin'] = $user['Admin'];
+            $_SESSION['profilePic'] = $user['Photo'];
             unlink("tempReg.txt");
             echo '<script>window.location.href = "index.php";</script>';
             $tempToken = "";
