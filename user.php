@@ -240,6 +240,18 @@ if (!isset($_GET['mode'])) {
 				display: block;
 			}
 		}
+
+		a.scrollToTop {
+			display: flex; 
+			justify-content: center; 
+			align-content: center;
+		}
+
+		i.icofont.icofont-arrow-up {
+			align-content: center; 
+			display: flex; 
+			flex-wrap: wrap;
+		}
 	</style>
 </head>
 

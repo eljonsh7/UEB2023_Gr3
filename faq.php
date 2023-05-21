@@ -204,15 +204,6 @@
         
         
     </div>
-    
-    <div class="container mt-5" id="container">
-        <h1>Contact FlixFeast</h1>
-        <hr style="margin: 1% 0% 2% 0%;"/>
-        <p style="margin:1%;">If you have any questions or feedback, please feel free to send us an email:</p>
-
-        <a href="mailto:flixfeastt@gmail.com" class="btn btn-primary" id='send'>Send Email</a>
-    </div>
-
 
 
 	<?php include("Models/footer.php"); ?>

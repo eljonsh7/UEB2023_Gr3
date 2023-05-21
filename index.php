@@ -59,265 +59,277 @@ while ($row = mysqli_fetch_array($result1)) {
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
     <style>
-    .portfolio-content h5 {
-        margin-top: 5%;
-    }
-
-    .home {
-        color: #00d9e1;
-    }
-
-    .img-wrapper {
-        width: 100%;
-        overflow: hidden;
-    }
-
-    div.portfolio-content>h2 {
-        font-size: 22px;
-        justify-content: center;
-        display: flex;
-    }
-
-    .row {
-        justify-content: center;
-    }
-
-    .sideFeatured {
-        display: none;
-    }
-
-    .importantDiv {
-        margin-bottom: 50px !important;
-    }
-
-    .imgScroll {
-        width: 400px !important;
-        height: 596px !important;
-    }
-
-
-    .soon {
-        margin: 5px;
-    }
-
-    .soon img {
-
-        border-radius: 14px;
-
-    }
-
-    @media screen and (min-width: 450px) {
-        .imgScroll {
-            width: 100% !important;
-            padding: 10% 67px 0;
+        .portfolio-content h5 {
+            margin-top: 5%;
         }
 
-        .textDiv {}
-
-        .importantDiv {
-            width: 500px;
-            margin: 0 auto;
+        .home {
+            color: #00d9e1;
         }
 
-        .picDiv {
+        .img-wrapper {
             width: 100%;
+            overflow: hidden;
         }
 
-    }
-
-    @media screen and (max-width: 1074px) {
-        .col-md-5 {
-            -webkit-box-flex: 0;
-            -ms-flex: 0 0 41.666667%;
-            flex: 0 0 100%;
-            max-width: 100%;
+        div.portfolio-content>h2 {
+            font-size: 22px;
+            justify-content: center;
+            display: flex;
         }
 
-        .textDiv {
-            -webkit-box-flex: 0;
-            -ms-flex: 0 0 50%;
-            flex: 0 0 80%;
-            max-width: 80%;
+        .row {
+            justify-content: center;
         }
 
-        .textDiv p {
-            text-align: justify;
-        }
-    }
-
-    @media screen and (min-width: 1075px) {
-        .imgScroll {
-            width: 300px !important;
-            height: 448px !important;
-            padding: 0;
-        }
-
-        .picDiv {
-            padding-left: 2%;
-            padding-top: 4%;
-            margin-right: -1%;
+        .sideFeatured {
+            display: none;
         }
 
         .importantDiv {
-            width: 99.5%;
-
+            margin-bottom: 50px !important;
         }
 
-        .textDiv {
-            display: block;
-        }
-    }
-
-    @media screen and (min-width: 1200px) {
-        .imgScroll {
-            width: 300px !important;
-            height: 448px !important;
-        }
-
-        .picDiv {
-            margin-left: -7%;
-            padding-top: 2%;
-            margin-right: -8%;
-        }
-    }
-
-    @media screen and (min-width: 1286px) {
         .imgScroll {
             width: 400px !important;
-            height: 597px !important;
+            height: 596px !important;
         }
 
-        .picDiv {
-            padding-left: 2%;
-            padding-top: 0.5%;
-            margin-right: 0;
-            margin-left: 0;
+
+        .soon {
+            margin: 5px;
         }
 
-    }
+        .soon img {
 
-    @media screen and (min-width: 1300px) {
-        .sideFeatured {
-            display: block;
+            border-radius: 14px;
+
         }
-    }
 
-    .portfolio-content h5 {
-        margin-top: 5%;
-    }
+        @media screen and (min-width: 450px) {
+            .imgScroll {
+                width: 100% !important;
+                padding: 10% 67px 0;
+            }
 
-    .transformers-right {
-        display: inline-block;
-        padding: 6px 12px;
-        border: 1px solid gray;
-        border-radius: 3px;
-        cursor: pointer;
-        background-color: transparent;
-    }
+            .textDiv {}
 
-    .transformers-right.watchlisted {
-        background-color: white;
-    }
+            .importantDiv {
+                width: 500px;
+                margin: 0 auto;
+            }
 
-    .transformers-right.watchlisted:hover,
-    .transformers-right:hover {
-        background-color: gray;
-        border: 1px;
-    }
+            .picDiv {
+                width: 100%;
+            }
 
-    .transformers-right {
-        color: wheat;
-        background-color: transparent;
-        width: 30px;
-        height: 30px;
-        border-radius: 10%;
-        position: relative;
-        left: 81.5%;
-        top: -320px;
-    }
+        }
 
-    .filmi {
-        align-items: center;
-        width: 220px;
-        height: 330px;
-        border-radius: 5%;
-        margin: 0 auto;
-        overflow: hidden;
+        @media screen and (max-width: 1074px) {
+            .col-md-5 {
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 41.666667%;
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
 
-    }
+            .textDiv {
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 50%;
+                flex: 0 0 80%;
+                max-width: 80%;
+            }
 
-    .imgContentPortfolio {
-        transition: 0.9s;
-        position: relative;
-    }
+            .textDiv p {
+                text-align: justify;
+            }
+        }
 
-    .imgContentPortfolio:hover {
-        transform: scale(1.2);
-    }
+        @media screen and (min-width: 1075px) {
+            .imgScroll {
+                width: 300px !important;
+                height: 448px !important;
+                padding: 0;
+            }
 
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        grid-gap: 20px;
-    }
+            .picDiv {
+                padding-left: 2%;
+                padding-top: 4%;
+                margin-right: -1%;
+            }
 
-    #imgContent {
+            .importantDiv {
+                width: 99.5%;
 
-        width: 220px;
-        height: 330px;
-    }
+            }
+
+            .textDiv {
+                display: block;
+            }
+        }
+
+        @media screen and (min-width: 1200px) {
+            .imgScroll {
+                width: 300px !important;
+                height: 448px !important;
+            }
+
+            .picDiv {
+                margin-left: -7%;
+                padding-top: 2%;
+                margin-right: -8%;
+            }
+        }
+
+        @media screen and (min-width: 1286px) {
+            .imgScroll {
+                width: 400px !important;
+                height: 597px !important;
+            }
+
+            .picDiv {
+                padding-left: 2%;
+                padding-top: 0.5%;
+                margin-right: 0;
+                margin-left: 0;
+            }
+
+        }
+
+        @media screen and (min-width: 1300px) {
+            .sideFeatured {
+                display: block;
+            }
+        }
+
+        .portfolio-content h5 {
+            margin-top: 5%;
+        }
+
+        .transformers-right {
+            display: inline-block;
+            padding: 6px 12px;
+            border: 1px solid gray;
+            border-radius: 3px;
+            cursor: pointer;
+            background-color: transparent;
+        }
+
+        .transformers-right.watchlisted {
+            background-color: white;
+        }
+
+        .transformers-right.watchlisted:hover,
+        .transformers-right:hover {
+            background-color: gray;
+            border: 1px;
+        }
+
+        .transformers-right {
+            color: wheat;
+            background-color: transparent;
+            width: 30px;
+            height: 30px;
+            border-radius: 10%;
+            position: relative;
+            left: 81.5%;
+            top: -320px;
+        }
+
+        .filmi {
+            align-items: center;
+            width: 220px;
+            height: 330px;
+            border-radius: 5%;
+            margin: 0 auto;
+            overflow: hidden;
+
+        }
+
+        .imgContentPortfolio {
+            transition: 0.9s;
+            position: relative;
+        }
+
+        .imgContentPortfolio:hover {
+            transform: scale(1.2);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 20px;
+        }
+
+        #imgContent {
+
+            width: 220px;
+            height: 330px;
+        }
 
 
-    a.btn {
-        display: flex;
-        margin: 2%;
-        justify-content: center;
-        background: #3a444f;
-    }
-    a.btn:hover {
-        border: 2px solid white;
-    }
+        a.btn {
+            display: flex;
+            margin: 2%;
+            justify-content: center;
+            background: #3a444f;
+            border: 2px solid transparent;
+        }
+        a.btn:hover {
+            border: 2px solid white;
+        }
 
-    .arrow-button {
-        border-radius: 30px;
-        display:flex;
-        justify-content: center;
-        align-items: center;
-  width: 50px;
-  height: 50px;
-  border: none;
-  background-color: #f7f7f7;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  background-color: #3a444f;
-}
+        .arrow-button {
+            border-radius: 30px;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            border: none;
+            background-color: #f7f7f7;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            background-color: #3a444f;
+        }
 
-.arrow-button:hover {
-  border:2px white solid;
-  color: white;
-}
+        .arrow-button:hover {
+            border:2px white solid;
+            color: white;
+        }
 
-.arrow-left::before {
-  content: '';
-  display: inline-block;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  padding: 4px;
-  transform: rotate(135deg);
-  -webkit-transform: rotate(135deg);
-}
+        .arrow-left::before {
+            content: '';
+            display: inline-block;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            padding: 4px;
+            transform: rotate(135deg);
+            -webkit-transform: rotate(135deg);
+        }
 
-.arrow-right::before {
-  content: '';
-  display: inline-block;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  padding: 4px;
-  transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-}
+        .arrow-right::before {
+            content: '';
+            display: inline-block;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            padding: 4px;
+            transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+        }
 
+        a.scrollToTop {
+            display: flex; 
+            justify-content: center; 
+            align-content: center;
+        }
+
+        i.icofont.icofont-arrow-up {
+            align-content: center; 
+            display: flex; 
+            flex-wrap: wrap;
+        }
     </style>
 </head>
 
@@ -331,7 +343,7 @@ while ($row = mysqli_fetch_array($result1)) {
             <div class="hero-area-slider activeDiv">
                 <?php
                 include('Services/connection.php');
-                $sql = "SELECT * FROM `content`";
+                $sql = "SELECT * FROM `content` ORDER BY `Date` DESC LIMIT 10";
                 $result = mysqli_query($conn, $sql);
                 $count = 0;
                 $result = mysqli_query($conn, $sql);

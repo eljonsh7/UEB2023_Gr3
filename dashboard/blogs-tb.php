@@ -214,7 +214,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                                 while ($row = mysqli_fetch_array($result)) {
                                     echo '
 				  			<tr>
-                <td><img src="../' . $row['Image'] . '" height="70px" ></td>
+                <td><img src="../' . $row['Image'] . '" height="70px" width="125px"></td>
 								<td><a href="editDetails.php?detailsID=' . $row['ID'] . '&type=Blogs&mode=info">' . $row['Title'] . '</a></td>
 								
 								<td>' . substr($row['Content'], 0, 40) . '</td>

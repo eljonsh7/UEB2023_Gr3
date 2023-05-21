@@ -22,88 +22,90 @@ $row = mysqli_fetch_array($result);
 <html lang="zxx">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FlixFeast</title>
-    <!-- Favicon Icon -->
-    <link rel="icon" type="image/png" href="assets/img/logo2.png" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" media="all" />
-    <!-- Slick nav CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/slicknav.min.css" media="all" />
-    <!-- Iconfont CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/icofont.css" media="all" />
-    <!-- Owl carousel CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/owl.carousel.css" />
-    <!-- Popup CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/magnific-popup.css" />
-    <!-- Main style CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css" media="all" />
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css" media="all" />
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FlixFeast</title>
+  <!-- Favicon Icon -->
+  <link rel="icon" type="image/png" href="assets/img/logo2.png" />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" media="all" />
+  <!-- Slick nav CSS -->
+  <link rel="stylesheet" type="text/css" href="assets/css/slicknav.min.css" media="all" />
+  <!-- Iconfont CSS -->
+  <link rel="stylesheet" type="text/css" href="assets/css/icofont.css" media="all" />
+  <!-- Owl carousel CSS -->
+  <link rel="stylesheet" type="text/css" href="assets/css/owl.carousel.css" />
+  <!-- Popup CSS -->
+  <link rel="stylesheet" type="text/css" href="assets/css/magnific-popup.css" />
+  <!-- Main style CSS -->
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css" media="all" />
+  <!-- Responsive CSS -->
+  <link rel="stylesheet" type="text/css" href="assets/css/responsive.css" media="all" />
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
 
-    <style>
+  <style>
+    div.details-thumb-next:hover {
+      color: #007bff;
+    }
+
     #watchlist-button {
-        display: inline-block;
-        padding: 6px 12px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        cursor: pointer;
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      cursor: pointer;
     }
 
     #watchlist-button.watchlisted {
-        background-color: white;
+      background-color: white;
     }
 
     #watchlist-button.watchlisted:hover,
     #watchlist-button:hover {
-        background-color: gray;
+      background-color: gray;
     }
 
     @media screen and (min-width: 992px) {
-        .contentInformation {
-            padding-left: 3%;
-        }
+      .contentInformation {
+        padding-left: 3%;
+      }
     }
 
     @media screen and (max-width: 991px) {
-        .contentInformation {
-            padding-top: 3%;
-        }
+      .contentInformation {
+        padding-top: 3%;
+      }
     }
 
     @media screen and (max-width: 767px) {
-        .transformers-area {
-            margin-top: -30%;
-        }
+      .transformers-area {
+        margin-top: -30%;
+      }
     }
 
     .comment_img {
-        border-radius: 50%;
+      border-radius: 50%;
     }
 
     table>tr>td>p {
-        margin-left: 5%;
+      margin-left: 5%;
     }
 
     #com:hover {
-        background-color: #007bff;
-        color: white;
+      background-color: #007bff;
+      color: white;
     }
 
     #com {
-        background-color: black;
-        color: white;
-        margin-top: 2%;
+      background-color: black;
+      color: white;
+      margin-top: 2%;
     }
-    </style>
-
-
+  </style>
 </head>
 
 <body>
@@ -311,6 +313,7 @@ $row = mysqli_fetch_array($result);
                 mysqli_stmt_bind_param($stmt3, 's', $_GET['delete']);
                 mysqli_stmt_execute($stmt3);
                 unset($_GET['delete']);
+                echo "<script>location.href = 'movie-details.php?id=" . $row['ID'] . "&type=" . $row['Type'] . "';</script>";
               }
               ?>
                         </div>
@@ -338,6 +341,7 @@ $row = mysqli_fetch_array($result);
                 $stmt2 = mysqli_prepare($conn, "INSERT INTO Comments (Content_ID, User_ID, Comment) VALUES (?, ?, ?)");
                 mysqli_stmt_bind_param($stmt2, 'sss', $_GET['id'], $_SESSION['user'], $_POST['message']);
                 mysqli_stmt_execute($stmt2);
+                echo "<script>location.href = location.href;</script>";
               } else {
                 echo "<script>alert('You are not logged in!')</script>";
               }
@@ -366,13 +370,13 @@ $row = mysqli_fetch_array($result);
                         <div class="details-thumb">
                             <div class="details-thumb-prev">
                                 <div class="thumb-icon">
-                                    <i class="icofont icofont-simple-left"></i>
+                                  <a href="<?php echo 'movie-details.php?id=' . $prevID . '&type=' . $_GET['type'] ?>"><i class="icofont icofont-simple-left"></i></a>
                                 </div>
                                 <div class="thumb-text">
                                     <a
                                         href="<?php echo 'movie-details.php?id=' . $prevID . '&type=' . $_GET['type'] ?>">
                                         <h4>Previous Post</h4>
-                                        <p>Standard Post With Gallery</p>
+                                        <p>-------------------</p>
                                     </a>
                                 </div>
                             </div>
@@ -381,11 +385,11 @@ $row = mysqli_fetch_array($result);
                                     <a
                                         href="<?php echo 'movie-details.php?id=' . $nextID . '&type=' . $_GET['type'] ?>">
                                         <h4>Next Post</h4>
-                                        <p>Standard Post With Preview Image</p>
+                                        <p>--------------</p>
                                     </a>
                                 </div>
                                 <div class="thumb-icon">
-                                    <i class="icofont icofont-simple-right"></i>
+                                    <a href="<?php echo 'movie-details.php?id=' . $nextID . '&type=' . $_GET['type'] ?>"><i class="icofont icofont-simple-right"></i></a>
                                 </div>
                             </div>
                         </div>

@@ -179,12 +179,12 @@ $monthName = date('F', mktime(0, 0, 0, $month, 1));
                         <div class="details-thumb">
                             <div class="details-thumb-prev">
                                 <div class="thumb-icon">
-                                    <i class="icofont icofont-simple-left"></i>
+                                <a href="<?php echo 'blog-details.php?id=' . $prevID ?>"><i class="icofont icofont-simple-left"></i></a>
                                 </div>
                                 <div class="thumb-text">
                                     <a href="<?php echo 'blog-details.php?id=' . $prevID ?>">
                                         <h4>Previous Blog</h4>
-                                        <p>Standard Post With Gallery</p>
+                                        <p>-------------------</p>
                                     </a>
                                 </div>
                             </div>
@@ -192,41 +192,16 @@ $monthName = date('F', mktime(0, 0, 0, $month, 1));
                                 <div class="thumb-text">
                                     <a href="<?php echo 'blog-details.php?id=' . $nextID ?>">
                                         <h4>Next Blog</h4>
-                                        <p>Standard Post With Preview Image</p>
+                                        <p>--------------</p>
                                     </a>
                                 </div>
                                 <div class="thumb-icon">
-                                    <i class="icofont icofont-simple-right"></i>
+                                <a href="<?php echo 'blog-details.php?id=' . $nextID ?>"><i class="icofont icofont-simple-right"></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-lg-3">
-                    <div class="blog-sidebar">
-                        <h4>Recent Posts</h4>
-                        <ul>
-                            <li><a href="#">Transformers: The Last Knight</a></li>
-                            <li><a href="#">Duis aute irure dolor in reprehenderit in voluptate</a></li>
-                            <li><a href="#">Nostrud exercitation ullamco laboris</a></li>
-                            <li><a href="#">Magnam aliquam quaerat voluptatem</a></li>
-                            <li><a href="#">Magnam aliquam quaerat voluptatem</a></li>
-                            <li><a href="#">Excepteur sint occaecat cupidatat proi</a></li>
-                        </ul>
-                        <h4>Recent Comments</h4>
-                        <ul>
-                            <li><a href="#">admin on Justice League</a></li>
-                            <li><a href="#">admin on Mask Man</a></li>
-                            <li><a href="#">admin on Angle Pori</a></li>
-                            <li><a href="#">admin on The Man</a></li>
-                            <li><a href="#">admin on WP Devil</a></li>
-                        </ul>
-
-                        <div class="portfolio-sidebar">
-                            <img src="assets/img/sidebar/sidebar1.png" alt="sidebar" />
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
     </section><!-- blog area end -->

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: May 21, 2023 at 01:41 PM
+-- Generation Time: May 21, 2023 at 04:38 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -42,9 +42,9 @@ CREATE TABLE `blogs` (
 --
 
 INSERT INTO `blogs` (`ID`, `Title`, `Content`, `AuthorID`, `CreatedAt`, `UpdatedAt`, `Image`) VALUES
-(1, 'The Evolution of Movie Soundtracks', 'Movie soundtracks are an integral part of the film industry. They can set the tone for a scene, evoke emotions, and even become iconic in their own right. Over the years, movie soundtracks have evolved and changed, adapting to new technologies and trends in the music industry.\r\n\r\nIn the early days of cinema, silent films relied on live music to accompany the action on screen. Pianists and small orchestras would play along to the film, providing sound effects and musical accompaniment. As technology advanced, so did the way that soundtracks were created.\r\n\r\nThe introduction of synchronized sound in the late 1920s allowed for more complex soundtracks to be created. Suddenly, films could feature dialogue, sound effects, and music all mixed together. The early soundtracks were often orchestral in nature, with classical music or original scores accompanying the action on screen.', 2, '2023-04-04 15:58:37', '2023-04-22 22:18:59', 'https://www.macmillandictionaryblog.com/wp-content/uploads/2018/04/soundtrack-1024x644.jpg'),
-(2, 'Top 10 Must-Watch Movies of All Time', ' Looking for something to watch? Check out our list of the top 10 must-watch movies of all time. From action-packed thrillers to heartwarming dramas, we\'ve got you covered. Grab some popcorn and get ready for a movie marathon you won\'t forget!', 2, '2023-04-22 20:25:38', '2023-04-22 22:19:02', 'https://variety.com/wp-content/uploads/2022/12/100-Greatest-Movies-Variety.jpg?w=1360&h=765&crop=1'),
-(3, 'Avatar', 'Amazing.', 2, '2023-04-22 23:15:33', '2023-04-22 23:15:33', 'https://variety.com/wp-content/uploads/2022/12/100-Greatest-Movies-Variety.jpg?w=1360&h=765&crop=1');
+(1, 'The Evolution of Movie Soundtracks', 'Movie soundtracks are an integral part of the film industry. They can set the tone for a scene, evoke emotions, and even become iconic in their own right. Over the years, movie soundtracks have evolved and changed, adapting to new technologies and trends in the music industry.\r\n\r\nIn the early days of cinema, silent films relied on live music to accompany the action on screen. Pianists and small orchestras would play along to the film, providing sound effects and musical accompaniment. As technology advanced, so did the way that soundtracks were created.\r\n\r\nThe introduction of synchronized sound in the late 1920s allowed for more complex soundtracks to be created. Suddenly, films could feature dialogue, sound effects, and music all mixed together. The early soundtracks were often orchestral in nature, with classical music or original scores accompanying the action on screen.', 2, '2023-04-04 15:58:37', '2023-05-21 14:36:32', 'assets/img/blog_images/The Evolution of Movie Soundtracks.jpg'),
+(2, 'Top 10 Must-Watch Movies of All Time', ' Looking for something to watch? Check out our list of the top 10 must-watch movies of all time. From action-packed thrillers to heartwarming dramas, we\'ve got you covered. Grab some popcorn and get ready for a movie marathon you won\'t forget!', 2, '2023-04-22 20:25:38', '2023-05-21 14:36:44', 'assets/img/blog_images/Top 10 Must-Watch Movies of All Time.jpg'),
+(3, 'Avatar', 'Amazing.', 2, '2023-04-22 23:15:33', '2023-05-21 14:37:12', 'assets/img/blog_images/Avatar.jpeg');
 
 -- --------------------------------------------------------
 
