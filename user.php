@@ -333,6 +333,9 @@ if (!isset($_GET['mode'])) {
 						</div>
 					</div>
 				</div>
+				<hr>
+				<br>
+				<br>
 				<div style = "display:flex; justify-content:center;">
 					<div>
 						<div class="pass" style="justify-content: center; display: flex;">
@@ -363,7 +366,22 @@ if (!isset($_GET['mode'])) {
 							</form>
 						</div>
 					</div>
-				</div>';
+				</div>
+				<br>
+				<hr>
+				<br><br>
+			
+				<section class="portfolio-area pt-60">
+					<div class="container" style="display: inline-flex; justify-content: space-between; margin: 0 19%;">
+						<div style="display: flex; align-content: center; flex-wrap: wrap;">
+							<h3>Want to delete the account?!</h3>
+						</div>
+						<form id="delete" method="post" enctype="multipart/form-data" style="width: 400px">
+							<input style="background-color: red;" onclick="delete()" class="btn btn-danger" type="submit" value="Delete Account" name="passEdit" id="passEdit" />
+							<input type="hidden" name="delete" value="submitted">
+						</form>
+					</div>
+				</section>';
 		}
 	} else {
 		echo '<a href="#">Profile <i class="icofont icofont-simple-down"></i></a>
@@ -430,10 +448,34 @@ if (!isset($_GET['mode'])) {
 
 			echo '<script>window.location.href = "user.php?mode=info";</script>';
 		}
+
+		if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete'])) {
+			$stmt = mysqli_prepare($conn, "DELETE FROM users WHERE ID = ?");
+			mysqli_stmt_bind_param($stmt, 'i', $_SESSION['user']);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_close($stmt);
+
+			$stmt = mysqli_prepare($conn, "DELETE FROM watchlist WHERE User_ID = ?");
+			mysqli_stmt_bind_param($stmt, 'i', $_SESSION['user']);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_close($stmt);
+
+			$image_path = 'assets/img/user_pic/' . $user['Username'] . '.png';
+			if (file_exists($image_path)) {
+				if (unlink($image_path)) {
+					echo "Image file deleted successfully.";
+				} else {
+					echo "Unable to delete the image file.";
+				}
+			} else {
+				echo "Image file does not exist.";
+			}
+
+			$_SESSION['user_logged_in'] = false;
+			unset($_SESSION['user']);
+			echo '<script>window.location.href = "index.php";</script>';
+		}
 	?>
-
-
-
 	<?php include("Models/footer.php"); ?>
 
 	<script>
