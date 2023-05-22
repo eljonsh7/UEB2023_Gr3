@@ -386,9 +386,13 @@ if (isset($_POST['logInForm'])) {
             $_SESSION['admin'] = $user['Admin'];
             $_SESSION['profilePic'] = $user['Photo'];
             $cookieID = $user['ID'];
+            $_SESSION['checked'] = false;
 
             if (isset($_POST['remember-checkbox'])) {
                 $_SESSION['settingRememberCookie'] = true;
+                $_SESSION['checked'] = true;
+                $_SESSION['email'] = $email;
+                $_SESSION['pass'] = $password;
                 echo '<script>window.location="http://localhost/UEB2023_Gr3/index.php?cookieID=' . $cookieID . '";</script>';
             }
             echo '<script>window.location="index.php"</script>';
@@ -406,8 +410,18 @@ if (isset($_POST['logInForm'])) {
         include("Services/notify.php");
     }
 }
-
 ?>
+
+<?php
+    if(isset($_COOKIE['email']) && isset($_COOKIE['pass'])){
+        $email = $_COOKIE['email'];
+        $password = $_COOKIE['pass'];
+        echo '<script>document.getElementById("email-field-login").value = "' . $email . '";</script>';
+        echo '<script>document.getElementById("password-field-login").value = "' . $password . '";</script>';
+        echo '<script>document.getElementById("remember-checkbox").checked = true;</script>';
+    }
+?>
+
 <script>
     function verifyPassword() {
         const password1 = document.getElementById("password-field").value;

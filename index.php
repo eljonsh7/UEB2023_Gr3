@@ -4,6 +4,8 @@ if(isset($_GET['cookieID']) && isset($_SESSION['settingRememberCookie'])){
     $idCookie = $_GET['cookieID'];  
     try{
     setcookie('ID', $idCookie, time() + (14 * 24 * 60 * 60), "/");
+    setcookie('email', $_SESSION['email'], time() + (14 * 24 * 60 * 60), "/");
+    setcookie('pass', $_SESSION['pass'], time() + (14 * 24 * 60 * 60), "/");
     }catch(Exception $e){
         echo '<script>console.log("'.$e->getMessage().'");</script>';
     }
