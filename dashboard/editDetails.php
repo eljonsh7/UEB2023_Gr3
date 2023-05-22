@@ -14,7 +14,8 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>FlixFeast</title>
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
     <link href="assets/css2/nucleo-icons.css" rel="stylesheet" />
     <link href="assets/css2/nucleo-svg.css" rel="stylesheet" />
@@ -28,37 +29,37 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
     <style>
-        .table td,
-        .table th {
-            white-space: normal;
+    .table td,
+    .table th {
+        white-space: normal;
+    }
+
+    .form-control {
+        background-color: #2e3757;
+        padding: 5px;
+    }
+
+    .form-group {
+        width: 600px;
+    }
+
+
+
+
+    @media (min-width: 768px) {
+        .col-md-6 {
+            flex: 0 0 auto;
+            width: 100%;
         }
+    }
 
-        .form-control {
-            background-color: #2e3757;
-            padding: 5px;
-        }
+    body {
+        overflow-x: hidden;
+    }
 
-        .form-group {
-            width: 600px;
-        }
-
-
-
-
-        @media (min-width: 768px) {
-            .col-md-6 {
-                flex: 0 0 auto;
-                width: 100%;
-            }
-        }
-
-        body {
-            overflow-x: hidden;
-        }
-
-        p {
-            overflow: auto;
-        }
+    p {
+        overflow: auto;
+    }
     </style>
 </head>
 
@@ -164,7 +165,8 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     ?>
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+            data-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -210,7 +212,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
 
             echo '
             <div style = "display:flex;margin-left:3%;margin-top:3%;" >
-            <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
+            <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px" style = "border-radius: 25px"/>
             <div>
                 <div id="viewDetails" style="width:50%;margin-left:5%;">
                     <p id="title" class="details"><b>Title:</b> <br>' . $row['Title'] . '</p>
@@ -235,7 +237,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
             $genreArray = explode(", ", $row['Genre']);
             echo '
             <div style = "display:flex; margin-left:3%;margin-top:3%;">
-                <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
+                <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px" style = "border-radius: 25px"/>
                 <div class="row justify-content-center mt-5" id="movieadd" style="margin-left:3%;">
                     <div class="col-md-6" style="display: flex; justify-content: center;">
                         <form id="movie-add" method="post" enctype="multipart/form-data">
@@ -420,7 +422,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
         } else if ($_GET['type'] == "Show" && $_GET['mode'] == "info") {
             echo '
             <div style = "display:flex;margin-left:3%;margin-top:3%;" >
-            <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
+            <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px" style = "border-radius: 25px"/>
             <div>
                 <div id="viewDetails" style="width:50%;margin-left:5%;">
                     <p id="title" class="details"><b>Title: </b><br>' . $row['Title'] . '</p>
@@ -444,7 +446,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
             $genreArray = explode(", ", $row['Genre']);
             echo '
             <div style = "display:flex;margin-left:3%;margin-top:3%;" >
-                <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"/>
+                <img src="' . $row['Cover'] . '" alt="' . $row['Title'] . '" width="300px" height="447.53px"  style = "border-radius: 25px"/>
                 <div class="row justify-content-center mt-5" id="movieadd" style="margin-left:3%;">
                     <div class="col-md-6" style="display: flex; justify-content: center;">
                         <form id="show-add" method="post" enctype="multipart/form-data">
@@ -558,26 +560,6 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
             echo '<script>document.getElementById("' . $row['Status'] . '").checked=true;</script>';
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                // check which form was submitted
-                // get the form data
-                // $image_name = '';
-                // if (isset($_FILES['cover'])) {
-                //     $image_name = $_FILES['cover']['name'];
-                //     $image_temp_name = $_FILES['cover']['tmp_name'];
-                //     $img_ex = pathinfo($image_name, PATHINFO_EXTENSION);
-                //     $img_lc = strtolower($img_ex);
-                //     $allowed_array = array("jpg", "jpeg", "png");
-                //     if (in_array($img_lc, $allowed_array)) {
-                //         $new_img_name = "Images/Posters/" . $_POST['title'] . "." . $img_lc;
-                //         $upload_path = '../' . $new_img_name;
-                //         move_uploaded_file($image_temp_name, $upload_path);
-                //     } else {
-                //         echo "Wrong format";
-                //     }
-                // }
-                // if (empty($image_name)) {
-                //     $new_img_name = $_POST['coverHidden'];
-                // }
                 $title = new input($_POST['title'], "title");
                 $startdate = new input($_POST['startdate'], "startdate");
                 if (isset($_POST['status'])) {
@@ -651,7 +633,8 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
         } else if ($_GET['type'] == "Blogs" && $_GET['mode'] == "info") {
             echo '
             <div style = "margin-left:3%;margin-top:3%;" >
-            <img src="../' . $row['Image'] . '" alt="' . $row['Title'] . '" width="100%" style="padding:0 10%;"/>
+            <img src="../' . $row['Image'] . '" alt="' . $row['Title'] . '" style="width: 50%; margin-left: 10%; border-radius: 10px;" />
+
             <div style="margin-top:10%;">
                 <div id="viewDetails" style="width:80%;margin-left:10%;">
                     <p id="title" class="details"><b>Title: </b><br>' . $row['Title'] . '</p>
@@ -665,12 +648,25 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
         ';
         } else if ($_GET['type'] == "Blogs" && $_GET['mode'] == "edit") {
             echo '
+            <script>
+            function previewImage(event) {
+                var input = event.target;
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        var imagePreview = document.getElementById(\'imagePreview\');
+                        imagePreview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            </script>
     <div style="margin-left:3%;margin-top:3%;">
-        <img src="../' . $row['Image'] . '" alt="' . $row['Title'] . '" width="100%" style="padding:0 10%;" />
+        <img src="../' . $row['Image'] . '" alt="' . $row['Title'] . '" width="50%" style="margin-left: 15%; border-radius: 10px;" id = "imagePreview" />
         <div class="row justify-content-center mt-5" id="movieadd" >
             <div class="col-md-6" style="display: flex;justify-content:center;">
                 <form id="show-add" method="post" enctype="multipart/form-data" style="width:70%;">
-                    <h2>TV Show</h2>
+                    <h2>Blog</h2>
                     <input type="hidden" name="addForm" value="submitted">
 
                     <label for="title">Title:</label>
@@ -680,7 +676,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                     <textarea class="form-control" id="content" placeholder="Content" name="content" style="color:black;height:50%;overflow-y: auto;resize:none;" maxlength="1000">' . $row['Content'] . '</textarea><br>
 
                     <label for="image">Image:</label>
-                    <input class="form-control" type="file" id="image" name="image"><br>
+                    <input class="form-control" type="file" id="image" onchange="previewImage(event)" name="image"><br>
                     <input type="hidden" name="current_image" value="' . $row['Image'] . '">
 
                     <br>
@@ -700,21 +696,31 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     ';
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $image_name = $_FILES['image']['name'];
-                $image_temp_name = $_FILES['image']['tmp_name'];
-                $img_ex = pathinfo($image_name, PATHINFO_EXTENSION);
-                $img_lc = strtolower($img_ex);
-                $allowed_array = array("jpg", "jpeg", "png");
-                $new_img_name = "";
-                if (in_array($img_lc, $allowed_array)) {
-                    $new_img_name = "assets/img/blog_images/" . $_POST['title'] . "." . $img_lc;
-                    $upload_path = '../' . $new_img_name;
-                    move_uploaded_file($image_temp_name, $upload_path);
+                // Check if an image is selected
+                if (!empty($_FILES['image']['tmp_name'])) {
+                    // Delete the old image
+                    $old_img_path = "../" . $row['Image'];
+                    if (file_exists($old_img_path)) {
+                        unlink($old_img_path);
+                    }
+
+                    $image_name = $_FILES['image']['name'];
+                    $image_temp_name = $_FILES['image']['tmp_name'];
+                    $img_ex = pathinfo($image_name, PATHINFO_EXTENSION);
+                    $img_lc = strtolower($img_ex);
+                    $allowed_array = array("jpg", "jpeg", "png");
+                    $new_img_name = "";
+                    if (in_array($img_lc, $allowed_array)) {
+                        $new_img_name = "assets/img/blog_images/" . $_POST['title'] . "." . $img_lc;
+                        $upload_path = '../' . $new_img_name;
+                        move_uploaded_file($image_temp_name, $upload_path);
+                    } else {
+                        echo "Wrong format";
+                    }
                 } else {
-                    echo "Wrong format";
+                    // No image selected, use the relative source of imagePreview
+                    $new_img_name = $row['Image'];
                 }
-
-
 
                 // check which form was submitted
                 // get the form data
@@ -729,7 +735,6 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
                         echo '<script>document.getElementById("' . $inputsBlog[$i]->id . '").style.border="2px solid red";</script>';
                         $temp = true;
                     } else {
-                        echo 'What';
                         echo '<script>document.getElementById("' . $inputsBlog[$i]->id . '").value="' . $inputsBlog[$i]->value . '";</script>';
                     }
                     if (($i == sizeof($inputsBlog) - 1) && $temp == true) {

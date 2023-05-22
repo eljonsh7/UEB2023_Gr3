@@ -3739,7 +3739,7 @@ fieldset:disabled .btn {
 
 .btn-primary {
   --bs-btn-color: #000;
-  --bs-btn-bg: #2f1b7f;
+  --bs-btn-bg: #3a444f;
   --bs-btn-border-color: #00d9e1;
   --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: #00d9e1;

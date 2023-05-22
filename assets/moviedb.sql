@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: May 21, 2023 at 04:38 PM
+-- Generation Time: May 22, 2023 at 04:31 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -42,9 +42,9 @@ CREATE TABLE `blogs` (
 --
 
 INSERT INTO `blogs` (`ID`, `Title`, `Content`, `AuthorID`, `CreatedAt`, `UpdatedAt`, `Image`) VALUES
-(1, 'The Evolution of Movie Soundtracks', 'Movie soundtracks are an integral part of the film industry. They can set the tone for a scene, evoke emotions, and even become iconic in their own right. Over the years, movie soundtracks have evolved and changed, adapting to new technologies and trends in the music industry.\r\n\r\nIn the early days of cinema, silent films relied on live music to accompany the action on screen. Pianists and small orchestras would play along to the film, providing sound effects and musical accompaniment. As technology advanced, so did the way that soundtracks were created.\r\n\r\nThe introduction of synchronized sound in the late 1920s allowed for more complex soundtracks to be created. Suddenly, films could feature dialogue, sound effects, and music all mixed together. The early soundtracks were often orchestral in nature, with classical music or original scores accompanying the action on screen.', 2, '2023-04-04 15:58:37', '2023-05-21 14:36:32', 'assets/img/blog_images/The Evolution of Movie Soundtracks.jpg'),
-(2, 'Top 10 Must-Watch Movies of All Time', ' Looking for something to watch? Check out our list of the top 10 must-watch movies of all time. From action-packed thrillers to heartwarming dramas, we\'ve got you covered. Grab some popcorn and get ready for a movie marathon you won\'t forget!', 2, '2023-04-22 20:25:38', '2023-05-21 14:36:44', 'assets/img/blog_images/Top 10 Must-Watch Movies of All Time.jpg'),
-(3, 'Avatar', 'Amazing.', 2, '2023-04-22 23:15:33', '2023-05-21 14:37:12', 'assets/img/blog_images/Avatar.jpeg');
+(9, 'Spider-Man', 'Spider-Man, one of the most beloved and iconic superheroes, has captured the hearts of fans for decades. Created by writer Stan Lee and artist Steve Ditko, Spider-Man made his first appearance in the comic book \"Amazing Fantasy #15\" in 1962.\r\n\r\nThe story revolves around Peter Parker, a nerdy high school student who gains incredible powers after being bitten by a radioactive spider. With his newfound abilities, including superhuman strength, agility, and the ability to cling to walls, Peter becomes the friendly neighborhood Spider-Man.\r\n\r\nWhat makes Spider-Man so relatable is Peter Parker\'s struggle to balance his ordinary life with his responsibilities as a superhero. He faces everyday challenges, such as school, relationships, and work, while fighting crime and protecting the innocent. This duality has resonated with readers and viewers, as they see themselves in Peter\'s struggles and triumphs.', 2, '2023-05-22 13:33:04', '2023-05-22 14:24:28', 'assets/img/blog_images/Avatarr.jpg'),
+(10, 'The Magic of Christmas Movies. Celebrating Joy, Love, and Tradition', 'As the holiday season approaches, there\'s no better way to get into the festive spirit than by watching Christmas movies. These beloved films have become an integral part of our holiday traditions, bringing joy, laughter, and heartwarming stories that capture the true essence of Christmas. In this blog, we\'ll explore the magic of Christmas movies, their enduring appeal, and some of the must-watch classics that have touched the hearts of millions.\r\n\r\nCapturing the Spirit of Christmas:\r\nChristmas movies have a unique ability to capture the spirit of the season. From twinkling lights and cozy decorations to snow-covered landscapes, these films transport us to a world filled with wonder and magic. They remind us of the joy and excitement we experienced as children, rekindling our belief in the spirit of giving, hope, and miracles.\r\n', 2, '2023-05-22 14:21:39', '2023-05-22 14:27:26', 'assets/img/blog_images/The Magic of Christmas Movies. Celebrating Joy, Love, and Tradition.jpg'),
+(11, 'Thor Love and Thunder - A Thunderous Journey into Love, Mythology, and Heroism', 'Marvel fans around the world are eagerly awaiting the release of \"Thor: Love and Thunder,\" the fourth installment in the Thor film series. Directed by Taika Waititi, this highly anticipated film promises to take viewers on an exhilarating and emotional journey filled with love, mythology, and heroic action. In this blog, we\'ll delve into the exciting world of \"Thor: Love and Thunder,\" exploring what makes this film so highly anticipated and what fans can expect from the God of Thunder\'s latest adventure.\r\n\r\nThe Return of Thor and the Mighty Cast:\r\n\"Thor: Love and Thunder\" sees the return of Chris Hemsworth as the hammer-wielding superhero Thor. This time, he is joined by an impressive ensemble cast, including Natalie Portman as Jane Foster, who takes on the mantle of the mighty Thor, Tessa Thompson as the fierce Valkyrie, and the charismatic Chris Pratt as Star-Lord from the \"Guardians of the Galaxy\" franchise. With such a stellar lineup, fans can anticipate incredible performances and captivating chemistry among the cast members.', 2, '2023-05-22 14:30:28', '2023-05-22 14:31:12', 'assets/img/blog_images/Thor Love and Thunder - A Thunderous Journey into Love, Mythology, and Heroism.png');
 
 -- --------------------------------------------------------
 
@@ -494,9 +494,15 @@ CREATE TABLE `temporary users` (
   `Password` varchar(255) DEFAULT NULL,
   `Photo` varchar(50) NOT NULL,
   `Admin` tinyint(4) NOT NULL DEFAULT 0,
-  `ActToken` varchar(255) NOT NULL,
-  `Created_at` varchar(255) NOT NULL
+  `ActToken` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `temporary users`
+--
+
+INSERT INTO `temporary users` (`ID`, `FirstName`, `LastName`, `Birthdate`, `Username`, `Email`, `Password`, `Photo`, `Admin`, `ActToken`) VALUES
+(2147483647, '', '', '2003-11-07', '999BZ', 'blendizeqiri@hotmail.com', 'Milton77', '', 0, '333ea3993d79b824df44f0b3f652bc74353b132298f6bfc8c2b85fab4fc5a36a');
 
 -- --------------------------------------------------------
 
@@ -523,8 +529,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`ID`, `Firstname`, `Lastname`, `Birthdate`, `Username`, `Email`, `Password`, `Photo`, `Admin`) VALUES
 (1, 'Eljon', 'Shala', '2003-06-08', 'eljohn7', 'eljon.sh@gmail.com', '50d53937402ef9f8730d53f1089ad8bea2f5ffdebb20b8ca672689dbdaee0acc', 'assets/img/user_pic/eljohn7.png', 1),
 (2, 'Bleron', 'Morina', '2004-02-12', 'bleronmorina', 'bleronmorina54@gmail.com', '50d53937402ef9f8730d53f1089ad8bea2f5ffdebb20b8ca672689dbdaee0acc', 'assets/img/user_pic/bleronmorina', 1),
-(3, 'Blendi', 'Zeqiri', '2003-11-07', '999BZ', 'blendizeqiri@hotmail.com', '50d53937402ef9f8730d53f1089ad8bea2f5ffdebb20b8ca672689dbdaee0acc', 'assets/img/user_pic/default.png', 1),
-(4, 'Blendi', 'Zeqiri', '2003-07-11', 'BZ', 'zeqiriblendi@gmail.com', '50d53937402ef9f8730d53f1089ad8bea2f5ffdebb20b8ca672689dbdaee0acc', 'assets/img/user_pic/default.png', 0);
+(3, 'Blendi', 'Zeqiri', '2003-11-07', '999BZ', 'blendizeqiri@hotmail.com', '50d53937402ef9f8730d53f1089ad8bea2f5ffdebb20b8ca672689dbdaee0acc', 'assets/img/user_pic/default.png', 1);
 
 -- --------------------------------------------------------
 
@@ -555,7 +560,10 @@ INSERT INTO `watchlist` (`User_ID`, `Content_ID`) VALUES
 (1, 27),
 (1, 28),
 (1, 29),
-(3, 10);
+(2, 9),
+(2, 47),
+(2, 46),
+(2, 12);
 
 --
 -- Indexes for dumped tables
@@ -624,7 +632,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `blogs`
 --
 ALTER TABLE `blogs`
-  MODIFY `ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `comments`
@@ -648,7 +656,7 @@ ALTER TABLE `faq`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
