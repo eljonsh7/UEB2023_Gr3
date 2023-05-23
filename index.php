@@ -4,22 +4,30 @@ if(isset($_GET['cookieID']) && isset($_SESSION['settingRememberCookie'])){
     $idCookie = $_GET['cookieID'];  
     try{
     setcookie('ID', $idCookie, time() + (14 * 24 * 60 * 60), "/");
-    setcookie('email', $_SESSION['email'], time() + (14 * 24 * 60 * 60), "/");
-    setcookie('pass', $_SESSION['pass'], time() + (14 * 24 * 60 * 60), "/");
     }catch(Exception $e){
         echo '<script>console.log("'.$e->getMessage().'");</script>';
     }
     echo '<script>window.location.href="index.php"</script>';
     $_SESSION['settingRememberCookie'] = false;
 }
-if(isset($_GET['signout']) && $_GET['signout']==1){
-    setcookie('ID', "", time() + (14 * 24 * 60 * 60), "/");
-    echo '<script>window.location.href="index.php"</script>';
-}
-if(isset($_COOKIE['ID'])){
-    echo '<script>console.log("COOKIE:'.$_COOKIE['ID'].'");</script>';
-}
+
 include('Services/connection.php');
+
+if(isset($_COOKIE['ID'])){
+    $stmt = $conn->prepare("SELECT * FROM users WHERE ID = ?");
+    $stmt->bind_param('s', $_COOKIE['ID']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = mysqli_fetch_assoc($result);
+    if(mysqli_num_rows($result) == 1){
+        $_SESSION['user_logged_in'] = true;
+        $_SESSION['user'] = $user['ID'];
+        $_SESSION['admin'] = $user['Admin'];
+        $_SESSION['profilePic'] = $user['Photo'];
+    }
+
+}
+
 
 
 $stmt1 = $conn->prepare("SELECT * FROM watchlist WHERE User_ID = ?");

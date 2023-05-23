@@ -23,10 +23,6 @@ if (isset($_POST['input'])) {
     $result = mysqli_query($conn, $query);
 
     if (mysqli_num_rows($result) > 0) {
-        // echo '<table class="table  table-striped" style = "position: absolute; background-color: rgba(18,21,30, 0.7);">
-        //     <thead>
-        //     </thead>
-        //     <tbody>';
         echo '<div style = "diplay: block; position: fixed; background-color: rgb(24,20,28, 0.5);">';
         $i = 0;
         while ($row = mysqli_fetch_assoc($result)) {
@@ -64,8 +60,6 @@ if (isset($_POST['input'])) {
             }
         }
         echo '</div>';
-        // echo '</tbody>
-        // </table>';
     } else {
         echo "<h6 class='text-danger text-center mt-3' style = 'position: absolute;' >No Movies or TV shows found! </h6>";
     }

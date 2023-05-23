@@ -49,14 +49,6 @@
                     <span class="nav-link-text ms-1">Answer Questions</span>
                 </a>
             </li>
-            <!-- <li class="nav-item">
-                <a class="nav-link text-white " href="profile.php" id="profile">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">person</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Profile</span>
-                </a>
-            </li> -->
             <li class="nav-item">
                 <div class="idenav-footer position-absolute w-100 bottom-0 ">
                     <a class="nav-link text-white " href="../Services/logout.php">

@@ -279,7 +279,6 @@ if (!isset($_GET['mode'])) {
 							<p id="birthdate" class="details"><b>Birthdate:</b> <br>' . $user['Birthdate'] . '</p>
 							<p id="username" class="details"><b>Username:</b> <br>' . $user['Username'] . '</p>
 							<p id="email" class="details"><b>Email: </b><br>' . $user['Email'] . '</p>' .
-				//<a class="btn btn-warning" href="user.php?mode=edit">Edit</a>
 				'</div>
 					</div>
 				</div>';
@@ -421,7 +420,7 @@ if (!isset($_GET['mode'])) {
 			$result1 = mysqli_stmt_get_result($stmt1);
 			$user1 = mysqli_fetch_assoc($result1);
 
-			if (mysqli_num_rows($result1) == 0) {
+			if (mysqli_num_rows($result1) == 0 || $user1['ID'] == $_SESSION['user']) {
 				$stmt = $conn->prepare("UPDATE users SET Firstname=?, Lastname=?, Birthdate=?, Username=? WHERE ID=?");
 				$stmt->bind_param("sssss", $firstname, $lastname, $birthdate, $username, $_SESSION['user']);
 				$stmt->execute();

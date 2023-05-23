@@ -180,6 +180,13 @@
                                                             } ?>>
                                     Drama
                                 </li>
+                                </li>
+                            </a><a href="tv-shows.php?genre=drama">
+                                <li data-filter=".Drama" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'drama') {
+                                                                echo 'class="active"';
+                                                            } ?>>
+                                    Animation
+                                </li>
                             </a><a href="tv-shows.php?genre=action">
                                 <li data-filter=".Action" <?php if (isset($_GET['genre']) && $_GET['genre'] === 'action') {
                                                                 echo 'class="active"';

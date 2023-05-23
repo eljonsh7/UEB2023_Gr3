@@ -198,20 +198,6 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
         }
         // check if the form has been submitted
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addForm'])) {
-            // check which form was submitted
-            // $image_name = $_FILES['cover']['name'];
-            // $image_temp_name = $_FILES['cover']['tmp_name'];
-            // $img_ex = pathinfo($image_name, PATHINFO_EXTENSION);
-            // $img_lc = strtolower($img_ex);
-            // $allowed_array = array("jpg", "jpeg", "png");
-            // if (in_array($img_lc, $allowed_array)) {
-            //     $new_img_name = "Images/Posters/" . $_POST['title'] . "." . $img_lc;
-            //     $upload_path = '../' . $new_img_name;
-            //     move_uploaded_file($image_temp_name, $upload_path);
-            // } else {
-            //     echo "Wrong format";
-            // }
-            // get the form data
             $title = new input(mysqli_real_escape_string($conn,$_POST['title']), "title");
             $date = new input(mysqli_real_escape_string($conn, $_POST['date']), "date");
             $rating = new input(mysqli_real_escape_string($conn, $_POST['rating']), "rating");

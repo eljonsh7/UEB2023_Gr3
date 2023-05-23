@@ -54,10 +54,6 @@ $monthName = date('F', mktime(0, 0, 0, $month, 1));
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" media="all" />
     <!-- Responsive CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/responsive.css" media="all" />
-    <!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
 </head>
 
 <body>
@@ -104,54 +100,9 @@ $monthName = date('F', mktime(0, 0, 0, $month, 1));
                                         <a href="#"><?php echo $authorName ?></a>
                                     </div>
                                 </div>
-                                <!-- <div class="col-lg-6 text-lg-right text-center">
-                                    <div class="details-author">
-                                        <h4>Share:</h4>
-                                        <a href="#"><i class="icofont icofont-social-facebook"></i></a>
-                                        <a href="#"><i class="icofont icofont-social-twitter"></i></a>
-                                        <a href="#"><i class="icofont icofont-social-pinterest"></i></a>
-                                        <a href="#"><i class="icofont icofont-social-linkedin"></i></a>
-                                        <a href="#"><i class="icofont icofont-social-google-plus"></i></a>
-                                    </div>
                                 </div> -->
                             </div>
                         </div>
-                        <!-- <div class="details-reply">
-                            <h2>Leave a Reply</h2>
-                            <form action="#">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="select-container">
-                                            <input type="text" placeholder="Name" />
-                                            <i class="icofont icofont-ui-user"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="select-container">
-                                            <input type="text" placeholder="Email" />
-                                            <i class="icofont icofont-envelope"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="select-container">
-                                            <input type="text" placeholder="Phone" />
-                                            <i class="icofont icofont-phone"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="textarea-container">
-                                            <textarea placeholder="Type Here Message"></textarea>
-                                            <button><i class="icofont icofont-send-mail"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div> -->
-                        <!-- <div class="details-comment">
-                            <a class="theme-btn theme-btn2" href="#">Post Comment</a>
-                            <p>You may use these HTML tags and attributes: You may use these HTML tags and attributes:
-                                You may use these HTML tags and attributes: </p>
-                        </div>-->
                         <?php
 
                         $sql = "SELECT * FROM `blogs` WHERE `id` > $id ORDER BY `id` ASC LIMIT 1";
